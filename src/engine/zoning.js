@@ -1,0 +1,286 @@
+/**
+ * REWEAR STAGE 2 — 60-30-10 ZONING ENGINE
+ * 
+ * Plain-words explanation:
+ * In professional interior and fashion design, the "60-30-10" rule prevents a patchwork
+ * product from looking like a messy bag of trash:
+ * - 60% BASE (Main Anchor): The dominant visual ground. Must be calm, neutral, or dark
+ *   (black, navy, beige, denim, olive, grey) with larger pieces so the eye has a resting place.
+ * - 30% SUPPORTING: Secondary colour, usually tonal/analogous to the base or a soft neutral,
+ *   used for facings, side borders, or lining.
+ * - 10% ACCENT: Small, high-energy pops, complementary colors, or eye-catching printed scraps,
+ *   used exclusively in accent zones (pockets, tabs, straps, decorative center patches).
+ * 
+ * This rule is a GUIDELINE with generous tolerance (e.g. base can be 50% to 72%).
+ * 
+ * When a pile lacks a good base (e.g. only loud neon prints or tiny scraps), the engine does
+ * NOT fail blindly: it provides clear tailor advice and concrete suggestions
+ * (e.g. "Add 0.5m plain navy cotton", "Make a smaller Zip Pouch", etc.).
+ * 
+ * Assumptions:
+ * - Pieces can be grouped and multiple scraps can together fulfill a single zone.
+ * - Printed pieces are priority candidates for Accent (10%), avoiding large overwhelming fields.
+ */
+
+import { CONFIG } from './config.js';
+import { getColorMetrics, evaluateColorPair } from './color.js';
+import { isPieceStretchy, getThicknessLevel } from './fabricCompatibility.js';
+
+/**
+ * Calculates raw area of a scrap piece (taking usable inner rectangle into account if irregular).
+ */
+export function getPieceArea(piece) {
+  const w = piece.isIrregular && piece.usableWidth ? piece.usableWidth : piece.width;
+  const h = piece.isIrregular && piece.usableHeight ? piece.usableHeight : piece.height;
+  const qty = Number(piece.quantity) || 1;
+  return w * h * qty;
+}
+
+/**
+ * Normalizes pieces into a uniform format and extracts colour metrics.
+ */
+export function enrichPiece(piece) {
+  const area = getPieceArea(piece);
+  const colorKey = Array.isArray(piece.colors) && piece.colors.length > 0
+    ? piece.colors[0]
+    : piece.color || 'grey';
+
+  const metrics = getColorMetrics(colorKey);
+  const isPrint = piece.print === 'printed' || piece.print === 'patterned';
+  const stretchy = isPieceStretchy(piece);
+  const thicknessLevel = getThicknessLevel(piece);
+
+  return {
+    ...piece,
+    effectiveWidth: piece.isIrregular && piece.usableWidth ? piece.usableWidth : piece.width,
+    effectiveHeight: piece.isIrregular && piece.usableHeight ? piece.usableHeight : piece.height,
+    totalArea: area,
+    dominantColor: colorKey,
+    colorMetrics: metrics,
+    isNeutral: metrics.isNeutral,
+    isPrinted: isPrint,
+    stretchy,
+    thicknessLevel,
+  };
+}
+
+/**
+ * Evaluates whether a scrap or group of scraps can serve as the 60% Base Anchor.
+ */
+export function scoreBaseCandidate(piece, targetBaseArea) {
+  let score = 0;
+
+  // 1. Colour calm / neutrality (critical for 60% base)
+  if (piece.isNeutral) {
+    score += 40; // Neutrals (black, navy, beige, grey, white) are prime base anchors
+  } else if (piece.colorMetrics.L <= CONFIG.DARK_NEUTRAL_LIGHTNESS_MAX) {
+    score += 35; // Deep dark shades anchor well
+  } else if (piece.colorMetrics.C < 25) {
+    score += 25; // Low-chroma muted tones work as secondary base
+  } else {
+    score += 5; // Bright saturated colours make risky large base areas
+  }
+
+  // 2. Plain vs Printed (Plain is much better for 60% body)
+  if (!piece.isPrinted) {
+    score += 25;
+  } else {
+    score -= 15; // Prints in 60% base risk overwhelming the product
+  }
+
+  // 3. Piece size / area contribution
+  const pieceArea = piece.totalArea;
+  const areaRatio = targetBaseArea > 0 ? pieceArea / targetBaseArea : 0;
+  if (areaRatio >= 0.4) score += 20;
+  else if (areaRatio >= 0.2) score += 10;
+
+  // 4. Structural fabric weight (medium or thick preferred for bags/cushions)
+  if (piece.thicknessLevel >= 2) {
+    score += 15;
+  }
+
+  // 5. Non-stretchy is preferred for structured base panels
+  if (!piece.stretchy) {
+    score += 10;
+  }
+
+  return score;
+}
+
+/**
+ * Segregates a fabric pile into 60-30-10 role pools (Base, Supporting, Accent)
+ * for a specific product requirement.
+ */
+export function assignZoningRoles(pile, productRequirements) {
+  const enrichedPile = pile.map(enrichPiece);
+  const totalPileArea = enrichedPile.reduce((sum, p) => sum + p.totalArea, 0);
+  const targetTotalArea = productRequirements ? productRequirements.totalAreaNeeded : totalPileArea;
+  const targetBaseArea = targetTotalArea * (CONFIG.ZONE_BASE_TARGET_PCT / 100);
+
+  // Check fallbacks first
+  const fallbackCheck = checkBaseFeasibilityFallbacks(enrichedPile, targetTotalArea, targetBaseArea, productRequirements);
+  if (!fallbackCheck.hasGoodBase) {
+    return {
+      hasGoodBase: false,
+      fallbackReason: fallbackCheck.reason,
+      suggestions: fallbackCheck.suggestions,
+      basePieces: [],
+      supportingPieces: [],
+      accentPieces: [],
+      breakdown: { basePct: 0, supportingPct: 0, accentPct: 0 },
+    };
+  }
+
+  // Rank candidate pieces for Base role
+  const scoredPieces = enrichedPile.map((p) => ({
+    piece: p,
+    baseScore: scoreBaseCandidate(p, targetBaseArea),
+  }));
+
+  scoredPieces.sort((a, b) => b.baseScore - a.baseScore);
+
+  const basePieces = [];
+  const supportingPieces = [];
+  const accentPieces = [];
+
+  let currentBaseArea = 0;
+  const maxBaseArea = targetTotalArea * (CONFIG.ZONE_BASE_MAX_PCT / 100);
+
+  // 1. Fill Base pool (aiming for roughly 50-70%)
+  const unassigned = [];
+
+  scoredPieces.forEach(({ piece }) => {
+    // Printed pieces with high chroma are forced into accent / supporting candidates
+    if (piece.isPrinted && piece.colorMetrics.C > CONFIG.CLASH_MIN_CHROMA) {
+      accentPieces.push(piece);
+      return;
+    }
+
+    if (currentBaseArea < targetBaseArea || (currentBaseArea < maxBaseArea && basePieces.length < 2)) {
+      basePieces.push(piece);
+      currentBaseArea += piece.totalArea;
+    } else {
+      unassigned.push(piece);
+    }
+  });
+
+  // Reference base colour for harmony checks
+  const baseColor = basePieces.length > 0 ? basePieces[0].dominantColor : 'grey';
+
+  // 2. Distribute remaining pieces into Supporting (tonal/neutral) and Accent (pop/print)
+  unassigned.forEach((piece) => {
+    if (piece.isPrinted) {
+      accentPieces.push(piece);
+      return;
+    }
+
+    const rel = evaluateColorPair(baseColor, piece.dominantColor);
+    if (rel.relationship === 'tonal' || rel.relationship === 'neutral-compatible') {
+      supportingPieces.push(piece);
+    } else if (rel.relationship === 'complementary' || piece.colorMetrics.C > 35) {
+      accentPieces.push(piece);
+    } else {
+      // Moderate contrast
+      if (supportingPieces.length <= accentPieces.length) {
+        supportingPieces.push(piece);
+      } else {
+        accentPieces.push(piece);
+      }
+    }
+  });
+
+  // Calculate actual percentage breakdown in available pool
+  const assignedTotal =
+    basePieces.reduce((s, p) => s + p.totalArea, 0) +
+    supportingPieces.reduce((s, p) => s + p.totalArea, 0) +
+    accentPieces.reduce((s, p) => s + p.totalArea, 0);
+
+  const baseArea = basePieces.reduce((s, p) => s + p.totalArea, 0);
+  const suppArea = supportingPieces.reduce((s, p) => s + p.totalArea, 0);
+  const accArea = accentPieces.reduce((s, p) => s + p.totalArea, 0);
+
+  const breakdown = {
+    basePct: assignedTotal > 0 ? Math.round((baseArea / assignedTotal) * 100) : 0,
+    supportingPct: assignedTotal > 0 ? Math.round((suppArea / assignedTotal) * 100) : 0,
+    accentPct: assignedTotal > 0 ? Math.round((accArea / assignedTotal) * 100) : 0,
+  };
+
+  return {
+    hasGoodBase: true,
+    fallbackReason: null,
+    suggestions: [],
+    basePieces,
+    supportingPieces,
+    accentPieces,
+    breakdown,
+    anchorColor: baseColor,
+  };
+}
+
+/**
+ * Detects structural or colour deficiencies in the pile that prevent a clean 60% base.
+ */
+export function checkBaseFeasibilityFallbacks(enrichedPile, targetTotalArea, targetBaseArea, productRequirements) {
+  const totalArea = enrichedPile.reduce((sum, p) => sum + p.totalArea, 0);
+
+  // Defect 1: Insufficient total fabric
+  if (totalArea < targetTotalArea * 0.75) {
+    return {
+      hasGoodBase: false,
+      reason: `Insufficient total fabric: Your pile has ${Math.round(totalArea)} cm², but this product requires approximately ${Math.round(targetTotalArea)} cm².`,
+      suggestions: [
+        'Add more fabric scrap pieces from your stock.',
+        'Choose a smaller product size (e.g. switch from Tote Bag to Zip Pouch).',
+        'Add a plain base fabric (e.g. 0.5 meter of plain cotton) to form the main body.',
+      ],
+    };
+  }
+
+  // Defect 2: All pieces are too tiny (no substantial anchor)
+  // Replaces the arbitrary threshold with a rule based on the product's own largest zone
+  let minAnchorDim = 12;
+  if (productRequirements && typeof productRequirements.minAnchorDim === 'number') {
+    minAnchorDim = productRequirements.minAnchorDim;
+  } else if (productRequirements && productRequirements.largestZone) {
+    const maxDim = Math.max(productRequirements.largestZone.width, productRequirements.largestZone.height);
+    minAnchorDim = Math.max(
+      CONFIG.MIN_RECOMMENDED_PATCH_DIMENSION_CM,
+      Math.round(maxDim * (CONFIG.MIN_ANCHOR_ZONE_RATIO || 0.40))
+    );
+  } else if (typeof targetTotalArea === 'number') {
+    minAnchorDim = targetTotalArea > 3000 ? 15 : 8;
+  }
+
+  const largestPiece = enrichedPile.reduce((max, p) => Math.max(max, Math.max(p.effectiveWidth, p.effectiveHeight)), 0);
+  if (largestPiece < minAnchorDim) {
+    return {
+      hasGoodBase: false,
+      minAnchorDim,
+      reason: `Pieces too small: Your largest scrap is only ${largestPiece} cm. The main panels of this product require an anchor scrap of at least ${minAnchorDim} cm to avoid excessive, weak seams.`,
+      suggestions: [
+        'Make a smaller product suited for tiny scraps (e.g. Small Coin Pouch, Hair Scrunchie, or Quilted Coaster).',
+        'Add one or two larger plain fabric pieces for the main panels.',
+        'Pre-join your tiny scraps into a crazy-quilt sheet before cutting the pattern.',
+      ],
+    };
+  }
+
+  // Defect 3: No calm/neutral anchor (100% loud saturated prints)
+  const hasNeutralOrDark = enrichedPile.some(
+    (p) => p.isNeutral || p.colorMetrics.L <= CONFIG.DARK_NEUTRAL_LIGHTNESS_MAX || (!p.isPrinted && p.colorMetrics.C < 25)
+  );
+
+  if (!hasNeutralOrDark && enrichedPile.length >= 3) {
+    return {
+      hasGoodBase: false,
+      reason: 'No grounding base colour: All pieces in your pile are loud, bright prints or highly saturated colours without a calm neutral anchor (like black, navy, grey, or beige).',
+      suggestions: [
+        'Add a plain neutral fabric (e.g. plain beige, denim, black, or navy cotton) to act as the 60% main body.',
+        'Pick another colour palette by separating warm (reds/yellows) and cool (blues/greens) scraps into distinct projects.',
+        'Make a smaller accessory where bright multi-colour prints look intentional.',
+      ],
+    };
+  }
+
+  return { hasGoodBase: true, reason: null, suggestions: [] };
+}

@@ -1,0 +1,206 @@
+/**
+ * REWEAR STAGE 2 CONFIGURATION
+ * 
+ * Plain-words explanation:
+ * This file contains every single numerical threshold, weight, and tolerance
+ * used across the Stage 2 logic (colour relationships, fabric joining rules,
+ * 60-30-10 zoning, seam allowances, and scoring).
+ * 
+ * Keeping all thresholds in this single file makes it easy to calibrate the engine
+ * after user testing with tailors and home sewers.
+ */
+
+export const CONFIG = {
+  // =========================================================================
+  // 1. SEAM & CUTTING THRESHOLDS
+  // =========================================================================
+
+  /**
+   * Standard seam allowance in centimeters added to each edge of joined pieces.
+   * Default: 1.0 cm (standard Indian tailoring scrap piecing allowance).
+   */
+  SEAM_ALLOWANCE_CM: 1.0,
+
+  /**
+   * Minimum dimension (width or height) in cm for a leftover scrap to be saved
+   * and returned to the tailor's stock pile instead of considered waste.
+   * Scraps smaller than 3x3 cm are considered trim waste.
+   */
+  MIN_REUSABLE_SCRAP_DIMENSION_CM: 3.0,
+
+  /**
+   * Minimum dimension (cm) for an individual patch piece in a product.
+   * Patches smaller than 5 cm are difficult to handle on standard sewing machines
+   * and create bulky seams that tailors dislike.
+   */
+  MIN_RECOMMENDED_PATCH_DIMENSION_CM: 5.0,
+
+  /**
+   * Minimum ratio of the product's largest zone dimension that an anchor piece must possess.
+   * Tailors require at least one base piece to be at least 40% of the largest panel dimension
+   * so the product is grounded by substantial fabric rather than hundreds of tiny confetti patches.
+   */
+  MIN_ANCHOR_ZONE_RATIO: 0.40,
+
+  /**
+   * Maximum allowed pieced seams within a single product zone.
+   * Prevents panels from being over-fragmented with excessive seams.
+   */
+  MAX_SEAMS_PER_ZONE: 6,
+
+  /**
+   * Maximum allowed patch pieces pieced together to form a single zone.
+   */
+  MAX_PATCHES_PER_ZONE: 8,
+
+  // =========================================================================
+  // 2. COLOUR & PERCEPTUAL SPACE (CIELAB / LCH) THRESHOLDS
+  // =========================================================================
+
+  /**
+   * Maximum Chroma (C* in CIELAB/LCH) below which a colour is considered a neutral.
+   * Low-chroma colours (black, white, greys, soft beiges, muted navy) lack strong
+   * chromatic vibration and act as neutral anchors that go with everything.
+   */
+  NEUTRAL_CHROMA_MAX: 16.0,
+
+  /**
+   * Maximum Lightness (L* in CIELAB) below which dark shades (such as deep navy,
+   * charcoal, espresso brown, or jet black) function as dark neutral anchors,
+   * even if they carry a subtle hue hint.
+   */
+  DARK_NEUTRAL_LIGHTNESS_MAX: 22.0,
+
+  /**
+   * Minimum Lightness (L* in CIELAB) above which very light tints (pure white,
+   * off-white, light cream, pale silver) function as light neutral anchors.
+   */
+  LIGHT_NEUTRAL_LIGHTNESS_MIN: 90.0,
+
+  /**
+   * Maximum hue angle difference (degrees) for two colours to be judged as
+   * TONAL or ANALOGOUS (e.g. olive and forest green, or sky blue and royal blue).
+   */
+  TONAL_HUE_MAX_DIFF_DEG: 42.0,
+
+  /**
+   * Target hue angle difference (degrees) for complementary contrast (opposite on color wheel).
+   */
+  COMPLEMENTARY_HUE_TARGET_DEG: 180.0,
+
+  /**
+   * Tolerance around 180 degrees for complementary colours (180 ± 35 = 145° to 215°).
+   */
+  COMPLEMENTARY_HUE_TOLERANCE_DEG: 35.0,
+
+  /**
+   * Minimum Chroma required on BOTH colours for a clash risk to be triggered.
+   * If either colour is pastel or muted (chroma < 26), the eye tolerates the pairing.
+   */
+  CLASH_MIN_CHROMA: 26.0,
+
+  /**
+   * Maximum Lightness difference (|L1 - L2|) that allows a clash.
+   * If two saturated colours have high lightness contrast (e.g. deep dark purple vs
+   * bright light yellow-green, delta L > 32), the value contrast separates them visually,
+   * so they do not vibrate harshly.
+   */
+  CLASH_MAX_LIGHTNESS_DIFF: 32.0,
+
+  /**
+   * Minimum hue angle difference to enter potential clash territory (outside tonal).
+   */
+  CLASH_HUE_MIN_DIFF_DEG: 48.0,
+
+  /**
+   * Maximum hue angle difference before entering complementary territory.
+   */
+  CLASH_HUE_MAX_DIFF_DEG: 142.0,
+
+  // =========================================================================
+  // 3. FABRIC COMPATIBILITY THRESHOLDS
+  // =========================================================================
+
+  /**
+   * Numeric scale for fabric thickness:
+   * thin = 1, medium = 2, thick = 3
+   */
+  THICKNESS_LEVELS: {
+    thin: 1,
+    medium: 2,
+    thick: 3,
+  },
+
+  /**
+   * Maximum allowed thickness level difference between joined pieces in the same panel.
+   * Allowed: thin + medium (diff 1), medium + thick (diff 1).
+   * Forbidden: thin + thick (diff 2).
+   */
+  MAX_ALLOWED_THICKNESS_DIFF: 1,
+
+  // =========================================================================
+  // 4. 60-30-10 ZONING GUIDELINE TARGETS & TOLERANCES
+  // =========================================================================
+
+  /**
+   * Target percentage of visible finished surface area for the BASE / MAIN color.
+   */
+  ZONE_BASE_TARGET_PCT: 60.0,
+  ZONE_BASE_MIN_PCT: 50.0,
+  ZONE_BASE_MAX_PCT: 72.0,
+
+  /**
+   * Target percentage for the SUPPORTING color.
+   */
+  ZONE_SUPPORTING_TARGET_PCT: 30.0,
+  ZONE_SUPPORTING_MIN_PCT: 18.0,
+  ZONE_SUPPORTING_MAX_PCT: 40.0,
+
+  /**
+   * Target percentage for the ACCENT color.
+   */
+  ZONE_ACCENT_TARGET_PCT: 10.0,
+  ZONE_ACCENT_MIN_PCT: 5.0,
+  ZONE_ACCENT_MAX_PCT: 20.0,
+
+  // =========================================================================
+  // 5. DESIGN & AESTHETIC SCORING WEIGHTS (LOOKS FIRST, WASTE SECOND)
+  // =========================================================================
+
+  /**
+   * Weights used when computing the overall Design / Aesthetic Score (0-100).
+   * Notice that looks (colour harmony, clean panels, absence of clashes)
+   * account for 75% of the score, while waste accounts for only 25%.
+   */
+  SCORE_WEIGHTS: {
+    COLOR_HARMONY: 0.35,     // 60-30-10 adherence & harmonious hue relations
+    SEAM_SIMPLICITY: 0.25,    // Fewer seams = cleaner tailor finish & less sewing bulk
+    PATCH_SIZE_QUALITY: 0.15, // Fewer tiny patches (< 5cm)
+    FABRIC_UNIFORMITY: 0.10,  // Consistent drape & needle requirements
+    MINIMAL_WASTE: 0.15,      // Low fabric waste percentage
+  },
+
+  // =========================================================================
+  // 6. SEWING TIME ESTIMATION (MINUTES)
+  // =========================================================================
+
+  /**
+   * Base sewing time in minutes for standard products when assembled from single pieces.
+   */
+  BASE_SEWING_MINUTES: {
+    pouch: 30,
+    tote_bag: 50,
+    cushion_cover: 40,
+    kids_frock: 70,
+  },
+
+  /**
+   * Additional sewing minutes added for each piece join / seam that must be pieced together.
+   */
+  MINUTES_PER_EXTRA_SEAM: 3.5,
+
+  /**
+   * Additional minutes for handling fraying fabrics (overlocking / zig-zagging edges).
+   */
+  MINUTES_FOR_FRAYING_FINISH: 5.0,
+};

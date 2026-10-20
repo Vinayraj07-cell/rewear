@@ -1,0 +1,103 @@
+// Sample scrap pieces representing typical leftover fabrics from a tailoring shop
+export const INITIAL_SAMPLE_PIECES = [
+  {
+    id: "scrap-1",
+    fabricType: "cotton",
+    width: 25,
+    height: 20,
+    unit: "cm",
+    color: "navy",
+    print: "plain",
+    quantity: 2,
+    isIrregular: false,
+    feel: "soft",
+    thickness: "medium",
+    stretch: false,
+    frays: true,
+    included: true,
+    addedAt: Date.now() - 3600000 * 3,
+  },
+  {
+    id: "scrap-2",
+    fabricType: "cotton",
+    width: 20,
+    height: 15,
+    unit: "cm",
+    color: "skyBlue",
+    print: "printed",
+    quantity: 3,
+    isIrregular: false,
+    feel: "soft",
+    thickness: "medium",
+    stretch: false,
+    frays: true,
+    included: true,
+    addedAt: Date.now() - 3600000 * 2,
+  },
+  {
+    id: "scrap-3",
+    fabricType: "linen",
+    width: 30,
+    height: 18,
+    unit: "cm",
+    color: "beige",
+    print: "plain",
+    quantity: 1,
+    isIrregular: true,
+    usableWidth: 26,
+    usableHeight: 15,
+    feel: "stiff",
+    thickness: "medium",
+    stretch: false,
+    frays: true,
+    included: true,
+    addedAt: Date.now() - 3600000,
+  },
+  {
+    id: "scrap-4",
+    fabricType: "silk",
+    width: 14,
+    height: 12,
+    unit: "cm",
+    color: "maroon",
+    print: "plain",
+    quantity: 2,
+    isIrregular: false,
+    feel: "soft",
+    thickness: "thin",
+    stretch: false,
+    frays: true,
+    included: true,
+    addedAt: Date.now() - 1800000,
+  },
+  {
+    id: "scrap-5",
+    fabricType: "denim",
+    width: 35,
+    height: 22,
+    unit: "cm",
+    color: "royalBlue",
+    print: "plain",
+    quantity: 1,
+    isIrregular: false,
+    feel: "stiff",
+    thickness: "thick",
+    stretch: false,
+    frays: true,
+    included: true,
+    addedAt: Date.now() - 900000,
+  }
+];
+
+export const calculateArea = (piece) => {
+  const w = piece.isIrregular && piece.usableWidth ? piece.usableWidth : piece.width;
+  const h = piece.isIrregular && piece.usableHeight ? piece.usableHeight : piece.height;
+  const qty = piece.quantity || 1;
+  const rawArea = w * h * qty;
+  // If in inches, convert to sq cm equivalent for uniform total, or return both
+  return {
+    rawArea,
+    unit: piece.unit || 'cm',
+    sqCm: piece.unit === 'inches' ? rawArea * 6.4516 : rawArea,
+  };
+};

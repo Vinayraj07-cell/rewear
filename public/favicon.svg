@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#065f46"/>
+      <stop offset="100%" stop-color="#022c22"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fde047"/>
+      <stop offset="100%" stop-color="#eab308"/>
+    </linearGradient>
+    <linearGradient id="spoolGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Background rounded rect (Squircle) -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)"/>
+  <rect x="16" y="16" width="480" height="480" rx="112" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="4"/>
+
+  <!-- Centered sewing composition -->
+  <g filter="url(#shadow)" transform="translate(4, 0)">
+    <!-- Patchwork pieces behind spool -->
+    <rect x="120" y="110" width="130" height="130" rx="20" fill="#38bdf8" transform="rotate(-12 185 175)"/>
+    <rect x="250" y="120" width="140" height="140" rx="20" fill="#f43f5e" transform="rotate(15 320 190)"/>
+    <rect x="130" y="240" width="150" height="150" rx="20" fill="#a855f7" transform="rotate(8 205 315)"/>
+    <rect x="250" y="240" width="130" height="130" rx="20" fill="#10b981" transform="rotate(-6 315 305)"/>
+
+    <!-- Central Spool -->
+    <!-- Top spool rim -->
+    <ellipse cx="256" cy="180" rx="90" ry="24" fill="#78350f"/>
+    <ellipse cx="256" cy="174" rx="84" ry="20" fill="#b45309"/>
+    <!-- Thread body -->
+    <path d="M 186 180 L 186 310 C 186 340 326 340 326 310 L 326 180 Z" fill="url(#spoolGrad)"/>
+    <!-- Thread grooves -->
+    <path d="M 186 215 C 210 230 302 230 326 215" stroke="#b45309" stroke-width="3" fill="none"/>
+    <path d="M 186 245 C 210 260 302 260 326 245" stroke="#b45309" stroke-width="3" fill="none"/>
+    <path d="M 186 275 C 210 290 302 290 326 275" stroke="#b45309" stroke-width="3" fill="none"/>
+    <!-- Bottom spool rim -->
+    <ellipse cx="256" cy="316" rx="90" ry="24" fill="#78350f"/>
+    <ellipse cx="256" cy="322" rx="90" ry="24" fill="#b45309"/>
+
+    <!-- Golden Needle passing through -->
+    <path d="M 140 380 L 380 130" stroke="url(#goldGrad)" stroke-width="12" stroke-linecap="round"/>
+    <!-- Needle eye -->
+    <ellipse cx="360" cy="150" rx="4" ry="12" transform="rotate(45 360 150)" fill="#78350f"/>
+    <!-- Thread through needle eye -->
+    <path d="M 360 150 C 390 120 420 180 430 220" stroke="#fde047" stroke-width="5" stroke-linecap="round" fill="none" stroke-dasharray="8 4"/>
+  </g>
+
+  <!-- ReWear Text Badge -->
+  <rect x="136" y="400" width="240" height="56" rx="28" fill="#0f172a" opacity="0.9" filter="url(#shadow)"/>
+  <text x="256" y="438" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="28" fill="#f8fafc" text-anchor="middle" letter-spacing="3">REWEAR</text>
+</svg>
