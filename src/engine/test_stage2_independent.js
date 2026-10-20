@@ -723,6 +723,103 @@ test('Invalid size key does not crash buildDesign', () => {
 });
 
 // ============================================================================
+// 11. CUSHION COVER VARIANTS (PLAIN VS DECORATED) & SMALLER SIZE FALLBACK
+// ============================================================================
+console.log('\n--- 11. Cushion Cover Variants (Plain vs Decorated) & Smaller Size Fallback ---');
+
+test('30 plain 14x14 scraps fit Small Cushion Cover (30x30 cm)', () => {
+  const pile30 = Array.from({ length: 30 }, (_, i) => ({
+    id: `s_${i + 1}`,
+    width: 14,
+    height: 14,
+    color: 'navy',
+    print: 'plain',
+    fabricType: 'cotton',
+    thickness: 'medium',
+    stretchy: false,
+    quantity: 1,
+  }));
+
+  const smallFit = fitPileToProduct(pile30, 'cushion_cover', 'small');
+  assertEqual(smallFit.fits, true, '30 scraps of 14x14 cm must fit small cushion cover');
+  assertEqual(smallFit.placements.length, 3, 'Small Plain Cushion has 3 panels (Front, Back Upper, Back Lower)');
+  const patchesUsed = smallFit.placements.reduce((sum, p) => sum + p.patchCount, 0);
+  assertEqual(patchesUsed, 21, 'Small cushion should be pieced from 21 patches (9 front + 6 upper + 6 lower)');
+  const unusedOriginalScraps = smallFit.leftovers.filter((s) => s.width === 14 && s.height === 14);
+  assertEqual(unusedOriginalScraps.length, 9, 'Remaining 9 original scraps should be returned unused');
+  assertEqual(smallFit.leftovers.length, 15, 'Total leftovers should include 9 unused scraps + 6 reusable offcuts');
+  assert(
+    smallFit.seamLossExplanation.includes('Pieced panels lose fabric in seams'),
+    'Must include plain-language seam loss explanation'
+  );
+});
+
+test('30 plain 14x14 scraps on Medium Cushion fall back to small cushion with clear message', () => {
+  const pile30 = Array.from({ length: 30 }, (_, i) => ({
+    id: `s_${i + 1}`,
+    width: 14,
+    height: 14,
+    color: 'navy',
+    print: 'plain',
+    fabricType: 'cotton',
+    thickness: 'medium',
+    stretchy: false,
+    quantity: 1,
+  }));
+
+  const suggestionsResult = suggestProducts(pile30);
+  const medCushion = suggestionsResult.suggestions.find(
+    (s) => s.productId === 'cushion_cover' && s.sizeKey === 'medium'
+  );
+  assert(medCushion !== undefined, 'Medium cushion suggestion must be evaluated');
+  assertEqual(medCushion.fits, false, '30 scraps is 6 scraps short for Medium Cushion (needs 36 patches)');
+  assert(
+    medCushion.fallbackRecommendation === 'Your pile can make the small cushion instead.' ||
+    medCushion.missing.includes('Your pile can make the small cushion instead'),
+    'Must report: "Your pile can make the small cushion instead."'
+  );
+});
+
+test('Decorated variant of Medium Cushion Cover reports what is missing', () => {
+  const pile30 = Array.from({ length: 30 }, (_, i) => ({
+    id: `s_${i + 1}`,
+    width: 14,
+    height: 14,
+    color: 'navy',
+    print: 'plain',
+    fabricType: 'cotton',
+    thickness: 'medium',
+    stretchy: false,
+    quantity: 1,
+  }));
+
+  const decFit = fitPileToProduct(pile30, 'cushion_cover', 'medium', 1.0, { variant: 'decorated' });
+  assertEqual(decFit.fits, false, 'Decorated variant must not fit when frame strips and motif cannot be fulfilled');
+  assert(
+    decFit.missing.includes('Frame Strips') || decFit.missing.includes('Motif'),
+    'Decorated variant failure must report missing decorative zones (Frame Strips or Motif)'
+  );
+});
+
+test('36 plain 14x14 scraps fit Plain Medium Cushion Cover completely', () => {
+  const pile36 = Array.from({ length: 36 }, (_, i) => ({
+    id: `s_${i + 1}`,
+    width: 14,
+    height: 14,
+    color: 'navy',
+    print: 'plain',
+    fabricType: 'cotton',
+    thickness: 'medium',
+    stretchy: false,
+    quantity: 1,
+  }));
+
+  const medFit = fitPileToProduct(pile36, 'cushion_cover', 'medium', 1.0, 'plain');
+  assertEqual(medFit.fits, true, '36 scraps of 14x14 cm must fit plain medium cushion (16 front + 12 upper + 8 lower)');
+  assertEqual(medFit.placements.length, 3, 'All 3 plain cushion zones must be satisfied');
+});
+
+// ============================================================================
 // PART B: PRODUCT LARGEST ZONE & MINIMUM ANCHOR DIMENSIONS TABLE
 // ============================================================================
 console.log('\n================================================================');

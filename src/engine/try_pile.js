@@ -25,7 +25,7 @@
  *   node src/engine/try_pile.js
  */
 
-import { fitPileToProduct, calculateDesignScore } from './index.js';
+import { fitPileToProduct, calculateDesignScore, suggestProducts } from './index.js';
 
 // ---------------------------------------------------------------------------
 // 1. Define the Made-Up Fabric Piles
@@ -177,6 +177,8 @@ function runEvaluations() {
   const summaryRows = [];
 
   for (const p of piles) {
+    const suggestions = suggestProducts(p.items);
+
     for (const prod of products) {
       const result = fitPileToProduct(p.items, prod.id, prod.size);
       const score = result.fits ? calculateDesignScore(result) : 0;
@@ -196,7 +198,15 @@ function runEvaluations() {
         ? result.warnings.join(' ')
         : (result.fits ? 'None' : '-');
 
-      const failureReason = result.fits ? '-' : (result.missing || 'Does not fit');
+      const prodSug = suggestions && suggestions.suggestions
+        ? suggestions.suggestions.find((s) => s.productId === prod.id && s.sizeKey === prod.size)
+        : null;
+      const fallbackRec = prodSug ? prodSug.fallbackRecommendation : null;
+
+      let failureReason = result.fits ? '-' : (result.missing || 'Does not fit');
+      if (!result.fits && fallbackRec && !failureReason.includes(fallbackRec)) {
+        failureReason = `${failureReason} ${fallbackRec}`;
+      }
 
       summaryRows.push({
         pileName: p.name,
@@ -210,6 +220,8 @@ function runEvaluations() {
         leftoversKept,
         warningText,
         failureReason,
+        fallbackRecommendation: fallbackRec,
+        seamLossExplanation: result.seamLossExplanation,
       });
     }
   }
@@ -268,6 +280,9 @@ rows.forEach((r, idx) => {
   console.log(`  • Leftover pieces kept:      ${r.leftoversKept}`);
   if (r.warningText !== 'None' && r.warningText !== '-') {
     console.log(`  • Quality warning:           ${r.warningText}`);
+  }
+  if (r.seamLossExplanation) {
+    console.log(`  • Seam note:                 ${r.seamLossExplanation}`);
   }
   if (r.fits === 'NO') {
     console.log(`  • Reason for failure:        ${r.failureReason}`);

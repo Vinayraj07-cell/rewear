@@ -412,8 +412,15 @@ export function tryMultiPiecePatchwork(
  * - wastePercentage: number
  * - missing: explanation if fits is false
  */
-export function fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm = CONFIG.SEAM_ALLOWANCE_CM) {
-  const requirements = getProductRequirements(productId, sizeKey, seamAllowanceCm);
+export function fitPileToProduct(
+  pile,
+  productId,
+  sizeKey,
+  seamAllowanceCm = CONFIG.SEAM_ALLOWANCE_CM,
+  options = {}
+) {
+  const variant = typeof options === 'string' ? options : (options && (options.variant || options.style)) || null;
+  const requirements = getProductRequirements(productId, sizeKey, seamAllowanceCm, variant);
   if (!requirements) {
     return {
       fits: false,
@@ -744,13 +751,15 @@ export function fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm = CON
     }
 
     if (!zoneSatisfied) {
-      missingRequirements.push({
-        zoneId: zone.id,
-        zoneName: zone.name,
-        role: zone.role,
-        neededDimensions: `${targetW} × ${targetH} cm`,
-        neededArea: targetW * targetH,
-      });
+      if (!zone.optional || variant === 'decorated') {
+        missingRequirements.push({
+          zoneId: zone.id,
+          zoneName: zone.name,
+          role: zone.role,
+          neededDimensions: `${targetW} × ${targetH} cm`,
+          neededArea: targetW * targetH,
+        });
+      }
     }
   }
 
@@ -789,16 +798,20 @@ export function fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm = CON
     missingMessage = `Not enough fabric to complete all zones. Missing pieces for: ${missingDesc}. Try a smaller size or add matching scrap fabric.`;
   }
 
+  const seamLossExplanation = 'Pieced panels lose fabric in seams, so small scraps cover less than their raw area.';
+
   return {
     fits,
     productId,
     sizeKey,
+    variant: requirements.variant || 'plain',
     placements,
     leftovers: allLeftovers,
     fabricUsedInSeamsCm2: Math.round(totalSeamLossArea),
     fabricTooSmallToReuseCm2: Math.round(totalTrimWasteArea),
     trimWasteAreaCm2: Math.round(totalTrimWasteArea),
     seamLossAreaCm2: Math.round(totalSeamLossArea),
+    seamLossExplanation,
     totalRawAreaUsedCm2: Math.round(totalRawAreaUsed),
     finishedAreaCoveredCm2: Math.round(totalFinishedAreaCovered),
     wastePercentage,

@@ -96,8 +96,55 @@ export function suggestProducts(pile, options = {}) {
         whyReasons.push(`All ${fitResult.placements.length} zones covered with compatible fabric weights.`);
         if (designScore >= 80) whyReasons.push('Harmonious 60-30-10 colour balance with calm base.');
         if (fitResult.wastePercentage <= 15) whyReasons.push(`Minimal fabric waste (${fitResult.wastePercentage}% trim).`);
-        if (fitResult.totalExtraSeams === 0) whyReasons.push('Clean single-panel cuts with zero extra pieced seams.');
+        if (fitResult.totalExtraSeams === 0) {
+          whyReasons.push('Clean single-panel cuts with zero extra pieced seams.');
+        } else {
+          whyReasons.push('Pieced panels lose fabric in seams, so small scraps cover less than their raw area.');
+        }
       } else {
+        // Fallback exploration: When a product doesn't fit, try plain variant and smaller sizes
+        let alternativeNote = null;
+
+        // 1. Try plain variant if currently evaluated as decorated
+        if (options.variant === 'decorated' || fitResult.variant === 'decorated') {
+          const plainCheck = fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm, { variant: 'plain' });
+          if (plainCheck.fits) {
+            alternativeNote = `Your pile can make the plain ${productId === 'cushion_cover' ? 'cushion' : product.name.toLowerCase()} instead.`;
+          }
+        }
+
+        // 2. Try smaller sizes of the same product (in plain variant)
+        if (!alternativeNote) {
+          const sizeKeys = Object.keys(product.sizes);
+          const currentIndex = sizeKeys.indexOf(sizeKey);
+          if (currentIndex > 0) {
+            for (let i = currentIndex - 1; i >= 0; i--) {
+              const smallerKey = sizeKeys[i];
+              const smallerFit = fitPileToProduct(pile, productId, smallerKey, seamAllowanceCm, { variant: 'plain' });
+              if (smallerFit.fits) {
+                if (productId === 'cushion_cover') {
+                  alternativeNote = 'Your pile can make the small cushion instead.';
+                } else if (productId === 'pouch') {
+                  alternativeNote = 'Your pile can make the small pouch instead.';
+                } else if (productId === 'tote_bag') {
+                  alternativeNote = 'Your pile can make the small tote bag instead.';
+                } else {
+                  alternativeNote = `Your pile can make the smaller ${product.name} instead.`;
+                }
+                break;
+              }
+            }
+          }
+        }
+
+        if (alternativeNote) {
+          fitResult.fallbackRecommendation = alternativeNote;
+          if (!fitResult.suggestions) fitResult.suggestions = [];
+          fitResult.suggestions.unshift(alternativeNote);
+          fitResult.missing = `${fitResult.missing} ${alternativeNote}`;
+          whyReasons.push(alternativeNote);
+        }
+
         whyReasons.push(fitResult.missing || 'Partial fit: additional scraps required.');
       }
 
@@ -107,12 +154,15 @@ export function suggestProducts(pile, options = {}) {
         category: product.category,
         sizeKey,
         sizeLabel: sizeObj.label,
+        variant: fitResult.variant || 'plain',
         fits: fitResult.fits,
         designScore,
         estimatedTimeMinutes,
         wastePercentage: fitResult.wastePercentage,
         fabricUsedInSeamsCm2: fitResult.fabricUsedInSeamsCm2 || 0,
         fabricTooSmallToReuseCm2: fitResult.fabricTooSmallToReuseCm2 || 0,
+        seamLossExplanation: fitResult.seamLossExplanation,
+        fallbackRecommendation: fitResult.fallbackRecommendation || null,
         warnings: fitResult.warnings || [],
         hasAnchorWarning: Boolean(fitResult.hasAnchorWarning),
         placementsCount: fitResult.placements.length,
@@ -183,6 +233,8 @@ export function buildDesign(pile, productId, sizeKey, style = 'patchwork', optio
     wastePercentage: fitResult.wastePercentage,
     fabricUsedInSeamsCm2: fitResult.fabricUsedInSeamsCm2 || 0,
     fabricTooSmallToReuseCm2: fitResult.fabricTooSmallToReuseCm2 || 0,
+    seamLossExplanation: fitResult.seamLossExplanation,
+    variant: fitResult.variant || 'plain',
     warnings: fitResult.warnings || [],
     hasAnchorWarning: Boolean(fitResult.hasAnchorWarning),
     totalExtraSeams: fitResult.totalExtraSeams,
