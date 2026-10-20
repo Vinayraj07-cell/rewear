@@ -335,52 +335,86 @@ test('Pile with calm neutral base is properly segregated into 60-30-10 roles', (
 });
 
 // ============================================================================
-// 4B. PRODUCT-SPECIFIC TINY-SCRAP FALLBACKS (40% RULE BASED ON LARGEST ZONE)
+// 4B. PRODUCT-SPECIFIC TINY-SCRAP FALLBACKS (HARD FLOOR VS 40% ANCHOR WARNING)
 // ============================================================================
-console.log('\n--- 4B. Product-Specific Tiny-Scrap Fallbacks (40% Rule) ---');
+console.log('\n--- 4B. Product-Specific Tiny-Scrap Fallbacks (Hard Floor vs 40% Anchor Warning) ---');
 
-test('Tote Bag (Medium) rejects scraps smaller than min anchor (12cm < 15cm anchor)', () => {
+test('Tote Bag (Medium) allows scraps above hard floor with warning and lower score (12cm >= 5cm floor, < 15cm anchor)', () => {
   const req = getProductRequirements('tote_bag', 'medium');
-  assertEqual(req.minAnchorDim, 15, 'Tote Bag Medium min anchor should be 15cm (38cm max zone x 40%)');
+  assertEqual(req.minAnchorDim, 15, 'Tote Bag Medium recommended anchor is 15cm (38cm max zone x 40%)');
   const pile = [
-    { id: '1', width: 12, height: 12, quantity: 40, color: 'navy', print: 'plain', fabricType: 'cotton', thickness: 'medium', stretchy: false },
+    { id: '1', width: 12, height: 12, quantity: 70, color: 'navy', print: 'plain', fabricType: 'cotton', thickness: 'medium', stretchy: false },
   ];
-  const res = assignZoningRoles(pile, req);
-  assertEqual(res.hasGoodBase, false, 'Scraps below 15cm cannot anchor a Medium Tote Bag');
-  assert(res.fallbackReason.includes('Pieces too small'), 'Must state pieces too small');
+  const zoning = assignZoningRoles(pile, req);
+  assertEqual(zoning.hasGoodBase, true, 'Scraps above 5cm hard floor must not be rejected');
+  assertEqual(zoning.hasAnchorWarning, true, 'Must flag anchor quality warning');
+  assert(
+    zoning.warnings.some((w) => w.includes('more premium')),
+    'Warning must suggest a bigger piece would look more premium'
+  );
+
+  const fit = fitPileToProduct(pile, 'tote_bag', 'medium');
+  assertEqual(fit.fits, true, 'Tote Bag must fit when total usable area is sufficient');
+  assert(fit.warnings.some((w) => w.includes('more premium')), 'Fit result must carry the premium warning');
+  const score = calculateDesignScore(fit);
+  assert(score < 60, `Pieced tote score (${score}) must be penalized for small patches & many seams`);
 });
 
-test('Zippered Pouch (Small) rejects scraps smaller than min anchor (4cm < 6cm anchor)', () => {
+test('Zippered Pouch (Small) rejects scraps below 5cm hard floor (4cm < 5cm hard floor)', () => {
   const req = getProductRequirements('pouch', 'small');
-  assertEqual(req.minAnchorDim, 6, 'Pouch Small min anchor should be 6cm (14cm max zone x 40%)');
   const pile = [
     { id: '1', width: 4, height: 4, quantity: 40, color: 'navy', print: 'plain', fabricType: 'cotton', thickness: 'medium', stretchy: false },
   ];
   const res = assignZoningRoles(pile, req);
-  assertEqual(res.hasGoodBase, false, 'Scraps below 6cm cannot anchor a Small Pouch');
-  assert(res.fallbackReason.includes('Pieces too small'), 'Must state pieces too small');
+  assertEqual(res.hasGoodBase, false, 'Scraps below 5cm hard floor must be rejected');
+  assert(
+    res.fallbackReason.includes('minimum usable size') || res.fallbackReason.includes('hard floor'),
+    'Must state scraps are below minimum usable size'
+  );
+  const fit = fitPileToProduct(pile, 'pouch', 'small');
+  assertEqual(fit.fits, false, 'Fit must be rejected when scraps are below hard floor');
 });
 
-test('Cushion Cover (Medium) rejects scraps smaller than min anchor (14cm < 16cm anchor)', () => {
+test('Cushion Cover (Medium) allows scraps above hard floor with warning and lower score (14cm >= 5cm floor, < 16cm anchor)', () => {
   const req = getProductRequirements('cushion_cover', 'medium');
-  assertEqual(req.minAnchorDim, 16, 'Cushion Cover Medium min anchor should be 16cm (40cm max zone x 40%)');
+  assertEqual(req.minAnchorDim, 16, 'Cushion Cover Medium recommended anchor is 16cm (40cm max zone x 40%)');
   const pile = [
-    { id: '1', width: 14, height: 14, quantity: 40, color: 'navy', print: 'plain', fabricType: 'cotton', thickness: 'medium', stretchy: false },
+    { id: '1', width: 14, height: 14, quantity: 50, color: 'navy', print: 'plain', fabricType: 'cotton', thickness: 'medium', stretchy: false },
   ];
-  const res = assignZoningRoles(pile, req);
-  assertEqual(res.hasGoodBase, false, 'Scraps below 16cm cannot anchor a Medium Cushion Cover');
-  assert(res.fallbackReason.includes('Pieces too small'), 'Must state pieces too small');
+  const zoning = assignZoningRoles(pile, req);
+  assertEqual(zoning.hasGoodBase, true, 'Scraps above 5cm hard floor must not be rejected');
+  assertEqual(zoning.hasAnchorWarning, true, 'Must flag anchor quality warning');
+  assert(
+    zoning.warnings.some((w) => w.includes('more premium')),
+    'Warning must suggest a bigger piece would look more premium'
+  );
+
+  const fit = fitPileToProduct(pile, 'cushion_cover', 'medium');
+  assertEqual(fit.fits, true, 'Cushion Cover must fit when total usable area is sufficient');
+  assert(fit.warnings.some((w) => w.includes('more premium')), 'Fit result must carry the premium warning');
+  const score = calculateDesignScore(fit);
+  assert(score < 60, `Pieced cushion score (${score}) must be penalized for small patches & many seams`);
 });
 
-test("Kids' Frock (0-1y) rejects scraps smaller than min anchor (15cm < 18cm anchor)", () => {
+test("Kids' Frock (0-1y) allows scraps above hard floor with warning and lower score (15cm >= 5cm floor, < 18cm anchor)", () => {
   const req = getProductRequirements('kids_frock', '0-1y');
-  assertEqual(req.minAnchorDim, 18, "Kids' Frock (0-1y) min anchor should be 18cm (45cm max zone x 40%)");
+  assertEqual(req.minAnchorDim, 18, "Kids' Frock (0-1y) recommended anchor is 18cm (45cm max zone x 40%)");
   const pile = [
-    { id: '1', width: 15, height: 15, quantity: 40, color: 'navy', print: 'plain', fabricType: 'cotton', thickness: 'medium', stretchy: false },
+    { id: '1', width: 15, height: 15, quantity: 50, color: 'navy', print: 'plain', fabricType: 'cotton', thickness: 'medium', stretchy: false },
   ];
-  const res = assignZoningRoles(pile, req);
-  assertEqual(res.hasGoodBase, false, "Scraps below 18cm cannot anchor a Kids' Frock");
-  assert(res.fallbackReason.includes('Pieces too small'), 'Must state pieces too small');
+  const zoning = assignZoningRoles(pile, req);
+  assertEqual(zoning.hasGoodBase, true, 'Scraps above 5cm hard floor must not be rejected');
+  assertEqual(zoning.hasAnchorWarning, true, 'Must flag anchor quality warning');
+  assert(
+    zoning.warnings.some((w) => w.includes('more premium')),
+    'Warning must suggest a bigger piece would look more premium'
+  );
+
+  const fit = fitPileToProduct(pile, 'kids_frock', '0-1y');
+  assertEqual(fit.fits, true, "Kids' Frock must fit when total usable area is sufficient");
+  assert(fit.warnings.some((w) => w.includes('more premium')), 'Fit result must carry the premium warning');
+  const score = calculateDesignScore(fit);
+  assert(score < 60, `Pieced frock score (${score}) must be penalized for small patches & many seams`);
 });
 
 // ============================================================================

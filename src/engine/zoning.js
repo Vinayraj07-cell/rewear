@@ -209,6 +209,9 @@ export function assignZoningRoles(pile, productRequirements) {
     hasGoodBase: true,
     fallbackReason: null,
     suggestions: [],
+    warning: fallbackCheck.warning || null,
+    warnings: fallbackCheck.warnings || (fallbackCheck.warning ? [fallbackCheck.warning] : []),
+    hasAnchorWarning: Boolean(fallbackCheck.hasAnchorWarning),
     basePieces,
     supportingPieces,
     accentPieces,
@@ -236,8 +239,25 @@ export function checkBaseFeasibilityFallbacks(enrichedPile, targetTotalArea, tar
     };
   }
 
-  // Defect 2: All pieces are too tiny (no substantial anchor)
-  // Replaces the arbitrary threshold with a rule based on the product's own largest zone
+  const hardFloor = CONFIG.MIN_PIECE_HARD_FLOOR_CM || 5.0;
+  const largestPiece = enrichedPile.reduce((max, p) => Math.max(max, Math.max(p.effectiveWidth, p.effectiveHeight)), 0);
+
+  // Hard Floor Check: Scraps smaller than hard floor (e.g. 5 cm) cannot be stitched without needle/feed jamming
+  if (largestPiece < hardFloor) {
+    return {
+      hasGoodBase: false,
+      hardFloor,
+      reason: `Pieces below minimum usable size: Your largest scrap is only ${largestPiece} cm, which is below the ${hardFloor} cm minimum hard floor. Pieces smaller than this cannot be reliably stitched without excessive seam fraying and needle jamming.`,
+      suggestions: [
+        `Use scraps that are at least ${hardFloor} cm in width and height.`,
+        'Make a smaller craft item suited for micro-scraps (such as fabric twine, scrap beads, or pincushion stuffing).',
+        'Add larger scrap pieces to your pile.',
+      ],
+    };
+  }
+
+  // Anchor Size Evaluation (40% of largest zone):
+  // Does NOT reject the pile! Turns into a warning and design-score penalty so tailor can proceed if desired.
   let minAnchorDim = 12;
   if (productRequirements && typeof productRequirements.minAnchorDim === 'number') {
     minAnchorDim = productRequirements.minAnchorDim;
@@ -251,18 +271,11 @@ export function checkBaseFeasibilityFallbacks(enrichedPile, targetTotalArea, tar
     minAnchorDim = targetTotalArea > 3000 ? 15 : 8;
   }
 
-  const largestPiece = enrichedPile.reduce((max, p) => Math.max(max, Math.max(p.effectiveWidth, p.effectiveHeight)), 0);
+  let warning = null;
+  let hasAnchorWarning = false;
   if (largestPiece < minAnchorDim) {
-    return {
-      hasGoodBase: false,
-      minAnchorDim,
-      reason: `Pieces too small: Your largest scrap is only ${largestPiece} cm. The main panels of this product require an anchor scrap of at least ${minAnchorDim} cm to avoid excessive, weak seams.`,
-      suggestions: [
-        'Make a smaller product suited for tiny scraps (e.g. Small Coin Pouch, Hair Scrunchie, or Quilted Coaster).',
-        'Add one or two larger plain fabric pieces for the main panels.',
-        'Pre-join your tiny scraps into a crazy-quilt sheet before cutting the pattern.',
-      ],
-    };
+    warning = 'Made from many small patches, a bigger piece would look more premium.';
+    hasAnchorWarning = true;
   }
 
   // Defect 3: No calm/neutral anchor (100% loud saturated prints)
@@ -282,5 +295,12 @@ export function checkBaseFeasibilityFallbacks(enrichedPile, targetTotalArea, tar
     };
   }
 
-  return { hasGoodBase: true, reason: null, suggestions: [] };
+  return {
+    hasGoodBase: true,
+    reason: null,
+    suggestions: [],
+    warning,
+    warnings: warning ? [warning] : [],
+    hasAnchorWarning,
+  };
 }

@@ -211,7 +211,10 @@ export function tryMultiPiecePatchwork(
 
   const allowance = Number(seamAllowanceCm) || CONFIG.SEAM_ALLOWANCE_CM;
   const seamLossPerJoin = 2 * allowance;
-  const maxPatches = CONFIG.MAX_PATCHES_PER_ZONE || 8;
+  const maxPatches = CONFIG.getMaxPatchesForZone
+    ? CONFIG.getMaxPatchesForZone(targetW, targetH)
+    : (CONFIG.MAX_PATCHES_PER_ZONE_CAP || 24);
+  const effectiveMaxSeams = Math.min(CONFIG.MAX_SEAMS_PER_ZONE_CAP || 24, Math.max(maxSeams, maxPatches - 1));
 
   function canJoin(pA, pB) {
     const fabricCheck = checkFabricPairCompatibility(pA, pB);
@@ -255,7 +258,7 @@ export function tryMultiPiecePatchwork(
   // 2. Strategy A: Horizontal strip (1 row of K patches, vertical seams)
   const heightEligible = candidates.filter((p) => (p.effectiveHeight || p.height) >= targetH);
   if (heightEligible.length >= 2) {
-    for (let k = 2; k <= Math.min(maxPatches, maxSeams + 1, heightEligible.length); k++) {
+    for (let k = 2; k <= Math.min(maxPatches, effectiveMaxSeams + 1, heightEligible.length); k++) {
       const picked = [];
       let currentW = 0;
 
@@ -291,7 +294,7 @@ export function tryMultiPiecePatchwork(
   // 3. Strategy B: Vertical column (M rows of 1 patch, horizontal seams)
   const widthEligible = candidates.filter((p) => (p.effectiveWidth || p.width) >= targetW);
   if (widthEligible.length >= 2) {
-    for (let m = 2; m <= Math.min(maxPatches, maxSeams + 1, widthEligible.length); m++) {
+    for (let m = 2; m <= Math.min(maxPatches, effectiveMaxSeams + 1, widthEligible.length); m++) {
       const picked = [];
       let currentH = 0;
 
@@ -325,11 +328,11 @@ export function tryMultiPiecePatchwork(
   }
 
   // 4. Strategy C: 2D Grid patchwork (R rows x C columns)
-  for (let R = 2; R <= 3; R++) {
-    for (let C = 2; C <= 4; C++) {
+  for (let R = 2; R <= 6; R++) {
+    for (let C = 2; C <= 6; C++) {
       const totalPatches = R * C;
       const seamsCount = R * (C - 1) + (R - 1);
-      if (totalPatches > maxPatches || seamsCount > maxSeams || totalPatches > candidates.length) {
+      if (totalPatches > maxPatches || seamsCount > effectiveMaxSeams || totalPatches > candidates.length) {
         continue;
       }
 
@@ -428,8 +431,14 @@ export function fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm = CON
       fits: false,
       missing: zoning.fallbackReason,
       suggestions: zoning.suggestions,
+      warnings: zoning.warnings || [],
+      hasAnchorWarning: Boolean(zoning.hasAnchorWarning),
       placements: [],
       leftovers: pile,
+      fabricUsedInSeamsCm2: 0,
+      fabricTooSmallToReuseCm2: 0,
+      trimWasteAreaCm2: 0,
+      seamLossAreaCm2: 0,
       wastePercentage: 100,
       zoningBreakdown: zoning.breakdown,
     };
@@ -460,6 +469,7 @@ export function fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm = CON
   let totalRawAreaUsed = 0;
   let totalFinishedAreaCovered = 0;
   let totalTrimWasteArea = 0;
+  let totalSeamLossArea = 0;
   let totalExtraSeams = 0;
 
   // Process zones in priority order: Base zones first (largest), then Supporting, then Accent
@@ -601,7 +611,8 @@ export function fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm = CON
           blockTrimWaste += Math.max(0, botW * botH);
         }
 
-        totalTrimWasteArea += internalSeamLoss + blockTrimWaste;
+        totalSeamLossArea += internalSeamLoss;
+        totalTrimWasteArea += blockTrimWaste;
 
         placements.push({
           zoneId: zone.id,
@@ -703,7 +714,8 @@ export function fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm = CON
             blockTrimWaste += Math.max(0, botW * botH);
           }
 
-          totalTrimWasteArea += internalSeamLoss + blockTrimWaste;
+          totalSeamLossArea += internalSeamLoss;
+          totalTrimWasteArea += blockTrimWaste;
 
           placements.push({
             zoneId: zone.id,
@@ -783,11 +795,16 @@ export function fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm = CON
     sizeKey,
     placements,
     leftovers: allLeftovers,
+    fabricUsedInSeamsCm2: Math.round(totalSeamLossArea),
+    fabricTooSmallToReuseCm2: Math.round(totalTrimWasteArea),
     trimWasteAreaCm2: Math.round(totalTrimWasteArea),
+    seamLossAreaCm2: Math.round(totalSeamLossArea),
     totalRawAreaUsedCm2: Math.round(totalRawAreaUsed),
     finishedAreaCoveredCm2: Math.round(totalFinishedAreaCovered),
     wastePercentage,
     totalExtraSeams,
+    warnings: zoning.warnings || (zoning.warning ? [zoning.warning] : []),
+    hasAnchorWarning: Boolean(zoning.hasAnchorWarning),
     missing: missingMessage,
     missingDetails: missingRequirements,
     zoningBreakdown: zoning.breakdown,

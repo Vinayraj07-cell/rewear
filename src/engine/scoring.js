@@ -149,7 +149,12 @@ export function calculateDesignScore(fitResult) {
     sFabric * weights.FABRIC_UNIFORMITY +
     sWaste * weights.MINIMAL_WASTE;
 
-  return Math.round(Math.max(15, Math.min(99, totalScore)));
+  let adjustedScore = totalScore;
+  if (fitResult.hasAnchorWarning || (fitResult.warnings && fitResult.warnings.some((w) => w.includes('more premium')))) {
+    adjustedScore -= (CONFIG.SMALL_PATCH_WARNING_PENALTY || 15);
+  }
+
+  return Math.round(Math.max(15, Math.min(99, adjustedScore)));
 }
 
 /**

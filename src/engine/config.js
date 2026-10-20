@@ -36,22 +36,63 @@ export const CONFIG = {
   MIN_RECOMMENDED_PATCH_DIMENSION_CM: 5.0,
 
   /**
-   * Minimum ratio of the product's largest zone dimension that an anchor piece must possess.
-   * Tailors require at least one base piece to be at least 40% of the largest panel dimension
-   * so the product is grounded by substantial fabric rather than hundreds of tiny confetti patches.
+   * Absolute hard floor dimension (cm) for scraps.
+   * Scraps where all dimensions are smaller than this floor (e.g. < 5 cm)
+   * are rejected because micro-scraps cannot be stitched on sewing machines
+   * without extreme fraying, jamming the feed dogs, and creating rigid seam lumps.
+   */
+  MIN_PIECE_HARD_FLOOR_CM: 5.0,
+
+  /**
+   * Minimum ratio of the product's largest zone dimension that an anchor piece
+   * should possess for a premium appearance (default: 40%).
+   * Does NOT block the product; scraps below this ratio generate a quality warning
+   * ("made from many small patches, a bigger piece would look more premium")
+   * and incur a design score penalty.
    */
   MIN_ANCHOR_ZONE_RATIO: 0.40,
 
   /**
-   * Maximum allowed pieced seams within a single product zone.
-   * Prevents panels from being over-fragmented with excessive seams.
+   * Score penalty deducted when all pieces in a pile are smaller than the 40% anchor recommendation.
+   */
+  SMALL_PATCH_WARNING_PENALTY: 15,
+
+  /**
+   * Default baseline allowed pieced seams within a single product zone.
    */
   MAX_SEAMS_PER_ZONE: 6,
 
   /**
-   * Maximum allowed patch pieces pieced together to form a single zone.
+   * Default baseline allowed patch pieces pieced together to form a single zone.
    */
   MAX_PATCHES_PER_ZONE: 8,
+
+  /**
+   * Absolute cap on patches allowed in any single product zone, regardless of how large the zone is.
+   */
+  MAX_PATCHES_PER_ZONE_CAP: 24,
+
+  /**
+   * Absolute cap on seams allowed in any single product zone.
+   */
+  MAX_SEAMS_PER_ZONE_CAP: 24,
+
+  /**
+   * Minimum patch dimension (cm) used to calculate the dynamic patch limit for a zone.
+   * Computed as: min(MAX_PATCHES_PER_ZONE_CAP, max(4, floor(zoneArea / minPatchSize²)))
+   */
+  MIN_PATCH_SIZE_FOR_LIMIT_CM: 5.0,
+
+  /**
+   * Computes the maximum allowed patches for a given zone area (cm²).
+   * Scales dynamically with zone size up to MAX_PATCHES_PER_ZONE_CAP (24).
+   */
+  getMaxPatchesForZone: (cutWidth, cutHeight) => {
+    const zoneArea = cutWidth * cutHeight;
+    const minPatchArea = (CONFIG.MIN_PATCH_SIZE_FOR_LIMIT_CM || 5.0) ** 2;
+    const computed = Math.floor(zoneArea / minPatchArea);
+    return Math.min(CONFIG.MAX_PATCHES_PER_ZONE_CAP || 24, Math.max(4, computed));
+  },
 
   // =========================================================================
   // 2. COLOUR & PERCEPTUAL SPACE (CIELAB / LCH) THRESHOLDS
