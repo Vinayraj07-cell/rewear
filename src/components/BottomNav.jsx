@@ -1,12 +1,12 @@
 import React from 'react';
-import { Home, PlusCircle, Layers, Sparkles, BookOpen } from 'lucide-react';
+import { Home, PlusCircle, Layers, Sparkles, BookOpen, Scissors } from 'lucide-react';
 
 export default function BottomNav({ activeTab, setActiveTab, t, pileCount }) {
   const tabs = [
     { id: 'home', label: t.home, icon: Home },
-    { id: 'add', label: t.addScrap, icon: PlusCircle, highlight: true },
+    { id: 'add', label: t.addScrap, icon: PlusCircle },
     { id: 'pile', label: t.myPile, icon: Layers, badge: pileCount },
-    { id: 'tips', label: t.fabricTips, icon: Sparkles },
+    { id: 'what_can_i_make', label: t.tabMake || 'Make', icon: Scissors, highlight: true },
     { id: 'guides', label: t.feature5Badge, icon: BookOpen },
   ];
 

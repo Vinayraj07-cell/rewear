@@ -1,0 +1,450 @@
+import React, { useState } from 'react';
+import { 
+  ArrowLeft, 
+  HelpCircle, 
+  Volume2, 
+  VolumeX, 
+  Layers, 
+  Palette, 
+  Sliders, 
+  CheckCircle2, 
+  Maximize2, 
+  Scissors, 
+  Sparkles,
+  ShieldAlert,
+  Edit3
+} from 'lucide-react';
+import FabricNumbersCard from '../components/FabricNumbersCard';
+import ProductVisual from '../components/ProductVisual';
+import { soundManager } from '../utils/audio';
+import { COLOR_SWATCHES } from '../i18n/translations';
+import { 
+  getZoneDimensions, 
+  getTranslatedProductName, 
+  getTranslatedSizeLabel, 
+  getTranslatedZoneName 
+} from '../utils/zoneHelper.js';
+
+export default function DesignViewScreen({
+  design,
+  pile,
+  onBack,
+  onOpenCustomize,
+  onOpenFeasibility,
+  onOpenSizeChoice,
+  onOpenHelp,
+  t,
+  lang,
+}) {
+  const [globalPattern, setGlobalPattern] = useState(design.style || 'patchwork');
+  const [perPartPatterns, setPerPartPatterns] = useState({});
+  const [selectedZoneId, setSelectedZoneId] = useState(null);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+
+  const productName = getTranslatedProductName(design.productId, design.productName, t);
+  const sizeLabel = getTranslatedSizeLabel(design.sizeKey, design.sizeLabel, t);
+
+  // Available patterns as defined in requirement 2
+  const patternList = [
+    { id: 'patchwork', label: t.patterns?.patchwork || 'Patchwork', icon: '🧩' },
+    { id: 'vertical', label: t.patterns?.vertical || 'Vertical Strips', icon: '💈' },
+    { id: 'horizontal', label: t.patterns?.horizontal || 'Horizontal Strips', icon: '☰' },
+    { id: 'grid', label: t.patterns?.grid || 'Square Grid', icon: '▦' },
+    { id: 'checks', label: t.patterns?.checks || 'Checks', icon: '🏁' },
+    { id: 'circle', label: t.patterns?.circle || 'Center Motif', icon: '🔘' },
+    { id: 'diagonal', label: t.patterns?.diagonal || 'Diagonal', icon: '📐' },
+    { id: 'zigzag', label: t.patterns?.zigzag || 'Zigzag', icon: '〰️' },
+    { id: 'plain', label: t.patterns?.plain || 'Plain Solid', icon: '⬜' },
+  ];
+
+  const handleSpeakBlueprint = () => {
+    if (isSpeaking) {
+      soundManager.stop();
+      setIsSpeaking(false);
+      return;
+    }
+    const zonesCount = design.placements ? design.placements.length : 0;
+    const text = `${design.productName}, ${design.sizeLabel}. ${zonesCount} panels arranged. ${t.designViewSub}`;
+    soundManager.speak(text, lang);
+    setIsSpeaking(true);
+  };
+
+  const handleUpdateZonePattern = (zoneId, patternId) => {
+    setPerPartPatterns((prev) => ({
+      ...prev,
+      [zoneId]: patternId,
+    }));
+  };
+
+  // Helper to get hex color for a scrap
+  const getScrapHex = (colorName) => {
+    const swatch = COLOR_SWATCHES.find(
+      (s) => s.id.toLowerCase() === (colorName || '').toLowerCase()
+    );
+    return swatch ? swatch.hex : '#9CA3AF';
+  };
+
+  // Total area of the pile in cm²
+  const totalPileArea = pile.reduce((sum, p) => sum + (p.width * p.height * (p.quantity || 1)), 0);
+
+  return (
+    <div className="space-y-4 pb-36">
+      {/* Top Header Card */}
+      <div className="bg-gradient-to-r from-emerald-800 to-teal-900 text-white rounded-3xl p-4 shadow-sm border border-emerald-700 flex items-start justify-between">
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onBack}
+            className="p-2 rounded-2xl bg-emerald-700/80 hover:bg-emerald-600 text-white transition"
+            title={t.back}
+          >
+            <ArrowLeft className="w-4 h-4" />
+          </button>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] bg-emerald-950/60 px-2 py-0.5 rounded text-emerald-200 border border-emerald-500/40 uppercase font-black tracking-wider">
+                {design.variant === 'decorated' ? t.decoratedVariantLabel : t.plainVariantLabel}
+              </span>
+              <span className="text-xs text-amber-300 font-bold">
+                ⭐ {design.designScore}/100
+              </span>
+            </div>
+            <h2 className="text-lg font-black text-white leading-tight mt-0.5">
+              {productName}
+            </h2>
+            <p className="text-xs text-emerald-100 font-medium">
+              {sizeLabel}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-1.5">
+          <button
+            type="button"
+            onClick={handleSpeakBlueprint}
+            className={`p-2.5 rounded-full transition ${
+              isSpeaking
+                ? 'bg-amber-400 text-amber-950 ring-4 ring-amber-300/40'
+                : 'bg-emerald-700/80 hover:bg-emerald-600 text-white'
+            }`}
+            title={t.listen}
+          >
+            {isSpeaking ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+          </button>
+          <button
+            type="button"
+            onClick={() => onOpenHelp({ title: t.designViewTitle, message: t.helpDesignView })}
+            className="p-2.5 rounded-full bg-emerald-700/80 hover:bg-emerald-600 text-white transition"
+            title={t.help}
+          >
+            <HelpCircle className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* Colour Roles & Harmony Legend */}
+      <div className="bg-white rounded-3xl p-4 border border-stone-200 shadow-xs space-y-2.5">
+        <div className="flex items-center justify-between pb-2 border-b border-stone-100">
+          <div className="flex items-center gap-1.5 text-stone-800 font-bold text-xs uppercase tracking-wider">
+            <Palette className="w-3.5 h-3.5 text-emerald-700" />
+            <span>{t.colourRolesTitle}</span>
+          </div>
+          <span className="text-[10px] bg-stone-100 text-stone-600 px-2 py-0.5 rounded font-semibold">
+            {t.balancedColours || 'Balanced colours'}
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+          {/* Base Role (60%) */}
+          <div className="p-2.5 rounded-2xl bg-sky-50 border border-sky-200 flex items-start gap-2">
+            <span className="w-3.5 h-3.5 rounded-full bg-sky-600 flex-shrink-0 mt-0.5 shadow-xs" />
+            <div>
+              <span className="font-bold text-sky-950 block leading-tight">
+                {t.roleBase}
+              </span>
+              <span className="text-[10px] text-sky-800 leading-tight block mt-0.5">
+                {t.roleBaseDesc}
+              </span>
+            </div>
+          </div>
+
+          {/* Supporting Role (30%) */}
+          <div className="p-2.5 rounded-2xl bg-amber-50 border border-amber-200 flex items-start gap-2">
+            <span className="w-3.5 h-3.5 rounded-full bg-amber-500 flex-shrink-0 mt-0.5 shadow-xs" />
+            <div>
+              <span className="font-bold text-amber-950 block leading-tight">
+                {t.roleSupporting}
+              </span>
+              <span className="text-[10px] text-amber-800 leading-tight block mt-0.5">
+                {t.roleSupportingDesc}
+              </span>
+            </div>
+          </div>
+
+          {/* Accent Role (10%) */}
+          <div className="p-2.5 rounded-2xl bg-purple-50 border border-purple-200 flex items-start gap-2">
+            <span className="w-3.5 h-3.5 rounded-full bg-purple-600 flex-shrink-0 mt-0.5 shadow-xs" />
+            <div>
+              <span className="font-bold text-purple-950 block leading-tight">
+                {t.roleAccent}
+              </span>
+              <span className="text-[10px] text-purple-800 leading-tight block mt-0.5">
+                {t.roleAccentDesc}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Pattern Choices Selector (Global & Per-Part) */}
+      <div className="bg-white rounded-3xl p-4 border border-stone-200 shadow-xs space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5 text-stone-800 font-bold text-xs uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+            <span>{t.patternChoicesTitle}</span>
+          </div>
+          <span className="text-[10px] text-stone-500 font-medium">
+            Active: <strong className="text-emerald-800 capitalize">{globalPattern}</strong>
+          </span>
+        </div>
+
+        {/* Global Pattern Horizontal Scroll */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+          {patternList.map((p) => (
+            <button
+              key={p.id}
+              type="button"
+              onClick={() => {
+                setGlobalPattern(p.id);
+                // Also update per part default
+                const updated = {};
+                design.placements?.forEach((pl) => {
+                  updated[pl.zoneId] = p.id;
+                });
+                setPerPartPatterns(updated);
+              }}
+              className={`px-3 py-2 rounded-2xl flex-shrink-0 flex items-center gap-1.5 text-xs font-bold border transition ${
+                globalPattern === p.id
+                  ? 'bg-emerald-700 text-white border-emerald-800 shadow-sm'
+                  : 'bg-stone-50 text-stone-700 border-stone-200 hover:bg-stone-100'
+              }`}
+            >
+              <span>{p.icon}</span>
+              <span className="whitespace-nowrap">{p.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Arranged Pieces by Zone (Requirement 2) */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between px-1">
+          <h3 className="text-sm font-bold text-stone-900 flex items-center gap-1.5">
+            <Layers className="w-4 h-4 text-emerald-700" />
+            <span>{t.arrangedByZoneTitle}</span>
+            <span className="text-xs bg-stone-200 text-stone-800 px-2 py-0.5 rounded-full font-black">
+              {design.placements?.length || 0}
+            </span>
+          </h3>
+          <span className="text-[11px] text-stone-500 font-medium">
+            {t.seamAllowanceIncluded || '1 cm Seam Allowance Included'}
+          </span>
+        </div>
+
+        <div className="space-y-3">
+          {design.placements?.map((placement, index) => {
+            const isPieced = placement.patchCount > 1;
+            const currentPattern = perPartPatterns[placement.zoneId] || globalPattern;
+            const dims = getZoneDimensions(design.productId, design.sizeKey, placement.zoneId, placement, design.variant);
+            const zoneTitle = getTranslatedZoneName(placement.zoneId, placement.zoneName, t);
+
+            // Simplified colour role labels (Point 3)
+            let roleBadge = {
+              text: t.roleBase || 'Main colour (60%)',
+              classes: 'bg-sky-100 text-sky-900 border-sky-300',
+              accentDot: '#0284c7',
+            };
+            if (placement.role === 'supporting') {
+              roleBadge = {
+                text: t.roleSupporting || 'Second colour (30%)',
+                classes: 'bg-amber-100 text-amber-900 border-amber-300',
+                accentDot: '#f59e0b',
+              };
+            } else if (placement.role === 'accent') {
+              roleBadge = {
+                text: t.roleAccent || 'Small touch (10%)',
+                classes: 'bg-purple-100 text-purple-900 border-purple-300',
+                accentDot: '#9333ea',
+              };
+            }
+
+            return (
+              <div
+                key={placement.zoneId}
+                className={`bg-white rounded-3xl p-4 border transition shadow-xs ${
+                  selectedZoneId === placement.zoneId
+                    ? 'border-emerald-600 ring-2 ring-emerald-500/30'
+                    : 'border-stone-200 hover:border-stone-300'
+                }`}
+              >
+                {/* Zone Top Bar */}
+                <div className="flex items-start justify-between gap-2 pb-2.5 border-b border-stone-100">
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full inline-block flex-shrink-0" style={{ backgroundColor: roleBadge.accentDot }} />
+                      <h4 className="text-sm font-bold text-stone-900">
+                        {zoneTitle}
+                      </h4>
+                    </div>
+                    {/* Real Zone Dimensions in cm and inches (POINT 1) */}
+                    <div className="text-[11px] text-stone-500 mt-1 space-y-0.5">
+                      <div>
+                        <span className="text-stone-400 font-medium">{t.finishedSizeLabel || 'Finished size'}:</span>{' '}
+                        <span className="font-bold text-stone-800">{dims.finishedCmText}</span>{' '}
+                        <span className="text-[10px] text-stone-500 font-normal">({dims.finishedInText})</span>
+                      </div>
+                      <div>
+                        <span className="text-stone-400 font-medium">{t.cutSizeLabel || 'Cut size'}:</span>{' '}
+                        <span className="font-bold text-amber-900">{dims.cutCmText}</span>{' '}
+                        <span className="text-[10px] text-stone-500 font-normal">({dims.cutInText})</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md border flex-shrink-0 ${roleBadge.classes}`}>
+                    {roleBadge.text}
+                  </span>
+                </div>
+
+                {/* Pieced Note (MANDATORY REQUIREMENT 2) */}
+                <div className="mt-2.5">
+                  {isPieced ? (
+                    <div className="bg-amber-50/90 border border-amber-300 text-amber-950 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <Scissors className="w-3.5 h-3.5 text-amber-700 flex-shrink-0" />
+                        <span>
+                          {t.piecedPanelNote ? t.piecedPanelNote.replace('{count}', placement.patchCount) : `This panel is pieced from ${placement.patchCount} patches.`}
+                        </span>
+                      </div>
+                      <span className="text-[10px] bg-amber-200 text-amber-900 px-1.5 py-0.5 rounded">
+                        +{placement.patchCount - 1} seams
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="bg-emerald-50 border border-emerald-200 text-emerald-900 px-3 py-1 rounded-xl text-[11px] font-semibold flex items-center gap-1.5">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>{t.singlePieceNote || 'Cut from 1 solid piece.'}</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Visual arranged patches layout */}
+                <div className="mt-3 bg-stone-100/80 p-3 rounded-2xl border border-stone-200">
+                  <div className="text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-2 flex items-center justify-between">
+                    <span>
+                      {t.panelLayoutTitle
+                        ? t.panelLayoutTitle.replace('{pattern}', (t.patterns && t.patterns[currentPattern]) || currentPattern)
+                        : `Panel Layout (${currentPattern})`}
+                    </span>
+                    <span>
+                      {t.piecesMappedLabel
+                        ? t.piecesMappedLabel.replace('{count}', placement.scraps?.length || 0)
+                        : `${placement.scraps?.length || 0} pieces mapped`}
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {placement.scraps?.map((scrap, scrapIdx) => {
+                      const hex = getScrapHex(scrap.color);
+                      return (
+                        <div
+                          key={`${scrap.scrapId}-${scrapIdx}`}
+                          className="bg-white p-2 rounded-xl border border-stone-200 flex items-center gap-2 shadow-xs"
+                        >
+                          <span
+                            className="w-7 h-7 rounded-lg border border-black/10 flex-shrink-0 shadow-inner flex items-center justify-center text-[10px] text-white font-black"
+                            style={{ backgroundColor: hex }}
+                          >
+                            {scrapIdx + 1}
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <span className="text-[11px] font-bold text-stone-800 capitalize truncate block">
+                              {scrap.color} {scrap.print === 'printed' ? '🌸' : ''}
+                            </span>
+                            <span className="text-[10px] text-stone-500 block">
+                              {scrap.cutWidth} × {scrap.cutHeight} cm
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Per-Part Pattern Override Selector */}
+                <div className="mt-3 pt-2 border-t border-stone-100 flex items-center justify-between text-xs">
+                  <span className="text-[11px] text-stone-500 font-medium">
+                    Panel Pattern:
+                  </span>
+                  <select
+                    value={currentPattern}
+                    onChange={(e) => handleUpdateZonePattern(placement.zoneId, e.target.value)}
+                    className="bg-stone-50 border border-stone-300 text-stone-800 text-xs rounded-xl px-2.5 py-1 font-semibold focus:outline-emerald-600"
+                  >
+                    {patternList.map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {p.icon} {p.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Fabric Numbers (STRICT RULE 6 FORMAT) */}
+      <FabricNumbersCard
+        fabricUsedInSeamsCm2={design.fabricUsedInSeamsCm2 || 0}
+        fabricTooSmallToReuseCm2={design.fabricTooSmallToReuseCm2 || 0}
+        reusableLeftoversCount={design.reusableLeftoversCount || design.leftovers?.length || 0}
+        wastePercentage={design.wastePercentage || 0}
+        totalAreaCm2={totalPileArea}
+        t={t}
+      />
+
+      {/* Main Action Buttons */}
+      <div className="space-y-2 pt-2">
+        <button
+          type="button"
+          onClick={onOpenCustomize}
+          className="w-full py-3.5 bg-emerald-700 hover:bg-emerald-800 text-white font-extrabold text-xs rounded-2xl shadow-md flex items-center justify-center gap-2 transition"
+        >
+          <Edit3 className="w-4 h-4" />
+          <span>{t.customizeBtn}</span>
+        </button>
+
+        <div className="grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            onClick={onOpenFeasibility}
+            className="py-3 bg-amber-400 hover:bg-amber-300 text-stone-900 font-extrabold text-xs rounded-2xl shadow-xs flex items-center justify-center gap-1.5 transition"
+          >
+            <CheckCircle2 className="w-4 h-4" />
+            <span>{t.checkFeasibilityBtn}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={onOpenSizeChoice}
+            className="py-3 bg-stone-200 hover:bg-stone-300 text-stone-800 font-bold text-xs rounded-2xl shadow-xs flex items-center justify-center gap-1.5 transition"
+          >
+            <Maximize2 className="w-4 h-4" />
+            <span>{t.changeSizeBtn}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -27,12 +27,12 @@ export default function HomeScreen({
       title: t.feature1Title,
       desc: t.feature1Desc,
       icon: Scissors,
-      badge: t.feature1Badge,
+      badge: "Stage 2 Studio",
       badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-300',
       cardColor: 'border-emerald-300 bg-gradient-to-br from-emerald-50/80 to-white hover:border-emerald-500',
       iconBg: 'bg-emerald-600 text-white',
       stageReady: true,
-      action: () => onSelectFeature('add'),
+      action: () => onSelectFeature(pileCount > 0 ? 'what_can_i_make' : 'add'),
     },
     {
       id: 'old-restyle',
@@ -113,8 +113,16 @@ export default function HomeScreen({
           <div className="mt-4 flex flex-wrap gap-2">
             <button
               type="button"
-              onClick={() => onSelectFeature('add')}
+              onClick={() => onSelectFeature('what_can_i_make')}
               className="px-4 py-2 bg-amber-400 hover:bg-amber-300 text-stone-900 rounded-xl font-bold text-xs flex items-center gap-1.5 shadow-sm transition"
+            >
+              <Sparkles className="w-4 h-4 text-stone-900" />
+              <span>{t.whatCanIMakeTitle}</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => onSelectFeature('add')}
+              className="px-3.5 py-2 bg-emerald-800/90 hover:bg-emerald-700 text-emerald-100 rounded-xl font-semibold text-xs flex items-center gap-1.5 border border-emerald-600 transition"
             >
               <PlusCircle className="w-4 h-4" />
               <span>{t.addScrap}</span>
@@ -122,7 +130,7 @@ export default function HomeScreen({
             <button
               type="button"
               onClick={() => onSelectFeature('pile')}
-              className="px-3.5 py-2 bg-emerald-800/90 hover:bg-emerald-700 text-emerald-100 rounded-xl font-semibold text-xs flex items-center gap-1.5 border border-emerald-600 transition"
+              className="px-3 py-2 bg-emerald-800/90 hover:bg-emerald-700 text-emerald-100 rounded-xl font-semibold text-xs flex items-center gap-1.5 border border-emerald-600 transition"
             >
               <Layers className="w-4 h-4" />
               <span>{t.myPile} ({pileCount})</span>

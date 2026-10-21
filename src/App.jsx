@@ -11,10 +11,17 @@ import AddPieceScreen from './screens/AddPieceScreen';
 import FabricFeelScreen from './screens/FabricFeelScreen';
 import MyPileScreen from './screens/MyPileScreen';
 import StitchingGuidesScreen from './screens/StitchingGuidesScreen';
+import WhatCanIMakeScreen from './screens/WhatCanIMakeScreen';
+import DesignViewScreen from './screens/DesignViewScreen';
+import CustomizeScreen from './screens/CustomizeScreen';
+import SizeChoiceScreen from './screens/SizeChoiceScreen';
+import FeasibilityScreen from './screens/FeasibilityScreen';
 
 import { translations } from './i18n/translations';
 import { INITIAL_SAMPLE_PIECES } from './utils/storage';
 import { soundManager } from './utils/audio';
+import { buildDesign } from './engine/index';
+import { getTranslatedProductName, getTranslatedSizeLabel } from './utils/zoneHelper';
 import { Smartphone, Monitor } from 'lucide-react';
 
 export default function App() {
@@ -64,6 +71,7 @@ export default function App() {
   const [history, setHistory] = useState([]);
   const [future, setFuture] = useState([]);
   const [editingPiece, setEditingPiece] = useState(null);
+  const [selectedDesign, setSelectedDesign] = useState(null);
 
   const t = translations[lang] || translations.en;
 
@@ -93,6 +101,13 @@ export default function App() {
       document.body.classList.remove('large-text');
     }
   }, [largeText]);
+
+  // Scroll to top when activeTab or selectedDesign changes so sticky header never overlaps top banners
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    const mainEl = document.querySelector('main');
+    if (mainEl) mainEl.scrollTop = 0;
+  }, [activeTab, selectedDesign]);
 
   // Push new state to history for Undo
   const pushState = (newPieces) => {
@@ -210,14 +225,49 @@ export default function App() {
   } else if (activeTab === 'guides') {
     screenTitle = t.feature5Title;
     speakText = `${t.feature5Title}. ${t.feature5Desc}`;
+  } else if (activeTab === 'what_can_i_make') {
+    screenTitle = t.whatCanIMakeTitle;
+    speakText = `${t.whatCanIMakeTitle}. ${t.whatCanIMakeSub}`;
+    if (lang === 'te') {
+      speakPhonetic = "Emi tayaru cheyavachu. Mee deggarunna mukkalu kolathalatho saripoye tailor designlu.";
+    } else if (lang === 'hi') {
+      speakPhonetic = "Kya bana sakte hain. Aapki katranon ki naap ke anusaar banne wale behtareen design.";
+    }
+  } else if (activeTab === 'design_view') {
+    if (selectedDesign) {
+      const pName = getTranslatedProductName(selectedDesign.productId, selectedDesign.productName, t);
+      const sLabel = getTranslatedSizeLabel(selectedDesign.sizeKey, selectedDesign.sizeLabel, t);
+      screenTitle = `${pName} (${sLabel})`;
+    } else {
+      screenTitle = t.designViewTitle;
+    }
+    speakText = `${t.designViewTitle}. ${screenTitle}`;
+  } else if (activeTab === 'customize') {
+    screenTitle = t.customizeTitle;
+    speakText = `${t.customizeTitle}. ${t.customizeSub}`;
+  } else if (activeTab === 'size_choice') {
+    screenTitle = t.sizeChoiceTitle;
+    speakText = `${t.sizeChoiceTitle}. ${t.standardSizeNotice}`;
+  } else if (activeTab === 'feasibility') {
+    screenTitle = t.feasibilityTitle;
+    speakText = selectedDesign?.fits ? t.feasibleYesTitle : t.feasibleNoTitle;
   }
 
   // Open context help
-  const handleOpenHelp = () => {
+  const handleOpenHelp = (override = null) => {
+    if (override && override.title) {
+      setHelpInfo(override);
+      return;
+    }
     let msg = t.helpHome;
     if (activeTab === 'add') msg = t.helpAddPiece;
     else if (activeTab === 'pile') msg = t.helpPile;
     else if (activeTab === 'tips') msg = t.helpFeel;
+    else if (activeTab === 'what_can_i_make') msg = t.helpWhatCanIMake;
+    else if (activeTab === 'design_view') msg = t.helpDesignView;
+    else if (activeTab === 'customize') msg = t.helpCustomize;
+    else if (activeTab === 'size_choice') msg = t.helpSizeChoice;
+    else if (activeTab === 'feasibility') msg = t.helpFeasibility;
     setHelpInfo({ title: t.helpTitle, message: msg });
   };
 
@@ -304,7 +354,7 @@ export default function App() {
         />
 
         {/* Screen Content Body */}
-        <main className="flex-1 p-4 overflow-y-auto">
+        <main className="flex-1 p-4 pb-36 overflow-y-auto min-h-0">
           {activeTab === 'home' && (
             <HomeScreen
               onSelectFeature={(featureTab) => {
@@ -346,6 +396,133 @@ export default function App() {
                 setEditingPiece(null);
                 setActiveTab('add');
               }}
+              onWhatCanIMake={() => setActiveTab('what_can_i_make')}
+              t={t}
+              lang={lang}
+            />
+          )}
+
+          {activeTab === 'what_can_i_make' && (
+            <WhatCanIMakeScreen
+              pieces={pieces}
+              onSelectDesign={(item) => {
+                const activePile = pieces.filter((p) => p.included);
+                const fullDesign = buildDesign(
+                  activePile,
+                  item.productId,
+                  item.sizeKey,
+                  item.style || 'patchwork',
+                  { variant: item.variant || 'plain' }
+                );
+                setSelectedDesign(fullDesign.success ? fullDesign : item);
+                setActiveTab('design_view');
+              }}
+              onCheckFeasibility={(item) => {
+                const activePile = pieces.filter((p) => p.included);
+                const fullDesign = buildDesign(
+                  activePile,
+                  item.productId,
+                  item.sizeKey,
+                  item.style || 'patchwork',
+                  { variant: item.variant || 'plain' }
+                );
+                setSelectedDesign(fullDesign.success ? fullDesign : item);
+                setActiveTab('feasibility');
+              }}
+              onAddMorePieces={() => setActiveTab('add')}
+              onOpenHelp={handleOpenHelp}
+              t={t}
+              lang={lang}
+            />
+          )}
+
+          {activeTab === 'design_view' && selectedDesign && (
+            <DesignViewScreen
+              design={selectedDesign}
+              pile={pieces.filter((p) => p.included)}
+              onBack={() => setActiveTab('what_can_i_make')}
+              onOpenCustomize={() => setActiveTab('customize')}
+              onOpenFeasibility={() => setActiveTab('feasibility')}
+              onOpenSizeChoice={() => setActiveTab('size_choice')}
+              onOpenHelp={handleOpenHelp}
+              t={t}
+              lang={lang}
+            />
+          )}
+
+          {activeTab === 'customize' && selectedDesign && (
+            <CustomizeScreen
+              initialDesign={selectedDesign}
+              pile={pieces.filter((p) => p.included)}
+              onSave={(updated) => {
+                setSelectedDesign(updated);
+                setActiveTab('design_view');
+              }}
+              onCancel={() => setActiveTab('design_view')}
+              onOpenHelp={handleOpenHelp}
+              t={t}
+              lang={lang}
+            />
+          )}
+
+          {activeTab === 'size_choice' && selectedDesign && (
+            <SizeChoiceScreen
+              productId={selectedDesign.productId}
+              currentSizeKey={selectedDesign.sizeKey}
+              variant={selectedDesign.variant || 'plain'}
+              pile={pieces.filter((p) => p.included)}
+              onSelectSize={(newSizeKey) => {
+                const activePile = pieces.filter((p) => p.included);
+                const updated = buildDesign(
+                  activePile,
+                  selectedDesign.productId,
+                  newSizeKey,
+                  selectedDesign.style || 'patchwork',
+                  { variant: selectedDesign.variant || 'plain' }
+                );
+                setSelectedDesign(updated);
+                setActiveTab('design_view');
+              }}
+              onBack={() => setActiveTab('design_view')}
+              onOpenHelp={handleOpenHelp}
+              t={t}
+              lang={lang}
+            />
+          )}
+
+          {activeTab === 'feasibility' && selectedDesign && (
+            <FeasibilityScreen
+              design={selectedDesign}
+              pile={pieces.filter((p) => p.included)}
+              onTrySmallerSize={() => setActiveTab('size_choice')}
+              onTryPlainVariant={() => {
+                const activePile = pieces.filter((p) => p.included);
+                const updated = buildDesign(
+                  activePile,
+                  selectedDesign.productId,
+                  selectedDesign.sizeKey,
+                  selectedDesign.style || 'patchwork',
+                  { variant: 'plain' }
+                );
+                setSelectedDesign(updated);
+                setActiveTab('design_view');
+              }}
+              onSelectAlternative={(alt) => {
+                const activePile = pieces.filter((p) => p.included);
+                const fullDesign = buildDesign(
+                  activePile,
+                  alt.productId,
+                  alt.sizeKey,
+                  alt.style || 'patchwork',
+                  { variant: alt.variant || 'plain' }
+                );
+                setSelectedDesign(fullDesign.success ? fullDesign : alt);
+                setActiveTab('design_view');
+              }}
+              onPickAnotherProduct={() => setActiveTab('what_can_i_make')}
+              onAddMoreFabric={() => setActiveTab('add')}
+              onBack={() => setActiveTab(selectedDesign.fits ? 'design_view' : 'what_can_i_make')}
+              onOpenHelp={handleOpenHelp}
               t={t}
               lang={lang}
             />

@@ -52,6 +52,14 @@ import {
   scoreColorHarmony,
 } from './scoring.js';
 import { suggestProducts, buildDesign, checkFeasibility } from './index.js';
+import { 
+  getZoneDimensions, 
+  getTranslatedProductName, 
+  getTranslatedSizeLabel, 
+  getTranslatedZoneName, 
+  parseMissingReasonDetails 
+} from '../utils/zoneHelper.js';
+import { translations } from '../i18n/translations.js';
 
 // ============================================================================
 // TEST HARNESS
@@ -817,6 +825,91 @@ test('36 plain 14x14 scraps fit Plain Medium Cushion Cover completely', () => {
   const medFit = fitPileToProduct(pile36, 'cushion_cover', 'medium', 1.0, 'plain');
   assertEqual(medFit.fits, true, '36 scraps of 14x14 cm must fit plain medium cushion (16 front + 12 upper + 8 lower)');
   assertEqual(medFit.placements.length, 3, 'All 3 plain cushion zones must be satisfied');
+});
+
+// ============================================================================
+// PART A.12: ZONE DIMENSION VERIFICATION & TRANSLATIONS
+// ============================================================================
+console.log('\n--- 12. Zone Dimensions (cm & inches) & Fallback Protection ---');
+
+test('Every product, size, and zone has valid positive dimensions in cm and inches', () => {
+  for (const [prodId, prod] of Object.entries(PRODUCT_TEMPLATES)) {
+    for (const [sizeKey, sizeObj] of Object.entries(prod.sizes)) {
+      const variantsToTest = sizeObj.variants ? Object.keys(sizeObj.variants) : ['plain'];
+      for (const variant of variantsToTest) {
+        const zones = (sizeObj.variants && sizeObj.variants[variant]) || sizeObj.zones || [];
+        for (const zone of zones) {
+          const dims = getZoneDimensions(prodId, sizeKey, zone.id, {}, variant);
+          assertEqual(dims.finishedWidth > 0, true, `${prodId} ${sizeKey} ${zone.id} finishedWidth must be > 0`);
+          assertEqual(dims.finishedHeight > 0, true, `${prodId} ${sizeKey} ${zone.id} finishedHeight must be > 0`);
+          assertEqual(dims.cutWidth, dims.finishedWidth + 2, `${prodId} ${sizeKey} ${zone.id} cutWidth must be finishedWidth + 2`);
+          assertEqual(dims.cutHeight, dims.finishedHeight + 2, `${prodId} ${sizeKey} ${zone.id} cutHeight must be finishedHeight + 2`);
+          assertEqual(/\d+\s*×\s*\d+\s*cm/.test(dims.finishedCmText), true, 'finishedCmText must have real numbers');
+          assertEqual(/\d+(\.\d+)?\s*×\s*\d+(\.\d+)?\s*in/.test(dims.finishedInText), true, 'finishedInText must have real numbers');
+          assertEqual(/\d+\s*×\s*\d+\s*cm/.test(dims.cutCmText), true, 'cutCmText must have real numbers');
+          assertEqual(/\d+(\.\d+)?\s*×\s*\d+(\.\d+)?\s*in/.test(dims.cutInText), true, 'cutInText must have real numbers');
+          assertEqual(dims.fullFinishedText.includes('cm') && dims.fullFinishedText.includes('in'), true, 'fullFinishedText must contain both cm and inches');
+          assertEqual(dims.fullCutText.includes('cm') && dims.fullCutText.includes('in'), true, 'fullCutText must contain both cm and inches');
+        }
+      }
+    }
+  }
+});
+
+test('Fallback handles custom placement with scrap dimensions if zone not in template', () => {
+  const placementWithScraps = {
+    zoneId: 'custom_patch_strip',
+    scraps: [{ cutWidth: 16, cutHeight: 20 }, { cutWidth: 10, cutHeight: 12 }],
+  };
+  const dims = getZoneDimensions('non_existent_product', 'unknown_size', 'custom_patch_strip', placementWithScraps);
+  assertEqual(dims.finishedWidth, 14, 'Should derive finishedWidth = max cutWidth(16) - 2 = 14');
+  assertEqual(dims.finishedHeight, 18, 'Should derive finishedHeight = max cutHeight(20) - 2 = 18');
+  assertEqual(dims.cutWidth, 16, 'Cut width must be 16 cm');
+  assertEqual(dims.cutHeight, 20, 'Cut height must be 20 cm');
+  assertEqual(dims.finishedCmText, '14 × 18 cm', 'Must produce valid cm text');
+});
+
+test('Visible fallback ensures dimensions never show empty or "Finished: × cm"', () => {
+  // Completely empty placement and non-existent product
+  const dims = getZoneDimensions('fake_product', 'fake_size', 'fake_zone', {});
+  assertEqual(dims.finishedWidth > 0, true, 'Default fallback finishedWidth must be > 0');
+  assertEqual(dims.finishedHeight > 0, true, 'Default fallback finishedHeight must be > 0');
+  assertEqual(dims.finishedCmText, '15 × 15 cm', 'Must provide reliable default dimensions');
+  assertEqual(dims.cutCmText, '17 × 17 cm', 'Must provide cut dimensions with seam allowance');
+  assertEqual(dims.fullFinishedText, '15 × 15 cm (5.9 × 5.9 in)', 'Must format finished text with inches');
+  assertEqual(dims.fullCutText, '17 × 17 cm (6.7 × 6.7 in)', 'Must format cut text with inches');
+});
+
+test('Translations helper translates product, size, and zone names in English, Telugu, and Hindi', () => {
+  const tEn = translations.en;
+  const tTe = translations.te;
+  const tHi = translations.hi;
+
+  // Products
+  assertEqual(getTranslatedProductName('cushion_cover', 'Cushion', tEn), 'Patchwork Cushion Cover', 'English product name');
+  assertEqual(getTranslatedProductName('cushion_cover', 'Cushion', tTe), 'ప్యాచ్‌వర్క్ కుషన్ కవర్', 'Telugu product name');
+  assertEqual(getTranslatedProductName('cushion_cover', 'Cushion', tHi), 'पैचवर्क कुशन कवर', 'Hindi product name');
+
+  // Sizes
+  assertEqual(getTranslatedSizeLabel('medium', 'Medium', tEn), 'Medium', 'English size');
+  assertEqual(getTranslatedSizeLabel('medium', 'Medium', tTe), 'మధ్యస్థం', 'Telugu size');
+  assertEqual(getTranslatedSizeLabel('medium', 'Medium', tHi), 'मध्यम', 'Hindi size');
+
+  // Zones
+  assertEqual(getTranslatedZoneName('front_main_panel', 'Front Main Panel', tEn), 'Front Main Panel', 'English zone');
+  assertEqual(getTranslatedZoneName('front_main_panel', 'Front Main Panel', tTe), 'ముందు ప్రధాన ప్యానెల్', 'Telugu zone');
+  assertEqual(getTranslatedZoneName('front_main_panel', 'Front Main Panel', tHi), 'सामने का मुख्य पैनल', 'Hindi zone');
+
+  // parseMissingReasonDetails
+  const missingText = 'Not enough fabric to complete all zones. Missing pieces for: Back Main Body (30 × 32 cm, base role). Try a smaller size or add matching scrap fabric.';
+  const parsedEn = parseMissingReasonDetails(missingText, 'tote_bag', 'medium', tEn);
+  assertEqual(parsedEn.missingPieces.length, 1, 'Should extract 1 missing piece in EN');
+  assertEqual(parsedEn.missingPieces[0].rawName, 'Back Main Body', 'Should extract raw name');
+  assertEqual(parsedEn.missingPieces[0].dimensions, '30 × 32 cm (11.8 × 12.6 in)', 'Should format dimensions with inches');
+
+  const parsedTe = parseMissingReasonDetails(missingText, 'tote_bag', 'medium', tTe);
+  assertEqual(parsedTe.missingPieces.length, 1, 'Should extract 1 missing piece in TE');
+  assertEqual(parsedTe.missingPieces[0].translatedName, 'వెనుక ప్రధాన భాగం', 'Should translate zone name to Telugu');
 });
 
 // ============================================================================

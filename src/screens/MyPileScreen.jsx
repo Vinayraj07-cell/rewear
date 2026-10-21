@@ -27,6 +27,7 @@ export default function MyPileScreen({
   onDuplicate, 
   onEditPiece, 
   onAddNew, 
+  onWhatCanIMake,
   t, 
   lang 
 }) {
@@ -84,24 +85,35 @@ export default function MyPileScreen({
 
   return (
     <div className="space-y-4 pb-28">
-      {/* Stage 1 Complete & Ready for Stage 2 Banner */}
+      {/* Stage 2 Active: What Can I Make Banner */}
       <div className="bg-gradient-to-r from-emerald-800 to-teal-900 text-white rounded-3xl p-4 shadow-md border-2 border-emerald-400/60 relative overflow-hidden">
         <div className="flex items-start space-x-3">
-          <div className="p-2 rounded-2xl bg-emerald-500/30 text-amber-300 border border-emerald-400/40">
-            <CheckCircle2 className="w-6 h-6 stroke-[2.5]" />
+          <div className="p-2 rounded-2xl bg-amber-400 text-stone-950 font-black text-xl shadow-sm">
+            ✨
           </div>
-          <div>
+          <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
               <h2 className="text-sm font-bold text-white tracking-tight">
-                {t.stage2ReadyBanner}
+                {t.whatCanIMakeTitle}
               </h2>
               <span className="text-[10px] bg-amber-400 text-stone-900 font-extrabold px-1.5 py-0.5 rounded uppercase">
-                Checkpoint
+                Stage 2
               </span>
             </div>
             <p className="text-xs text-emerald-100 mt-1 leading-snug">
-              {t.stage2ReadyDesc}
+              {t.whatCanIMakeSub}
             </p>
+            {onWhatCanIMake && (
+              <button
+                type="button"
+                onClick={onWhatCanIMake}
+                className="mt-3 w-full py-2.5 px-4 bg-amber-400 hover:bg-amber-300 text-stone-950 font-black text-xs rounded-xl shadow-sm flex items-center justify-center gap-2 transition"
+              >
+                <Sparkles className="w-4 h-4 text-stone-900" />
+                <span>{t.whatCanIMakeTitle} ({activePieces.length} scraps)</span>
+                <ArrowRight className="w-4 h-4 text-stone-900" />
+              </button>
+            )}
           </div>
         </div>
       </div>
