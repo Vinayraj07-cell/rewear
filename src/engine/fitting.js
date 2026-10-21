@@ -431,23 +431,71 @@ export function fitPileToProduct(
     };
   }
 
-  // 1. Assign 60-30-10 zoning roles
-  const zoning = assignZoningRoles(pile, requirements);
-  if (!zoning.hasGoodBase) {
+  // Categorize zones by fabric source (scrap vs plain_base)
+  const sourcingOverrides = (options && (options.pieceSourcing || options.fabricSourceOverrides)) || {};
+
+  const categorizedZones = requirements.zones.map((zone) => {
+    const override = sourcingOverrides[zone.id] || sourcingOverrides[zone.baseZoneId];
+    const rawSource = override || zone.fabricSource || 'scrap';
+    // For existing products, 'either' strictly means 'scrap'
+    const resolvedSource = rawSource === 'either' ? 'scrap' : rawSource;
+    const scrapEligible = resolvedSource !== 'plain_base' && zone.scrapEligible !== false;
     return {
-      fits: false,
-      missing: zoning.fallbackReason,
-      suggestions: zoning.suggestions,
-      warnings: zoning.warnings || [],
-      hasAnchorWarning: Boolean(zoning.hasAnchorWarning),
-      placements: [],
-      leftovers: pile,
-      fabricUsedInSeamsCm2: 0,
-      fabricTooSmallToReuseCm2: 0,
-      trimWasteAreaCm2: 0,
-      seamLossAreaCm2: 0,
-      wastePercentage: 100,
-      zoningBreakdown: zoning.breakdown,
+      ...zone,
+      fabricSource: resolvedSource,
+      scrapEligible,
+    };
+  });
+
+  const scrapZones = categorizedZones.filter((z) => z.scrapEligible);
+  const plainBaseZones = categorizedZones.filter((z) => !z.scrapEligible);
+
+  // 1. Assign 60-30-10 zoning roles for scrap-eligible pieces
+  let zoning;
+  if (scrapZones.length > 0) {
+    const scrapRequirements = {
+      ...requirements,
+      zones: scrapZones,
+      totalAreaNeeded: scrapZones.reduce((sum, z) => sum + (z.cutWidth * z.cutHeight), 0),
+      totalFinishedArea: scrapZones.reduce((sum, z) => sum + (z.finishedWidth * z.finishedHeight), 0),
+    };
+    zoning = assignZoningRoles(pile, scrapRequirements);
+    if (!zoning.hasGoodBase) {
+      return {
+        fits: false,
+        missing: zoning.fallbackReason,
+        suggestions: zoning.suggestions,
+        warnings: zoning.warnings || [],
+        hasAnchorWarning: Boolean(zoning.hasAnchorWarning),
+        placements: [],
+        leftovers: pile,
+        fabricUsedInSeamsCm2: 0,
+        fabricTooSmallToReuseCm2: 0,
+        trimWasteAreaCm2: 0,
+        seamLossAreaCm2: 0,
+        wastePercentage: 100,
+        zoningBreakdown: zoning.breakdown,
+        plainBase: {
+          piecesCount: plainBaseZones.length,
+          totalCutAreaCm2: plainBaseZones.reduce((sum, z) => sum + (z.cutWidth * z.cutHeight), 0),
+          boltWidthCm: CONFIG.BOLT_WIDTH_CM || 110,
+          lengthNeededCm: 0,
+          yardageNeededMeters: 0,
+          pieces: plainBaseZones,
+        },
+        yardageNeededMeters: 0,
+      };
+    }
+  } else {
+    // 100% plain base garment: no scraps required from pile
+    zoning = {
+      hasGoodBase: true,
+      basePieces: [],
+      supportingPieces: [],
+      accentPieces: [],
+      breakdown: { basePct: 0, supportingPct: 0, accentPct: 0 },
+      warnings: [],
+      hasAnchorWarning: false,
     };
   }
 
@@ -480,7 +528,7 @@ export function fitPileToProduct(
   let totalExtraSeams = 0;
 
   // Process zones in priority order: Base zones first (largest), then Supporting, then Accent
-  const sortedZones = [...requirements.zones].sort((a, b) => {
+  const sortedZones = [...scrapZones].sort((a, b) => {
     const roleOrder = { base: 1, supporting: 2, accent: 3 };
     return (roleOrder[a.role] || 9) - (roleOrder[b.role] || 9);
   });
@@ -517,6 +565,7 @@ export function fitPileToProduct(
           zoneId: zone.id,
           zoneName: zone.name,
           role: zone.role,
+          fabricSource: zone.fabricSource || 'scrap',
           method: 'single_piece',
           scraps: [
             {
@@ -625,6 +674,7 @@ export function fitPileToProduct(
           zoneId: zone.id,
           zoneName: zone.name,
           role: zone.role,
+          fabricSource: zone.fabricSource || 'scrap',
           method: patchworkResult.patchCount === 1 ? 'single_piece' : 'pieced_patches',
           patchCount: patchworkResult.patchCount,
           seamsCount: patchworkResult.seamsCount,
@@ -728,6 +778,7 @@ export function fitPileToProduct(
             zoneId: zone.id,
             zoneName: zone.name,
             role: zone.role,
+            fabricSource: zone.fabricSource || 'scrap',
             method: patchworkResult.patchCount === 1 ? 'single_piece' : 'pieced_patches',
             patchCount: patchworkResult.patchCount,
             seamsCount: patchworkResult.seamsCount,
@@ -762,6 +813,33 @@ export function fitPileToProduct(
       }
     }
   }
+
+  // Process plain_base zones: zero scraps consumed from pile, zero pieced seams, full finished area tracked
+  for (const zone of plainBaseZones) {
+    totalFinishedAreaCovered += zone.finishedWidth * zone.finishedHeight;
+    placements.push({
+      zoneId: zone.id,
+      zoneName: zone.name,
+      role: zone.role,
+      method: 'plain_base',
+      fabricSource: 'plain_base',
+      scraps: [],
+      seamsCount: 0,
+      cutWidth: zone.cutWidth,
+      cutHeight: zone.cutHeight,
+      finishedWidth: zone.finishedWidth,
+      finishedHeight: zone.finishedHeight,
+    });
+  }
+
+  // Calculate plain base continuous yardage (assuming standard bolt width with safety margin)
+  const boltWidthCm = CONFIG.BOLT_WIDTH_CM || 110;
+  const plainBaseTotalCutArea = plainBaseZones.reduce((sum, z) => sum + (z.cutWidth * z.cutHeight), 0);
+  const safetyMargin = 1.15;
+  const lengthNeededCm = plainBaseZones.length > 0
+    ? Math.ceil((plainBaseTotalCutArea / boltWidthCm) * safetyMargin)
+    : 0;
+  const yardageNeededMeters = Number((lengthNeededCm / 100).toFixed(2));
 
   // Collect completely unused pieces
   const unusedScraps = availablePool
@@ -821,5 +899,271 @@ export function fitPileToProduct(
     missing: missingMessage,
     missingDetails: missingRequirements,
     zoningBreakdown: zoning.breakdown,
+    plainBase: {
+      piecesCount: plainBaseZones.length,
+      totalCutAreaCm2: plainBaseTotalCutArea,
+      boltWidthCm,
+      lengthNeededCm,
+      yardageNeededMeters,
+      pieces: plainBaseZones.map((z) => ({
+        id: z.id,
+        name: z.name,
+        cutWidth: z.cutWidth,
+        cutHeight: z.cutHeight,
+        finishedWidth: z.finishedWidth,
+        finishedHeight: z.finishedHeight,
+      })),
+    },
+    yardageNeededMeters,
+  };
+}
+
+/**
+ * Packs garment pattern pieces onto a rectangular pieced patchwork sheet
+ * (or calculates required sheet size if not given).
+ * 
+ * Guarantees:
+ * 1. Zero Overlap: Disjoint interior between piece cut bounding boxes.
+ * 2. Seam Allowance Included: Every piece's perimeter seam allowance is fully inside the sheet boundaries.
+ * 3. Clearance: Minimum separation of clearanceCm (default 0.5 cm) between piece cut boundaries for tailor shears.
+ * 4. Containment: Every piece satisfies 0 <= x and x + width <= sheetWidth, 0 <= y and y + height <= sheetHeight.
+ * 
+ * Note: Bounding-box packing is v1 only. For curved pieces, axis-aligned bounding boxes
+ * overestimate the required area compared to nested polygon packing.
+ * 
+ * @param {Array<Object>} pieces - Array of pieces or zones (with cutWidth/cutHeight or width/height/geometry)
+ * @param {Object} [options] - Options:
+ *   - sheetWidth {number} [optional]: Target sheet width (cm).
+ *   - sheetHeight {number} [optional]: Target sheet height (cm).
+ *   - clearanceCm {number}: Gap between cut pieces (default: 0.5 cm).
+ *   - marginCm {number}: Outer border margin / seam allowance of the master sheet (default: 1.0 cm).
+ *   - seamAllowanceCm {number}: Seam allowance to add if pieces only specify finished dimensions (default: 1.0 cm).
+ * @returns {Object} {
+ *   fits: boolean,
+ *   sheetWidth: number,
+ *   sheetHeight: number,
+ *   sheetAreaCm2: number,
+ *   totalPiecesAreaCm2: number,
+ *   packingEfficiency: number,
+ *   clearanceCm: number,
+ *   marginCm: number,
+ *   placements: Array<{ id: string, name: string, x: number, y: number, width: number, height: number, cutWidth: number, cutHeight: number, bounds: Object }>,
+ *   collisions: Array<[string, string]>,
+ *   overflow: boolean,
+ * }
+ */
+export function packPiecesOnSheet(pieces, options = {}) {
+  const clearanceCm = options.clearanceCm ?? CONFIG.CUTTING_CLEARANCE_CM ?? 0.5;
+  const marginCm = options.marginCm ?? options.seamAllowanceCm ?? CONFIG.SEAM_ALLOWANCE_CM ?? 1.0;
+  const defaultSA = options.seamAllowanceCm ?? CONFIG.SEAM_ALLOWANCE_CM ?? 1.0;
+
+  if (!Array.isArray(pieces) || pieces.length === 0) {
+    return {
+      fits: true,
+      sheetWidth: 0,
+      sheetHeight: 0,
+      sheetAreaCm2: 0,
+      totalPiecesAreaCm2: 0,
+      packingEfficiency: 1,
+      clearanceCm,
+      marginCm,
+      placements: [],
+      collisions: [],
+      overflow: false,
+    };
+  }
+
+  // Normalize pieces: ensure each has cutWidth and cutHeight (including perimeter seam allowance)
+  const normPieces = pieces.map((p, idx) => {
+    const id = p.id || `piece_${idx + 1}`;
+    const name = p.name || id;
+    let cutW, cutH;
+
+    if (p.cutWidth !== undefined && p.cutHeight !== undefined) {
+      cutW = p.cutWidth;
+      cutH = p.cutHeight;
+    } else if (p.geometry && p.geometry.boundingBoxMm) {
+      const saMm = (p.seamAllowanceCm?.defaultCm ?? defaultSA) * 10;
+      const bb = p.geometry.boundingBoxMm;
+      cutW = ((bb.maxX - bb.minX) + 2 * saMm) / 10;
+      cutH = ((bb.maxY - bb.minY) + 2 * saMm) / 10;
+    } else {
+      const w = p.width !== undefined ? p.width : (p.geometry?.finishedWidthCm || 0);
+      const h = p.height !== undefined ? p.height : (p.geometry?.finishedHeightCm || 0);
+      const sa = typeof p.seamAllowanceCm === 'number'
+        ? p.seamAllowanceCm
+        : (p.seamAllowanceCm?.defaultCm ?? defaultSA);
+      cutW = w + 2 * sa;
+      cutH = h + 2 * sa;
+    }
+
+    return {
+      id,
+      name,
+      cutWidth: Number(cutW.toFixed(2)),
+      cutHeight: Number(cutH.toFixed(2)),
+      rawPiece: p,
+      x: p.x,
+      y: p.y,
+    };
+  });
+
+  const totalPiecesAreaCm2 = normPieces.reduce((sum, p) => sum + p.cutWidth * p.cutHeight, 0);
+
+  let sheetW = options.sheetWidth;
+  let sheetH = options.sheetHeight;
+  let placements = [];
+  let overflow = false;
+
+  // Case A: Pieces already have coordinates (validation mode)
+  const hasUserCoords = normPieces.every((p) => p.x !== undefined && p.y !== undefined);
+  if (hasUserCoords) {
+    placements = normPieces.map((p) => ({
+      id: p.id,
+      name: p.name,
+      x: p.x,
+      y: p.y,
+      width: p.cutWidth,
+      height: p.cutHeight,
+      cutWidth: p.cutWidth,
+      cutHeight: p.cutHeight,
+      bounds: {
+        minX: p.x,
+        minY: p.y,
+        maxX: Number((p.x + p.cutWidth).toFixed(2)),
+        maxY: Number((p.y + p.cutHeight).toFixed(2)),
+      },
+    }));
+
+    if (!sheetW) {
+      sheetW = Math.max(...placements.map((p) => p.bounds.maxX)) + marginCm;
+    }
+    if (!sheetH) {
+      sheetH = Math.max(...placements.map((p) => p.bounds.maxY)) + marginCm;
+    }
+  } else {
+    // Case B: Auto-packing using 2D First-Fit Decreasing Height (FFDH) Shelf Packing
+    const sorted = [...normPieces].sort((a, b) => b.cutHeight - a.cutHeight || b.cutWidth - a.cutWidth);
+
+    let targetWidth = sheetW;
+    if (!targetWidth) {
+      const maxPieceW = Math.max(...sorted.map((p) => p.cutWidth));
+      const heuristicW = Math.ceil(Math.sqrt(totalPiecesAreaCm2 * 1.5));
+      targetWidth = Math.max(maxPieceW + 2 * marginCm, heuristicW);
+    }
+
+    let currentX = marginCm;
+    let shelfY = marginCm;
+    let shelfHeight = 0;
+
+    for (const piece of sorted) {
+      if (currentX + piece.cutWidth + marginCm <= targetWidth + 0.001) {
+        placements.push({
+          id: piece.id,
+          name: piece.name,
+          x: Number(currentX.toFixed(2)),
+          y: Number(shelfY.toFixed(2)),
+          width: piece.cutWidth,
+          height: piece.cutHeight,
+          cutWidth: piece.cutWidth,
+          cutHeight: piece.cutHeight,
+          bounds: {
+            minX: Number(currentX.toFixed(2)),
+            minY: Number(shelfY.toFixed(2)),
+            maxX: Number((currentX + piece.cutWidth).toFixed(2)),
+            maxY: Number((shelfY + piece.cutHeight).toFixed(2)),
+          },
+        });
+        currentX += piece.cutWidth + clearanceCm;
+        shelfHeight = Math.max(shelfHeight, piece.cutHeight);
+      } else {
+        shelfY += shelfHeight + clearanceCm;
+        currentX = marginCm;
+        shelfHeight = piece.cutHeight;
+
+        if (currentX + piece.cutWidth + marginCm > targetWidth + 0.001) {
+          if (sheetW) {
+            overflow = true;
+          } else {
+            targetWidth = currentX + piece.cutWidth + marginCm;
+          }
+        }
+
+        placements.push({
+          id: piece.id,
+          name: piece.name,
+          x: Number(currentX.toFixed(2)),
+          y: Number(shelfY.toFixed(2)),
+          width: piece.cutWidth,
+          height: piece.cutHeight,
+          cutWidth: piece.cutWidth,
+          cutHeight: piece.cutHeight,
+          bounds: {
+            minX: Number(currentX.toFixed(2)),
+            minY: Number(shelfY.toFixed(2)),
+            maxX: Number((currentX + piece.cutWidth).toFixed(2)),
+            maxY: Number((shelfY + piece.cutHeight).toFixed(2)),
+          },
+        });
+        currentX += piece.cutWidth + clearanceCm;
+      }
+    }
+
+    if (!sheetW) {
+      sheetW = Number((Math.max(...placements.map((p) => p.bounds.maxX)) + marginCm).toFixed(2));
+    }
+    if (!sheetH) {
+      sheetH = Number((Math.max(...placements.map((p) => p.bounds.maxY)) + marginCm).toFixed(2));
+    }
+
+    if (options.sheetHeight && (Math.max(...placements.map((p) => p.bounds.maxY)) + marginCm > options.sheetHeight)) {
+      overflow = true;
+    }
+  }
+
+  // Verification 1: Pairwise collision & clearance
+  const collisions = [];
+  for (let i = 0; i < placements.length; i++) {
+    for (let j = i + 1; j < placements.length; j++) {
+      const a = placements[i];
+      const b = placements[j];
+      const xOverlap = (a.x < b.x + b.width + clearanceCm - 0.001) && (a.x + a.width + clearanceCm - 0.001 > b.x);
+      const yOverlap = (a.y < b.y + b.height + clearanceCm - 0.001) && (a.y + a.height + clearanceCm - 0.001 > b.y);
+      if (xOverlap && yOverlap) {
+        collisions.push([a.id, b.id]);
+      }
+    }
+  }
+
+  // Verification 2: Containment inside sheet boundaries
+  let outOfBounds = false;
+  for (const p of placements) {
+    if (
+      p.x < marginCm - 0.001 ||
+      p.y < marginCm - 0.001 ||
+      p.x + p.width > sheetW - marginCm + 0.001 ||
+      p.y + p.height > sheetH - marginCm + 0.001
+    ) {
+      outOfBounds = true;
+      overflow = true;
+    }
+  }
+
+  const fits = !overflow && collisions.length === 0 && !outOfBounds;
+  const sheetAreaCm2 = Number((sheetW * sheetH).toFixed(2));
+  const packingEfficiency = sheetAreaCm2 > 0 ? Number((totalPiecesAreaCm2 / sheetAreaCm2).toFixed(3)) : 0;
+
+  return {
+    fits,
+    sheetWidth: Number(sheetW.toFixed(2)),
+    sheetHeight: Number(sheetH.toFixed(2)),
+    sheetAreaCm2,
+    totalPiecesAreaCm2: Number(totalPiecesAreaCm2.toFixed(2)),
+    packingEfficiency,
+    clearanceCm,
+    marginCm,
+    placements,
+    collisions,
+    overflow,
   };
 }

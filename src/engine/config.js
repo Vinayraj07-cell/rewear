@@ -22,6 +22,18 @@ export const CONFIG = {
   SEAM_ALLOWANCE_CM: 1.0,
 
   /**
+   * Cutting clearance in centimeters between pattern piece cut lines on a sheet
+   * to accommodate tailor shears. Default: 0.5 cm.
+   */
+  CUTTING_CLEARANCE_CM: 0.5,
+
+  /**
+   * Standard fabric bolt width in centimeters for continuous plain base fabric yardage calculations.
+   * Default: 110 cm (approx 44 inches, standard cotton bolt width).
+   */
+  BOLT_WIDTH_CM: 110,
+
+  /**
    * Minimum dimension (width or height) in cm for a leftover scrap to be saved
    * and returned to the tailor's stock pile instead of considered waste.
    * Scraps smaller than 3x3 cm are considered trim waste.

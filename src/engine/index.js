@@ -60,7 +60,7 @@ export {
   TAILOR_DISCLAIMER,
 } from './templates.js';
 export { assignZoningRoles } from './zoning.js';
-export { fitPileToProduct, canFitSinglePiece, tryJoinTwoPieces, tryMultiPiecePatchwork, cutScrap } from './fitting.js';
+export { fitPileToProduct, canFitSinglePiece, tryJoinTwoPieces, tryMultiPiecePatchwork, cutScrap, packPiecesOnSheet } from './fitting.js';
 export { calculateDesignScore, calculateEstimatedTime, rankSuggestions } from './scoring.js';
 
 /**

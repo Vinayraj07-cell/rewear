@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "test": "node src/engine/test_stage2.js && node src/engine/test_stage2_independent.js && node src/engine/test_gate2_geometry.js && node src/engine/test_gate3_templates_parity.js"
+    "test": "node src/engine/test_stage2.js && node src/engine/test_stage2_independent.js && node src/engine/test_gate2_geometry.js && node src/engine/test_gate3_templates_parity.js && node src/engine/test_gate4_sheet_packing.js"
   },
   "dependencies": {
     "@capacitor/core": "^8.5.3",
