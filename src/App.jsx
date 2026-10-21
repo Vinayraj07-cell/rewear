@@ -16,6 +16,7 @@ import DesignViewScreen from './screens/DesignViewScreen';
 import CustomizeScreen from './screens/CustomizeScreen';
 import SizeChoiceScreen from './screens/SizeChoiceScreen';
 import FeasibilityScreen from './screens/FeasibilityScreen';
+import TailorBlueprintScreen from './screens/TailorBlueprintScreen';
 
 import { translations } from './i18n/translations';
 import { INITIAL_SAMPLE_PIECES, SAMPLE_PILE_A, SAMPLE_PILE_B } from './utils/storage';
@@ -276,6 +277,9 @@ export default function App() {
   } else if (activeTab === 'feasibility') {
     screenTitle = t.feasibilityTitle;
     speakText = selectedDesign?.fits ? t.feasibleYesTitle : t.feasibleNoTitle;
+  } else if (activeTab === 'tailor_blueprint') {
+    screenTitle = 'Tailor Blueprint';
+    speakText = `Tailor Blueprint. ${selectedDesign ? selectedDesign.productName : ''}. Measurements to be verified by a tailor.`;
   }
 
   // Open context help
@@ -470,7 +474,17 @@ export default function App() {
               onOpenCustomize={() => setActiveTab('customize')}
               onOpenFeasibility={() => setActiveTab('feasibility')}
               onOpenSizeChoice={() => setActiveTab('size_choice')}
+              onOpenTailorBlueprint={() => setActiveTab('tailor_blueprint')}
               onOpenHelp={handleOpenHelp}
+              t={t}
+              lang={lang}
+            />
+          )}
+
+          {activeTab === 'tailor_blueprint' && selectedDesign && (
+            <TailorBlueprintScreen
+              design={selectedDesign}
+              onBack={() => setActiveTab('design_view')}
               t={t}
               lang={lang}
             />

@@ -12,7 +12,8 @@ import {
   Scissors, 
   Sparkles,
   ShieldAlert,
-  Edit3
+  Edit3,
+  FileText
 } from 'lucide-react';
 import FabricNumbersCard from '../components/FabricNumbersCard';
 import ProductVisual from '../components/ProductVisual';
@@ -33,6 +34,7 @@ export default function DesignViewScreen({
   onOpenCustomize,
   onOpenFeasibility,
   onOpenSizeChoice,
+  onOpenTailorBlueprint,
   onOpenHelp,
   t,
   lang,
@@ -450,6 +452,15 @@ export default function DesignViewScreen({
 
       {/* Main Action Buttons */}
       <div className="space-y-2 pt-2">
+        <button
+          type="button"
+          onClick={onOpenTailorBlueprint}
+          className="w-full py-3.5 bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs rounded-2xl shadow-md flex items-center justify-center gap-2 transition"
+        >
+          <FileText className="w-4 h-4" />
+          <span>Tailor Blueprint & Stitching Guide (PDF)</span>
+        </button>
+
         <button
           type="button"
           onClick={onOpenCustomize}
