@@ -72,6 +72,54 @@ const PILE_B = [
   })),
 ];
 
+// Colourful Pile: 40 plain cotton pieces (20 navy base, 10 saffron orange, 5 rose pink, 5 olive green)
+const PILE_COLORFUL = [
+  ...Array.from({ length: 20 }, (_, i) => ({
+    id: `pile_c_navy_${i + 1}`,
+    color: 'navy',
+    colorHex: '#1E3A8A',
+    width: 14,
+    length: 14,
+    area: 196,
+    fabricType: 'cotton',
+    print: 'plain',
+    weight: 'medium',
+  })),
+  ...Array.from({ length: 10 }, (_, i) => ({
+    id: `pile_c_orange_${i + 1}`,
+    color: 'orange',
+    colorHex: '#F97316',
+    width: 14,
+    length: 14,
+    area: 196,
+    fabricType: 'cotton',
+    print: 'plain',
+    weight: 'medium',
+  })),
+  ...Array.from({ length: 5 }, (_, i) => ({
+    id: `pile_c_pink_${i + 1}`,
+    color: 'pink',
+    colorHex: '#EC4899',
+    width: 12,
+    length: 12,
+    area: 144,
+    fabricType: 'cotton',
+    print: 'plain',
+    weight: 'medium',
+  })),
+  ...Array.from({ length: 5 }, (_, i) => ({
+    id: `pile_c_olive_${i + 1}`,
+    color: 'olive',
+    colorHex: '#65A30D',
+    width: 12,
+    length: 12,
+    area: 144,
+    fabricType: 'cotton',
+    print: 'plain',
+    weight: 'medium',
+  })),
+];
+
 console.log('--- RUNNING STAGE 4A 2D PREVIEW TESTS ---');
 
 // TEST SUITE 1: computePanelPatches mathematical properties
@@ -146,8 +194,8 @@ console.log('\n[Suite 2] Product 2D Layout Geometry & Area Conservation across P
 
 const PRODUCTS = ['tote_bag', 'pouch', 'cushion_cover', 'kids_frock'];
 const PILES = [
-  { name: 'Pile A', scraps: PILE_A },
-  { name: 'Pile B', scraps: PILE_B },
+  { name: 'Neutral Pile (Pile B)', scraps: PILE_B },
+  { name: 'Colourful Pile', scraps: PILE_COLORFUL },
 ];
 
 for (const pile of PILES) {

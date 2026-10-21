@@ -849,7 +849,7 @@ function computeCushionCoverLayout(design, sizeTemplate, placements, view, varia
         canvasY: cushionY,
         width: cushionW,
         height: cushionH,
-        rx: 2.5,
+        rx: 4,
         patches: frontPatchesData.patches.map((p) => ({
           ...p,
           canvasX: cushionX + p.relX,
@@ -864,6 +864,20 @@ function computeCushionCoverLayout(design, sizeTemplate, placements, view, varia
         })),
       });
     }
+
+    // Soft pillow edge perimeter stitching
+    decorations.push({
+      type: 'cushion_perimeter_stitch',
+      x: cushionX + 1.2,
+      y: cushionY + 1.2,
+      width: cushionW - 2.4,
+      height: cushionH - 2.4,
+      rx: 3,
+      stroke: '#FFFFFF',
+      strokeWidth: 0.6,
+      strokeDasharray: '2 2',
+      strokeOpacity: 0.8,
+    });
   } else {
     // Back View: Envelope back overlap
     // Upper overlap extends from top down

@@ -101,6 +101,9 @@ export default function Product2DPreview({
   }
 
   const { viewBox, panels = [], decorations = [] } = layout;
+  const viewBoxStr = typeof viewBox === 'string' 
+    ? viewBox 
+    : (viewBox ? `${viewBox.x || 0} ${viewBox.y || 0} ${viewBox.width} ${viewBox.height}` : '0 0 100 100');
 
   return (
     <div className={`w-full bg-white border border-stone-200 rounded-3xl shadow-sm overflow-hidden flex flex-col ${className}`}>
@@ -159,7 +162,7 @@ export default function Product2DPreview({
       {/* 3. Main 2D Flat SVG Canvas */}
       <div className="relative w-full bg-gradient-to-b from-stone-50/50 to-stone-100/60 p-3 sm:p-4 flex items-center justify-center select-none overflow-hidden min-h-[220px]">
         <svg
-          viewBox={viewBox}
+          viewBox={viewBoxStr}
           className="w-full max-h-[300px] h-auto transition-transform duration-200 drop-shadow-md"
           style={{ shapeRendering: 'geometricPrecision' }}
         >
@@ -168,6 +171,12 @@ export default function Product2DPreview({
             <filter id="panel-shadow" x="-5%" y="-5%" width="110%" height="110%">
               <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" floodColor="#0f172a" floodOpacity="0.12" />
             </filter>
+            {/* Subtle fabric weave texture pattern overlay for realistic cloth look */}
+            <pattern id="fabric-weave" width="3" height="3" patternUnits="userSpaceOnUse">
+              <path d="M 0 1.5 L 3 1.5 M 1.5 0 L 1.5 3" stroke="#000000" strokeWidth="0.35" strokeOpacity="0.08" />
+              <rect x="0" y="0" width="1.5" height="1.5" fill="#FFFFFF" fillOpacity="0.04" />
+              <rect x="1.5" y="1.5" width="1.5" height="1.5" fill="#FFFFFF" fillOpacity="0.04" />
+            </pattern>
             {/* Diagonal hatch pattern for unplaced / needed fabric zones */}
             <pattern id="unplaced-hatch" width="6" height="6" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
               <line x1="0" y1="0" x2="0" y2="6" stroke="#EF4444" strokeWidth="1.2" strokeOpacity="0.5" />
@@ -236,19 +245,28 @@ export default function Product2DPreview({
                       strokeDasharray="2 2"
                     />
                   ) : (
-                    // Render real patches at exact computed coordinates
+                    // Render real patches at exact computed coordinates with subtle fabric texture
                     panel.patches.map((patch, pIdx) => (
-                      <rect
-                        key={`patch-${panel.id}-${pIdx}`}
-                        x={patch.canvasX}
-                        y={patch.canvasY}
-                        width={patch.width}
-                        height={patch.height}
-                        fill={patch.colorHex}
-                        stroke="#334155"
-                        strokeWidth={0.5}
-                        strokeOpacity={0.4}
-                      />
+                      <g key={`patch-${panel.id}-${pIdx}`}>
+                        <rect
+                          x={patch.canvasX}
+                          y={patch.canvasY}
+                          width={patch.width}
+                          height={patch.height}
+                          fill={patch.colorHex}
+                          stroke="#334155"
+                          strokeWidth={0.5}
+                          strokeOpacity={0.4}
+                        />
+                        <rect
+                          x={patch.canvasX}
+                          y={patch.canvasY}
+                          width={patch.width}
+                          height={patch.height}
+                          fill="url(#fabric-weave)"
+                          className="pointer-events-none"
+                        />
+                      </g>
                     ))
                   )}
 
@@ -394,6 +412,23 @@ export default function Product2DPreview({
                     d={deco.d}
                     stroke={deco.stroke}
                     strokeWidth={deco.strokeWidth}
+                    fill="none"
+                  />
+                );
+              }
+              if (deco.type === 'cushion_perimeter_stitch') {
+                return (
+                  <rect
+                    key={`cushion-stitch-${idx}`}
+                    x={deco.x}
+                    y={deco.y}
+                    width={deco.width}
+                    height={deco.height}
+                    rx={deco.rx || 2.5}
+                    stroke={deco.stroke || '#FFFFFF'}
+                    strokeWidth={deco.strokeWidth || 0.6}
+                    strokeDasharray={deco.strokeDasharray || '2 2'}
+                    strokeOpacity={deco.strokeOpacity || 0.75}
                     fill="none"
                   />
                 );
