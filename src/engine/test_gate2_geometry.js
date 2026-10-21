@@ -79,6 +79,33 @@ const trianglePath = 'M 0 0 L 100 0 L 50 100 Z'; // base 100mm, height 100mm => 
 const triArea = calculatePathArea(trianglePath);
 assert(Math.abs(triArea - 50) < 0.1, `Triangle area equals 50 cm² (got ${triArea})`);
 
+// 8. Curved Path Test: Quarter-circle made from Bézier curve
+// Radius 100mm = 10cm. Expected area = (pi * r^2) / 4 = 78.5398 cm²
+const quarterCirclePath = 'M 0,0 L 100,0 C 100,55.228475 55.228475,100 0,100 Z';
+const qcArea = calculatePathArea(quarterCirclePath, 16);
+const qcExpected = (Math.PI * 10 * 10) / 4;
+const qcErrorPercent = (Math.abs(qcArea - qcExpected) / qcExpected) * 100;
+assert(qcErrorPercent < 1.0, `Quarter-circle Bézier area ${qcArea} cm² is within 1% of true value ${qcExpected.toFixed(2)} cm² (error: ${qcErrorPercent.toFixed(2)}%)`);
+
+// 9. Real FreeSewing Brian child top (Chest 56) Seam Paths Area Test
+// Pinned version @freesewing/brian@4.10.2 output paths for chest 56 cm
+const brianFrontSeam = 'M 0,41.9 L 0,325 L 161,325 L 161,140.93 C 152.6,140.93 142.15,133.88 138.3,130.03 C 130.59,122.32 126.28,104.47 126.28,78.9 C 126.28,47.89 127.21,28.97 130,16.88 L 56.88,0 C 50.59,27.24 25.96,41.9 0,41.9';
+const brianBackSeam = 'M 0,13 L 0,325 L 161,325 L 161,140.93 C 152.6,140.93 142.15,133.88 138.3,130.03 C 130.59,122.32 127.4,104.47 127.4,78.9 C 127.4,47.89 127.21,28.97 130,16.88 L 56.88,0 C 53.87,13 0,13 0,13';
+const brianSleeveSeam = 'M -111.51,0 L -75,263.17 L 75,263.17 L 111.51,0 C 111.51,0 101.79,-1.94 84.63,-12.46 C 58.89,-28.23 56.85,-45.36 35.69,-66.9 C 21.59,-81.25 -22.17,-79.37 -36.89,-65.64 C -48.66,-54.65 -76.47,-21.71 -88.07,-13.72 C -98.51,-6.52 -111.51,0 -111.51,0 z';
+
+const frontHalfArea = calculatePathArea(brianFrontSeam);
+const backHalfArea = calculatePathArea(brianBackSeam);
+const sleeveSingleArea = calculatePathArea(brianSleeveSeam);
+
+// Full front + full back + sleeve pair
+const totalBrianNetArea = (frontHalfArea * 2) + (backHalfArea * 2) + (sleeveSingleArea * 2);
+const brianErrorPercent = (Math.abs(totalBrianNetArea - 2960) / 2960) * 100;
+
+assert(brianErrorPercent <= 2.0, `FreeSewing Brian chest 56 net area ${totalBrianNetArea.toFixed(1)} cm² is within 2% of ~2,960 cm² (error: ${brianErrorPercent.toFixed(2)}%)`);
+assert(frontHalfArea * 2 > 850 && frontHalfArea * 2 < 950, `Front bodice area ${frontHalfArea * 2} cm² is realistic (~910 cm²)`);
+assert(backHalfArea * 2 > 880 && backHalfArea * 2 < 980, `Back bodice area ${backHalfArea * 2} cm² is realistic (~936 cm²)`);
+assert(sleeveSingleArea * 2 > 1100 && sleeveSingleArea * 2 < 1250, `Sleeve pair area ${sleeveSingleArea * 2} cm² is realistic (~1171 cm²)`);
+
 console.log('====================================================');
 console.log(`GATE 2 TEST RESULTS: ${passed} PASSED, ${failed} FAILED`);
 console.log('====================================================');

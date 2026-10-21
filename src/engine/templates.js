@@ -274,17 +274,156 @@ export const PRODUCT_TEMPLATES = {
 };
 
 /**
+ * Normalizes either a legacy product template or a modern Garment Spec object
+ * into a standardized, unified format that supports both legacy zones and vector pieces.
+ * 
+ * Invariants:
+ * 1. For legacy templates, produces identical zones, dimensions, areas, and roles.
+ * 2. For modern Garment Specs, maps pieces into unified zone/piece items with full geometry.
+ * 3. Never mutates input objects (pure function with deep normalization).
+ */
+export function normalizeGarmentSpec(productOrSpec) {
+  if (!productOrSpec || typeof productOrSpec !== 'object') return null;
+
+  const id = productOrSpec.id;
+  const name = productOrSpec.name || productOrSpec.nameKey || id;
+  const category = productOrSpec.category || 'accessories';
+  const description = productOrSpec.description || productOrSpec.descriptionKey || '';
+  const defaultVariant = productOrSpec.defaultVariant || 'plain';
+  const tailorVerified = Boolean(productOrSpec.tailorVerified);
+  const disclaimer = productOrSpec.disclaimer || TAILOR_DISCLAIMER;
+  const schemaVersion = productOrSpec.schemaVersion || '1.0.0';
+
+  const normalizedSizes = {};
+
+  if (productOrSpec.sizes && typeof productOrSpec.sizes === 'object') {
+    Object.keys(productOrSpec.sizes).forEach((sizeKey) => {
+      const rawSize = productOrSpec.sizes[sizeKey];
+      if (!rawSize) return;
+
+      const label = rawSize.label || rawSize.labelKey || sizeKey;
+      const finishedWidthCm = rawSize.finishedWidthCm ?? rawSize.finishedDimensions?.widthCm ?? 0;
+      const finishedHeightCm = rawSize.finishedHeightCm ?? rawSize.finishedDimensions?.heightCm ?? 0;
+
+      // Helper to normalize a list of zones or pieces
+      const normalizePieceList = (items) => {
+        if (!Array.isArray(items)) return [];
+        return items.map((item) => {
+          const pieceId = item.id;
+          const pieceName = item.name || item.nameKey || pieceId;
+          const role = item.role || 'base';
+
+          // Dimensions: handle direct width/height or geometry.finishedWidthCm
+          const w = item.width !== undefined ? item.width : (item.geometry?.finishedWidthCm || 0);
+          const h = item.height !== undefined ? item.height : (item.geometry?.finishedHeightCm || 0);
+          const qty = item.qty !== undefined ? item.qty : (item.cutQty || 1);
+          const optional = Boolean(item.optional);
+          const accentOnly = Boolean(item.accentOnly);
+
+          // Seam allowance: number or object
+          const saDefault = typeof item.seamAllowanceCm === 'number'
+            ? item.seamAllowanceCm
+            : (item.seamAllowanceCm?.defaultCm ?? CONFIG.SEAM_ALLOWANCE_CM);
+
+          // Sourcing: existing products default to scrap
+          const fabricSource = item.fabricSource || 'scrap';
+          const scrapEligible = item.scrapEligible !== undefined
+            ? Boolean(item.scrapEligible)
+            : (fabricSource !== 'plain_base');
+
+          // Geometry
+          const geometry = item.geometry || {
+            shapeType: 'rectangle',
+            finishedWidthCm: w,
+            finishedHeightCm: h,
+            finishedAreaCm2: w * h,
+          };
+
+          return {
+            id: pieceId,
+            name: pieceName,
+            role,
+            width: w,
+            height: h,
+            qty,
+            cutQty: qty,
+            optional,
+            accentOnly,
+            fabricSource,
+            scrapEligible,
+            seamAllowanceCm: typeof item.seamAllowanceCm === 'object'
+              ? item.seamAllowanceCm
+              : { defaultCm: saDefault },
+            grainLine: item.grainLine || { orientation: 'any', angleDegrees: 90, strict: false },
+            geometry,
+            mapping3D: item.mapping3D || null,
+          };
+        });
+      };
+
+      const normalizedSize = {
+        label,
+        finishedWidthCm,
+        finishedHeightCm,
+        finishedDimensions: rawSize.finishedDimensions || {
+          widthCm: finishedWidthCm,
+          heightCm: finishedHeightCm,
+        },
+      };
+
+      if (rawSize.bodyMeasurements) {
+        normalizedSize.bodyMeasurements = { ...rawSize.bodyMeasurements };
+      }
+
+      if (rawSize.variants && typeof rawSize.variants === 'object') {
+        normalizedSize.variants = {};
+        Object.keys(rawSize.variants).forEach((vKey) => {
+          normalizedSize.variants[vKey] = normalizePieceList(rawSize.variants[vKey]);
+        });
+        normalizedSize.zones = normalizedSize.variants[defaultVariant] || normalizedSize.variants.plain || [];
+        normalizedSize.pieces = normalizedSize.zones;
+      } else {
+        const normalizedItems = normalizePieceList(rawSize.zones || rawSize.pieces || []);
+        normalizedSize.zones = normalizedItems;
+        normalizedSize.pieces = normalizedItems;
+      }
+
+      normalizedSizes[sizeKey] = normalizedSize;
+    });
+  }
+
+  return {
+    schemaVersion,
+    id,
+    name,
+    category,
+    description,
+    defaultVariant,
+    tailorVerified,
+    disclaimer,
+    materials: productOrSpec.materials || null,
+    timeEstimateFormula: productOrSpec.timeEstimateFormula || null,
+    stitchingSteps: productOrSpec.stitchingSteps || [],
+    sizes: normalizedSizes,
+  };
+}
+
+/**
  * Returns raw cut dimensions in cm (adding seam allowance on all 4 sides).
  */
 export function getZoneCutDimensions(zone, seamAllowanceCm = CONFIG.SEAM_ALLOWANCE_CM) {
   const allowance = Number(seamAllowanceCm) || CONFIG.SEAM_ALLOWANCE_CM;
+  const w = zone.width !== undefined ? zone.width : (zone.geometry?.finishedWidthCm || 0);
+  const h = zone.height !== undefined ? zone.height : (zone.geometry?.finishedHeightCm || 0);
+  const count = zone.qty !== undefined ? zone.qty : (zone.cutQty || 1);
+
   return {
-    cutWidthCm: zone.width + 2 * allowance,
-    cutHeightCm: zone.height + 2 * allowance,
-    finishedWidthCm: zone.width,
-    finishedHeightCm: zone.height,
-    areaSqCm: (zone.width + 2 * allowance) * (zone.height + 2 * allowance) * (zone.qty || 1),
-    finishedAreaSqCm: zone.width * zone.height * (zone.qty || 1),
+    cutWidthCm: w + 2 * allowance,
+    cutHeightCm: h + 2 * allowance,
+    finishedWidthCm: w,
+    finishedHeightCm: h,
+    areaSqCm: (w + 2 * allowance) * (h + 2 * allowance) * count,
+    finishedAreaSqCm: w * h * count,
   };
 }
 
@@ -292,8 +431,10 @@ export function getZoneCutDimensions(zone, seamAllowanceCm = CONFIG.SEAM_ALLOWAN
  * Identifies the largest rectangular zone for a product template and size,
  * and calculates the minimum anchor scrap dimension required by the 40% rule.
  */
-export function getProductLargestZone(productId, sizeKey, variant = null) {
-  const product = PRODUCT_TEMPLATES[productId];
+export function getProductLargestZone(productIdOrObj, sizeKey, variant = null) {
+  const product = typeof productIdOrObj === 'object' && productIdOrObj !== null
+    ? productIdOrObj
+    : PRODUCT_TEMPLATES[productIdOrObj];
   if (!product || !product.sizes || !product.sizes[sizeKey]) return null;
 
   const size = product.sizes[sizeKey];
@@ -311,7 +452,7 @@ export function getProductLargestZone(productId, sizeKey, variant = null) {
 
   if (zonesToScan) {
     zonesToScan.forEach((zone) => {
-      const area = zone.width * zone.height;
+      const area = (zone.width ?? zone.geometry?.finishedWidthCm ?? 0) * (zone.height ?? zone.geometry?.finishedHeightCm ?? 0);
       if (area > maxArea) {
         maxArea = area;
         largestZone = zone;
@@ -319,14 +460,20 @@ export function getProductLargestZone(productId, sizeKey, variant = null) {
     });
   }
 
-  const maxDim = largestZone ? Math.max(largestZone.width, largestZone.height) : 20;
+  const maxDim = largestZone
+    ? Math.max(
+        largestZone.width ?? largestZone.geometry?.finishedWidthCm ?? 0,
+        largestZone.height ?? largestZone.geometry?.finishedHeightCm ?? 0
+      )
+    : 20;
+
   const minAnchorDim = Math.max(
     CONFIG.MIN_RECOMMENDED_PATCH_DIMENSION_CM,
     Math.round(maxDim * (CONFIG.MIN_ANCHOR_ZONE_RATIO || 0.40))
   );
 
   return {
-    productId,
+    productId: product.id,
     productName: product.name,
     sizeKey,
     sizeLabel: size.label,
@@ -340,8 +487,10 @@ export function getProductLargestZone(productId, sizeKey, variant = null) {
 /**
  * Calculates total target area and 60-30-10 role breakdown for a given product and size.
  */
-export function getProductRequirements(productId, sizeKey, seamAllowanceCm = CONFIG.SEAM_ALLOWANCE_CM, variant = null) {
-  const product = PRODUCT_TEMPLATES[productId];
+export function getProductRequirements(productIdOrObj, sizeKey, seamAllowanceCm = CONFIG.SEAM_ALLOWANCE_CM, variant = null) {
+  const product = typeof productIdOrObj === 'object' && productIdOrObj !== null
+    ? productIdOrObj
+    : PRODUCT_TEMPLATES[productIdOrObj];
   if (!product) return null;
 
   const size = product.sizes[sizeKey];
@@ -356,7 +505,7 @@ export function getProductRequirements(productId, sizeKey, seamAllowanceCm = CON
     sourceZones = size.variants[resolvedVariant] || size.variants.plain;
   }
 
-  const anchorInfo = getProductLargestZone(productId, sizeKey, resolvedVariant);
+  const anchorInfo = getProductLargestZone(product, sizeKey, resolvedVariant);
 
   let totalAreaNeeded = 0;
   let totalFinishedArea = 0;
@@ -371,26 +520,33 @@ export function getProductRequirements(productId, sizeKey, seamAllowanceCm = CON
       roleAreas[zone.role] = (roleAreas[zone.role] || 0) + cut.areaSqCm;
 
       // Expand zones by quantity for discrete piece-by-piece fitting
-      const count = zone.qty || 1;
+      const count = zone.qty !== undefined ? zone.qty : (zone.cutQty || 1);
+      const w = zone.width !== undefined ? zone.width : (zone.geometry?.finishedWidthCm || 0);
+      const h = zone.height !== undefined ? zone.height : (zone.geometry?.finishedHeightCm || 0);
+
       for (let i = 0; i < count; i++) {
         expandedZones.push({
           id: count > 1 ? `${zone.id}_${i + 1}` : zone.id,
           baseZoneId: zone.id,
           name: count > 1 ? `${zone.name} (${i + 1}/${count})` : zone.name,
           role: zone.role,
-          finishedWidth: zone.width,
-          finishedHeight: zone.height,
-          cutWidth: zone.width + 2 * seamAllowanceCm,
-          cutHeight: zone.height + 2 * seamAllowanceCm,
+          finishedWidth: w,
+          finishedHeight: h,
+          cutWidth: w + 2 * seamAllowanceCm,
+          cutHeight: h + 2 * seamAllowanceCm,
           accentOnly: Boolean(zone.accentOnly),
           optional: Boolean(zone.optional),
+          fabricSource: zone.fabricSource || 'scrap',
+          scrapEligible: zone.scrapEligible !== undefined ? Boolean(zone.scrapEligible) : true,
+          grainLine: zone.grainLine || null,
+          geometry: zone.geometry || null,
         });
       }
     });
   }
 
   return {
-    productId,
+    productId: product.id,
     productName: product.name,
     sizeKey,
     sizeLabel: size.label,
