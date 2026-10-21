@@ -1,0 +1,304 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rewear.app/schemas/garment-spec.v1.json",
+  "title": "ReWearGarmentSpec",
+  "description": "Comprehensive declarative specification for upcycled and tailored garments.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "nameKey",
+    "category",
+    "tailorVerified",
+    "licence",
+    "source",
+    "sizes",
+    "materials",
+    "timeEstimateFormula"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$"
+    },
+    "nameKey": {
+      "type": "string",
+      "description": "i18n translation key for product title (e.g., 'products.tote_bag.title')"
+    },
+    "descriptionKey": {
+      "type": "string",
+      "description": "i18n translation key for product description"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["bags", "accessories", "home", "apparel", "childrenswear"]
+    },
+    "defaultVariant": {
+      "type": "string",
+      "default": "plain"
+    },
+    "tailorVerified": {
+      "type": "boolean",
+      "description": "Flag indicating if a master tailor has physically cut, stitched, and verified the draft."
+    },
+    "illustrativeExample": {
+      "type": "boolean",
+      "default": false
+    },
+    "tailorNotes": {
+      "type": "string",
+      "description": "Technical notes or cautions provided by the verifying tailor."
+    },
+    "disclaimerKey": {
+      "type": "string",
+      "default": "tailoring.disclaimer.standard"
+    },
+    "source": {
+      "type": "object",
+      "required": ["author", "origin"],
+      "properties": {
+        "author": { "type": "string" },
+        "origin": { "type": "string", "enum": ["rewear_studio", "freesewing", "garmentcode", "community"] },
+        "url": { "type": "string" },
+        "version": { "type": "string" }
+      }
+    },
+    "licence": {
+      "type": "object",
+      "required": ["spdxIdentifier", "commercialUseAllowed"],
+      "properties": {
+        "spdxIdentifier": { "type": "string" },
+        "commercialUseAllowed": { "type": "boolean" },
+        "attributionText": { "type": "string" }
+      }
+    },
+    "default3DShell": {
+      "type": "object",
+      "properties": {
+        "modelId": { "type": "string" },
+        "modelUri": { "type": "string" },
+        "textureResolution": { "type": "integer", "default": 2048 }
+      }
+    },
+    "materials": {
+      "type": "object",
+      "required": ["eligibleFabricTypes", "compatibleThicknesses", "stretchPolicy"],
+      "properties": {
+        "eligibleFabricTypes": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["cotton", "linen", "denim", "canvas", "twill", "wool", "silk", "knit"] }
+        },
+        "compatibleThicknesses": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["thin", "medium", "thick"] }
+        },
+        "stretchPolicy": {
+          "type": "string",
+          "enum": ["strictly_non_stretchy", "strictly_stretchy", "hybrid_allowed"]
+        },
+        "hardware": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["type", "qty"],
+            "properties": {
+              "type": { "type": "string", "enum": ["zipper", "button", "snap", "d_ring", "elastic", "bias_binding"] },
+              "spec": { "type": "string" },
+              "qty": { "type": "integer", "minimum": 1 }
+            }
+          }
+        }
+      }
+    },
+    "timeEstimateFormula": {
+      "type": "object",
+      "required": ["baseMinutes", "minutesPerSeamJoin", "frayingPenaltyMinutes"],
+      "properties": {
+        "baseMinutes": { "type": "number", "minimum": 0 },
+        "minutesPerSeamJoin": { "type": "number", "minimum": 0 },
+        "frayingPenaltyMinutes": { "type": "number", "minimum": 0 }
+      }
+    },
+    "stitchingSteps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["stepNumber", "instructionKey", "piecesInvolved", "seamType"],
+        "properties": {
+          "stepNumber": { "type": "integer" },
+          "instructionKey": { "type": "string" },
+          "piecesInvolved": { "type": "array", "items": { "type": "string" } },
+          "seamType": {
+            "type": "string",
+            "enum": ["plain_pressed_open", "plain_pressed_to_side", "flat_felled", "french_seam", "topstitched", "overlocked", "bound_edge"]
+          },
+          "estimatedMinutes": { "type": "number" }
+        }
+      }
+    },
+    "sizes": {
+      "type": "object",
+      "description": "Graded size definitions or parametric formula definitions.",
+      "additionalProperties": {
+        "$ref": "#/$defs/sizeDefinition"
+      }
+    }
+  },
+  "$defs": {
+    "sizeDefinition": {
+      "type": "object",
+      "required": ["labelKey", "finishedDimensions"],
+      "properties": {
+        "labelKey": { "type": "string" },
+        "bodyMeasurements": {
+          "type": "object",
+          "description": "Target anthropometric dimensions in cm",
+          "properties": {
+            "chestCm": { "type": "number" },
+            "waistCm": { "type": "number" },
+            "hipsCm": { "type": "number" },
+            "heightCm": { "type": "number" },
+            "ageGroup": { "type": "string" }
+          }
+        },
+        "finishedDimensions": {
+          "type": "object",
+          "required": ["widthCm", "heightCm"],
+          "properties": {
+            "widthCm": { "type": "number" },
+            "heightCm": { "type": "number" },
+            "depthCm": { "type": "number", "default": 0 }
+          }
+        },
+        "variants": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/pieceDefinition" }
+          }
+        },
+        "pieces": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/pieceDefinition" }
+        }
+      }
+    },
+    "pieceDefinition": {
+      "type": "object",
+      "required": [
+        "id",
+        "nameKey",
+        "role",
+        "cutQty",
+        "geometry",
+        "fabricSource",
+        "scrapEligible",
+        "seamAllowanceCm",
+        "grainLine"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "nameKey": { "type": "string" },
+        "role": {
+          "type": "string",
+          "enum": ["base", "supporting", "accent", "lining", "interfacing"]
+        },
+        "cutQty": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "cutOnFold": {
+          "type": "boolean",
+          "default": false
+        },
+        "fabricSource": {
+          "type": "string",
+          "enum": ["scrap", "plain_base", "either"],
+          "description": "'scrap' = must be cut from scrap pile. 'plain_base' = must be cut from solid yardage. 'either' = user selectable (defaults to scrap)."
+        },
+        "scrapEligible": {
+          "type": "boolean",
+          "description": "True if fabricSource is 'scrap' or 'either'."
+        },
+        "optional": {
+          "type": "boolean",
+          "default": false
+        },
+        "accentOnly": {
+          "type": "boolean",
+          "default": false
+        },
+        "seamAllowanceCm": {
+          "type": "object",
+          "required": ["defaultCm"],
+          "properties": {
+            "defaultCm": { "type": "number", "default": 1.0 },
+            "topCm": { "type": "number" },
+            "bottomCm": { "type": "number" },
+            "leftCm": { "type": "number" },
+            "rightCm": { "type": "number" },
+            "hemCm": { "type": "number" },
+            "armholeCm": { "type": "number" },
+            "neckCm": { "type": "number" }
+          }
+        },
+        "grainLine": {
+          "type": "object",
+          "required": ["orientation"],
+          "properties": {
+            "orientation": { "type": "string", "enum": ["lengthwise", "crosswise", "bias", "any"] },
+            "angleDegrees": { "type": "number", "default": 90 },
+            "strict": { "type": "boolean", "default": true }
+          }
+        },
+        "geometry": {
+          "type": "object",
+          "required": ["shapeType", "finishedWidthCm", "finishedHeightCm", "finishedAreaCm2"],
+          "properties": {
+            "shapeType": { "type": "string", "enum": ["rectangle", "svg_path", "polygon"] },
+            "finishedWidthCm": { "type": "number" },
+            "finishedHeightCm": { "type": "number" },
+            "finishedAreaCm2": { "type": "number" },
+            "svgPathD": {
+              "type": "string",
+              "description": "SVG path definition for finished seamline at scale 1 unit = 1 mm"
+            },
+            "svgSaPathD": {
+              "type": "string",
+              "description": "SVG path definition for outer cutting perimeter including seam allowance"
+            },
+            "boundingBoxMm": {
+              "type": "object",
+              "properties": {
+                "minX": { "type": "number" },
+                "minY": { "type": "number" },
+                "maxX": { "type": "number" },
+                "maxY": { "type": "number" }
+              }
+            }
+          }
+        },
+        "mapping3D": {
+          "type": "object",
+          "properties": {
+            "meshNodeId": { "type": "string" },
+            "uvRegion": {
+              "type": "object",
+              "required": ["uMin", "vMin", "uMax", "vMax"],
+              "properties": {
+                "uMin": { "type": "number", "minimum": 0, "maximum": 1 },
+                "vMin": { "type": "number", "minimum": 0, "maximum": 1 },
+                "uMax": { "type": "number", "minimum": 0, "maximum": 1 },
+                "vMax": { "type": "number", "minimum": 0, "maximum": 1 }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
