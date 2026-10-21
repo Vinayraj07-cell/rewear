@@ -22,6 +22,7 @@ import { fitPileToProduct, checkFeasibility, buildDesign } from '../engine/index
 import { soundManager } from '../utils/audio';
 import { COLOR_SWATCHES } from '../i18n/translations';
 import { getZoneDimensions, getTranslatedZoneName } from '../utils/zoneHelper.js';
+import Product2DPreview from '../components/Product2DPreview';
 
 export default function CustomizeScreen({
   initialDesign,
@@ -284,6 +285,28 @@ export default function CustomizeScreen({
           </div>
         )}
       </div>
+
+      {/* Stage 4A: Finished 2D Product Live Preview */}
+      <Product2DPreview
+        design={currentDesign}
+        t={t}
+        lang={lang}
+        selectedZoneId={selectedPiece?.zoneId}
+        onSelectZone={(zoneId) => {
+          if (!zoneId) {
+            setSelectedPiece(null);
+            return;
+          }
+          const placement = currentDesign.placements?.find((p) => p.zoneId === zoneId);
+          if (placement && placement.scraps && placement.scraps.length > 0) {
+            setSelectedPiece({
+              zoneId: placement.zoneId,
+              scrapIdx: 0,
+              scrap: placement.scraps[0],
+            });
+          }
+        }}
+      />
 
       {/* Canvas Controls Toolbar (Rotate, Zoom, Undo, Redo, Refresh Style) */}
       <div className="bg-white rounded-2xl p-3 border border-stone-200 shadow-xs flex items-center justify-between gap-1 text-xs">

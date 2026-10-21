@@ -89,6 +89,99 @@ export const INITIAL_SAMPLE_PIECES = [
   }
 ];
 
+// Pile A: 20 plain cotton (10x10 cm, navy) + 20 plain cotton (12x12 cm, beige)
+export const SAMPLE_PILE_A = [
+  {
+    id: "pile-a-navy",
+    fabricType: "cotton",
+    width: 10,
+    height: 10,
+    unit: "cm",
+    color: "navy",
+    print: "plain",
+    quantity: 20,
+    isIrregular: false,
+    feel: "soft",
+    thickness: "medium",
+    stretch: false,
+    frays: false,
+    included: true,
+    addedAt: Date.now() - 3600000,
+  },
+  {
+    id: "pile-a-beige",
+    fabricType: "cotton",
+    width: 12,
+    height: 12,
+    unit: "cm",
+    color: "beige",
+    print: "plain",
+    quantity: 20,
+    isIrregular: false,
+    feel: "soft",
+    thickness: "medium",
+    stretch: false,
+    frays: false,
+    included: true,
+    addedAt: Date.now() - 3500000,
+  },
+];
+
+// Pile B: 30 plain cotton 14x14 cm (10 navy, 10 beige, 10 grey)
+export const SAMPLE_PILE_B = [
+  {
+    id: "pile-b-navy",
+    fabricType: "cotton",
+    width: 14,
+    height: 14,
+    unit: "cm",
+    color: "navy",
+    print: "plain",
+    quantity: 10,
+    isIrregular: false,
+    feel: "soft",
+    thickness: "medium",
+    stretch: false,
+    frays: false,
+    included: true,
+    addedAt: Date.now() - 3600000,
+  },
+  {
+    id: "pile-b-beige",
+    fabricType: "cotton",
+    width: 14,
+    height: 14,
+    unit: "cm",
+    color: "beige",
+    print: "plain",
+    quantity: 10,
+    isIrregular: false,
+    feel: "soft",
+    thickness: "medium",
+    stretch: false,
+    frays: false,
+    included: true,
+    addedAt: Date.now() - 3500000,
+  },
+  {
+    id: "pile-b-grey",
+    fabricType: "cotton",
+    width: 14,
+    height: 14,
+    unit: "cm",
+    color: "grey",
+    print: "plain",
+    quantity: 10,
+    isIrregular: false,
+    feel: "soft",
+    thickness: "medium",
+    stretch: false,
+    frays: false,
+    included: true,
+    addedAt: Date.now() - 3400000,
+  },
+];
+
 export const calculateArea = (piece) => {
   const w = piece.isIrregular && piece.usableWidth ? piece.usableWidth : piece.width;
   const h = piece.isIrregular && piece.usableHeight ? piece.usableHeight : piece.height;

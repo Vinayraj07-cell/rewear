@@ -28,6 +28,7 @@ export default function MyPileScreen({
   onEditPiece, 
   onAddNew, 
   onWhatCanIMake,
+  onLoadPile,
   t, 
   lang 
 }) {
@@ -188,6 +189,29 @@ export default function MyPileScreen({
           )}
         </div>
       </div>
+
+      {/* Sample Pile Selector: Pile A / Pile B */}
+      {onLoadPile && (
+        <div className="bg-stone-50 border border-stone-200 rounded-2xl p-2.5 flex items-center justify-between text-xs">
+          <span className="font-semibold text-stone-700">Test Piles:</span>
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => onLoadPile('A')}
+              className="px-2.5 py-1 bg-white hover:bg-sky-50 text-sky-800 border border-sky-300 rounded-xl font-bold shadow-2xs transition"
+            >
+              📦 Pile A (40 pcs)
+            </button>
+            <button
+              type="button"
+              onClick={() => onLoadPile('B')}
+              className="px-2.5 py-1 bg-white hover:bg-amber-50 text-amber-800 border border-amber-300 rounded-xl font-bold shadow-2xs transition"
+            >
+              📦 Pile B (30 pcs)
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Grouping Filter Buttons */}
       <div className="flex items-center justify-between">

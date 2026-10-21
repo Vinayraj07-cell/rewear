@@ -37,8 +37,8 @@ export default function Header({
   };
 
   return (
-    <header className="bg-emerald-800 text-white shadow-md sticky top-0 z-30 select-none">
-      <div className="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
+    <header className="bg-emerald-800 text-white shadow-md sticky top-0 z-30 select-none shrink-0">
+      <div className="max-w-md mx-auto px-2.5 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between">
         {/* Brand & Screen Title */}
         <div className="flex items-center space-x-2">
           <div className="w-9 h-9 rounded-full bg-emerald-600 flex items-center justify-center font-bold text-lg shadow-inner border border-emerald-400">

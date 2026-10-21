@@ -102,7 +102,7 @@ This file catalogs all tailor-facing terms, product names, size labels, zone nam
 | **Not enough fabric to complete all zones.** | అన్ని భాగాలను పూర్తి చేయడానికి సరిపడా బట్ట లేదు. | सभी हिस्सों को पूरा करने के लिए पर्याप्त कपड़ा नहीं है। | Exact engine failure diagnosis |
 | **Try a smaller size or add matching scrap fabric.** | చిన్న సైజు ప్రయత్నించండి లేదా సరిపడే ముక్కలను కలపండి. | छोटा साइज़ आज़माएँ या मिलता-जुलता कपड़ा जोड़ें। | Actionable tailor recommendation |
 | **Tailor Recommendation:** | టైలర్ సలహా: | सिलाई की सलाह: | Heading for engine fallback suggestions |
-| **Pieced panels lose fabric in seams, so small scraps cover less than their raw area.** | ముక్కలను కలిపి కుట్టినప్పుడు కతుకుల కట్లలో బట్ట పోతుంది, కాబట్టి చిన్న ముక్కలు మొత్తం కొలత కంటే తక్కువ విస్తీర్ణం ఇస్తాయి. | टुकड़ों को जोड़ते वक्त सिलाई में कपड़ा दबता है, इसलिए छोटी कतरनें अपनी कुल नाप से कम जगह घेरती हैं। | Seam allowance educational disclaimer |
+| **Pieced panels lose fabric in seams, so small scraps cover less than their raw area.** | ముక్కలను కలిపి కుట్టినప్పుడు కచ్చులలో బట్ట పోతుంది, కాబట్టి చిన్న ముక్కలు మొత్తం కొలత కంటే తక్కువ విస్తీర్ణం ఇస్తాయి. | टुकड़ों को जोड़ते वक्त सीम (मोड़) में कपड़ा जाता है, इसलिए छोटी कतरनें अपनी कुल नाप से कम जगह घेरती हैं। | Seam allowance educational disclaimer *(needs native speaker check)* |
 | **No, you can't make the {product} ({size}) with this pile yet.** | లేదు, మీ దగ్గరున్న ముక్కలతో ప్రస్తుతానికి {product} ({size}) తయారుచేయలేరు. | नहीं, आप इस कतरन से अभी {product} ({size}) नहीं बना सकते। | Clear verdict about the chosen product |
 | **Fix this product** | ఈ వస్తువును పూర్తి చేయండి | इस उत्पाद को पूरा करें | Section to complete chosen product by adding scraps |
 | **Add more scraps to complete your chosen design.** | మీరు ఎంచుకున్న డిజైన్‌ను పూర్తి చేయడానికి మరిన్ని బట్ట ముక్కలను కలపండి. | अपने चुने हुए डिज़ाइन को पूरा करने के लिए और कतरनें जोड़ें। | Subtitle guiding user on adding scraps |
@@ -123,10 +123,29 @@ This file catalogs all tailor-facing terms, product names, size labels, zone nam
 
 | English Term | Telugu Tailor Term | Hindi Tailor Term | Tailor Usage & Notes |
 | :--- | :--- | :--- | :--- |
-| **Seam Allowance / Margin** | **కచ్చు** (Kacchu) *(needs native speaker check)* | **सीम** (Seam) *(needs native speaker check)* | Consistent single term used by tailor shops across Telugu and Hindi speaking regions for the extra edge width left for stitching. |
+| **Seam Allowance / Margin** | **కచ్చు** (Kacchu) *(needs native speaker check)* | **सीम** / **मोड़** (Seam / Mod) *(needs native speaker check)* | Consistent single term used by tailor shops across Telugu and Hindi speaking regions for the extra edge width left for stitching. Note: "दबाव" has been eliminated; Hindi tailors use "सीम" or "मोड़". |
 | **1 cm Seam Allowance Included** | 1 సెం.మీ కచ్చు కలిపి ఉంది *(needs native speaker check)* | 1 सेमी सीम शामिल है *(needs native speaker check)* | Displayed in Design View and zone cutting metrics. |
 | **Cut size (incl. seams)** | కటింగ్ కొలత (కచ్చుతో) *(needs native speaker check)* | कटिंग नाप (सीम सहित) *(needs native speaker check)* | Displayed beside finished dimensions on all zone cards. |
 | **Blueprint seam guide** | కచ్చు కొలతలు *(needs native speaker check)* | सीम की नाप *(needs native speaker check)* | Context help description in Design View. |
+| **Fabric lost in seams** | కచ్చులలో పోయిన బట్ట *(needs native speaker check)* | सीम (मोड़) में गया कपड़ा *(needs native speaker check)* | Fabric numbers metric for seam allowance loss in pieced panels. |
+
+---
+
+## 8. Stage 4A: 2D Product Preview Terms
+
+| English | Telugu (తెలుగు) | Hindi (हिंदी) | Meaning / Tailor Context |
+| :--- | :--- | :--- | :--- |
+| **Finished 2D Product Preview** | తయారైన వస్తువు 2D ప్రివ్యూ | तैयार सामान का 2D प्रीव्यू | Header for the flat stitched visual of the assembled garment/item |
+| **Preview. Final look may differ slightly.** | ప్రివ్యూ. అసలు రూపం కొద్దిగా మారవచ్చు. | प्रीव्यू। असली सिलाई में थोड़ा फर्क हो सकता है। | Mandatory disclaimer indicating stitched outcome variance |
+| **Front View** | ముందు భాగం | सामने का हिस्सा | Tab toggle for viewing product from front |
+| **Back View** | వెనుక భాగం | पीछे का हिस्सा | Tab toggle for viewing product from back (envelope back, tote back, etc.) |
+| **Show Labels** / **Hide Labels** | పేర్లు చూపించు / పేర్లు దాచు | नाम दिखाएं / नाम छुपाएं | Toggle button to reveal or hide zone callout labels on the SVG |
+| **Tap any panel to inspect pieces** | వివరాల కోసం ఏదైనా భాగాన్ని తాకండి | टुकड़े देखने के लिए किसी भी हिस्से को छुएं | User tip below the SVG preview explaining interactivity |
+| **Panel Details** | భాగం వివరాలు | हिस्से का ब्यौरा | Modal/card title showing tapped panel's dimensions, patch breakdown, and role |
+| **Generating 2D tailor preview...** | 2D ప్రివ్యూ తయారవుతోంది... | 2D प्रीव्यू बन रहा है... | Loading indicator during SVG geometry computation |
+| **Unable to load preview** | ప్రివ్యూ చూపించడం సాధ్యం కాలేదు | प्रीव्यू दिखाने में समस्या आई | Error fallback state |
+| **Needs fabric (unplaced)** | బట్ట కావాలి (ఇంకా అమరలేదు) | कपड़ा चाहिए (अभी जुड़ा नहीं) | Badge for pattern zones not yet covered by current fabric scraps |
+
 
 
 

@@ -348,7 +348,7 @@ export default function WhatCanIMakeScreen({
                       </span>
                       {renderStars(item.designScore)}
                     </div>
-                    <h4 className="text-base font-black text-stone-900 mt-1 leading-snug">
+                    <h4 className="text-base font-black text-stone-900 mt-1 leading-snug break-words">
                       {getTranslatedProductName(item.productId, item.productName, t)}
                     </h4>
                     <span className="text-xs text-stone-600 font-medium block">
@@ -452,7 +452,7 @@ export default function WhatCanIMakeScreen({
                 <span className="text-[10px] font-bold uppercase tracking-wider text-stone-500 bg-stone-200 px-2 py-0.5 rounded-md">
                   {item.variant === 'decorated' ? t.decoratedVariantLabel : t.plainVariantLabel}
                 </span>
-                <h4 className="text-sm font-bold text-stone-800 mt-1">
+                <h4 className="text-sm font-bold text-stone-800 mt-1 break-words">
                   {getTranslatedProductName(item.productId, item.productName, t)}
                 </h4>
                 <span className="text-xs text-stone-500 font-medium block">

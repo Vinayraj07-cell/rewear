@@ -226,6 +226,19 @@ export const translations = {
     finishedSizeLabel: "Finished size",
     cutSizeLabel: "Cut size (incl. seams)",
 
+    // Stage 4A: 2D Product Preview
+    previewTitle: "Finished 2D Product Preview",
+    previewDisclaimer: "Preview. Final look may differ slightly.",
+    frontView: "Front View",
+    backView: "Back View",
+    showLabels: "Show Labels",
+    hideLabels: "Hide Labels",
+    tapPanelToInspect: "Tap any panel to inspect pieces",
+    panelDetailsTitle: "Panel Details",
+    loadingPreview: "Generating 2D tailor preview...",
+    errorPreview: "Unable to load preview",
+    missingPanelNotice: "Needs fabric (unplaced)",
+
     // Translated names for products, sizes, and zones
     productNames: {
       tote_bag: "Quilted Tote Bag",
@@ -591,15 +604,28 @@ export const translations = {
 
     // Stage 2: Fabric Numbers (Rule 6 format)
     fabricUsageTitle: "మీ బట్ట కొలతల లెక్కలు",
-    fabricUsedInSeams: "కతుకుల కట్లలో పోయిన బట్ట",
+    fabricUsedInSeams: "కచ్చులలో పోయిన బట్ట",
     fabricTooSmallToReuse: "మళ్ళీ వాడలేని చిన్న వ్యర్థం",
     leftoversKeptForNextTime: "తరువాత వాడటానికి మిగిలిన మంచి ముక్కలు",
-    seamLossMandatoryNotice: "ముక్కలను కలిపి కుట్టినప్పుడు కతుకుల కట్లలో బట్ట పోతుంది, కాబట్టి చిన్న ముక్కలు మొత్తం కొలత కంటే తక్కువ విస్తీర్ణం ఇస్తాయి.",
+    seamLossMandatoryNotice: "ముక్కలను కలిపి కుట్టినప్పుడు కచ్చులలో బట్ట పోతుంది, కాబట్టి చిన్న ముక్కలు మొత్తం కొలత కంటే తక్కువ విస్తీర్ణం ఇస్తాయి.",
     piecesCountLabel: "ముక్కలు",
     totalFabricInPile: "మీ దగ్గరున్న మొత్తం బట్ట",
     readyBadge: "సిద్ధం",
     finishedSizeLabel: "పూర్తయిన కొలత",
     cutSizeLabel: "కటింగ్ కొలత (కచ్చుతో)",
+
+    // Stage 4A: 2D Product Preview
+    previewTitle: "తయారైన వస్తువు 2D ప్రివ్యూ",
+    previewDisclaimer: "ప్రివ్యూ. అసలు రూపం కొద్దిగా మారవచ్చు.",
+    frontView: "ముందు భాగం",
+    backView: "వెనుక భాగం",
+    showLabels: "పేర్లు చూపించు",
+    hideLabels: "పేర్లు దాచు",
+    tapPanelToInspect: "వివరాల కోసం ఏదైనా భాగాన్ని తాకండి",
+    panelDetailsTitle: "భాగం వివరాలు",
+    loadingPreview: "2D ప్రివ్యూ తయారవుతోంది...",
+    errorPreview: "ప్రివ్యూ చూపించడం సాధ్యం కాలేదు",
+    missingPanelNotice: "బట్ట కావాలి (ఇంకా అమరలేదు)",
 
     // Translated names for products, sizes, and zones
     productNames: {
@@ -966,15 +992,28 @@ export const translations = {
 
     // Stage 2: Fabric Numbers (Rule 6 format)
     fabricUsageTitle: "आपके कपड़े का हिसाब",
-    fabricUsedInSeams: "सिलाई के जोड़ों में गया कपड़ा",
+    fabricUsedInSeams: "सीम (मोड़) में गया कपड़ा",
     fabricTooSmallToReuse: "दोबारा न इस्तेमाल होने वाली कतरनें",
     leftoversKeptForNextTime: "अगली बार के लिए बची अच्छी कतरनें",
-    seamLossMandatoryNotice: "टुकड़ों को जोड़ते वक्त सिलाई में कपड़ा दबता है, इसलिए छोटी कतरनें अपनी कुल नाप से कम जगह घेरती हैं।",
+    seamLossMandatoryNotice: "टुकड़ों को जोड़ते वक्त सीम (मोड़) में कपड़ा जाता है, इसलिए छोटी कतरनें अपनी कुल नाप से कम जगह घेरती हैं।",
     piecesCountLabel: "टुकड़े",
     totalFabricInPile: "आपकी कतरन का कुल कपड़ा",
     readyBadge: "तैयार",
     finishedSizeLabel: "तैयार नाप",
     cutSizeLabel: "कटिंग नाप (सीम सहित)",
+
+    // Stage 4A: 2D Product Preview
+    previewTitle: "तैयार सामान का 2D प्रीव्यू",
+    previewDisclaimer: "प्रीव्यू। असली सिलाई में थोड़ा फर्क हो सकता है।",
+    frontView: "सामने का हिस्सा",
+    backView: "पीछे का हिस्सा",
+    showLabels: "नाम दिखाएं",
+    hideLabels: "नाम छुपाएं",
+    tapPanelToInspect: "टुकड़े देखने के लिए किसी भी हिस्से को छुएं",
+    panelDetailsTitle: "हिस्से का ब्यौरा",
+    loadingPreview: "2D प्रीव्यू बन रहा है...",
+    errorPreview: "प्रीव्यू दिखाने में समस्या आई",
+    missingPanelNotice: "कपड़ा चाहिए (अभी जुड़ा नहीं)",
 
     // Translated names for products, sizes, and zones
     productNames: {

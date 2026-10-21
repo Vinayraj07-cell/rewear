@@ -134,7 +134,7 @@ export default function FeasibilityScreen({
             <h2 className="text-lg font-black text-white leading-tight mt-0.5">
               {t.feasibilityTitle}
             </h2>
-            <p className="text-xs text-emerald-100 font-medium">
+            <p className="text-xs text-emerald-100 font-medium break-words">
               {translatedProductName} ({translatedSizeLabel})
             </p>
           </div>
@@ -332,10 +332,10 @@ export default function FeasibilityScreen({
                               ⭐ {alt.designScore}/100
                             </span>
                           </div>
-                          <h5 className="text-xs font-black text-stone-900 line-clamp-2 leading-snug mt-0.5 break-words">
+                          <h5 className="text-xs font-black text-stone-900 leading-snug mt-0.5 break-words">
                             {altProductName}
                           </h5>
-                          <span className="text-[10px] text-stone-600 block line-clamp-1 font-medium mt-0.5">
+                          <span className="text-[10px] text-stone-600 block font-medium mt-0.5 break-words">
                             {altSizeLabel} • {alt.estimatedTimeMinutes} mins
                           </span>
                         </div>

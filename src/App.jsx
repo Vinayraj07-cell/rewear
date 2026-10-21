@@ -18,7 +18,7 @@ import SizeChoiceScreen from './screens/SizeChoiceScreen';
 import FeasibilityScreen from './screens/FeasibilityScreen';
 
 import { translations } from './i18n/translations';
-import { INITIAL_SAMPLE_PIECES } from './utils/storage';
+import { INITIAL_SAMPLE_PIECES, SAMPLE_PILE_A, SAMPLE_PILE_B } from './utils/storage';
 import { soundManager } from './utils/audio';
 import { buildDesign } from './engine/index';
 import { getTranslatedProductName, getTranslatedSizeLabel } from './utils/zoneHelper';
@@ -179,10 +179,35 @@ export default function App() {
     pushState(updated);
   };
 
-  // Load sample tailor pile
-  const handleLoadSampleData = () => {
-    pushState(INITIAL_SAMPLE_PIECES);
+  // Load sample tailor pile (Pile A, Pile B, or Default)
+  const handleLoadPile = (pileType) => {
+    if (pileType === 'A' || pileType === 'pileA') {
+      pushState(SAMPLE_PILE_A);
+    } else if (pileType === 'B' || pileType === 'pileB') {
+      pushState(SAMPLE_PILE_B);
+    } else {
+      pushState(INITIAL_SAMPLE_PIECES);
+    }
   };
+
+  const handleLoadSampleData = () => {
+    handleLoadPile('default');
+  };
+
+  // Expose global helper for automated testing and inspection
+  useEffect(() => {
+    window.__loadTailorPile = handleLoadPile;
+    window.__buildDesign = buildDesign;
+    window.__setScreen = (tab, designData) => {
+      if (designData) setSelectedDesign(designData);
+      setActiveTab(tab);
+    };
+    return () => {
+      delete window.__loadTailorPile;
+      delete window.__buildDesign;
+      delete window.__setScreen;
+    };
+  }, []);
 
   // Screen Title & Speech readout for header
   let screenTitle = t.home;
@@ -397,6 +422,7 @@ export default function App() {
                 setActiveTab('add');
               }}
               onWhatCanIMake={() => setActiveTab('what_can_i_make')}
+              onLoadPile={handleLoadPile}
               t={t}
               lang={lang}
             />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { 
   ArrowLeft, 
   HelpCircle, 
@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import FabricNumbersCard from '../components/FabricNumbersCard';
 import ProductVisual from '../components/ProductVisual';
+import Product2DPreview from '../components/Product2DPreview';
 import { soundManager } from '../utils/audio';
 import { COLOR_SWATCHES } from '../i18n/translations';
 import { 
@@ -87,6 +88,28 @@ export default function DesignViewScreen({
   // Total area of the pile in cm²
   const totalPileArea = pile.reduce((sum, p) => sum + (p.width * p.height * (p.quantity || 1)), 0);
 
+  // Compute effective design taking into account chosen patterns
+  const effectiveDesign = useMemo(() => {
+    if (!design || !design.placements) return design;
+    const placements = design.placements.map((pl) => {
+      const pat = perPartPatterns[pl.zoneId] || globalPattern || pl.direction;
+      let dir = pl.direction;
+      if (pat === 'vertical') dir = 'vertical';
+      else if (pat === 'horizontal') dir = 'horizontal';
+      else if (pat === 'grid' || pat === 'patchwork' || pat === 'checks') dir = 'grid';
+      return {
+        ...pl,
+        direction: dir,
+        patternChoice: pat,
+      };
+    });
+    return {
+      ...design,
+      style: globalPattern,
+      placements,
+    };
+  }, [design, globalPattern, perPartPatterns]);
+
   return (
     <div className="space-y-4 pb-36">
       {/* Top Header Card */}
@@ -109,7 +132,7 @@ export default function DesignViewScreen({
                 ⭐ {design.designScore}/100
               </span>
             </div>
-            <h2 className="text-lg font-black text-white leading-tight mt-0.5">
+            <h2 className="text-lg font-black text-white leading-tight mt-0.5 break-words">
               {productName}
             </h2>
             <p className="text-xs text-emerald-100 font-medium">
@@ -141,6 +164,15 @@ export default function DesignViewScreen({
           </button>
         </div>
       </div>
+
+      {/* Stage 4A: 2D Finished Product Tailor Preview */}
+      <Product2DPreview
+        design={effectiveDesign}
+        t={t}
+        lang={lang}
+        selectedZoneId={selectedZoneId}
+        onSelectZone={setSelectedZoneId}
+      />
 
       {/* Colour Roles & Harmony Legend */}
       <div className="bg-white rounded-3xl p-4 border border-stone-200 shadow-xs space-y-2.5">
@@ -404,15 +436,17 @@ export default function DesignViewScreen({
         </div>
       </div>
 
-      {/* Fabric Numbers (STRICT RULE 6 FORMAT) */}
-      <FabricNumbersCard
-        fabricUsedInSeamsCm2={design.fabricUsedInSeamsCm2 || 0}
-        fabricTooSmallToReuseCm2={design.fabricTooSmallToReuseCm2 || 0}
-        reusableLeftoversCount={design.reusableLeftoversCount || design.leftovers?.length || 0}
-        wastePercentage={design.wastePercentage || 0}
-        totalAreaCm2={totalPileArea}
-        t={t}
-      />
+      {/* Fabric Numbers (STRICT RULE 6 FORMAT - Only shown when product fits) */}
+      {design.fits !== false && (
+        <FabricNumbersCard
+          fabricUsedInSeamsCm2={design.fabricUsedInSeamsCm2 || 0}
+          fabricTooSmallToReuseCm2={design.fabricTooSmallToReuseCm2 || 0}
+          reusableLeftoversCount={design.reusableLeftoversCount || design.leftovers?.length || 0}
+          wastePercentage={design.wastePercentage || 0}
+          totalAreaCm2={totalPileArea}
+          t={t}
+        />
+      )}
 
       {/* Main Action Buttons */}
       <div className="space-y-2 pt-2">
