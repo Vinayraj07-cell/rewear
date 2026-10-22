@@ -355,10 +355,10 @@ export function computeGenericFlatLayout(design, sizeTemplate, placements = [], 
 
       const canvasSeams = localSeams.map((s) => ({
         ...s,
-        canvasX1: panelX + s.relX1,
-        canvasY1: panelY + s.relY1,
-        canvasX2: panelX + s.relX2,
-        canvasY2: panelY + s.relY2,
+        canvasX1: panelX + (s.relX1 ?? s.x1 ?? 0),
+        canvasY1: panelY + (s.relY1 ?? s.y1 ?? 0),
+        canvasX2: panelX + (s.relX2 ?? s.x2 ?? 0),
+        canvasY2: panelY + (s.relY2 ?? s.y2 ?? 0),
       }));
 
       const clipPathD = piece.clipPathD || piece.geometry?.seamPath || `M 0 0 h ${piece.w} v ${piece.h} h -${piece.w} Z`;
@@ -377,7 +377,7 @@ export function computeGenericFlatLayout(design, sizeTemplate, placements = [], 
         clipPathD,
         canvasClipPathD,
         isPlaced: Boolean(placement),
-        placement,
+        placement: placement || null,
         patches: canvasPatches,
         seams: canvasSeams,
       });

@@ -362,6 +362,117 @@ export function getStepSvgString(type, stepNumber = 1, context = {}) {
       `;
       break;
 
+    // ==========================================
+    // FLAT PIECE (PLACEMAT / RUNNER) DIAGRAMS
+    // ==========================================
+    case 'flat_piece_scraps':
+      body = `
+        <rect x="25" y="18" width="34" height="44" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" rx="1" />
+        <rect x="61" y="18" width="34" height="44" fill="#FED7AA" stroke="#C2410C" stroke-width="1" rx="1" />
+        <line x1="60" y1="18" x2="60" y2="62" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="3,2" />
+        <text x="60" y="70" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#EF4444" font-weight="bold" text-anchor="middle">1.0 cm Seam Join</text>
+      `;
+      break;
+
+    case 'flat_square_edges':
+      body = `
+        <rect x="25" y="18" width="70" height="44" fill="#F8FAFC" stroke="#047857" stroke-width="1.2" stroke-dasharray="4,2" rx="1" />
+        <path d="M 25 24 L 31 24 L 31 18" fill="none" stroke="#047857" stroke-width="1" />
+        <path d="M 89 24 L 89 18 M 89 24 L 95 24" fill="none" stroke="#047857" stroke-width="1" />
+        <text x="60" y="42" font-family="Helvetica, Arial, sans-serif" font-size="5.5" fill="#047857" font-weight="bold" text-anchor="middle">Trim &amp; Square 90°</text>
+      `;
+      break;
+
+    case 'flat_press_hem':
+      body = `
+        <rect x="24" y="16" width="72" height="48" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" rx="1" />
+        <rect x="28" y="20" width="64" height="40" fill="#BFDBFE" stroke="#3B82F6" stroke-width="0.8" stroke-dasharray="2,2" />
+        <text x="60" y="42" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#1E3A8A" font-weight="bold" text-anchor="middle">Double-Fold Hem (0.5 + 1.0 cm)</text>
+      `;
+      break;
+
+    case 'flat_miter_corners':
+      body = `
+        <rect x="28" y="20" width="64" height="40" fill="#FED7AA" stroke="#C2410C" stroke-width="1" />
+        <line x1="28" y1="28" x2="36" y2="20" stroke="#EF4444" stroke-width="1.5" />
+        <line x1="92" y1="28" x2="84" y2="20" stroke="#EF4444" stroke-width="1.5" />
+        <text x="60" y="44" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#C2410C" font-weight="bold" text-anchor="middle">45° Mitered Corners</text>
+      `;
+      break;
+
+    case 'flat_topstitch':
+      body = `
+        <rect x="24" y="16" width="72" height="48" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1.2" rx="1" />
+        <rect x="27" y="19" width="66" height="42" fill="none" stroke="#047857" stroke-width="1.2" stroke-dasharray="2.5,1.5" />
+        <text x="60" y="42" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#047857" font-weight="bold" text-anchor="middle">Edge Topstitch 2 mm</text>
+      `;
+      break;
+
+    case 'flat_finish':
+      body = `
+        <rect x="24" y="16" width="72" height="48" fill="#F0FDF4" stroke="#047857" stroke-width="1.5" rx="2" />
+        <text x="60" y="38" font-family="Helvetica, Arial, sans-serif" font-size="6" fill="#047857" font-weight="bold" text-anchor="middle">✓ Steam Pressed</text>
+        <text x="60" y="48" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#334155" text-anchor="middle">Corners Flat &amp; Square</text>
+      `;
+      break;
+
+    // ==========================================
+    // CASING / TUBE (SCRUNCHIE / DRAWSTRING) DIAGRAMS
+    // ==========================================
+    case 'casing_piece_strip':
+      body = `
+        <rect x="15" y="30" width="30" height="20" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" rx="1" />
+        <rect x="47" y="30" width="30" height="20" fill="#FED7AA" stroke="#C2410C" stroke-width="1" rx="1" />
+        <rect x="79" y="30" width="26" height="20" fill="#E2E8F0" stroke="#475569" stroke-width="1" rx="1" />
+        <line x1="46" y1="30" x2="46" y2="50" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="2,2" />
+        <line x1="78" y1="30" x2="78" y2="50" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="2,2" />
+        <text x="60" y="62" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#EF4444" font-weight="bold" text-anchor="middle">Piece End-to-End</text>
+      `;
+      break;
+
+    case 'casing_stitch_tube':
+      body = `
+        <rect x="18" y="30" width="84" height="20" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" rx="1" />
+        <line x1="18" y1="46" x2="102" y2="46" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="3,2" />
+        <text x="60" y="40" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#1E3A8A" font-weight="bold" text-anchor="middle">Fold &amp; Stitch Long Edge</text>
+      `;
+      break;
+
+    case 'casing_turn_out':
+      body = `
+        <rect x="18" y="32" width="84" height="16" fill="#FED7AA" stroke="#C2410C" stroke-width="1" rx="2" />
+        <circle cx="88" cy="40" r="3" fill="#EF4444" />
+        <line x1="88" y1="40" x2="70" y2="40" stroke="#EF4444" stroke-width="1.5" marker-end="url(#step-arrow-${stepNumber})" />
+        <text x="50" y="42" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#9A3412" font-weight="bold" text-anchor="middle">Turn Right-Side Out</text>
+      `;
+      break;
+
+    case 'casing_press_channel':
+      body = `
+        <rect x="18" y="32" width="84" height="16" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1.2" rx="1" />
+        <line x1="18" y1="40" x2="102" y2="40" stroke="#3B82F6" stroke-width="0.8" stroke-dasharray="4,2" />
+        <text x="60" y="42" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#1E3A8A" font-weight="bold" text-anchor="middle">Press Hollow Channel Flat</text>
+      `;
+      break;
+
+    case 'casing_insert_elastic':
+      body = `
+        <rect x="18" y="30" width="84" height="20" fill="#E2E8F0" stroke="#475569" stroke-width="1" rx="1" />
+        <line x1="18" y1="40" x2="90" y2="40" stroke="#047857" stroke-width="2.5" />
+        <circle cx="92" cy="40" r="3" fill="#047857" />
+        <text x="60" y="60" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#047857" font-weight="bold" text-anchor="middle">Thread Elastic / Drawcord</text>
+      `;
+      break;
+
+    case 'casing_finish':
+      body = `
+        <circle cx="60" cy="40" r="22" fill="none" stroke="#DBEAFE" stroke-width="12" />
+        <circle cx="60" cy="40" r="22" fill="none" stroke="#1E3A8A" stroke-width="1" />
+        <rect x="56" y="14" width="8" height="8" fill="#EF4444" rx="1" />
+        <text x="60" y="42" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#1E3A8A" font-weight="bold" text-anchor="middle">Topstitch Closed</text>
+      `;
+      break;
+
     default:
       body = `
         <rect x="28" y="18" width="64" height="44" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1.2" rx="2" />

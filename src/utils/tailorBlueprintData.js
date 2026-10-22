@@ -3,6 +3,7 @@
 // For all products (pouch, tote_bag, cushion_cover, kids_frock, child_top).
 
 import { PRODUCT_TEMPLATES, getProductRequirements } from '../engine/templates.js';
+import { CONFIG } from '../engine/config.js';
 
 export const TAILOR_DISCLAIMER = 'Measurements to be verified by a tailor';
 export const TYPICAL_DEFAULTS_DISCLAIMER = 'typical defaults, to be verified by a tailor';
@@ -60,11 +61,25 @@ export function getProductStitchingSteps(productId, sizeKey = 'small', template 
   const finishedH = sizeObj?.finishedHeightCm || 38;
 
   // 1. Explicit steps defined on the template/spec
-  if (prod?.stitchingSteps) {
-    return typeof prod.stitchingSteps === 'function' ? prod.stitchingSteps(sizeKey, sizeObj) : prod.stitchingSteps;
+  if (prod?.stitchingSteps && (typeof prod.stitchingSteps === 'function' || prod.stitchingSteps.length > 0)) {
+    const rawExplicit = typeof prod.stitchingSteps === 'function' ? prod.stitchingSteps(sizeKey, sizeObj) : prod.stitchingSteps;
+    const defaultTimes = CONFIG.CONSTRUCTION_STEP_MINUTES?.[prod?.construction] || [8, 6, 6, 6, 5, 4];
+    return rawExplicit.map((s, idx) => ({
+      ...s,
+      estimatedMinutes: (typeof s.estimatedMinutes === 'number' && !isNaN(s.estimatedMinutes) && s.estimatedMinutes > 0)
+        ? s.estimatedMinutes
+        : (defaultTimes[idx] || 5),
+    }));
   }
-  if (prod?.steps) {
-    return typeof prod.steps === 'function' ? prod.steps(sizeKey, sizeObj) : prod.steps;
+  if (prod?.steps && (typeof prod.steps === 'function' || prod.steps.length > 0)) {
+    const rawExplicit = typeof prod.steps === 'function' ? prod.steps(sizeKey, sizeObj) : prod.steps;
+    const defaultTimes = CONFIG.CONSTRUCTION_STEP_MINUTES?.[prod?.construction] || [8, 6, 6, 6, 5, 4];
+    return rawExplicit.map((s, idx) => ({
+      ...s,
+      estimatedMinutes: (typeof s.estimatedMinutes === 'number' && !isNaN(s.estimatedMinutes) && s.estimatedMinutes > 0)
+        ? s.estimatedMinutes
+        : (defaultTimes[idx] || 5),
+    }));
   }
 
   // 2. Step template chosen from construction field (tee, skirt, trousers, bag, cushion, pouch)
@@ -77,8 +92,10 @@ export function getProductStitchingSteps(productId, sizeKey = 'small', template 
     productId
   );
 
+  let steps = [];
+
   if (construction === 'pouch') {
-    return [
+    steps = [
       {
         stepNumber: 1,
         title: 'Piece the Scrap Patches',
@@ -122,11 +139,9 @@ export function getProductStitchingSteps(productId, sizeKey = 'small', template 
         diagramType: 'pouch_finish',
       },
     ];
-  }
-
-  if (construction === 'bag') {
+  } else if (construction === 'bag') {
     const gussetDepth = sizeKey === 'small' ? 4 : (sizeKey === 'large' ? 8 : 6);
-    return [
+    steps = [
       {
         stepNumber: 1,
         title: 'Assemble Patchwork Body Panels',
@@ -170,11 +185,9 @@ export function getProductStitchingSteps(productId, sizeKey = 'small', template 
         diagramType: 'tote_box_corners',
       },
     ];
-  }
-
-  if (construction === 'cushion') {
+  } else if (construction === 'cushion') {
     const overlapCm = sizeKey === 'small' ? 8 : (sizeKey === 'large' ? 12 : 10);
-    return [
+    steps = [
       {
         stepNumber: 1,
         title: 'Piece the Front Patchwork Grid',
@@ -218,14 +231,12 @@ export function getProductStitchingSteps(productId, sizeKey = 'small', template 
         diagramType: 'cushion_finish',
       },
     ];
-  }
-
-  if (construction === 'skirt') {
+  } else if (construction === 'skirt') {
     const bodiceW = sizeKey === '0-1y' ? 22 : (sizeKey === '2-3y' ? 26 : (sizeKey === '4-5y' ? 30 : 34));
     const bodiceH = sizeKey === '0-1y' ? 12 : (sizeKey === '2-3y' ? 14 : (sizeKey === '4-5y' ? 16 : 18));
     const skirtH = sizeKey === '0-1y' ? 22 : (sizeKey === '2-3y' ? 28 : (sizeKey === '4-5y' ? 35 : 42));
 
-    return [
+    steps = [
       {
         stepNumber: 1,
         title: 'Assemble Chest Bodice Panels',
@@ -269,10 +280,8 @@ export function getProductStitchingSteps(productId, sizeKey = 'small', template 
         diagramType: 'frock_finish',
       },
     ];
-  }
-
-  if (construction === 'tee') {
-    return [
+  } else if (construction === 'tee') {
+    steps = [
       {
         stepNumber: 1,
         title: 'Piece Patchwork Scrap Panels',
@@ -316,10 +325,8 @@ export function getProductStitchingSteps(productId, sizeKey = 'small', template 
         diagramType: 'tee_finish',
       },
     ];
-  }
-
-  if (construction === 'trousers') {
-    return [
+  } else if (construction === 'trousers') {
+    steps = [
       {
         stepNumber: 1,
         title: 'Assemble Patchwork Leg Panels',
@@ -361,41 +368,156 @@ export function getProductStitchingSteps(productId, sizeKey = 'small', template 
         instruction: 'Double-fold ankle cuffs (1.5 cm) and edge-stitch around circumference. Turn trousers right side out and steam press leg creases flat.',
         audioText: 'Step 6: Hem ankle cuffs and steam press leg creases.',
         diagramType: 'trousers_finish',
+        estimatedMinutes: CONFIG.CONSTRUCTION_STEP_MINUTES?.trousers?.[5] || 4,
+      },
+    ];
+  } else if (construction === 'flat') {
+    steps = [
+      {
+        stepNumber: 1,
+        title: 'Piece the Fabric Scraps',
+        instruction: `Arrange scrap pieces according to the pattern layout (${finishedW} × ${finishedH} cm finished). Stitch seam joins with 1.0 cm (0.4 in) seam allowance. Press all internal seams open flat to prevent bulk.`,
+        audioText: `Step 1: Arrange scrap pieces to finished size ${finishedW} by ${finishedH} centimeters, join with one centimeter seam allowance, and press seams open flat.`,
+        diagramType: 'flat_piece_scraps',
+        estimatedMinutes: CONFIG.CONSTRUCTION_STEP_MINUTES?.flat?.[0] || 8,
+      },
+      {
+        stepNumber: 2,
+        title: 'Trim & Square Edges',
+        instruction: 'Lay the pieced panel flat on a cutting mat. Using a clear tailor ruler and rotary cutter, trim all four perimeter edges clean and square at 90-degree right angles.',
+        audioText: 'Step 2: Lay the pieced panel flat and trim all four edges square at right angles.',
+        diagramType: 'flat_square_edges',
+        estimatedMinutes: CONFIG.CONSTRUCTION_STEP_MINUTES?.flat?.[1] || 5,
+      },
+      {
+        stepNumber: 3,
+        title: 'Press Double-Turn Hem Allowances',
+        instruction: 'Fold and press a narrow 0.5 cm margin to the wrong side along all four perimeter edges. Then fold again by 1.0 cm to fully enclose raw fabric edges, pressing firmly with a hot iron.',
+        audioText: 'Step 3: Press a half-centimeter fold, then fold again by one centimeter to enclose raw edges.',
+        diagramType: 'flat_press_hem',
+        estimatedMinutes: CONFIG.CONSTRUCTION_STEP_MINUTES?.flat?.[2] || 5,
+      },
+      {
+        stepNumber: 4,
+        title: 'Miter Perimeter Corners',
+        instruction: 'Unfold corner creases slightly, fold the corner tip inward at 45 degrees, and re-fold hem edges over the miter so the corner lies completely flat without excess fabric bulk.',
+        audioText: 'Step 4: Miter corners at 45 degrees so all corners lie flat and crisp.',
+        diagramType: 'flat_miter_corners',
+        estimatedMinutes: CONFIG.CONSTRUCTION_STEP_MINUTES?.flat?.[3] || 4,
+      },
+      {
+        stepNumber: 5,
+        title: 'Topstitch Perimeter Hem',
+        instruction: 'Pin hem folds securely. Edge-stitch along the inner pressed fold 2 mm from the edge around all four perimeter sides, pivoting neatly with needle down at each mitered corner.',
+        audioText: 'Step 5: Topstitch two millimeters from the inner folded edge around all four sides, pivoting at corners.',
+        diagramType: 'flat_topstitch',
+        estimatedMinutes: CONFIG.CONSTRUCTION_STEP_MINUTES?.flat?.[4] || 5,
+      },
+      {
+        stepNumber: 6,
+        title: 'Final Steam Press & Inspection',
+        instruction: 'Give the completed flat piece a thorough steam press using a damp pressing cloth. Inspect all perimeter stitches, check that corners are square, and trim any remaining thread tails.',
+        audioText: 'Step 6: Steam press thoroughly, check corner squareness, and trim loose threads.',
+        diagramType: 'flat_finish',
+        estimatedMinutes: CONFIG.CONSTRUCTION_STEP_MINUTES?.flat?.[5] || 3,
+      },
+    ];
+  } else if (construction === 'casing') {
+    steps = [
+      {
+        stepNumber: 1,
+        title: 'Piece the Lengthwise Strip',
+        instruction: `Arrange scrap pieces in a single lengthwise line to achieve target tube length. Join short ends with 1.0 cm seam allowance and press all seams open flat.`,
+        audioText: 'Step 1: Piece scrap units end-to-end with one centimeter seam allowance and press open flat.',
+        diagramType: 'casing_piece_strip',
+        estimatedMinutes: CONFIG.CONSTRUCTION_STEP_MINUTES?.casing?.[0] || 6,
+      },
+      {
+        stepNumber: 2,
+        title: 'Fold & Stitch Longitudinal Tube',
+        instruction: 'Fold the pieced strip in half lengthwise with right sides facing inward. Align long cut edges and stitch with 1.0 cm seam allowance, leaving both tube ends open.',
+        audioText: 'Step 2: Fold strip in half lengthwise right sides facing and stitch along the long edge.',
+        diagramType: 'casing_stitch_tube',
+        estimatedMinutes: CONFIG.CONSTRUCTION_STEP_MINUTES?.casing?.[1] || 4,
+      },
+      {
+        stepNumber: 3,
+        title: 'Turn Tube Right Side Out',
+        instruction: 'Attach a safety pin or loop turner to one open end. Guide it through the interior of the tube to pull right side out. Roll seam to the fold edge and press flat.',
+        audioText: 'Step 3: Turn the fabric tube right side out with a safety pin and press the seam flat.',
+        diagramType: 'casing_turn_out',
+        estimatedMinutes: CONFIG.CONSTRUCTION_STEP_MINUTES?.casing?.[2] || 4,
+      },
+      {
+        stepNumber: 4,
+        title: 'Form Elastic / Drawcord Casing',
+        instruction: 'Press the tube neatly. If constructing a drawstring or scrunchie, ensure the hollow internal channel has uniform width without seam twists.',
+        audioText: 'Step 4: Press tube evenly to form a smooth, twist-free internal channel.',
+        diagramType: 'casing_press_channel',
+        estimatedMinutes: CONFIG.CONSTRUCTION_STEP_MINUTES?.casing?.[3] || 4,
+      },
+      {
+        stepNumber: 5,
+        title: 'Insert Elastic or Drawcord',
+        instruction: 'Pin safety pin to the end of the elastic or cord. Thread through the casing channel, taking care not to twist. Secure cord or overlap elastic ends by 1.5 cm and stitch firmly with a zigzag bar-tack.',
+        audioText: 'Step 5: Thread elastic or cord through the channel and secure ends firmly with a bar-tack.',
+        diagramType: 'casing_insert_elastic',
+        estimatedMinutes: CONFIG.CONSTRUCTION_STEP_MINUTES?.casing?.[4] || 4,
+      },
+      {
+        stepNumber: 6,
+        title: 'Close Casing & Finish',
+        instruction: 'Tuck raw tube ends inward by 1.0 cm. Overlap the folded ends and topstitch securely across the join 2 mm from the edge. Evenly distribute fabric gathers around the elastic.',
+        audioText: 'Step 6: Tuck raw ends inward, topstitch closed, and distribute gathers evenly.',
+        diagramType: 'casing_finish',
+        estimatedMinutes: CONFIG.CONSTRUCTION_STEP_MINUTES?.casing?.[5] || 3,
+      },
+    ];
+  } else {
+    // Fallback generic 4-step assembly
+    steps = [
+      {
+        stepNumber: 1,
+        title: 'Piece Patchwork Scrap Panels',
+        instruction: `Assemble scrap pieces according to pattern layout. Join with 1.0 cm seam allowance and press open flat.`,
+        audioText: 'Step 1: Assemble scrap pieces with one centimeter seam allowance and press open.',
+        diagramType: 'pouch_piece_patches',
+        estimatedMinutes: 10,
+      },
+      {
+        stepNumber: 2,
+        title: 'Assemble Garment Panels',
+        instruction: 'Join body panels and sleeves matching alignment notches.',
+        audioText: 'Step 2: Join body panels and sleeves matching notches.',
+        diagramType: 'tote_assemble_body',
+        estimatedMinutes: 10,
+      },
+      {
+        stepNumber: 3,
+        title: 'Finish Structural Seams',
+        instruction: 'Stitch side and closing seams. Finish raw seam allowances with overlock or zigzag stitch.',
+        audioText: 'Step 3: Stitch side and closing seams and finish raw edges.',
+        diagramType: 'pouch_join_lower',
+        estimatedMinutes: 10,
+      },
+      {
+        stepNumber: 4,
+        title: 'Hemming & Final Press',
+        instruction: 'Hem edges and steam press flat for a professional finish.',
+        audioText: 'Step 4: Hem edges and steam press flat.',
+        diagramType: 'pouch_finish',
+        estimatedMinutes: 5,
       },
     ];
   }
 
-  // Fallback generic 4-step assembly
-  return [
-    {
-      stepNumber: 1,
-      title: 'Piece Patchwork Scrap Panels',
-      instruction: `Assemble scrap pieces according to pattern layout. Join with 1.0 cm seam allowance and press open flat.`,
-      audioText: 'Step 1: Assemble scrap pieces with one centimeter seam allowance and press open.',
-      diagramType: 'pouch_piece_patches',
-    },
-    {
-      stepNumber: 2,
-      title: 'Assemble Garment Panels',
-      instruction: 'Join body panels and sleeves matching alignment notches.',
-      audioText: 'Step 2: Join body panels and sleeves matching notches.',
-      diagramType: 'tote_assemble_body',
-    },
-    {
-      stepNumber: 3,
-      title: 'Finish Structural Seams',
-      instruction: 'Stitch side and closing seams. Finish raw seam allowances with overlock or zigzag stitch.',
-      audioText: 'Step 3: Stitch side and closing seams and finish raw edges.',
-      diagramType: 'pouch_join_lower',
-    },
-    {
-      stepNumber: 4,
-      title: 'Hemming & Final Press',
-      instruction: 'Hem edges and steam press flat for a professional finish.',
-      audioText: 'Step 4: Hem edges and steam press flat.',
-      diagramType: 'pouch_finish',
-    },
-  ];
+  const defaultTimes = CONFIG.CONSTRUCTION_STEP_MINUTES?.[construction] || [8, 6, 6, 6, 5, 4];
+  return steps.map((s, idx) => ({
+    ...s,
+    estimatedMinutes: (typeof s.estimatedMinutes === 'number' && !isNaN(s.estimatedMinutes) && s.estimatedMinutes > 0)
+      ? s.estimatedMinutes
+      : (defaultTimes[idx] || 5),
+  }));
 }
 
 // Backwards-compatible export
@@ -590,6 +712,42 @@ export function getProductMaterialsList(productId, sizeKeyOrDesign, maybeDesign)
     ];
   }
 
+  if (construction === 'flat') {
+    return [
+      ...baseMaterials,
+      {
+        name: 'Cotton Bias Binding / Edge Tape',
+        spec: '1/2 inch single-fold or double-fold cotton tape for perimeter hem reinforcement',
+        qty: '1 package or continuous strip (perimeter length)',
+        source: 'Notions',
+        note: `Provides crisp, flat mitered edges (${TYPICAL_DEFAULTS_DISCLAIMER})`,
+        disclaimer: TYPICAL_DEFAULTS_DISCLAIMER,
+      },
+    ];
+  }
+
+  if (construction === 'casing') {
+    return [
+      ...baseMaterials,
+      {
+        name: 'Braided Elastic or Drawstring Cord',
+        spec: '6 mm to 12 mm braided elastic band or 4 mm woven cotton drawstring cord',
+        qty: '1 length (40–80 cm depending on size)',
+        source: 'Notions',
+        note: `Comfortable tension and durable elastic recovery (${TYPICAL_DEFAULTS_DISCLAIMER})`,
+        disclaimer: TYPICAL_DEFAULTS_DISCLAIMER,
+      },
+      {
+        name: 'Safety Pin or Bodkin',
+        spec: 'Standard 38 mm steel safety pin or bodkin for threading elastic/cord',
+        qty: '1 piece',
+        source: 'Tool / Notion',
+        note: `Facilitates smooth pull-through without twisting (${TYPICAL_DEFAULTS_DISCLAIMER})`,
+        disclaimer: TYPICAL_DEFAULTS_DISCLAIMER,
+      },
+    ];
+  }
+
   return baseMaterials;
 }
 
@@ -606,6 +764,8 @@ export function getProductPriceDefaults(productId, estimatedMinutes = 35) {
     bag: { materialCost: 55, laborRatePerHour: 120, extrasCost: 30 },
     cushion: { materialCost: 45, laborRatePerHour: 120, extrasCost: 25 },
     trousers: { materialCost: 55, laborRatePerHour: 120, extrasCost: 30 },
+    flat: { materialCost: 35, laborRatePerHour: 120, extrasCost: 15 },
+    casing: { materialCost: 25, laborRatePerHour: 120, extrasCost: 15 },
   };
 
   const def = baseDefaults[productId] || { materialCost: 40, laborRatePerHour: 120, extrasCost: 25 };
@@ -755,7 +915,12 @@ export function buildTailorBlueprint(design) {
   });
 
   const materials = getProductMaterialsList(productId, sizeKey, design);
-  const stitchingSteps = getProductStitchingSteps(productId, sizeKey, template);
+  const stitchingSteps = getProductStitchingSteps(productId, sizeKey, template).map((s, idx) => ({
+    ...s,
+    estimatedMinutes: (typeof s.estimatedMinutes === 'number' && !isNaN(s.estimatedMinutes) && s.estimatedMinutes > 0)
+      ? s.estimatedMinutes
+      : (CONFIG.CONSTRUCTION_STEP_MINUTES?.[template?.construction || 'pouch']?.[idx] || 5),
+  }));
   const pricing = getProductPriceDefaults(productId, design.estimatedTimeMinutes || 35);
 
   return {

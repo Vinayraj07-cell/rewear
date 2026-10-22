@@ -25,11 +25,12 @@
 
 import { CONFIG } from './config.js';
 import { CHILD_TOP_BRIAN_DATA } from './childTopBrianData.js';
+import { CUSTOM_PRODUCT_TEMPLATES } from './customRegistry.js';
 
 export const TAILOR_DISCLAIMER =
   'All pattern measurements are rectangle-based approximations for scrap cutting and must be verified by a professional tailor before final cutting.';
 
-export const PRODUCT_TEMPLATES = {
+export const DEFAULT_PRODUCT_TEMPLATES = {
   // =========================================================================
   // 1. TOTE BAG
   // =========================================================================
@@ -720,6 +721,11 @@ export const PRODUCT_TEMPLATES = {
   },
 };
 
+export const PRODUCT_TEMPLATES = {
+  ...DEFAULT_PRODUCT_TEMPLATES,
+  ...CUSTOM_PRODUCT_TEMPLATES,
+};
+
 /**
  * Normalizes either a legacy product template or a modern Garment Spec object
  * into a standardized, unified format that supports both legacy zones and vector pieces.
@@ -790,20 +796,25 @@ export function normalizeGarmentSpec(productOrSpec) {
           return {
             id: pieceId,
             name: pieceName,
+            names: item.names || (item.name ? { en: item.name } : undefined),
             role,
             width: w,
             height: h,
+            cutWidth: item.cutWidth !== undefined ? item.cutWidth : (w + 2 * saDefault),
+            cutHeight: item.cutHeight !== undefined ? item.cutHeight : (h + 2 * saDefault),
             qty,
             cutQty: qty,
             optional,
             accentOnly,
             fabricSource,
             scrapEligible,
+            cutOnFold: Boolean(item.cutOnFold),
             seamAllowanceCm: typeof item.seamAllowanceCm === 'object'
               ? item.seamAllowanceCm
               : { defaultCm: saDefault },
             grainLine: item.grainLine || { orientation: 'any', angleDegrees: 90, strict: false },
             geometry,
+            provenance: item.provenance || null,
             mapping3D: item.mapping3D || null,
           };
         });
@@ -844,6 +855,7 @@ export function normalizeGarmentSpec(productOrSpec) {
     schemaVersion,
     id,
     name,
+    names: productOrSpec.names || { en: name },
     category,
     construction,
     description,

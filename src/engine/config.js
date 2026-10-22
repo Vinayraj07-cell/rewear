@@ -259,6 +259,28 @@ export const CONFIG = {
     cushion_cover: 40,
     kids_frock: 70,
     child_top: 45,
+    tee: 45,
+    skirt: 70,
+    bag: 50,
+    cushion: 40,
+    trousers: 50,
+    flat: 30,
+    casing: 25,
+  },
+
+  /**
+   * Estimated sewing minutes breakdown for each construction archetype step.
+   * Guaranteed positive numbers for every step across all 8 supported constructions.
+   */
+  CONSTRUCTION_STEP_MINUTES: {
+    pouch: [8, 4, 6, 4, 4, 4],       // sum = 30 mins
+    bag: [12, 8, 6, 8, 10, 6],       // sum = 50 mins
+    cushion: [10, 6, 6, 6, 8, 4],    // sum = 40 mins
+    skirt: [15, 12, 10, 15, 12, 6],  // sum = 70 mins
+    tee: [10, 8, 8, 8, 6, 5],        // sum = 45 mins
+    trousers: [12, 10, 10, 8, 6, 4], // sum = 50 mins
+    flat: [8, 5, 5, 4, 5, 3],        // sum = 30 mins
+    casing: [6, 4, 4, 4, 4, 3],      // sum = 25 mins
   },
 
   /**

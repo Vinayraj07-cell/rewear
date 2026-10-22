@@ -437,19 +437,32 @@ assert(
 // ---------------------------------------------------------------------------
 // 4. Generic Blueprint Steps & Materials Tests
 // ---------------------------------------------------------------------------
-console.log('\n--- 4. Generic Blueprint Steps & Materials (All 6 Constructions) ---');
+console.log('\n--- 4. Generic Blueprint Steps & Materials (All 8 Constructions) ---');
 
-const constructions = ['tee', 'skirt', 'trousers', 'bag', 'cushion', 'pouch'];
+const constructions = ['tee', 'skirt', 'trousers', 'bag', 'cushion', 'pouch', 'flat', 'casing'];
 for (const c of constructions) {
   const steps = getProductStitchingSteps(`custom_${c}`, 'medium', { construction: c });
-  assert(Array.isArray(steps) && steps.length >= 4, `Construction "${c}" returns valid step list (length: ${steps.length})`);
+  assert(Array.isArray(steps) && steps.length >= 6, `Construction "${c}" returns valid step list (length: ${steps.length})`);
   assert(steps.every((s) => s.stepNumber && s.title && s.instruction && s.diagramType), `Construction "${c}" steps contain all required fields`);
+  assert(
+    steps.every((s) => typeof s.estimatedMinutes === 'number' && !isNaN(s.estimatedMinutes) && s.estimatedMinutes > 0),
+    `Construction "${c}" steps must all have a real positive estimatedMinutes number`
+  );
 
   const materials = getProductMaterialsList(`custom_${c}`, 'medium', { spec: { construction: c } });
   assert(Array.isArray(materials) && materials.length >= 2, `Construction "${c}" returns valid materials list (length: ${materials.length})`);
   assert(
     materials.every((m) => m.disclaimer === TYPICAL_DEFAULTS_DISCLAIMER),
     `Construction "${c}" materials are all flagged with "${TYPICAL_DEFAULTS_DISCLAIMER}"`
+  );
+}
+
+// Test core products have real positive estimatedMinutes on every step
+for (const pid of ['tote_bag', 'pouch', 'cushion_cover', 'kids_frock', 'child_top']) {
+  const coreSteps = getProductStitchingSteps(pid, 'medium');
+  assert(
+    coreSteps.every((s) => typeof s.estimatedMinutes === 'number' && !isNaN(s.estimatedMinutes) && s.estimatedMinutes > 0),
+    `Core product "${pid}" steps must all have a real positive estimatedMinutes number`
   );
 }
 

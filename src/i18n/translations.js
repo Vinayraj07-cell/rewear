@@ -1,6 +1,8 @@
 // Comprehensive multi-language dictionary for ReWear
 // Designed to support English, Telugu (తెలుగు), Hindi (हिंदी), and easily extensible for more.
 
+import { CUSTOM_TRANSLATIONS } from './customTranslations.js';
+
 export const translations = {
   en: {
     appName: "ReWear",
@@ -1289,6 +1291,23 @@ export const translations = {
     addScrapsBtn: "ढेर में जोड़ें",
   }
 };
+
+// Merge dynamically registered product translations
+if (typeof CUSTOM_TRANSLATIONS === 'object' && CUSTOM_TRANSLATIONS !== null) {
+  for (const lang of ['en', 'hi', 'te']) {
+    if (CUSTOM_TRANSLATIONS[lang] && translations[lang]) {
+      if (CUSTOM_TRANSLATIONS[lang].productNames) {
+        Object.assign(translations[lang].productNames, CUSTOM_TRANSLATIONS[lang].productNames);
+      }
+      if (CUSTOM_TRANSLATIONS[lang].sizeNames) {
+        Object.assign(translations[lang].sizeNames, CUSTOM_TRANSLATIONS[lang].sizeNames);
+      }
+      if (CUSTOM_TRANSLATIONS[lang].zoneNames) {
+        Object.assign(translations[lang].zoneNames, CUSTOM_TRANSLATIONS[lang].zoneNames);
+      }
+    }
+  }
+}
 
 export const COLOR_SWATCHES = [
   { id: 'red', hex: '#EF4444', border: '#DC2626', family: 'warm' },

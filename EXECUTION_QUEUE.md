@@ -12,7 +12,8 @@ This log tracks execution items across ReWear development phases and spikes.
 | **Q3** | Phase 6 Step 3 | Frayed / uneven scraps safety margin setting (`SCRAP_SAFETY_MARGIN_CM`, default 0, choices [0, 0.5, 1.0] cm/edge, shrinks usable scrap dimensions by 2 x margin, reports "lost to frayed edges", strict mathematical area conservation, toggle switch in My Pile) | **DONE** | 2026-10-22 |
 | **Q4** | Stage 4B / Phase 6 | Tailor blueprint repair (in-app screen & PDFs): fix piece sizes from templates.js, size-adaptive step & materials text, real SVG diagrams in PDF, embedded font with ₹ & arrows/glyphs, clean page breaks, summarized scraps, grain from data | **DONE** | 2026-10-22 |
 | **Q5** | Phase 6 Step 5 | Fast scrap adding: 3 sample piles (neutral, colourful, mixed fabrics) with one-tap load, bulk add row with quantity stepper + size chips + colour + fabric + print, repeat add without leaving, duplicate button on pieces, clear pile with confirmation, local persistence | **DONE** | 2026-10-22 |
-| **Q6** | Product Pipeline Part 1 | Product registry validator (`npm run check-products`), generic flat preview with clipped patchwork, generic blueprint with construction step templates, validator self-tests | **IN PROGRESS (Pending Approval)** | 2026-10-22 |
+| **Q6** | Product Pipeline Part 1 | Product registry validator (`npm run check-products`), generic flat preview with clipped patchwork, generic blueprint with construction step templates, validator self-tests | **DONE** | 2026-10-22 |
+| **Q7** | Product Pipeline Part 2 | Product factory script (`npm run new-product`), CAD pattern integration, removal tool (`npm run remove-product`), `PRODUCTS.md` developer guide | **IN PROGRESS (Pending Approval)** | 2026-10-22 |
 
 ---
 
@@ -127,3 +128,23 @@ This log tracks execution items across ReWear development phases and spikes.
   - Mandatory banners: `"Example photo (not generated from your design)"` and `"AI photo. For inspiration only. Seams and patch positions follow the plan and blueprint."`
   - Deterministic hash caching (`aiPreviewCache`) preventing redundant calls.
   - Unit tests in `src/utils/test_ai_preview.js` passing 100% green without calling live APIs.
+
+### [Q7 / Product Pipeline Part 2] Product Factory Script & PRODUCTS.md
+- **Factory Script (`npm run new-product -- --config products/<name>.json`)**:
+  - Implemented in `src/engine/factory/newProduct.js`.
+  - Reads a short JSON configuration (`id`, `names`, `category`, `sizes`, `pieces`, `construction`, `materials`, `patternLibrary`).
+  - Automatically calculates seam allowances ($W + 2 \cdot \text{SA}$, $H + 2 \cdot \text{SA}$), finished areas, cut areas, grain lines, and scrap sourcing (`plain` $\rightarrow$ `plain_base` with `scrapEligible: false`, `scrap`/`either` $\rightarrow$ `scrap` with `scrapEligible: true`).
+  - Supports anthropometric CAD pattern libraries (e.g. FreeSewing Brian v4.10.2) generating exact mathematical SVG paths, seam allowances, and Shoelace polygon areas with pinned versions and zero hand typing.
+  - Automatically enforces `tailorVerified: false` and `TAILOR_DISCLAIMER`.
+  - Validates the generated spec with `validateProductSpec()` before registration.
+  - Writes the normalized Garment Spec into `src/engine/customRegistry.js` and localizes multilingual keys (`en`, `hi`, `te`) in `src/i18n/customTranslations.js`.
+- **Product Removal Tool (`npm run remove-product -- <productId>`)**:
+  - Implemented in `src/engine/factory/removeProduct.js` to cleanly remove dynamically registered products and their translations from custom stores while keeping core templates untouched.
+- **Documentation (`PRODUCTS.md`)**:
+  - Complete developer guide detailing the product architecture, step-by-step product creation walkthrough, JSON schema reference, fabric sourcing options (`plain`, `scrap`, `either`), CAD pattern integration, generic renderers, and tailor verification honesty rules.
+- **Verification Proof**:
+  - Registered throwaway product `throwaway_rectangle` with the factory tool.
+  - Verified `check-products` passed with all 6 products.
+  - Verified generic flat 2D preview (shelf layout, clipping paths) and generic blueprint (stitching steps & materials).
+  - Cleanly removed the throwaway product and verified registry returned to the pristine 5 core products.
+
