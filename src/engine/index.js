@@ -77,6 +77,7 @@ export function suggestProducts(pile, options = {}) {
   }
 
   const seamAllowanceCm = options.seamAllowanceCm || CONFIG.SEAM_ALLOWANCE_CM;
+  const scrapSafetyMarginCm = options.scrapSafetyMarginCm ?? CONFIG.SCRAP_SAFETY_MARGIN_CM ?? 0;
   const rawSuggestions = [];
 
   // Iterate through all products and their sizes
@@ -84,7 +85,7 @@ export function suggestProducts(pile, options = {}) {
     const product = PRODUCT_TEMPLATES[productId];
     Object.keys(product.sizes).forEach((sizeKey) => {
       const sizeObj = product.sizes[sizeKey];
-      let fitResult = fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm);
+      let fitResult = fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm, { ...options, scrapSafetyMarginCm });
 
       // If product defines construction variants (e.g. child_top with hybrid vs patchwork):
       // Evaluate both variants and recommend the higher-scoring one so score & recommendation never disagree!
@@ -93,7 +94,7 @@ export function suggestProducts(pile, options = {}) {
         let bestScore = calculateDesignScore(fitResult);
         Object.keys(product.variants).forEach((vKey) => {
           if (vKey === fitResult.variant) return;
-          const candidateFit = fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm, { variant: vKey });
+          const candidateFit = fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm, { ...options, scrapSafetyMarginCm, variant: vKey });
           if (candidateFit.fits) {
             const candidateScore = calculateDesignScore(candidateFit);
             if (!bestFit.fits || candidateScore > bestScore) {
@@ -131,7 +132,7 @@ export function suggestProducts(pile, options = {}) {
 
         // 1. Try plain variant if currently evaluated as decorated
         if (options.variant === 'decorated' || fitResult.variant === 'decorated') {
-          const plainCheck = fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm, { variant: 'plain' });
+          const plainCheck = fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm, { ...options, scrapSafetyMarginCm, variant: 'plain' });
           if (plainCheck.fits) {
             alternativeNote = `Your pile can make the plain ${productId === 'cushion_cover' ? 'cushion' : product.name.toLowerCase()} instead.`;
           }
@@ -144,7 +145,7 @@ export function suggestProducts(pile, options = {}) {
           if (currentIndex > 0) {
             for (let i = currentIndex - 1; i >= 0; i--) {
               const smallerKey = sizeKeys[i];
-              const smallerFit = fitPileToProduct(pile, productId, smallerKey, seamAllowanceCm, { variant: 'plain' });
+              const smallerFit = fitPileToProduct(pile, productId, smallerKey, seamAllowanceCm, { ...options, scrapSafetyMarginCm, variant: 'plain' });
               if (smallerFit.fits) {
                 if (productId === 'cushion_cover') {
                   alternativeNote = 'Your pile can make the small cushion instead.';
@@ -189,6 +190,8 @@ export function suggestProducts(pile, options = {}) {
         wastePercentage: fitResult.wastePercentage,
         fabricUsedInSeamsCm2: fitResult.fabricUsedInSeamsCm2 || 0,
         fabricTooSmallToReuseCm2: fitResult.fabricTooSmallToReuseCm2 || 0,
+        fabricLostToFrayedEdgesCm2: fitResult.fabricLostToFrayedEdgesCm2 || 0,
+        scrapSafetyMarginCm: fitResult.scrapSafetyMarginCm ?? scrapSafetyMarginCm,
         seamLossExplanation: fitResult.seamLossExplanation,
         fallbackRecommendation: fitResult.fallbackRecommendation || null,
         warnings: fitResult.warnings || [],
@@ -289,6 +292,8 @@ export function buildDesign(pile, productId, sizeKey, style = 'patchwork', optio
     wastePercentage: fitResult.wastePercentage,
     fabricUsedInSeamsCm2: fitResult.fabricUsedInSeamsCm2 || 0,
     fabricTooSmallToReuseCm2: fitResult.fabricTooSmallToReuseCm2 || 0,
+    fabricLostToFrayedEdgesCm2: fitResult.fabricLostToFrayedEdgesCm2 || 0,
+    scrapSafetyMarginCm: fitResult.scrapSafetyMarginCm ?? (options.scrapSafetyMarginCm || CONFIG.SCRAP_SAFETY_MARGIN_CM || 0),
     seamLossExplanation: fitResult.seamLossExplanation,
     variant: fitResult.variant || 'plain',
     warnings: fitResult.warnings || [],
@@ -318,7 +323,7 @@ export function checkFeasibility(designOrParams) {
   }
 
   // If parameters passed: { pile, productId, sizeKey }
-  const { pile, productId, sizeKey, seamAllowanceCm } = designOrParams || {};
+  const { pile, productId, sizeKey, seamAllowanceCm, scrapSafetyMarginCm } = designOrParams || {};
   if (!pile || !productId || !sizeKey) {
     return {
       isFeasible: false,
@@ -327,7 +332,7 @@ export function checkFeasibility(designOrParams) {
     };
   }
 
-  const result = buildDesign(pile, productId, sizeKey, 'default', { seamAllowanceCm });
+  const result = buildDesign(pile, productId, sizeKey, 'default', { seamAllowanceCm, scrapSafetyMarginCm });
   return {
     isFeasible: result.fits,
     missing: result.missing,

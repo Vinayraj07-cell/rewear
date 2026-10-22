@@ -4,6 +4,7 @@ import { Layers, Scissors, Sparkles, AlertCircle } from 'lucide-react';
 export default function FabricNumbersCard({
   fabricUsedInSeamsCm2 = 0,
   fabricTooSmallToReuseCm2 = 0,
+  fabricLostToFrayedEdgesCm2 = 0,
   reusableLeftoversCount = 0,
   wastePercentage = 0,
   totalAreaCm2 = 0,
@@ -16,6 +17,8 @@ export default function FabricNumbersCard({
     tooSmallPercent = Math.round((fabricTooSmallToReuseCm2 / totalAreaCm2) * 100);
   }
 
+  const hasFrayedLoss = fabricLostToFrayedEdgesCm2 > 0;
+
   return (
     <div className={`bg-stone-50 border border-stone-200 rounded-2xl ${compact ? 'p-3' : 'p-4'} space-y-3 shadow-xs`}>
       <div className="flex items-center justify-between border-b border-stone-200 pb-2">
@@ -25,7 +28,7 @@ export default function FabricNumbersCard({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+      <div className={`grid grid-cols-1 ${hasFrayedLoss ? 'sm:grid-cols-2 md:grid-cols-4' : 'sm:grid-cols-3'} gap-2 text-xs`}>
         {/* Metric 1: Fabric used in seams */}
         <div className="bg-white p-2.5 rounded-xl border border-stone-200 flex flex-col justify-between">
           <span className="text-[11px] text-stone-500 font-medium leading-tight block">
@@ -46,7 +49,19 @@ export default function FabricNumbersCard({
           </span>
         </div>
 
-        {/* Metric 3: Leftover pieces kept for next time */}
+        {/* Metric 3: Fabric lost to frayed edges (if applicable) */}
+        {hasFrayedLoss && (
+          <div className="bg-white p-2.5 rounded-xl border border-rose-200 flex flex-col justify-between">
+            <span className="text-[11px] text-stone-500 font-medium leading-tight block">
+              {t.lostToFrayedEdges || 'Lost to frayed edges'}:
+            </span>
+            <span className="text-base font-black text-rose-700 mt-1 block">
+              {Math.round(fabricLostToFrayedEdgesCm2)} cm²
+            </span>
+          </div>
+        )}
+
+        {/* Metric 4: Leftover pieces kept for next time */}
         <div className="bg-white p-2.5 rounded-xl border border-stone-200 flex flex-col justify-between">
           <span className="text-[11px] text-stone-500 font-medium leading-tight block">
             {t.leftoversKeptForNextTime || 'Leftover pieces kept for next time'}:

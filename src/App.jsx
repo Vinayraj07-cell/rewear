@@ -23,6 +23,7 @@ import { translations } from './i18n/translations';
 import { INITIAL_SAMPLE_PIECES, SAMPLE_PILE_A, SAMPLE_PILE_B } from './utils/storage';
 import { soundManager } from './utils/audio';
 import { buildDesign } from './engine/index';
+import { CONFIG } from './engine/config';
 import { getTranslatedProductName, getTranslatedSizeLabel } from './utils/zoneHelper';
 import { Smartphone, Monitor } from 'lucide-react';
 
@@ -74,8 +75,17 @@ export default function App() {
   const [future, setFuture] = useState([]);
   const [editingPiece, setEditingPiece] = useState(null);
   const [selectedDesign, setSelectedDesign] = useState(null);
+  const [scrapSafetyMarginCm, setScrapSafetyMarginCm] = useState(() => {
+    const saved = localStorage.getItem('rewear_scrap_safety_margin');
+    return saved !== null ? Number(saved) : (CONFIG.SCRAP_SAFETY_MARGIN_CM || 0);
+  });
 
   const t = translations[lang] || translations.en;
+
+  // Persist scrap safety margin
+  useEffect(() => {
+    localStorage.setItem('rewear_scrap_safety_margin', String(scrapSafetyMarginCm));
+  }, [scrapSafetyMarginCm]);
 
   // Persist pieces
   useEffect(() => {
@@ -200,6 +210,7 @@ export default function App() {
   useEffect(() => {
     window.__loadTailorPile = handleLoadPile;
     window.__buildDesign = buildDesign;
+    window.__setScrapSafetyMargin = setScrapSafetyMarginCm;
     window.__setScreen = (tab, designData) => {
       if (designData) setSelectedDesign(designData);
       setActiveTab(tab);
@@ -207,6 +218,7 @@ export default function App() {
     return () => {
       delete window.__loadTailorPile;
       delete window.__buildDesign;
+      delete window.__setScrapSafetyMargin;
       delete window.__setScreen;
     };
   }, []);
@@ -431,6 +443,8 @@ export default function App() {
               }}
               onWhatCanIMake={() => setActiveTab('what_can_i_make')}
               onLoadPile={handleLoadPile}
+              scrapSafetyMarginCm={scrapSafetyMarginCm}
+              onUpdateScrapSafetyMarginCm={setScrapSafetyMarginCm}
               t={t}
               lang={lang}
             />
@@ -439,6 +453,7 @@ export default function App() {
           {activeTab === 'what_can_i_make' && (
             <WhatCanIMakeScreen
               pieces={pieces}
+              scrapSafetyMarginCm={scrapSafetyMarginCm}
               onSelectDesign={(item) => {
                 const activePile = pieces.filter((p) => p.included);
                 const fullDesign = buildDesign(
@@ -446,7 +461,7 @@ export default function App() {
                   item.productId,
                   item.sizeKey,
                   item.style || 'patchwork',
-                  { variant: item.variant || 'plain' }
+                  { variant: item.variant || 'plain', scrapSafetyMarginCm }
                 );
                 setSelectedDesign(fullDesign.success ? fullDesign : item);
                 setActiveTab('design_view');
@@ -458,7 +473,7 @@ export default function App() {
                   item.productId,
                   item.sizeKey,
                   item.style || 'patchwork',
-                  { variant: item.variant || 'plain' }
+                  { variant: item.variant || 'plain', scrapSafetyMarginCm }
                 );
                 setSelectedDesign(fullDesign.success ? fullDesign : item);
                 setActiveTab('feasibility');
@@ -530,7 +545,7 @@ export default function App() {
                   selectedDesign.productId,
                   newSizeKey,
                   selectedDesign.style || 'patchwork',
-                  { variant: selectedDesign.variant || 'plain' }
+                  { variant: selectedDesign.variant || 'plain', scrapSafetyMarginCm }
                 );
                 setSelectedDesign(updated);
                 setActiveTab('design_view');
@@ -554,7 +569,7 @@ export default function App() {
                   selectedDesign.productId,
                   selectedDesign.sizeKey,
                   selectedDesign.style || 'patchwork',
-                  { variant: 'plain' }
+                  { variant: 'plain', scrapSafetyMarginCm }
                 );
                 setSelectedDesign(updated);
                 setActiveTab('design_view');
@@ -566,7 +581,7 @@ export default function App() {
                   alt.productId,
                   alt.sizeKey,
                   alt.style || 'patchwork',
-                  { variant: alt.variant || 'plain' }
+                  { variant: alt.variant || 'plain', scrapSafetyMarginCm }
                 );
                 setSelectedDesign(fullDesign.success ? fullDesign : alt);
                 setActiveTab('design_view');

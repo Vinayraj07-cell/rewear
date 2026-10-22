@@ -14,7 +14,8 @@ import {
   ArrowRight,
   ShieldAlert,
   Sliders,
-  Volume2
+  Volume2,
+  Scissors
 } from 'lucide-react';
 import { COLOR_SWATCHES, FABRIC_TYPES } from '../i18n/translations';
 import { calculateArea } from '../utils/storage';
@@ -29,6 +30,8 @@ export default function MyPileScreen({
   onAddNew, 
   onWhatCanIMake,
   onLoadPile,
+  scrapSafetyMarginCm = 0,
+  onUpdateScrapSafetyMarginCm,
   t, 
   lang 
 }) {
@@ -188,6 +191,87 @@ export default function MyPileScreen({
             </div>
           )}
         </div>
+      </div>
+
+      {/* Frayed / Uneven Scraps Safety Margin Setting */}
+      <div className="bg-white rounded-3xl p-4 border border-stone-200 shadow-xs space-y-3">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="p-2 rounded-2xl bg-amber-100 text-amber-800 flex-shrink-0">
+              <Scissors className="w-4 h-4" />
+            </div>
+            <div className="min-w-0">
+              <span className="text-xs font-bold text-stone-900 block truncate sm:whitespace-normal">
+                {t.frayedScrapsSwitchLabel || 'My scraps are frayed or uneven'}
+              </span>
+              <span className="text-[11px] text-stone-500 block leading-tight mt-0.5">
+                {t.frayedScrapsExplanation || 'Shrinks each scrap before fitting so frayed or uneven edges are safely trimmed away.'}
+              </span>
+            </div>
+          </div>
+
+          {/* Toggle Switch */}
+          <button
+            type="button"
+            role="switch"
+            aria-checked={scrapSafetyMarginCm > 0}
+            data-testid="frayed-switch-button"
+            onClick={() => {
+              if (onUpdateScrapSafetyMarginCm) {
+                onUpdateScrapSafetyMarginCm(scrapSafetyMarginCm > 0 ? 0 : 0.5);
+              }
+            }}
+            className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden ${
+              scrapSafetyMarginCm > 0 ? 'bg-emerald-600' : 'bg-stone-300'
+            }`}
+          >
+            <span
+              aria-hidden="true"
+              className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${
+                scrapSafetyMarginCm > 0 ? 'translate-x-5' : 'translate-x-0'
+              }`}
+            />
+          </button>
+        </div>
+
+        {/* When enabled: Margin choice selector & Safety allowance notice */}
+        {scrapSafetyMarginCm > 0 && (
+          <div className="pt-2 border-t border-stone-100 space-y-2.5">
+            <div className="flex items-center justify-between text-xs">
+              <span className="font-semibold text-stone-700">
+                {t.frayedScrapsMarginChoice || 'Safety margin per edge'}:
+              </span>
+              <div className="flex items-center gap-1.5 bg-stone-100 p-1 rounded-xl border border-stone-200">
+                {[0.5, 1.0].map((marginVal) => {
+                  const isSelected = scrapSafetyMarginCm === marginVal;
+                  return (
+                    <button
+                      key={marginVal}
+                      type="button"
+                      data-testid={`margin-choice-${marginVal}`}
+                      onClick={() => onUpdateScrapSafetyMarginCm && onUpdateScrapSafetyMarginCm(marginVal)}
+                      className={`px-3 py-1 rounded-lg text-xs font-bold transition ${
+                        isSelected
+                          ? 'bg-emerald-800 text-white shadow-xs'
+                          : 'text-stone-600 hover:text-stone-900 bg-transparent'
+                      }`}
+                    >
+                      {marginVal} cm
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Explicit Notice: Safety allowance, not a measurement */}
+            <div className="bg-amber-50/90 border border-amber-200/90 rounded-xl p-2.5 flex items-center gap-2 text-[11px] text-amber-950 font-medium">
+              <ShieldAlert className="w-4 h-4 text-amber-700 flex-shrink-0" />
+              <span>
+                {t.frayedScrapsSafetyAllowanceLabel || 'This is a safety allowance, not a measurement.'}
+              </span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Sample Pile Selector: Pile A / Pile B */}

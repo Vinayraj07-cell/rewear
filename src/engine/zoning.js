@@ -27,20 +27,33 @@ import { getColorMetrics, evaluateColorPair } from './color.js';
 import { isPieceStretchy, getThicknessLevel } from './fabricCompatibility.js';
 
 /**
- * Calculates raw area of a scrap piece (taking usable inner rectangle into account if irregular).
+ * Calculates raw or usable area of a scrap piece (taking usable inner rectangle into account if irregular,
+ * and subtracting 2x safety margin if scraps are frayed/uneven).
  */
-export function getPieceArea(piece) {
-  const w = piece.isIrregular && piece.usableWidth ? piece.usableWidth : piece.width;
-  const h = piece.isIrregular && piece.usableHeight ? piece.usableHeight : piece.height;
+export function getPieceArea(piece, scrapSafetyMarginCm = 0) {
+  const margin = Number(scrapSafetyMarginCm || 0);
+  const rawW = piece.isIrregular && piece.usableWidth ? piece.usableWidth : piece.width;
+  const rawH = piece.isIrregular && piece.usableHeight ? piece.usableHeight : piece.height;
+  const usableW = margin > 0 ? Math.max(0, rawW - 2 * margin) : rawW;
+  const usableH = margin > 0 ? Math.max(0, rawH - 2 * margin) : rawH;
   const qty = Number(piece.quantity) || 1;
-  return w * h * qty;
+  return usableW * usableH * qty;
 }
 
 /**
  * Normalizes pieces into a uniform format and extracts colour metrics.
  */
-export function enrichPiece(piece) {
-  const area = getPieceArea(piece);
+export function enrichPiece(piece, scrapSafetyMarginCm = 0) {
+  const margin = Number(scrapSafetyMarginCm || 0);
+  const rawW = piece.isIrregular && piece.usableWidth ? piece.usableWidth : piece.width;
+  const rawH = piece.isIrregular && piece.usableHeight ? piece.usableHeight : piece.height;
+  const qty = Number(piece.quantity) || 1;
+  const rawArea = rawW * rawH * qty;
+
+  const usableW = margin > 0 ? Math.max(0, rawW - 2 * margin) : rawW;
+  const usableH = margin > 0 ? Math.max(0, rawH - 2 * margin) : rawH;
+  const usableArea = usableW * usableH * qty;
+
   const colorKey = Array.isArray(piece.colors) && piece.colors.length > 0
     ? piece.colors[0]
     : piece.color || 'grey';
@@ -52,9 +65,14 @@ export function enrichPiece(piece) {
 
   return {
     ...piece,
-    effectiveWidth: piece.isIrregular && piece.usableWidth ? piece.usableWidth : piece.width,
-    effectiveHeight: piece.isIrregular && piece.usableHeight ? piece.usableHeight : piece.height,
-    totalArea: area,
+    rawWidth: rawW,
+    rawHeight: rawH,
+    rawArea: rawW * rawH,
+    effectiveWidth: usableW,
+    effectiveHeight: usableH,
+    totalArea: usableArea,
+    usableArea: usableW * usableH,
+    frayedLossArea: (rawW * rawH) - (usableW * usableH),
     dominantColor: colorKey,
     colorMetrics: metrics,
     isNeutral: metrics.isNeutral,
@@ -111,8 +129,13 @@ export function scoreBaseCandidate(piece, targetBaseArea) {
  * Segregates a fabric pile into 60-30-10 role pools (Base, Supporting, Accent)
  * for a specific product requirement.
  */
-export function assignZoningRoles(pile, productRequirements) {
-  const enrichedPile = pile.map(enrichPiece);
+export function assignZoningRoles(pile, productRequirements, options = {}) {
+  const margin = Number(
+    (options && typeof options === 'object' && options.scrapSafetyMarginCm !== undefined)
+      ? options.scrapSafetyMarginCm
+      : (typeof options === 'number' ? options : (CONFIG.SCRAP_SAFETY_MARGIN_CM || 0))
+  );
+  const enrichedPile = pile.map((p) => enrichPiece(p, margin));
   const totalPileArea = enrichedPile.reduce((sum, p) => sum + p.totalArea, 0);
   const targetTotalArea = productRequirements ? productRequirements.totalAreaNeeded : totalPileArea;
   const targetBaseArea = targetTotalArea * (CONFIG.ZONE_BASE_TARGET_PCT / 100);

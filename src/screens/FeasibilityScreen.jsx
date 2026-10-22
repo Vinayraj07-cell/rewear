@@ -383,6 +383,7 @@ export default function FeasibilityScreen({
         <FabricNumbersCard
           fabricUsedInSeamsCm2={design.fabricUsedInSeamsCm2 || 0}
           fabricTooSmallToReuseCm2={design.fabricTooSmallToReuseCm2 || 0}
+          fabricLostToFrayedEdgesCm2={design.fabricLostToFrayedEdgesCm2 || 0}
           reusableLeftoversCount={design.reusableLeftoversCount || design.leftovers?.length || 0}
           wastePercentage={design.wastePercentage || 0}
           totalAreaCm2={totalPileArea}

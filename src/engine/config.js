@@ -28,6 +28,19 @@ export const CONFIG = {
   CUTTING_CLEARANCE_CM: 0.5,
 
   /**
+   * Optional safety margin in centimeters subtracted from each edge of a scrap before fitting
+   * when scraps are frayed or uneven.
+   * Default: 0 (all existing results identical).
+   * Allowed values: 0, 0.5, 1.0 cm per edge.
+   */
+  SCRAP_SAFETY_MARGIN_CM: 0,
+
+  /**
+   * Allowed choices for scrap safety margin in centimeters per edge.
+   */
+  ALLOWED_SCRAP_SAFETY_MARGINS_CM: [0, 0.5, 1.0],
+
+  /**
    * Standard fabric bolt width in centimeters for continuous plain base fabric yardage calculations.
    * Default: 110 cm (approx 44 inches, standard cotton bolt width).
    */

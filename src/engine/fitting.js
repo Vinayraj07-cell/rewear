@@ -61,20 +61,31 @@ export function canFitSinglePiece(piece, targetW, targetH, allowRotation = true)
  * Calculates reusable offcuts (>= 3 cm) and trim waste when cutting a target rectangle from a scrap.
  */
 export function cutScrap(piece, targetW, targetH, rotated = false) {
-  const rawW = rotated ? (piece.effectiveHeight || piece.height) : (piece.effectiveWidth || piece.width);
-  const rawH = rotated ? (piece.effectiveWidth || piece.width) : (piece.effectiveHeight || piece.height);
+  const hasRawDim = piece.rawWidth !== undefined && piece.rawHeight !== undefined;
+  const rawW = rotated
+    ? (hasRawDim ? piece.rawHeight : (piece.effectiveHeight || piece.height))
+    : (hasRawDim ? piece.rawWidth : (piece.effectiveWidth || piece.width));
+  const rawH = rotated
+    ? (hasRawDim ? piece.rawWidth : (piece.effectiveWidth || piece.width))
+    : (hasRawDim ? piece.rawHeight : (piece.effectiveHeight || piece.height));
+
+  const usableW = rotated ? (piece.effectiveHeight || piece.height) : (piece.effectiveWidth || piece.width);
+  const usableH = rotated ? (piece.effectiveWidth || piece.width) : (piece.effectiveHeight || piece.height);
+
+  const totalScrapArea = rawW * rawH;
+  const usableArea = usableW * usableH;
+  const frayedLossArea = piece.frayedLossArea !== undefined ? piece.frayedLossArea : Math.max(0, totalScrapArea - usableArea);
 
   const usedArea = targetW * targetH;
-  const totalScrapArea = rawW * rawH;
-  const leftoverArea = Math.max(0, totalScrapArea - usedArea);
+  const leftoverArea = Math.max(0, usableArea - usedArea);
 
   const offcuts = [];
   const minDim = CONFIG.MIN_REUSABLE_SCRAP_DIMENSION_CM;
 
-  // L-shaped remnant decomposed into two clean rectangular offcuts:
+  // L-shaped remnant decomposed into two clean rectangular offcuts from usable rectangle:
   // Offcut 1: Full-height strip on the side
-  const offcut1_W = rawW - targetW;
-  const offcut1_H = rawH;
+  const offcut1_W = usableW - targetW;
+  const offcut1_H = usableH;
   if (offcut1_W >= minDim && offcut1_H >= minDim) {
     offcuts.push({
       id: `${piece.id}_offcut_side`,
@@ -94,7 +105,7 @@ export function cutScrap(piece, targetW, targetH, rotated = false) {
 
   // Offcut 2: Strip along the bottom under the cut
   const offcut2_W = targetW;
-  const offcut2_H = rawH - targetH;
+  const offcut2_H = usableH - targetH;
   if (offcut2_W >= minDim && offcut2_H >= minDim) {
     offcuts.push({
       id: `${piece.id}_offcut_bottom`,
@@ -119,6 +130,7 @@ export function cutScrap(piece, targetW, targetH, rotated = false) {
     usedArea,
     reusableOffcuts: offcuts,
     trimWasteArea,
+    frayedLossArea,
     totalScrapArea,
   };
 }
@@ -420,6 +432,11 @@ export function fitPileToProduct(
   options = {}
 ) {
   const variant = typeof options === 'string' ? options : (options && (options.variant || options.style)) || null;
+  const scrapSafetyMarginCm = Number(
+    (options && typeof options === 'object' && options.scrapSafetyMarginCm !== undefined)
+      ? options.scrapSafetyMarginCm
+      : (CONFIG.SCRAP_SAFETY_MARGIN_CM || 0)
+  );
   const requirements = getProductRequirements(productId, sizeKey, seamAllowanceCm, variant);
   if (!requirements) {
     return {
@@ -459,7 +476,7 @@ export function fitPileToProduct(
       totalAreaNeeded: scrapZones.reduce((sum, z) => sum + (z.cutWidth * z.cutHeight), 0),
       totalFinishedArea: scrapZones.reduce((sum, z) => sum + (z.finishedWidth * z.finishedHeight), 0),
     };
-    zoning = assignZoningRoles(pile, scrapRequirements);
+    zoning = assignZoningRoles(pile, scrapRequirements, { scrapSafetyMarginCm });
     if (!zoning.hasGoodBase) {
       const earlyWarnings = [...(zoning.warnings || [])];
       const effectiveVariant = requirements.variant || variant || 'plain';
@@ -485,6 +502,7 @@ export function fitPileToProduct(
         leftovers: pile,
         fabricUsedInSeamsCm2: 0,
         fabricTooSmallToReuseCm2: 0,
+        fabricLostToFrayedEdgesCm2: 0,
         trimWasteAreaCm2: 0,
         seamLossAreaCm2: 0,
         wastePercentage: 100,
@@ -518,12 +536,27 @@ export function fitPileToProduct(
   const expandPool = (piecesList, defaultRole) => {
     piecesList.forEach((p) => {
       const qty = Number(p.quantity) || 1;
+      const rawW = p.rawWidth !== undefined ? p.rawWidth : (p.isIrregular && p.usableWidth ? p.usableWidth : p.width);
+      const rawH = p.rawHeight !== undefined ? p.rawHeight : (p.isIrregular && p.usableHeight ? p.usableHeight : p.height);
+      const usableW = scrapSafetyMarginCm > 0 ? Math.max(0, rawW - 2 * scrapSafetyMarginCm) : (p.effectiveWidth || rawW);
+      const usableH = scrapSafetyMarginCm > 0 ? Math.max(0, rawH - 2 * scrapSafetyMarginCm) : (p.effectiveHeight || rawH);
+      const singleRawArea = rawW * rawH;
+      const singleUsableArea = usableW * usableH;
+      const singleFrayedLoss = Math.max(0, singleRawArea - singleUsableArea);
+
       for (let i = 0; i < qty; i++) {
         availablePool.push({
           ...p,
           instanceId: qty > 1 ? `${p.id}_q${i + 1}` : p.id,
           assignedRole: defaultRole,
           used: false,
+          rawWidth: rawW,
+          rawHeight: rawH,
+          rawArea: singleRawArea,
+          effectiveWidth: usableW,
+          effectiveHeight: usableH,
+          usableArea: singleUsableArea,
+          frayedLossArea: singleFrayedLoss,
         });
       }
     });
@@ -552,6 +585,7 @@ export function fitPileToProduct(
   let totalFinishedAreaCovered = 0;
   let totalTrimWasteArea = 0;
   let totalSeamLossArea = 0;
+  let totalFabricLostToFrayedEdges = 0;
   let totalExtraSeams = 0;
 
   // Process zones in priority order: Base zones first (largest), then Supporting, then Accent
@@ -639,6 +673,7 @@ export function fitPileToProduct(
           totalRawAreaUsed += cutL.totalScrapArea + cutR.totalScrapArea;
           totalFinishedAreaCovered += (zone.finishedWidth * zone.finishedHeight) + (zone2.finishedWidth * zone2.finishedHeight);
           totalTrimWasteArea += cutL.trimWasteArea + cutR.trimWasteArea;
+          totalFabricLostToFrayedEdges += (cutL.frayedLossArea || 0) + (cutR.frayedLossArea || 0);
           reusableLeftovers.push(...cutL.reusableOffcuts, ...cutR.reusableOffcuts);
 
           const makeSinglePlacement = (z, p, isRight = false) => {
@@ -752,18 +787,25 @@ export function fitPileToProduct(
 
             // Compute areas & seam losses for BOTH sleeves
             const rawAreaPerSleeve = patchworkResult.piecesUsed.reduce(
-              (sum, p) => sum + (p.effectiveWidth || p.width) * (p.effectiveHeight || p.height),
+              (sum, p) => sum + (p.rawArea ?? ((p.rawWidth || p.effectiveWidth || p.width) * (p.rawHeight || p.effectiveHeight || p.height))),
               0
             );
+            const usableAreaPerSleeve = patchworkResult.piecesUsed.reduce(
+              (sum, p) => sum + (p.usableArea ?? ((p.effectiveWidth || p.width) * (p.effectiveHeight || p.height))),
+              0
+            );
+            const frayedLossPerSleeve = Math.max(0, rawAreaPerSleeve - usableAreaPerSleeve);
+
             const targetCutArea = targetW * targetH;
             const internalSeamLoss = patchworkResult.seamsCount * 2 * seamAllowanceCm * (targetW / cols);
-            const blockTrimWaste = Math.max(0, rawAreaPerSleeve - targetCutArea - internalSeamLoss);
+            const blockTrimWaste = Math.max(0, usableAreaPerSleeve - targetCutArea - internalSeamLoss);
 
             // Add for BOTH sleeves
             totalRawAreaUsed += rawAreaPerSleeve * 2;
             totalFinishedAreaCovered += (zone.finishedWidth * zone.finishedHeight) + (zone2.finishedWidth * zone2.finishedHeight);
             totalSeamLossArea += internalSeamLoss * 2;
             totalTrimWasteArea += blockTrimWaste * 2;
+            totalFabricLostToFrayedEdges += frayedLossPerSleeve * 2;
             totalExtraSeams += patchworkResult.seamsCount * 2;
 
             const makePatchPlacement = (z, scrapsList, isRight = false) => {
@@ -827,6 +869,7 @@ export function fitPileToProduct(
         totalRawAreaUsed += cut.totalScrapArea;
         totalFinishedAreaCovered += zone.finishedWidth * zone.finishedHeight;
         totalTrimWasteArea += cut.trimWasteArea;
+        totalFabricLostToFrayedEdges += cut.frayedLossArea || 0;
         reusableLeftovers.push(...cut.reusableOffcuts);
 
         const placementObj = {
@@ -892,15 +935,22 @@ export function fitPileToProduct(
         totalExtraSeams += patchworkResult.seamsCount;
 
         const rawArea = patchworkResult.piecesUsed.reduce(
-          (sum, p) => sum + (p.effectiveWidth || p.width) * (p.effectiveHeight || p.height),
+          (sum, p) => sum + (p.rawArea ?? ((p.rawWidth || p.effectiveWidth || p.width) * (p.rawHeight || p.effectiveHeight || p.height))),
           0
         );
+        const usableArea = patchworkResult.piecesUsed.reduce(
+          (sum, p) => sum + (p.usableArea ?? ((p.effectiveWidth || p.width) * (p.effectiveHeight || p.height))),
+          0
+        );
+        const frayedLoss = Math.max(0, rawArea - usableArea);
+
         totalRawAreaUsed += rawArea;
         totalFinishedAreaCovered += zone.finishedWidth * zone.finishedHeight;
+        totalFabricLostToFrayedEdges += frayedLoss;
 
         // Seam allowance loss inside the pieced panel joints
         const assembledArea = patchworkResult.combinedW * patchworkResult.combinedH;
-        const internalSeamLoss = Math.max(0, rawArea - assembledArea);
+        const internalSeamLoss = Math.max(0, usableArea - assembledArea);
 
         // Trimming assembled block to exact target cut rectangle
         const minDim = CONFIG.MIN_REUSABLE_SCRAP_DIMENSION_CM;
@@ -1015,14 +1065,21 @@ export function fitPileToProduct(
           totalExtraSeams += patchworkResult.seamsCount;
 
           const rawArea = patchworkResult.piecesUsed.reduce(
-            (sum, p) => sum + (p.effectiveWidth || p.width) * (p.effectiveHeight || p.height),
+            (sum, p) => sum + (p.rawArea ?? ((p.rawWidth || p.effectiveWidth || p.width) * (p.rawHeight || p.effectiveHeight || p.height))),
             0
           );
+          const usableArea = patchworkResult.piecesUsed.reduce(
+            (sum, p) => sum + (p.usableArea ?? ((p.effectiveWidth || p.width) * (p.effectiveHeight || p.height))),
+            0
+          );
+          const frayedLoss = Math.max(0, rawArea - usableArea);
+
           totalRawAreaUsed += rawArea;
           totalFinishedAreaCovered += zone.finishedWidth * zone.finishedHeight;
+          totalFabricLostToFrayedEdges += frayedLoss;
 
           const assembledArea = patchworkResult.combinedW * patchworkResult.combinedH;
-          const internalSeamLoss = Math.max(0, rawArea - assembledArea);
+          const internalSeamLoss = Math.max(0, usableArea - assembledArea);
 
           const minDim = CONFIG.MIN_REUSABLE_SCRAP_DIMENSION_CM;
           let blockTrimWaste = 0;
@@ -1175,6 +1232,8 @@ export function fitPileToProduct(
       instanceId: p.instanceId,
       width: p.effectiveWidth || p.width,
       height: p.effectiveHeight || p.height,
+      rawWidth: p.rawWidth || p.width,
+      rawHeight: p.rawHeight || p.height,
       color: p.dominantColor || p.color,
       fabricType: p.fabricType,
       print: p.print,
@@ -1182,6 +1241,8 @@ export function fitPileToProduct(
       stretchy: isPieceStretchy(p),
       isReusableLeftover: true,
       area: (p.effectiveWidth || p.width) * (p.effectiveHeight || p.height),
+      rawArea: (p.rawWidth || p.width) * (p.rawHeight || p.height),
+      frayedLossArea: p.frayedLossArea || 0,
     }));
 
   const allLeftovers = [...unusedScraps, ...reusableLeftovers];
@@ -1217,6 +1278,12 @@ export function fitPileToProduct(
     combinedWarnings.push(...designNotes);
   }
 
+  if (totalFabricLostToFrayedEdges > 0) {
+    combinedWarnings.push(
+      `${Math.round(totalFabricLostToFrayedEdges)} cm² lost to frayed edges (${scrapSafetyMarginCm} cm margin per edge).`
+    );
+  }
+
   if (effectiveVariant === 'patchwork') {
     const totalScrapsCount = placements.reduce((sum, p) => sum + (p.scraps ? p.scraps.length : 0), 0);
     const estTimeMins = (totalExtraSeams * 3.5) + (productId === 'child_top' ? 45 : 40);
@@ -1230,10 +1297,12 @@ export function fitPileToProduct(
     productId,
     sizeKey,
     variant: requirements.variant || 'plain',
+    scrapSafetyMarginCm,
     placements,
     leftovers: allLeftovers,
     fabricUsedInSeamsCm2: Math.round(totalSeamLossArea),
     fabricTooSmallToReuseCm2: Math.round(totalTrimWasteArea),
+    fabricLostToFrayedEdgesCm2: Math.round(totalFabricLostToFrayedEdges),
     trimWasteAreaCm2: Math.round(totalTrimWasteArea),
     seamLossAreaCm2: Math.round(totalSeamLossArea),
     seamLossExplanation,

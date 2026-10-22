@@ -59,6 +59,7 @@ export default function WhatCanIMakeScreen({
   onCheckFeasibility,
   onAddMorePieces,
   onOpenHelp,
+  scrapSafetyMarginCm = 0,
   t,
   lang,
 }) {
@@ -73,8 +74,8 @@ export default function WhatCanIMakeScreen({
   // Run the Stage 2 engine
   const suggestionResult = useMemo(() => {
     if (activePile.length === 0) return { success: false, suggestions: [] };
-    return suggestProducts(activePile, { variant: cushionVariant });
-  }, [activePile, cushionVariant]);
+    return suggestProducts(activePile, { variant: cushionVariant, scrapSafetyMarginCm });
+  }, [activePile, cushionVariant, scrapSafetyMarginCm]);
 
   const allSuggestions = suggestionResult.suggestions || [];
 
