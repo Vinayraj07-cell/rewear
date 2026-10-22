@@ -389,10 +389,22 @@ export const translations = {
       royalBlue: "Royal Blue",
       navy: "Dark Navy",
       purple: "Violet Purple",
+      grey: "Slate Grey",
       beige: "Natural Beige",
       white: "Pure White",
       black: "Deep Black",
-    }
+    },
+
+    trySamplePileTitle: "Try a sample pile",
+    trySamplePileSub: "One tap loads a ready fabric scrap pile",
+    quickAddTitle: "Quick Add Scraps",
+    clearPileBtn: "Clear Pile",
+    clearPileConfirmTitle: "Clear all scraps?",
+    clearPileConfirmMessage: "This will remove all pieces from your pile. This cannot be undone.",
+    clearPileConfirmBtn: "Yes, Clear Pile",
+    sizePresetsLabel: "Size Presets",
+    customSizeLabel: "Custom",
+    addScrapsBtn: "Add to Pile",
   },
 
   te: {
@@ -782,10 +794,22 @@ export const translations = {
       royalBlue: "రాయల్ బ్లూ (Royal Blue)",
       navy: "ముదురు నీలం (Navy)",
       purple: "ఊదా (Purple)",
+      grey: "గ్రే (Grey)",
       beige: "లేత గోధుమ (Beige)",
       white: "తెలుపు (White)",
       black: "నలుపు (Black)",
-    }
+    },
+
+    trySamplePileTitle: "నమూనా కుప్పను ప్రయత్నించండి",
+    trySamplePileSub: "ఒకే ట్యాప్‌తో సిద్ధంగా ఉన్న గుడ్డ ముక్కలను లోడ్ చేయండి",
+    quickAddTitle: "త్వరిత ముక్కల జోడింపు",
+    clearPileBtn: "కుప్పను తొలగించు",
+    clearPileConfirmTitle: "అన్ని ముక్కలను తొలగించాలా?",
+    clearPileConfirmMessage: "ఇది మీ కుప్పలోని అన్ని ముక్కలను తొలగిస్తుంది. దీన్ని రద్దు చేయలేరు.",
+    clearPileConfirmBtn: "అవును, తొలగించు",
+    sizePresetsLabel: "కొలత ఎంపికలు",
+    customSizeLabel: "సొంత కొలత",
+    addScrapsBtn: "కుప్పకు జోడించు",
   },
 
   hi: {
@@ -1175,10 +1199,22 @@ export const translations = {
       royalBlue: "गहरा नीला (Royal Blue)",
       navy: "नेवी ब्लू (Navy)",
       purple: "बैंगनी (Purple)",
+      grey: "स्लेटी / ग्रे (Grey)",
       beige: "हल्का बादामी (Beige)",
       white: "सफेद (White)",
       black: "काला (Black)",
-    }
+    },
+
+    trySamplePileTitle: "तैयार कतरनें आज़माएं",
+    trySamplePileSub: "एक टैप में तैयार कतरनों का ढेर लोड करें",
+    quickAddTitle: "तुरंत कतरन जोड़ें",
+    clearPileBtn: "ढेर साफ करें",
+    clearPileConfirmTitle: "क्या सभी कतरनें हटानी हैं?",
+    clearPileConfirmMessage: "यह आपकी कतरनों के ढेर से सभी टुकड़े हटा देगा। इसे वापस नहीं लाया जा सकता।",
+    clearPileConfirmBtn: "हाँ, ढेर साफ करें",
+    sizePresetsLabel: "नाप विकल्प",
+    customSizeLabel: "अन्य नाप",
+    addScrapsBtn: "ढेर में जोड़ें",
   }
 };
 
@@ -1194,6 +1230,7 @@ export const COLOR_SWATCHES = [
   { id: 'royalBlue', hex: '#3B82F6', border: '#2563EB', family: 'cool' },
   { id: 'navy', hex: '#1E3A8A', border: '#172554', family: 'cool' },
   { id: 'purple', hex: '#A855F7', border: '#9333EA', family: 'cool' },
+  { id: 'grey', hex: '#64748B', border: '#475569', family: 'neutral' },
   { id: 'beige', hex: '#D6C0A4', border: '#B89B7B', family: 'neutral' },
   { id: 'white', hex: '#F8FAFC', border: '#CBD5E1', family: 'neutral' },
   { id: 'black', hex: '#1E293B', border: '#0F172A', family: 'neutral' },

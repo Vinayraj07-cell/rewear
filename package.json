@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "test": "node src/engine/test_stage2.js && node src/engine/test_stage2_independent.js && node src/engine/test_gate2_geometry.js && node src/engine/test_gate3_templates_parity.js && node src/engine/test_gate4_sheet_packing.js && node src/engine/test_stage4a_preview.js && node src/utils/test_stage4b_blueprint.js && node src/engine/test_stage6_curved_top.js && node src/utils/test_ai_preview.js && node src/engine/test_stage6_q3_frayed.js"
+    "test": "node src/engine/test_stage2.js && node src/engine/test_stage2_independent.js && node src/engine/test_gate2_geometry.js && node src/engine/test_gate3_templates_parity.js && node src/engine/test_gate4_sheet_packing.js && node src/engine/test_stage4a_preview.js && node src/utils/test_stage4b_blueprint.js && node src/engine/test_stage6_curved_top.js && node src/utils/test_ai_preview.js && node src/engine/test_stage6_q3_frayed.js && node src/utils/test_q5_pile_helpers.js"
   },
   "dependencies": {
     "@capacitor/core": "^8.5.3",

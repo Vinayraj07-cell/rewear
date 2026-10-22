@@ -21,6 +21,12 @@ import Product3DViewer from './components/Product3DViewer';
 
 import { translations } from './i18n/translations';
 import { INITIAL_SAMPLE_PIECES, SAMPLE_PILE_A, SAMPLE_PILE_B } from './utils/storage';
+import {
+  SAMPLE_PILES,
+  createScrapItem,
+  duplicateScrapItem,
+  deserializePile,
+} from './utils/pileHelpers';
 import { soundManager } from './utils/audio';
 import { buildDesign } from './engine/index';
 import { CONFIG } from './engine/config';
@@ -61,14 +67,7 @@ export default function App() {
   // 5. Fabric Pieces State with Undo/Redo history
   const [pieces, setPieces] = useState(() => {
     const saved = localStorage.getItem('rewear_pieces');
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch (e) {
-        return INITIAL_SAMPLE_PIECES;
-      }
-    }
-    return INITIAL_SAMPLE_PIECES;
+    return deserializePile(saved, INITIAL_SAMPLE_PIECES);
   });
 
   const [history, setHistory] = useState([]);
@@ -159,12 +158,20 @@ export default function App() {
   const handleDuplicate = (pieceId) => {
     const existing = pieces.find((p) => p.id === pieceId);
     if (!existing) return;
-    const duplicated = {
-      ...existing,
-      id: `scrap-${Date.now()}`,
-      addedAt: Date.now(),
-    };
+    const duplicated = duplicateScrapItem(existing);
     pushState([duplicated, ...pieces]);
+  };
+
+  // Bulk add a scrap piece
+  const handleBulkAdd = (scrapOptions) => {
+    const newItem = createScrapItem(scrapOptions);
+    pushState([newItem, ...pieces]);
+    return newItem;
+  };
+
+  // Clear entire scrap pile
+  const handleClearPile = () => {
+    pushState([]);
   };
 
   // Toggle included in pile
@@ -191,12 +198,18 @@ export default function App() {
     pushState(updated);
   };
 
-  // Load sample tailor pile (Pile A, Pile B, or Default)
+  // Load sample tailor pile (Neutral, Colourful, Mixed Fabrics, or legacy A/B)
   const handleLoadPile = (pileType) => {
-    if (pileType === 'A' || pileType === 'pileA') {
+    if (pileType === 'neutral' || pileType === 'B' || pileType === 'pileB') {
+      pushState(SAMPLE_PILES.neutral.pieces);
+    } else if (pileType === 'colourful' || pileType === 'colorful') {
+      pushState(SAMPLE_PILES.colourful.pieces);
+    } else if (pileType === 'mixed_fabrics' || pileType === 'mixed') {
+      pushState(SAMPLE_PILES.mixed_fabrics.pieces);
+    } else if (pileType === 'A' || pileType === 'pileA') {
       pushState(SAMPLE_PILE_A);
-    } else if (pileType === 'B' || pileType === 'pileB') {
-      pushState(SAMPLE_PILE_B);
+    } else if (SAMPLE_PILES[pileType]) {
+      pushState(SAMPLE_PILES[pileType].pieces);
     } else {
       pushState(INITIAL_SAMPLE_PIECES);
     }
@@ -209,6 +222,8 @@ export default function App() {
   // Expose global helper for automated testing and inspection
   useEffect(() => {
     window.__loadTailorPile = handleLoadPile;
+    window.__clearPile = handleClearPile;
+    window.__bulkAdd = handleBulkAdd;
     window.__buildDesign = buildDesign;
     window.__setScrapSafetyMargin = setScrapSafetyMarginCm;
     window.__setScreen = (tab, designData) => {
@@ -217,11 +232,13 @@ export default function App() {
     };
     return () => {
       delete window.__loadTailorPile;
+      delete window.__clearPile;
+      delete window.__bulkAdd;
       delete window.__buildDesign;
       delete window.__setScrapSafetyMargin;
       delete window.__setScreen;
     };
-  }, []);
+  }, [pieces, scrapSafetyMarginCm]);
 
   // Screen Title & Speech readout for header
   let screenTitle = t.home;
@@ -433,6 +450,8 @@ export default function App() {
               onToggleInclude={handleToggleInclude}
               onDeleteRequest={(id) => setDeleteCandidateId(id)}
               onDuplicate={handleDuplicate}
+              onBulkAdd={handleBulkAdd}
+              onClearPile={handleClearPile}
               onEditPiece={(piece) => {
                 setEditingPiece(piece);
                 setActiveTab('add');
