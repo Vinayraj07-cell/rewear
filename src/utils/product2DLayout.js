@@ -7,6 +7,7 @@
 
 import { COLOR_SWATCHES } from '../i18n/translations.js';
 import { PRODUCT_TEMPLATES } from '../engine/templates.js';
+import { CHILD_TOP_BRIAN_DATA } from '../engine/childTopBrianData.js';
 
 // Color map fallback
 const COLOR_HEX_MAP = {
@@ -221,6 +222,9 @@ export function computeProduct2DLayout(design, view = 'front') {
       break;
     case 'kids_frock':
       layout = computeKidsFrockLayout(design, sizeTemplate, placements, view);
+      break;
+    case 'child_top':
+      layout = computeChildTopLayout(design, sizeTemplate, placements, view);
       break;
     default:
       return { error: `Unsupported product: ${productId}` };
@@ -1197,6 +1201,353 @@ function computeKidsFrockLayout(design, sizeTemplate, placements, view) {
     productId: 'kids_frock',
     view,
     viewBox: { x: 0, y: 0, width: viewBoxW, height: viewBoxH },
+    panels,
+    decorations,
+    disclaimer: 'Preview. Final look may differ slightly.',
+  };
+}
+
+// ---------------------------------------------------------------------------
+// 5. CHILD TOP (FREESEWING BRIAN CAD CURVED FINISHED LOOK)
+// ---------------------------------------------------------------------------
+function computeCurvedSleevePatches(placement, is56) {
+  const scraps = placement?.scraps || [];
+  const count = scraps.length;
+  const boxW = is56 ? 250 : 270;
+  const boxH = is56 ? 380 : 410;
+  const startX = -boxW / 2;
+  const startY = -95;
+
+  if (count <= 1) {
+    const scrap = scraps[0] || {};
+    const color = scrap.color || 'navy';
+    const colorHex = scrap.colorHex || getHexForColor(color);
+    return {
+      patches: [
+        {
+          index: 0,
+          relX: startX,
+          relY: startY,
+          width: boxW,
+          height: boxH,
+          color,
+          colorHex,
+          scrapId: scrap.scrapId || scrap.id || 'single_sleeve',
+        },
+      ],
+      seams: [],
+    };
+  }
+
+  let rows = 3;
+  let cols = 2;
+  const seamType = placement?.seamType || '';
+  const gridMatch = seamType.match(/(\d+)x(\d+)_grid_seams/i);
+  if (gridMatch) {
+    rows = parseInt(gridMatch[1], 10);
+    cols = parseInt(gridMatch[2], 10);
+  } else if (count === 4) {
+    rows = 2;
+    cols = 2;
+  }
+
+  const cellW = boxW / cols;
+  const cellH = boxH / rows;
+  const patches = [];
+  const seams = [];
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const idx = r * cols + c;
+      const scrap = scraps[idx % count] || scraps[0] || {};
+      const color = scrap.color || 'navy';
+      const colorHex = scrap.colorHex || getHexForColor(color);
+      const px = startX + c * cellW;
+      const py = startY + r * cellH;
+
+      patches.push({
+        index: idx,
+        relX: px,
+        relY: py,
+        width: cellW,
+        height: cellH,
+        color,
+        colorHex,
+        scrapId: scrap.scrapId || scrap.id || `sleeve-patch-${idx}`,
+      });
+
+      if (r > 0 && c === 0) {
+        seams.push({
+          x1: startX,
+          y1: py,
+          x2: startX + boxW,
+          y2: py,
+        });
+      }
+      if (c > 0 && r === 0) {
+        seams.push({
+          x1: px,
+          y1: startY,
+          x2: px,
+          y2: startY + boxH,
+        });
+      }
+    }
+  }
+
+  return { patches, seams };
+}
+
+function computeCurvedBodicePatches(placement, is56) {
+  const scraps = placement?.scraps || [];
+  const count = scraps.length;
+  const boxW = is56 ? 350 : 380;
+  const boxH = is56 ? 340 : 380;
+  const startX = -boxW / 2;
+  const startY = 0;
+
+  if (count <= 1) {
+    const scrap = scraps[0] || {};
+    return [
+      {
+        index: 0,
+        relX: startX,
+        relY: startY,
+        width: boxW,
+        height: boxH,
+        color: scrap.color || 'navy',
+        colorHex: scrap.colorHex || getHexForColor(scrap.color || 'navy'),
+      },
+    ];
+  }
+
+  let rows = 3;
+  let cols = 3;
+  if (count === 4) {
+    rows = 2;
+    cols = 2;
+  } else if (count === 6) {
+    rows = 3;
+    cols = 2;
+  }
+  const cellW = boxW / cols;
+  const cellH = boxH / rows;
+  const patches = [];
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const idx = r * cols + c;
+      const scrap = scraps[idx % count] || scraps[0] || {};
+      const color = scrap.color || 'navy';
+      const colorHex = scrap.colorHex || getHexForColor(color);
+      patches.push({
+        index: idx,
+        relX: startX + c * cellW,
+        relY: startY + r * cellH,
+        width: cellW,
+        height: cellH,
+        color,
+        colorHex,
+      });
+    }
+  }
+  return patches;
+}
+
+function computeCurvedBodiceSeams(placement, is56) {
+  const scraps = placement?.scraps || [];
+  const count = scraps.length;
+  if (count <= 1) return [];
+  const boxW = is56 ? 350 : 380;
+  const boxH = is56 ? 340 : 380;
+  const startX = -boxW / 2;
+  const startY = 0;
+
+  let rows = 3;
+  let cols = 3;
+  if (count === 4) {
+    rows = 2;
+    cols = 2;
+  } else if (count === 6) {
+    rows = 3;
+    cols = 2;
+  }
+  const cellW = boxW / cols;
+  const cellH = boxH / rows;
+  const seams = [];
+
+  for (let r = 1; r < rows; r++) {
+    seams.push({
+      x1: startX,
+      y1: startY + r * cellH,
+      x2: startX + boxW,
+      y2: startY + r * cellH,
+    });
+  }
+  for (let c = 1; c < cols; c++) {
+    seams.push({
+      x1: startX + c * cellW,
+      y1: startY,
+      x2: startX + c * cellW,
+      y2: startY + boxH,
+    });
+  }
+  return seams;
+}
+
+function computeChildTopLayout(design, sizeTemplate, placements, view) {
+  const is56 = design.sizeKey !== 'chest62';
+  const sizeKey = is56 ? 'chest56' : 'chest62';
+  const cad = CHILD_TOP_BRIAN_DATA[sizeKey] || CHILD_TOP_BRIAN_DATA.chest56;
+  const isFront = view === 'front';
+  const isHybrid = (design.variant || 'hybrid') !== 'patchwork';
+
+  const viewBox = is56
+    ? { x: -380, y: -45, width: 760, height: 440 }
+    : { x: -430, y: -45, width: 860, height: 485 };
+
+  const bodiceZoneId = isFront ? 'bodice_front' : 'bodice_back';
+  const bodiceCad = isFront ? cad.pieces.bodice_front : cad.pieces.bodice_back;
+  const bodicePlacement = findPlacement(placements, bodiceZoneId);
+
+  const sleeveCad = cad.pieces.sleeve;
+  const sleevePlacement1 = findPlacement(placements, 'sleeve_1') || findPlacement(placements, 'sleeve');
+  const sleevePlacement2 = findPlacement(placements, 'sleeve_2') || sleevePlacement1;
+
+  const leftSleeveTransform = is56 ? 'translate(-165, 100) rotate(22)' : 'translate(-185, 115) rotate(22)';
+  const rightSleeveTransform = is56 ? 'translate(165, 100) rotate(-22)' : 'translate(185, 115) rotate(-22)';
+
+  const panels = [];
+
+  // Bodice panel
+  const bodiceW = bodiceCad.halfWidthCm * 2;
+  const bodiceH = bodiceCad.heightCm;
+  const bodicePatches = isHybrid
+    ? [
+        {
+          index: 0,
+          relX: -bodiceW * 5,
+          relY: -20,
+          width: bodiceW * 10,
+          height: bodiceH * 10 + 50,
+          color: 'navy',
+          colorHex: '#1E3A8A',
+          scrapId: 'plain_base',
+        },
+      ]
+    : computeCurvedBodicePatches(bodicePlacement, is56);
+
+  panels.push({
+    id: bodiceZoneId,
+    zoneId: bodiceZoneId,
+    zoneName: isFront ? 'Front Bodice' : 'Back Bodice',
+    role: 'base',
+    fabricSource: isHybrid ? 'plain_base' : 'scrap',
+    isPlaced: Boolean(bodicePlacement),
+    shapeType: 'curved',
+    cutOnFold: true,
+    seamPath: bodiceCad.seamPath,
+    width: bodiceW,
+    height: bodiceH,
+    canvasX: -bodiceW * 5,
+    canvasY: 0,
+    patches: bodicePatches,
+    seams: isHybrid ? [] : computeCurvedBodiceSeams(bodicePlacement, is56),
+  });
+
+  // Left sleeve panel
+  const sleevePatches1 = computeCurvedSleevePatches(sleevePlacement1, is56);
+  panels.push({
+    id: 'sleeve_1',
+    zoneId: 'sleeve_1',
+    zoneName: 'Left Sleeve',
+    role: 'supporting',
+    fabricSource: 'scrap',
+    isPlaced: Boolean(sleevePlacement1),
+    shapeType: 'curved',
+    cutOnFold: false,
+    seamPath: sleeveCad.seamPath,
+    transform: leftSleeveTransform,
+    width: sleeveCad.widthCm,
+    height: sleeveCad.heightCm,
+    canvasX: -165,
+    canvasY: 100,
+    patches: sleevePatches1.patches,
+    seams: sleevePatches1.seams,
+  });
+
+  // Right sleeve panel
+  const sleevePatches2 = computeCurvedSleevePatches(sleevePlacement2, is56);
+  panels.push({
+    id: 'sleeve_2',
+    zoneId: 'sleeve_2',
+    zoneName: 'Right Sleeve',
+    role: 'supporting',
+    fabricSource: 'scrap',
+    isPlaced: Boolean(sleevePlacement2),
+    shapeType: 'curved',
+    cutOnFold: false,
+    seamPath: sleeveCad.seamPath,
+    transform: rightSleeveTransform,
+    mirrored: true,
+    width: sleeveCad.widthCm,
+    height: sleeveCad.heightCm,
+    canvasX: 165,
+    canvasY: 100,
+    patches: sleevePatches2.patches,
+    seams: sleevePatches2.seams,
+  });
+
+  const cuffX = is56 ? 75 : 81;
+  const cuffY = is56 ? 263 : 291;
+  const neckY = is56 ? 42 : 45;
+  const hemY = is56 ? 325 : 370;
+
+  const decorations = [
+    {
+      type: 'child_neckline',
+      isFront,
+      is56,
+      stroke: '#D6C0A4',
+      strokeWidth: 4,
+    },
+    {
+      type: 'child_cuff_left',
+      transform: leftSleeveTransform,
+      is56,
+      cuffX,
+      cuffY,
+      stroke: '#D6C0A4',
+      strokeWidth: 3.5,
+    },
+    {
+      type: 'child_cuff_right',
+      transform: rightSleeveTransform,
+      is56,
+      cuffX,
+      cuffY,
+      stroke: '#D6C0A4',
+      strokeWidth: 3.5,
+    },
+    {
+      type: 'child_fold_notches',
+      is56,
+      neckY,
+      hemY,
+    },
+  ];
+
+  return {
+    productId: 'child_top',
+    isCurvedGarment: true,
+    view,
+    viewBox,
+    isHybrid,
+    is56,
+    cuffX,
+    cuffY,
+    neckY,
+    hemY,
     panels,
     decorations,
     disclaimer: 'Preview. Final look may differ slightly.',

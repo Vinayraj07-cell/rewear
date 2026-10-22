@@ -245,6 +245,7 @@ export const CONFIG = {
     tote_bag: 50,
     cushion_cover: 40,
     kids_frock: 70,
+    child_top: 45,
   },
 
   /**

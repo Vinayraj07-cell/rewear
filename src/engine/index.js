@@ -92,8 +92,13 @@ export function suggestProducts(pile, options = {}) {
 
       // Construct tailored "Why this design" explanation
       const whyReasons = [];
+      const scrapsCount = fitResult.placements.reduce((sum, p) => sum + (p.scraps ? p.scraps.length : 0), 0);
       if (fitResult.fits) {
-        whyReasons.push(`All ${fitResult.placements.length} zones covered with compatible fabric weights.`);
+        if (fitResult.plainBase && fitResult.plainBase.piecesCount > 0) {
+          whyReasons.push(`Hybrid design: ${fitResult.yardageNeededMeters}m continuous plain fabric needed for body; sleeves pieced from ${scrapsCount} scraps (${fitResult.totalExtraSeams} extra seams).`);
+        } else {
+          whyReasons.push(`All ${fitResult.placements.length} zones covered with compatible fabric weights.`);
+        }
         if (designScore >= 80) whyReasons.push('Harmonious 60-30-10 colour balance with calm base.');
         if (fitResult.wastePercentage <= 15) whyReasons.push(`Minimal fabric waste (${fitResult.wastePercentage}% trim).`);
         if (fitResult.totalExtraSeams === 0) {
@@ -154,10 +159,14 @@ export function suggestProducts(pile, options = {}) {
         category: product.category,
         sizeKey,
         sizeLabel: sizeObj.label,
-        variant: fitResult.variant || 'plain',
+        variant: fitResult.variant || product.defaultVariant || 'plain',
         fits: fitResult.fits,
         designScore,
         estimatedTimeMinutes,
+        scrapsCount,
+        yardageNeededMeters: fitResult.yardageNeededMeters || 0,
+        plainFabricNeededMeters: fitResult.yardageNeededMeters || 0,
+        plainBase: fitResult.plainBase || null,
         wastePercentage: fitResult.wastePercentage,
         fabricUsedInSeamsCm2: fitResult.fabricUsedInSeamsCm2 || 0,
         fabricTooSmallToReuseCm2: fitResult.fabricTooSmallToReuseCm2 || 0,
@@ -228,6 +237,10 @@ export function buildDesign(pile, productId, sizeKey, style = 'patchwork', optio
     designScore,
     estimatedTimeMinutes,
     seamAllowanceCm,
+    scrapsCount: fitResult.placements.reduce((sum, p) => sum + (p.scraps ? p.scraps.length : 0), 0),
+    yardageNeededMeters: fitResult.yardageNeededMeters || 0,
+    plainFabricNeededMeters: fitResult.yardageNeededMeters || 0,
+    plainBase: fitResult.plainBase || null,
     placements: fitResult.placements,
     leftovers: fitResult.leftovers,
     wastePercentage: fitResult.wastePercentage,

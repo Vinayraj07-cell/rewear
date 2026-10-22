@@ -77,6 +77,25 @@ export default function ProductVisual({ productId, sizeKey, variant = 'plain', c
     );
   }
 
+  if (productId === 'child_top') {
+    return (
+      <div className={`relative flex items-center justify-center bg-stone-100 rounded-2xl p-2 border border-stone-200 overflow-hidden ${className}`}>
+        <svg viewBox="-50 -10 100 95" className="w-full h-full" fill="none" stroke="currentColor">
+          {/* Left Sleeve (Mirrored Pair) */}
+          <path d="M -22 18 L -42 42 L -32 50 L -18 30 Z" fill="#3B82F6" fillOpacity="0.5" stroke="#1D4ED8" strokeWidth="2" />
+          {/* Right Sleeve (Mirrored Pair) */}
+          <path d="M 22 18 L 42 42 L 32 50 L 18 30 Z" fill="#3B82F6" fillOpacity="0.5" stroke="#1D4ED8" strokeWidth="2" />
+          {/* Bodice Body */}
+          <path d="M -22 18 C -15 24 15 24 22 18 L 24 75 L -24 75 Z" fill="#1E3A8A" fillOpacity="0.25" stroke="#1E3A8A" strokeWidth="3" />
+          {/* Neckline */}
+          <path d="M -12 6 C -6 16 6 16 12 6" stroke="#D97706" strokeWidth="2.5" />
+          {/* Raglan seam lines */}
+          <path d="M -22 18 L -12 6 M 22 18 L 12 6" stroke="#64748B" strokeWidth="1.5" strokeDasharray="2 2" />
+        </svg>
+      </div>
+    );
+  }
+
   return (
     <div className={`flex items-center justify-center bg-stone-200 text-stone-600 rounded-2xl text-2xl ${className}`}>
       🧵

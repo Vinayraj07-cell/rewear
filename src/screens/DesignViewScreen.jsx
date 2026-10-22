@@ -14,11 +14,14 @@ import {
   ShieldAlert,
   Edit3,
   FileText,
-  Box
+  Box,
+  Camera
 } from 'lucide-react';
 import FabricNumbersCard from '../components/FabricNumbersCard';
 import ProductVisual from '../components/ProductVisual';
 import Product2DPreview from '../components/Product2DPreview';
+import AiPhotoPreviewModal from '../components/AiPhotoPreviewModal';
+import { computeProduct2DLayout } from '../utils/product2DLayout';
 import { soundManager } from '../utils/audio';
 import { COLOR_SWATCHES } from '../i18n/translations';
 import { 
@@ -27,6 +30,12 @@ import {
   getTranslatedSizeLabel, 
   getTranslatedZoneName 
 } from '../utils/zoneHelper.js';
+import { 
+  fitPileToProduct, 
+  calculateDesignScore, 
+  calculateEstimatedTime, 
+  PRODUCT_TEMPLATES 
+} from '../engine/index.js';
 
 export default function DesignViewScreen({
   design,
@@ -42,12 +51,60 @@ export default function DesignViewScreen({
   lang,
 }) {
   const [globalPattern, setGlobalPattern] = useState(design.style || 'patchwork');
+  const [variantToggle, setVariantToggle] = useState(design.variant || 'hybrid');
   const [perPartPatterns, setPerPartPatterns] = useState({});
   const [selectedZoneId, setSelectedZoneId] = useState(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [showAiModal, setShowAiModal] = useState(false);
+  const [isOnline, setIsOnline] = useState(typeof navigator !== 'undefined' ? (navigator.onLine ?? true) : true);
 
-  const productName = getTranslatedProductName(design.productId, design.productName, t);
-  const sizeLabel = getTranslatedSizeLabel(design.sizeKey, design.sizeLabel, t);
+  React.useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
+  // Compute active design (recomputing when variantToggle changes for child_top)
+  const activeDesign = useMemo(() => {
+    if (design.productId === 'child_top' && pile && pile.length > 0) {
+      const seamAllowanceCm = design.seamAllowanceCm || 1.0;
+      const fitResult = fitPileToProduct(pile, 'child_top', design.sizeKey, seamAllowanceCm, { variant: variantToggle });
+      const template = PRODUCT_TEMPLATES.child_top;
+      const hasFraying = pile.some((p) => p.frays !== false);
+      const designScore = calculateDesignScore(fitResult);
+      const estimatedTimeMinutes = calculateEstimatedTime('child_top', fitResult.totalExtraSeams, hasFraying);
+      const scrapsCount = fitResult.placements.reduce((sum, p) => sum + (p.scraps ? p.scraps.length : 0), 0);
+      return {
+        ...design,
+        variant: variantToggle,
+        fits: fitResult.fits,
+        designScore,
+        estimatedTimeMinutes,
+        scrapsCount,
+        yardageNeededMeters: fitResult.yardageNeededMeters || 0,
+        plainFabricNeededMeters: fitResult.yardageNeededMeters || 0,
+        plainBase: fitResult.plainBase || null,
+        totalExtraSeams: fitResult.totalExtraSeams,
+        placements: fitResult.placements,
+        leftovers: fitResult.leftovers,
+        wastePercentage: fitResult.wastePercentage,
+        fabricUsedInSeamsCm2: fitResult.fabricUsedInSeamsCm2 || 0,
+        fabricTooSmallToReuseCm2: fitResult.fabricTooSmallToReuseCm2 || 0,
+        warnings: fitResult.warnings || [],
+        missing: fitResult.missing,
+        missingDetails: fitResult.missingDetails,
+      };
+    }
+    return design;
+  }, [design, pile, variantToggle]);
+
+  const productName = getTranslatedProductName(activeDesign.productId, activeDesign.productName, t);
+  const sizeLabel = getTranslatedSizeLabel(activeDesign.sizeKey, activeDesign.sizeLabel, t);
 
   // Available patterns as defined in requirement 2
   const patternList = [
@@ -94,8 +151,8 @@ export default function DesignViewScreen({
 
   // Compute effective design taking into account chosen patterns
   const effectiveDesign = useMemo(() => {
-    if (!design || !design.placements) return design;
-    const placements = design.placements.map((pl) => {
+    if (!activeDesign || !activeDesign.placements) return activeDesign;
+    const placements = activeDesign.placements.map((pl) => {
       const pat = perPartPatterns[pl.zoneId] || globalPattern || pl.direction;
       let dir = pl.direction;
       if (pat === 'vertical') dir = 'vertical';
@@ -108,11 +165,13 @@ export default function DesignViewScreen({
       };
     });
     return {
-      ...design,
+      ...activeDesign,
       style: globalPattern,
       placements,
     };
-  }, [design, globalPattern, perPartPatterns]);
+  }, [activeDesign, globalPattern, perPartPatterns]);
+
+  const currentLayout = useMemo(() => computeProduct2DLayout(effectiveDesign, 'front'), [effectiveDesign]);
 
   return (
     <div className="space-y-4 pb-36">
@@ -130,10 +189,16 @@ export default function DesignViewScreen({
           <div>
             <div className="flex items-center gap-2">
               <span className="text-[10px] bg-emerald-950/60 px-2 py-0.5 rounded text-emerald-200 border border-emerald-500/40 uppercase font-black tracking-wider">
-                {design.variant === 'decorated' ? t.decoratedVariantLabel : t.plainVariantLabel}
+                {activeDesign.variant === 'decorated'
+                  ? t.decoratedVariantLabel
+                  : activeDesign.variant === 'hybrid'
+                  ? 'Hybrid'
+                  : activeDesign.variant === 'patchwork'
+                  ? 'Full Patchwork'
+                  : t.plainVariantLabel}
               </span>
               <span className="text-xs text-amber-300 font-bold">
-                ⭐ {design.designScore}/100
+                ⭐ {activeDesign.designScore}/100
               </span>
             </div>
             <h2 className="text-lg font-black text-white leading-tight mt-0.5 break-words">
@@ -168,6 +233,84 @@ export default function DesignViewScreen({
           </button>
         </div>
       </div>
+
+      {/* Child Top: Construction Variant Toggle (Requirement 3: Hybrid vs Full Patchwork) */}
+      {activeDesign.productId === 'child_top' && (
+        <div className="bg-white rounded-3xl p-3.5 border border-stone-200 shadow-xs space-y-2.5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1.5 text-stone-800 font-bold text-xs uppercase tracking-wider">
+              <Scissors className="w-3.5 h-3.5 text-emerald-700" />
+              <span>Garment Construction</span>
+            </div>
+            <span className="text-[10px] font-semibold text-stone-500">
+              {variantToggle === 'hybrid' ? 'Comfort Base' : '100% Upcycled'}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2 text-xs font-bold">
+            <button
+              type="button"
+              onClick={() => setVariantToggle('hybrid')}
+              className={`py-2.5 px-2 rounded-2xl border transition flex items-center justify-center gap-1.5 ${
+                variantToggle === 'hybrid'
+                  ? 'bg-emerald-700 text-white border-emerald-800 shadow-sm'
+                  : 'bg-stone-50 text-stone-700 border-stone-200 hover:bg-stone-100'
+              }`}
+            >
+              <span>🌿</span>
+              <span>Hybrid (Plain Body)</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setVariantToggle('patchwork')}
+              className={`py-2.5 px-2 rounded-2xl border transition flex items-center justify-center gap-1.5 ${
+                variantToggle === 'patchwork'
+                  ? 'bg-emerald-700 text-white border-emerald-800 shadow-sm'
+                  : 'bg-stone-50 text-stone-700 border-stone-200 hover:bg-stone-100'
+              }`}
+            >
+              <span>🧩</span>
+              <span>Full Patchwork</span>
+            </button>
+          </div>
+
+          {/* Construction Metrics Comparison */}
+          <div className="grid grid-cols-3 gap-1.5 bg-stone-50 p-2 rounded-2xl border border-stone-200 text-center text-[11px]">
+            <div>
+              <span className="text-[10px] text-stone-400 block leading-tight">Scraps</span>
+              <span className="font-extrabold text-stone-800">{activeDesign.scrapsCount} scraps</span>
+            </div>
+            <div>
+              <span className="text-[10px] text-stone-400 block leading-tight">Extra Seams</span>
+              <span className="font-extrabold text-amber-900">{activeDesign.totalExtraSeams} joins</span>
+            </div>
+            <div>
+              <span className="text-[10px] text-stone-400 block leading-tight">Est. Time</span>
+              <span className="font-extrabold text-emerald-800">{activeDesign.estimatedTimeMinutes} mins</span>
+            </div>
+          </div>
+
+          {/* Construction Notice Banner */}
+          {variantToggle === 'hybrid' ? (
+            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-2.5 text-xs text-stone-700 flex items-start gap-2">
+              <span className="text-emerald-700 font-bold shrink-0">🌿</span>
+              <p className="leading-snug text-[11px] font-medium text-stone-700">
+                {activeDesign.tailorVerified
+                  ? 'Hybrid construction. Tailor-verified.'
+                  : 'Hybrid construction. Not yet tailor-verified.'}
+              </p>
+            </div>
+          ) : (
+            <div className="bg-amber-50 border border-amber-300 rounded-2xl p-2.5 text-xs text-amber-950 flex items-start gap-2">
+              <ShieldAlert className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+              <p className="leading-snug text-[11px]">
+                {activeDesign.warnings?.find((w) => w.includes('Full patchwork option')) ||
+                  `Full patchwork option: ${activeDesign.scrapsCount} scraps across ${activeDesign.totalExtraSeams} seam joins, estimated sewing time ~${activeDesign.estimatedTimeMinutes} mins. Hybrid construction (plain fabric bodice with patchwork sleeves) is recommended for comfort against child skin.`}
+              </p>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Stage 4A: 2D Finished Product Tailor Preview */}
       <Product2DPreview
@@ -454,6 +597,22 @@ export default function DesignViewScreen({
 
       {/* Main Action Buttons */}
       <div className="space-y-2 pt-2">
+        {/* Step 4b: Photo preview (AI) Button */}
+        <button
+          type="button"
+          id="btn-photo-preview-ai"
+          onClick={() => setShowAiModal(true)}
+          className="w-full py-3.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-black text-xs rounded-2xl shadow-md flex items-center justify-center gap-2 transition"
+        >
+          <Camera className="w-4 h-4" />
+          <span>Photo preview (AI)</span>
+          {!isOnline && (
+            <span className="text-[10px] bg-stone-900/50 text-amber-200 px-2 py-0.5 rounded-full font-bold ml-1">
+              Needs internet
+            </span>
+          )}
+        </button>
+
         <button
           type="button"
           onClick={onOpenTailorBlueprint}
@@ -501,6 +660,15 @@ export default function DesignViewScreen({
           </button>
         </div>
       </div>
+
+      {/* AI Realistic Photo Preview Modal */}
+      <AiPhotoPreviewModal
+        isOpen={showAiModal}
+        onClose={() => setShowAiModal(false)}
+        design={effectiveDesign}
+        layout={currentLayout}
+        t={t}
+      />
     </div>
   );
 }

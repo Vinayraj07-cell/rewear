@@ -44,6 +44,9 @@ function getPriceSuggestion(productId, sizeKey, timeMinutes) {
     if (sizeKey === 'infant') basePrice = 280;
     else if (sizeKey === 'toddler') basePrice = 360;
     else basePrice = 480;
+  } else if (productId === 'child_top') {
+    if (sizeKey === 'chest56') basePrice = 320;
+    else basePrice = 380;
   }
   const low = Math.round(basePrice * 0.9);
   const high = Math.round(basePrice * 1.3);
@@ -81,12 +84,12 @@ export default function WhatCanIMakeScreen({
       // Category match
       if (categoryFilter === 'bags' && item.productId !== 'tote_bag' && item.productId !== 'pouch') return false;
       if (categoryFilter === 'home' && item.productId !== 'cushion_cover') return false;
-      if (categoryFilter === 'kids' && item.productId !== 'kids_frock') return false;
+      if (categoryFilter === 'kids' && item.productId !== 'kids_frock' && item.productId !== 'child_top') return false;
 
       // Audience match
-      if (audienceFilter === 'kids' && item.productId !== 'kids_frock') return false;
+      if (audienceFilter === 'kids' && item.productId !== 'kids_frock' && item.productId !== 'child_top') return false;
       if (audienceFilter === 'home' && item.productId !== 'cushion_cover') return false;
-      if (audienceFilter === 'adults' && item.productId === 'kids_frock') return false;
+      if (audienceFilter === 'adults' && (item.productId === 'kids_frock' || item.productId === 'child_top')) return false;
 
       return true;
     });
@@ -343,9 +346,22 @@ export default function WhatCanIMakeScreen({
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-                        {item.variant === 'decorated' ? t.decoratedVariantLabel : t.plainVariantLabel}
-                      </span>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                          {item.variant === 'decorated'
+                            ? t.decoratedVariantLabel
+                            : item.variant === 'hybrid'
+                            ? 'Hybrid'
+                            : item.variant === 'patchwork'
+                            ? 'Full Patchwork'
+                            : t.plainVariantLabel}
+                        </span>
+                        {item.yardageNeededMeters > 0 && (
+                          <span className="text-[10px] font-bold text-sky-800 bg-sky-50 px-1.5 py-0.5 rounded-md border border-sky-200">
+                            Plain: {item.yardageNeededMeters}m
+                          </span>
+                        )}
+                      </div>
                       {renderStars(item.designScore)}
                     </div>
                     <h4 className="text-base font-black text-stone-900 mt-1 leading-snug break-words">

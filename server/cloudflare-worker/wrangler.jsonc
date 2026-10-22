@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "rewear-ai-proxy",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-01",
+  "vars": {
+    "MOCK_AI": "true",
+    "AI_MODEL": "models/gemini-2.5-flash-image",
+    "DEVICE_DAILY_LIMIT": "10",
+    "GLOBAL_DAILY_CAP": "100"
+  }
+}

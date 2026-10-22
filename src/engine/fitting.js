@@ -461,11 +461,25 @@ export function fitPileToProduct(
     };
     zoning = assignZoningRoles(pile, scrapRequirements);
     if (!zoning.hasGoodBase) {
+      const earlyWarnings = [...(zoning.warnings || [])];
+      const effectiveVariant = requirements.variant || variant || 'plain';
+      if (effectiveVariant === 'patchwork') {
+        earlyWarnings.push(
+          `Full patchwork option: requires ~24 scraps across ~22 seam joins, estimated sewing time ~85 mins. Hybrid construction (plain fabric bodice with patchwork sleeves) is recommended for comfort against child skin.`
+        );
+      }
       return {
         fits: false,
         missing: zoning.fallbackReason,
+        missingDetails: scrapZones.map((z) => ({
+          zoneId: z.id,
+          zoneName: z.name,
+          role: z.role,
+          neededDimensions: `${z.cutWidth} × ${z.cutHeight} cm`,
+          neededArea: z.cutWidth * z.cutHeight,
+        })),
         suggestions: zoning.suggestions,
-        warnings: zoning.warnings || [],
+        warnings: earlyWarnings,
         hasAnchorWarning: Boolean(zoning.hasAnchorWarning),
         placements: [],
         leftovers: pile,
@@ -536,9 +550,233 @@ export function fitPileToProduct(
   const missingRequirements = [];
 
   for (const zone of sortedZones) {
+    // If zone was already satisfied as part of a paired zone operation (e.g. child_top mirrored sleeves)
+    if (placements.some((p) => p.zoneId === zone.id)) {
+      continue;
+    }
+
     const targetW = zone.cutWidth;
     const targetH = zone.cutHeight;
     let zoneSatisfied = false;
+
+    // Special handling for child_top paired sleeves:
+    // Build sleeve_1 with the real engine and mirror it to sleeve_2, ensuring identical colors and mirrored layout.
+    if (productId === 'child_top' && zone.id === 'sleeve_1') {
+      const zone2 = sortedZones.find((z) => z.id === 'sleeve_2');
+      if (zone2) {
+        // Group available unused pieces by color and fabric type into pairs
+        const byColorGroup = {};
+        availablePool.filter((p) => !p.used).forEach((p) => {
+          const k = `${p.dominantColor || p.color}_${p.fabricType || 'cotton'}`;
+          if (!byColorGroup[k]) byColorGroup[k] = [];
+          byColorGroup[k].push(p);
+        });
+
+        const leftPool = [];
+        const rightPool = [];
+        for (const k in byColorGroup) {
+          const list = byColorGroup[k];
+          const pairsCount = Math.floor(list.length / 2);
+          for (let i = 0; i < pairsCount; i++) {
+            const leftP = list[i * 2];
+            const rightP = list[i * 2 + 1];
+            leftP.pairPartner = rightP;
+            rightP.pairPartner = leftP;
+            leftPool.push(leftP);
+            rightPool.push(rightP);
+          }
+        }
+
+        // Try single piece fit first from leftPool
+        let singlePairFit = null;
+        for (const lp of leftPool) {
+          const sFit = canFitSinglePiece(lp, targetW, targetH, true);
+          if (sFit.fits) {
+            singlePairFit = { piece: lp, rotated: sFit.rotated };
+            break;
+          }
+        }
+
+        if (singlePairFit) {
+          const lp = singlePairFit.piece;
+          const rp = lp.pairPartner;
+          lp.used = true;
+          rp.used = true;
+
+          const cutL = cutScrap(lp, targetW, targetH, singlePairFit.rotated);
+          const cutR = cutScrap(rp, targetW, targetH, singlePairFit.rotated);
+
+          totalRawAreaUsed += cutL.totalScrapArea + cutR.totalScrapArea;
+          totalFinishedAreaCovered += (zone.finishedWidth * zone.finishedHeight) + (zone2.finishedWidth * zone2.finishedHeight);
+          totalTrimWasteArea += cutL.trimWasteArea + cutR.trimWasteArea;
+          reusableLeftovers.push(...cutL.reusableOffcuts, ...cutR.reusableOffcuts);
+
+          const makeSinglePlacement = (z, p, isRight = false) => {
+            const pl = {
+              zoneId: z.id,
+              zoneName: z.name,
+              role: z.role,
+              fabricSource: z.fabricSource || 'scrap',
+              method: 'single_piece',
+              patchCount: 1,
+              seamsCount: 0,
+              mirroredPair: true,
+              scraps: [
+                {
+                  scrapId: p.id,
+                  instanceId: p.instanceId,
+                  color: p.dominantColor || p.color,
+                  fabricType: p.fabricType,
+                  print: p.print,
+                  rotated: singlePairFit.rotated,
+                  cutWidth: targetW,
+                  cutHeight: targetH,
+                  finishedWidth: z.finishedWidth,
+                  finishedHeight: z.finishedHeight,
+                },
+              ],
+            };
+            if (isRight) pl.mirroredFrom = 'sleeve_1';
+            if (z.geometry) {
+              pl.geometry = z.geometry;
+              if (z.geometry.shapeType === 'curved') {
+                pl.shapeType = 'curved';
+                pl.clipPathId = `clip_${z.id}`;
+                pl.seamPath = z.geometry.seamPath;
+                pl.saPath = z.geometry.saPath;
+                pl.cutOnFold = Boolean(z.geometry.cutOnFold);
+                pl.netAreaCm2 = z.geometry.finishedAreaCm2;
+                pl.clipped = true;
+              }
+            }
+            return pl;
+          };
+
+          placements.push(makeSinglePlacement(zone, lp, false));
+          placements.push(makeSinglePlacement(zone2, rp, true));
+          zoneSatisfied = true;
+          continue;
+        }
+
+        // Try patchwork fit from leftPool
+        if (leftPool.length >= 2) {
+          const patchworkResult = tryMultiPiecePatchwork(
+            leftPool,
+            targetW,
+            targetH,
+            seamAllowanceCm,
+            CONFIG.MAX_SEAMS_PER_ZONE || 6
+          );
+
+          if (patchworkResult.fits) {
+            patchworkResult.piecesUsed.forEach((p) => {
+              p.used = true;
+              if (p.pairPartner) p.pairPartner.used = true;
+            });
+
+            const count = patchworkResult.piecesUsed.length;
+            let rows = 1;
+            let cols = count;
+            const gridMatch = patchworkResult.seamType?.match(/(\d+)x(\d+)_grid_seams/i);
+            if (gridMatch) {
+              rows = parseInt(gridMatch[1], 10);
+              cols = parseInt(gridMatch[2], 10);
+            } else if (count === 4) {
+              rows = 2;
+              cols = 2;
+            } else if (count === 6) {
+              rows = 3;
+              cols = 2;
+            }
+
+            // Left sleeve scraps
+            const leftScraps = patchworkResult.piecesUsed.map((p) => ({
+              scrapId: p.id,
+              instanceId: p.instanceId,
+              color: p.dominantColor || p.color,
+              fabricType: p.fabricType,
+              print: p.print,
+              cutWidth: p.effectiveWidth || p.width,
+              cutHeight: p.effectiveHeight || p.height,
+            }));
+
+            // Right sleeve scraps: mirrored across horizontal columns (cols - 1 - c)
+            const rightScraps = [];
+            for (let r = 0; r < rows; r++) {
+              for (let c = 0; c < cols; c++) {
+                const srcIdx = r * cols + (cols - 1 - c);
+                const srcPiece = patchworkResult.piecesUsed[srcIdx];
+                const partner = srcPiece.pairPartner;
+                rightScraps.push({
+                  scrapId: partner ? partner.id : srcPiece.id,
+                  instanceId: partner ? partner.instanceId : srcPiece.instanceId,
+                  color: srcPiece.dominantColor || srcPiece.color,
+                  fabricType: partner ? partner.fabricType : srcPiece.fabricType,
+                  print: partner ? partner.print : srcPiece.print,
+                  cutWidth: srcPiece.effectiveWidth || srcPiece.width,
+                  cutHeight: srcPiece.effectiveHeight || srcPiece.height,
+                  mirroredFrom: srcPiece.instanceId || srcPiece.id,
+                });
+              }
+            }
+
+            // Compute areas & seam losses for BOTH sleeves
+            const rawAreaPerSleeve = patchworkResult.piecesUsed.reduce(
+              (sum, p) => sum + (p.effectiveWidth || p.width) * (p.effectiveHeight || p.height),
+              0
+            );
+            const targetCutArea = targetW * targetH;
+            const internalSeamLoss = patchworkResult.seamsCount * 2 * seamAllowanceCm * (targetW / cols);
+            const blockTrimWaste = Math.max(0, rawAreaPerSleeve - targetCutArea - internalSeamLoss);
+
+            // Add for BOTH sleeves
+            totalRawAreaUsed += rawAreaPerSleeve * 2;
+            totalFinishedAreaCovered += (zone.finishedWidth * zone.finishedHeight) + (zone2.finishedWidth * zone2.finishedHeight);
+            totalSeamLossArea += internalSeamLoss * 2;
+            totalTrimWasteArea += blockTrimWaste * 2;
+            totalExtraSeams += patchworkResult.seamsCount * 2;
+
+            const makePatchPlacement = (z, scrapsList, isRight = false) => {
+              const pl = {
+                zoneId: z.id,
+                zoneName: z.name,
+                role: z.role,
+                fabricSource: z.fabricSource || 'scrap',
+                method: patchworkResult.patchCount === 1 ? 'single_piece' : 'pieced_patches',
+                patchCount: patchworkResult.patchCount,
+                seamsCount: patchworkResult.seamsCount,
+                direction: patchworkResult.layout,
+                seamType: patchworkResult.seamType,
+                note: isRight
+                  ? 'Mirrored pair with left sleeve: identical colours and symmetrical patch layout'
+                  : patchworkResult.note,
+                mirroredPair: true,
+                scraps: scrapsList,
+              };
+              if (isRight) pl.mirroredFrom = 'sleeve_1';
+              if (z.geometry) {
+                pl.geometry = z.geometry;
+                if (z.geometry.shapeType === 'curved') {
+                  pl.shapeType = 'curved';
+                  pl.clipPathId = `clip_${z.id}`;
+                  pl.seamPath = z.geometry.seamPath;
+                  pl.saPath = z.geometry.saPath;
+                  pl.cutOnFold = Boolean(z.geometry.cutOnFold);
+                  pl.netAreaCm2 = z.geometry.finishedAreaCm2;
+                  pl.clipped = true;
+                }
+              }
+              return pl;
+            };
+
+            placements.push(makePatchPlacement(zone, leftScraps, false));
+            placements.push(makePatchPlacement(zone2, rightScraps, true));
+            zoneSatisfied = true;
+            continue;
+          }
+        }
+      }
+    }
 
     // Filter available candidates matching role first, then backup from supporting/base
     const candidateFilter = (candidateRole) =>
@@ -561,7 +799,7 @@ export function fitPileToProduct(
         totalTrimWasteArea += cut.trimWasteArea;
         reusableLeftovers.push(...cut.reusableOffcuts);
 
-        placements.push({
+        const placementObj = {
           zoneId: zone.id,
           zoneName: zone.name,
           role: zone.role,
@@ -582,7 +820,22 @@ export function fitPileToProduct(
             },
           ],
           seamsCount: 0,
-        });
+        };
+
+        if (zone.geometry) {
+          placementObj.geometry = zone.geometry;
+          if (zone.geometry.shapeType === 'curved') {
+            placementObj.shapeType = 'curved';
+            placementObj.clipPathId = `clip_${zone.id}`;
+            placementObj.seamPath = zone.geometry.seamPath;
+            placementObj.saPath = zone.geometry.saPath;
+            placementObj.cutOnFold = Boolean(zone.geometry.cutOnFold);
+            placementObj.netAreaCm2 = zone.geometry.finishedAreaCm2;
+            placementObj.clipped = true;
+          }
+        }
+
+        placements.push(placementObj);
 
         zoneSatisfied = true;
         break;
@@ -670,7 +923,7 @@ export function fitPileToProduct(
         totalSeamLossArea += internalSeamLoss;
         totalTrimWasteArea += blockTrimWaste;
 
-        placements.push({
+        const placementObj = {
           zoneId: zone.id,
           zoneName: zone.name,
           role: zone.role,
@@ -690,7 +943,22 @@ export function fitPileToProduct(
             cutWidth: p.effectiveWidth || p.width,
             cutHeight: p.effectiveHeight || p.height,
           })),
-        });
+        };
+
+        if (zone.geometry) {
+          placementObj.geometry = zone.geometry;
+          if (zone.geometry.shapeType === 'curved') {
+            placementObj.shapeType = 'curved';
+            placementObj.clipPathId = `clip_${zone.id}`;
+            placementObj.seamPath = zone.geometry.seamPath;
+            placementObj.saPath = zone.geometry.saPath;
+            placementObj.cutOnFold = Boolean(zone.geometry.cutOnFold);
+            placementObj.netAreaCm2 = zone.geometry.finishedAreaCm2;
+            placementObj.clipped = true;
+          }
+        }
+
+        placements.push(placementObj);
 
         zoneSatisfied = true;
       }
@@ -774,7 +1042,7 @@ export function fitPileToProduct(
           totalSeamLossArea += internalSeamLoss;
           totalTrimWasteArea += blockTrimWaste;
 
-          placements.push({
+          const placementObj = {
             zoneId: zone.id,
             zoneName: zone.name,
             role: zone.role,
@@ -794,7 +1062,22 @@ export function fitPileToProduct(
               cutWidth: p.effectiveWidth || p.width,
               cutHeight: p.effectiveHeight || p.height,
             })),
-          });
+          };
+
+          if (zone.geometry) {
+            placementObj.geometry = zone.geometry;
+            if (zone.geometry.shapeType === 'curved') {
+              placementObj.shapeType = 'curved';
+              placementObj.clipPathId = `clip_${zone.id}`;
+              placementObj.seamPath = zone.geometry.seamPath;
+              placementObj.saPath = zone.geometry.saPath;
+              placementObj.cutOnFold = Boolean(zone.geometry.cutOnFold);
+              placementObj.netAreaCm2 = zone.geometry.finishedAreaCm2;
+              placementObj.clipped = true;
+            }
+          }
+
+          placements.push(placementObj);
 
           zoneSatisfied = true;
         }
@@ -817,7 +1100,7 @@ export function fitPileToProduct(
   // Process plain_base zones: zero scraps consumed from pile, zero pieced seams, full finished area tracked
   for (const zone of plainBaseZones) {
     totalFinishedAreaCovered += zone.finishedWidth * zone.finishedHeight;
-    placements.push({
+    const placementObj = {
       zoneId: zone.id,
       zoneName: zone.name,
       role: zone.role,
@@ -829,7 +1112,18 @@ export function fitPileToProduct(
       cutHeight: zone.cutHeight,
       finishedWidth: zone.finishedWidth,
       finishedHeight: zone.finishedHeight,
-    });
+    };
+    if (zone.geometry) {
+      placementObj.geometry = zone.geometry;
+      if (zone.geometry.shapeType === 'curved') {
+        placementObj.shapeType = 'curved';
+        placementObj.seamPath = zone.geometry.seamPath;
+        placementObj.saPath = zone.geometry.saPath;
+        placementObj.cutOnFold = Boolean(zone.geometry.cutOnFold);
+        placementObj.netAreaCm2 = zone.geometry.finishedAreaCm2;
+      }
+    }
+    placements.push(placementObj);
   }
 
   // Calculate plain base continuous yardage (assuming standard bolt width with safety margin)
@@ -878,6 +1172,16 @@ export function fitPileToProduct(
 
   const seamLossExplanation = 'Pieced panels lose fabric in seams, so small scraps cover less than their raw area.';
 
+  const combinedWarnings = [...(zoning.warnings || (zoning.warning ? [zoning.warning] : []))];
+  const effectiveVariant = requirements.variant || variant || 'plain';
+  if (effectiveVariant === 'patchwork') {
+    const totalScrapsCount = placements.reduce((sum, p) => sum + (p.scraps ? p.scraps.length : 0), 0);
+    const estTimeMins = (totalExtraSeams * 3.5) + (productId === 'child_top' ? 45 : 40);
+    combinedWarnings.push(
+      `Full patchwork option: ${totalScrapsCount} scraps across ${totalExtraSeams} seam joins, estimated sewing time ~${Math.round(estTimeMins)} mins. Hybrid construction (plain fabric bodice with patchwork sleeves) is recommended for comfort against child skin.`
+    );
+  }
+
   return {
     fits,
     productId,
@@ -894,7 +1198,7 @@ export function fitPileToProduct(
     finishedAreaCoveredCm2: Math.round(totalFinishedAreaCovered),
     wastePercentage,
     totalExtraSeams,
-    warnings: zoning.warnings || (zoning.warning ? [zoning.warning] : []),
+    warnings: combinedWarnings,
     hasAnchorWarning: Boolean(zoning.hasAnchorWarning),
     missing: missingMessage,
     missingDetails: missingRequirements,

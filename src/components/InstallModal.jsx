@@ -203,14 +203,14 @@ export default function InstallModal({
           )}
 
           {activeTab === 'apk' && (
-            <div className="space-y-3 text-center">
-              <div className="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-2xl mx-auto shadow-xs">
+            <div className="space-y-3.5 text-center">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-2xl mx-auto shadow-xs">
                 📦
               </div>
               <div>
                 <h4 className="text-sm font-bold text-stone-900">Standalone Android APK Package</h4>
-                <p className="text-xs text-stone-500 mt-1 leading-relaxed">
-                  You can download the standalone Android APK installer file and install it directly on any Android device.
+                <p className="text-xs text-stone-500 mt-0.5 leading-relaxed">
+                  Download the latest full installer package (10.3 MB) directly to your Android device.
                 </p>
               </div>
 
@@ -223,9 +223,33 @@ export default function InstallModal({
                 <span>Download ReWear Android APK (.apk)</span>
               </a>
 
-              <p className="text-[10px] text-stone-400">
-                Works on Android 7.0 and newer. Allow "Install unknown apps" in phone settings if prompted.
-              </p>
+              {/* Step-by-step install instructions */}
+              <div className="bg-stone-50 border border-stone-200 rounded-2xl p-3 text-left space-y-2">
+                <div className="text-xs font-bold text-stone-800 flex items-center gap-1.5">
+                  <span>📱</span>
+                  <span>How to Install on Mobile:</span>
+                </div>
+                <ol className="text-[11px] text-stone-600 space-y-1.5 list-decimal list-inside leading-snug">
+                  <li>
+                    <strong>Tap Open</strong> on the download notification in Chrome.<br />
+                    <span className="text-[10px] text-stone-500 pl-4 block">
+                      (Or open your phone's <strong>Files / File Manager</strong> app &rarr; <strong>Downloads</strong> / <strong>Installation files (APKs)</strong> &rarr; tap <strong>ReWear.apk</strong>).
+                    </span>
+                  </li>
+                  <li>
+                    If phone says <em>"For security, phone not allowed to install unknown apps"</em>: tap <strong>Settings</strong> &rarr; turn <strong>ON</strong> <em>"Allow from this source"</em>.
+                  </li>
+                  <li>
+                    Tap <strong>Install</strong>, then tap <strong>Open</strong> to launch ReWear!
+                  </li>
+                </ol>
+              </div>
+
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-2 text-left">
+                <p className="text-[10px] text-amber-800 leading-tight">
+                  💡 <strong>Tip for Samsung / Xiaomi / Vivo / Oppo:</strong> If Chrome says <em>"Cannot open file"</em>, open your phone's built-in <strong>My Files</strong> or <strong>Files by Google</strong> app &rarr; tap <strong>APKs</strong> / <strong>Downloads</strong> &rarr; tap <strong>ReWear.apk</strong> to install.
+                </p>
+              </div>
             </div>
           )}
 

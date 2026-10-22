@@ -81,5 +81,7 @@ ReWear is a mobile-first web & Android application for fabric waste reuse and ze
 | **Phase 3** | Try Pile Verification & Template Parity | **DONE** | 2026-10-21 | try_pile audit |
 | **Phase 4** | Stage 4A (2D Previews) & Stage 4B (Tailor Blueprint + PDF) | **DONE** | 2026-10-21 | 7 Test Suites (100% Green) + PDF Exports |
 | **Phase 5** | 3D Preview by Texture Mapping (In-App Spike) | **IN PROGRESS** | - | Current Active Phase |
+| **Phase 6 Step 1** | FreeSewing Brian child top CAD integration, hybrid/patchwork | **DONE** | 2026-10-22 | 7 Curved Top Engine Tests (100% Green) |
+| **Step 4b / Q1** | AI Photo Preview (Mock Mode, Cloudflare Proxy, App Integration) | **DONE** | 2026-10-22 | 9 AI Preview Tests (100% Green) + 5 Screenshots |
 
 ---
