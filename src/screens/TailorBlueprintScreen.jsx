@@ -201,7 +201,7 @@ export default function TailorBlueprintScreen({
                         Role: {piece.role}
                       </span>
                       <span>•</span>
-                      <span>Grain: {piece.grainLine.symbol} Warp</span>
+                      <span>Grain: {piece.grainLine.symbol} {piece.grainLine.orientation === 'crosswise' ? 'Weft' : 'Warp'}</span>
                     </div>
                   </div>
                 </div>
@@ -240,6 +240,12 @@ export default function TailorBlueprintScreen({
                     {piece.seamsCount} join seam(s)
                   </span>
                 </div>
+
+                {piece.scrapsSummary && (
+                  <p className="text-[11px] text-stone-600 bg-stone-50 px-2 py-1 rounded-xl border border-stone-200">
+                    {piece.scrapsSummary}
+                  </p>
+                )}
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                   {piece.scraps.map((s, sIdx) => (
@@ -333,8 +339,8 @@ export default function TailorBlueprintScreen({
             <CheckCircle2 className="w-4 h-4 text-emerald-700" />
             <span>Materials & Notions Checklist</span>
           </div>
-          <span className="text-[11px] text-emerald-700 font-bold">
-            All Items Ready
+          <span className="text-[10px] text-stone-500 font-medium">
+            Typical defaults, to be verified by a tailor
           </span>
         </div>
 
@@ -369,8 +375,8 @@ export default function TailorBlueprintScreen({
             <Coins className="w-4 h-4 text-amber-600" />
             <span>Price Helper (Editable)</span>
           </div>
-          <span className="text-[10px] text-stone-500">
-            Material + Labor + Extras
+          <span className="text-[10px] text-stone-500 font-medium">
+            Typical defaults, to be verified by a tailor
           </span>
         </div>
 

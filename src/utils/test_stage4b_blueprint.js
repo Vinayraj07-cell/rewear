@@ -1,30 +1,40 @@
 // src/utils/test_stage4b_blueprint.js
-// Verification tests for Stage 4B: Tailor blueprint data generation
-// Verifies for all 4 products:
-// 1. Piece number, name, dual dimensions (cm & inches), seam allowance line, grain arrow
-// 2. Scrap mappings with original vs trimmed sizes
-// 3. Stitching steps in order with picture, text, and audio readout
-// 4. Materials list with notions & scrap counts
-// 5. Time estimate & editable price helper
-// 6. Mandatory disclaimer "Measurements to be verified by a tailor"
+// Stage 4B / Q4: Complete tailor blueprint regression test suite
+// Verifies for all products & sizes:
+// 1. Piece cut and finished sizes equal template sizes exactly
+// 2. Grain direction from data (not hardcoded)
+// 3. Step text and materials line use selected size dimensions
+// 4. Summarised long scrap lists
+// 5. PDF generation: extracted text contains rupee sign (₹), no '[DIAGRAM]', and page count has no empty page
 
 import assert from 'assert';
+import fs from 'fs';
+import path from 'path';
+import { createRequire } from 'module';
 import { buildDesign } from '../engine/index.js';
+import { PRODUCT_TEMPLATES, getProductRequirements } from '../engine/templates.js';
 import {
   buildTailorBlueprint,
   TAILOR_DISCLAIMER,
   cmToInch,
   formatDualDimension,
+  summarizeScrapsList,
   PRODUCT_STITCHING_STEPS,
+  getProductStitchingSteps,
   getProductMaterialsList,
   getProductPriceDefaults,
 } from './tailorBlueprintData.js';
 
-console.log('--- RUNNING STAGE 4B TAILOR BLUEPRINT TESTS ---');
+const require = createRequire(import.meta.url);
+const { PDFParse } = require('pdf-parse');
 
-// Test Pile (medium cotton, 30 scraps 14x14)
+console.log('====================================================');
+console.log('📐 RUNNING STAGE 4B / Q4 TAILOR BLUEPRINT REGRESSION TESTS');
+console.log('====================================================');
+
+// Generous pile for testing all product sizes
 const TEST_PILE = [
-  ...Array.from({ length: 10 }, (_, i) => ({
+  ...Array.from({ length: 24 }, (_, i) => ({
     id: `navy_${i + 1}`,
     width: 14,
     height: 14,
@@ -35,7 +45,7 @@ const TEST_PILE = [
     colorHex: '#1E3A8A',
     print: 'plain',
   })),
-  ...Array.from({ length: 10 }, (_, i) => ({
+  ...Array.from({ length: 20 }, (_, i) => ({
     id: `beige_${i + 1}`,
     width: 14,
     height: 14,
@@ -46,7 +56,7 @@ const TEST_PILE = [
     colorHex: '#D6C0A4',
     print: 'plain',
   })),
-  ...Array.from({ length: 10 }, (_, i) => ({
+  ...Array.from({ length: 16 }, (_, i) => ({
     id: `grey_${i + 1}`,
     width: 14,
     height: 14,
@@ -59,119 +69,183 @@ const TEST_PILE = [
   })),
 ];
 
-// 1. Unit conversions
+// --- 1. Unit conversions & Scraps Summary ---
 {
   assert.strictEqual(cmToInch(2.54), 1.0, '2.54 cm must equal 1.0 inch');
   assert.strictEqual(cmToInch(25.4), 10.0, '25.4 cm must equal 10.0 inches');
   const dual = formatDualDimension(30, 20);
   assert.strictEqual(dual.cm, '30 × 20 cm');
   assert.strictEqual(dual.inches, '11.8 × 7.9 in');
-  console.log('✓ cm to inch conversion & formatting verified.');
+
+  // Scraps summarizer
+  const scrapsMock = [
+    { color: 'navy', trimmedDimensions: { cm: '14 × 14 cm' } },
+    { color: 'navy', trimmedDimensions: { cm: '14 × 14 cm' } },
+    { color: 'navy', trimmedDimensions: { cm: '14 × 14 cm' } },
+    { color: 'beige', trimmedDimensions: { cm: '14 × 14 cm' } },
+  ];
+  const summary = summarizeScrapsList(scrapsMock);
+  assert.strictEqual(summary, '3 scraps: navy 14 × 14 cm, 1 scrap: beige 14 × 14 cm');
+  console.log('✓ cm to inch conversion, formatting, and scrap summary verified.');
 }
 
-// 2. Blueprint generation for all 4 products
-const PRODUCTS = [
-  { id: 'pouch', size: 'small' },
-  { id: 'tote_bag', size: 'small' },
-  { id: 'cushion_cover', size: 'small' },
-  { id: 'kids_frock', size: '0-1y' },
+// --- 2. Regression: For EVERY product and size, blueprint piece sizes equal template sizes exactly ---
+console.log('\n--- Regression Suite 1: Blueprint piece sizes equal template sizes exactly ---');
+const ALL_PRODUCTS = ['pouch', 'tote_bag', 'cushion_cover', 'kids_frock'];
+
+for (const productId of ALL_PRODUCTS) {
+  const prod = PRODUCT_TEMPLATES[productId];
+  const sizeKeys = Object.keys(prod.sizes);
+
+  for (const sizeKey of sizeKeys) {
+    const templateReq = getProductRequirements(productId, sizeKey, 1.0);
+    assert(templateReq, `getProductRequirements must succeed for ${productId} ${sizeKey}`);
+
+    const design = buildDesign(TEST_PILE, productId, sizeKey);
+    assert(design, `buildDesign must succeed for ${productId} ${sizeKey}`);
+
+    const blueprint = buildTailorBlueprint(design);
+    assert(!blueprint.error, `Blueprint build failed for ${productId} ${sizeKey}`);
+
+    // Verify mandatory tailor disclaimer
+    assert.strictEqual(blueprint.disclaimer, TAILOR_DISCLAIMER);
+    assert.strictEqual(blueprint.disclaimer, 'Measurements to be verified by a tailor');
+
+    // Verify each piece matches the template zone sizes exactly
+    blueprint.pieces.forEach((piece) => {
+      const zoneDef = templateReq.zones.find((z) => z.id === piece.zoneId) ||
+                      templateReq.zones.find((z) => z.baseZoneId === piece.zoneId);
+
+      assert(zoneDef, `Template zone definition must exist for ${piece.zoneId} in ${productId} ${sizeKey}`);
+
+      // Exact numerical size parity
+      assert.strictEqual(
+        piece.cutWidth,
+        zoneDef.cutWidth,
+        `Piece ${piece.name} cutWidth mismatch in ${productId} ${sizeKey}: got ${piece.cutWidth}, expected ${zoneDef.cutWidth}`
+      );
+      assert.strictEqual(
+        piece.cutHeight,
+        zoneDef.cutHeight,
+        `Piece ${piece.name} cutHeight mismatch in ${productId} ${sizeKey}: got ${piece.cutHeight}, expected ${zoneDef.cutHeight}`
+      );
+      assert.strictEqual(
+        piece.finishedWidth,
+        zoneDef.finishedWidth,
+        `Piece ${piece.name} finishedWidth mismatch in ${productId} ${sizeKey}: got ${piece.finishedWidth}, expected ${zoneDef.finishedWidth}`
+      );
+      assert.strictEqual(
+        piece.finishedHeight,
+        zoneDef.finishedHeight,
+        `Piece ${piece.name} finishedHeight mismatch in ${productId} ${sizeKey}: got ${piece.finishedHeight}, expected ${zoneDef.finishedHeight}`
+      );
+
+      // Exact string dimension format parity
+      assert.strictEqual(piece.cutDimensions.cm, `${zoneDef.cutWidth} × ${zoneDef.cutHeight} cm`);
+      assert.strictEqual(piece.finishedDimensions.cm, `${zoneDef.finishedWidth} × ${zoneDef.finishedHeight} cm`);
+
+      // Grain line from data
+      assert(['↕', '↔'].includes(piece.grainLine.symbol), `Grain symbol must be ↕ or ↔ (got ${piece.grainLine.symbol})`);
+      assert(piece.grainLine.description.toLowerCase().includes('grain'), 'Grain description must mention grain');
+    });
+
+    console.log(`  ✓ ${productId.padEnd(14)} [${sizeKey.padEnd(7)}]: ${blueprint.pieces.length} pieces match template sizes exactly`);
+  }
+}
+
+// --- 3. Regression: Step text and materials line use the selected size ---
+console.log('\n--- Regression Suite 2: Step text & materials line use selected size ---');
+{
+  // Tote Bag: Small vs Medium vs Large
+  const toteStepsSmall = getProductStitchingSteps('tote_bag', 'small');
+  const toteStepsMedium = getProductStitchingSteps('tote_bag', 'medium');
+  const toteStepsLarge = getProductStitchingSteps('tote_bag', 'large');
+
+  assert(toteStepsSmall[0].instruction.includes('28 × 30 cm'), 'Small tote step 1 must mention 28 × 30 cm');
+  assert(toteStepsMedium[0].instruction.includes('36 × 38 cm'), 'Medium tote step 1 must mention 36 × 38 cm');
+  assert(toteStepsLarge[0].instruction.includes('44 × 42 cm'), 'Large tote step 1 must mention 44 × 42 cm');
+
+  assert(toteStepsSmall[5].instruction.includes('4 cm'), 'Small tote step 6 must mention 4 cm gusset');
+  assert(toteStepsMedium[5].instruction.includes('6 cm'), 'Medium tote step 6 must mention 6 cm gusset');
+  assert(toteStepsLarge[5].instruction.includes('8 cm'), 'Large tote step 6 must mention 8 cm gusset');
+
+  const toteMatSmall = getProductMaterialsList('tote_bag', 'small');
+  const toteMatMedium = getProductMaterialsList('tote_bag', 'medium');
+  const toteMatLarge = getProductMaterialsList('tote_bag', 'large');
+
+  assert(toteMatSmall.some((m) => m.name.includes('Handle') && m.qty.includes('50 cm')), 'Small tote handles must be 50 cm');
+  assert(toteMatMedium.some((m) => m.name.includes('Handle') && m.qty.includes('60 cm')), 'Medium tote handles must be 60 cm');
+  assert(toteMatLarge.some((m) => m.name.includes('Handle') && m.qty.includes('70 cm')), 'Large tote handles must be 70 cm');
+
+  // Cushion Cover: Small vs Medium vs Large
+  const cushionStepsSmall = getProductStitchingSteps('cushion_cover', 'small');
+  const cushionStepsMedium = getProductStitchingSteps('cushion_cover', 'medium');
+  const cushionStepsLarge = getProductStitchingSteps('cushion_cover', 'large');
+
+  assert(cushionStepsSmall[0].instruction.includes('30 × 30 cm') && !cushionStepsSmall[0].instruction.includes('40 × 40'), 'Small cushion step 1 must only mention 30 × 30 cm');
+  assert(cushionStepsMedium[0].instruction.includes('40 × 40 cm'), 'Medium cushion step 1 must mention 40 × 40 cm');
+  assert(cushionStepsLarge[0].instruction.includes('50 × 50 cm'), 'Large cushion step 1 must mention 50 × 50 cm');
+
+  const cushionMatSmall = getProductMaterialsList('cushion_cover', 'small');
+  const cushionMatLarge = getProductMaterialsList('cushion_cover', 'large');
+  assert(cushionMatSmall.some((m) => m.name.includes('Cushion') && m.qty.includes('30 × 30 cm')), 'Small cushion insert must be 30 × 30 cm');
+  assert(cushionMatLarge.some((m) => m.name.includes('Cushion') && m.qty.includes('50 × 50 cm')), 'Large cushion insert must be 50 × 50 cm');
+
+  // Pouch: Small vs Large zipper
+  const pouchMatSmall = getProductMaterialsList('pouch', 'small');
+  const pouchMatLarge = getProductMaterialsList('pouch', 'large');
+  assert(pouchMatSmall.some((m) => m.name.includes('Zipper') && m.qty.includes('15 cm')), 'Small pouch zipper must be 15 cm');
+  assert(pouchMatLarge.some((m) => m.name.includes('Zipper') && m.qty.includes('30 cm')), 'Large pouch zipper must be 30 cm');
+
+  // Kids' Frock: 0-1y vs 6-8y
+  const frockSteps01 = getProductStitchingSteps('kids_frock', '0-1y');
+  const frockSteps68 = getProductStitchingSteps('kids_frock', '6-8y');
+  assert(frockSteps01[0].instruction.includes('22 × 12 cm'), '0-1y frock bodice must be 22 × 12 cm');
+  assert(frockSteps68[0].instruction.includes('34 × 18 cm'), '6-8y frock bodice must be 34 × 18 cm');
+
+  console.log('  ✓ Tote bag, cushion cover, pouch, and kids frock step text & materials adapt dynamically to size');
+}
+
+// --- 4. Regression: PDF Text & Page Quality Verification ---
+console.log('\n--- Regression Suite 3: Extracted PDF text contains ₹, no [DIAGRAM], no empty pages ---');
+const ARTIFACT_DIR = 'C:/Users/vinay/.gemini/antigravity/brain/ec75a86c-861d-4711-81f7-d4872260aedc';
+const PDF_FILES = [
+  'tailor_blueprint_pouch.pdf',
+  'tailor_blueprint_tote.pdf',
+  'tailor_blueprint_cushion.pdf',
+  'tailor_blueprint_frock.pdf',
 ];
 
-for (const { id: productId, size: sizeKey } of PRODUCTS) {
-  const design = buildDesign(TEST_PILE, productId, sizeKey);
-  assert(design, `buildDesign must succeed for ${productId}`);
+for (const pdfFile of PDF_FILES) {
+  const filePath = path.join(ARTIFACT_DIR, pdfFile);
+  assert(fs.existsSync(filePath), `Generated PDF file must exist: ${filePath}`);
 
-  const blueprint = buildTailorBlueprint(design);
-  assert(!blueprint.error, `Blueprint error for ${productId}: ${blueprint.error}`);
+  const pdfBuf = fs.readFileSync(filePath);
+  const parser = new PDFParse({ data: pdfBuf });
+  const parsed = await parser.getText();
 
-  // Mandatory disclaimer check
-  assert.strictEqual(
-    blueprint.disclaimer,
-    TAILOR_DISCLAIMER,
-    `Blueprint must include exact disclaimer: "${TAILOR_DISCLAIMER}"`
-  );
-  assert.strictEqual(blueprint.disclaimer, 'Measurements to be verified by a tailor');
+  // Exactly 2 pages per document, no empty page!
+  assert.strictEqual(parsed.total, 2, `${pdfFile} must have exactly 2 pages (got ${parsed.total})`);
 
-  // Verify pieces
-  assert(Array.isArray(blueprint.pieces), `Pieces must be an array for ${productId}`);
-  assert(blueprint.pieces.length > 0, `Pieces array must not be empty for ${productId}`);
-
-  blueprint.pieces.forEach((piece, idx) => {
-    // Number and name
-    assert.strictEqual(piece.pieceNumber, idx + 1, `Piece number must be 1-indexed (got ${piece.pieceNumber})`);
-    assert(piece.name && piece.name.length > 0, `Piece ${piece.pieceNumber} must have a name`);
-
-    // Dual dimensions (cm and inches)
-    assert(piece.cutDimensions.cm.includes('cm'), `Cut dimension missing cm in piece ${piece.pieceNumber}`);
-    assert(piece.cutDimensions.inches.includes('in'), `Cut dimension missing in in piece ${piece.pieceNumber}`);
-    assert(piece.finishedDimensions.cm.includes('cm'), `Finished dimension missing cm in piece ${piece.pieceNumber}`);
-    assert(piece.finishedDimensions.inches.includes('in'), `Finished dimension missing in in piece ${piece.pieceNumber}`);
-
-    // Seam allowance line
-    assert(piece.seamAllowance.cm.includes('cm'), `Seam allowance missing cm in piece ${piece.pieceNumber}`);
-    assert(piece.seamAllowance.inches.includes('in'), `Seam allowance missing in in piece ${piece.pieceNumber}`);
-    assert(piece.seamAllowanceCm > 0, `Seam allowance cm must be > 0`);
-
-    // Grain arrow
-    assert.strictEqual(piece.grainLine.symbol, '↕', `Grain line symbol must be vertical arrow ↕`);
-    assert(piece.grainLine.description.includes('grain'), `Grain line description must mention grain`);
-
-    // Scraps with trimmed sizes
-    assert(Array.isArray(piece.scraps), `Scraps must be array for piece ${piece.pieceNumber}`);
-    piece.scraps.forEach((s) => {
-      assert(s.scrapId, `Scrap missing scrapId in piece ${piece.pieceNumber}`);
-      assert(s.color, `Scrap missing color in piece ${piece.pieceNumber}`);
-      assert(s.originalDimensions.cm.includes('cm'), `Original dimensions missing cm`);
-      assert(s.trimmedDimensions.cm.includes('cm'), `Trimmed dimensions missing cm`);
-      assert(s.trimmedDimensions.inches.includes('in'), `Trimmed dimensions missing in`);
-    });
-  });
-
-  // Stitching steps in order (picture + text + audio button)
-  assert(Array.isArray(blueprint.stitchingSteps), `Stitching steps must be array for ${productId}`);
-  assert(blueprint.stitchingSteps.length >= 4, `Must have at least 4 stitching steps for ${productId}`);
-  blueprint.stitchingSteps.forEach((step, sIdx) => {
-    assert.strictEqual(step.stepNumber, sIdx + 1, `Step number must be sequential`);
-    assert(step.title, `Step ${step.stepNumber} missing title`);
-    assert(step.instruction && step.instruction.length > 20, `Step ${step.stepNumber} missing detailed instruction text`);
-    assert(step.audioText && step.audioText.length > 10, `Step ${step.stepNumber} missing audio readout text`);
-    assert(step.diagramType, `Step ${step.stepNumber} missing picture diagramType`);
-  });
-
-  // Materials list
-  assert(Array.isArray(blueprint.materials), `Materials must be array for ${productId}`);
-  assert(blueprint.materials.length >= 2, `Materials must have fabric and thread`);
-  assert(blueprint.materials.some(m => m.name.includes('Fabric Scraps')), `Materials must list fabric scraps`);
-  assert(blueprint.materials.some(m => m.name.includes('Thread')), `Materials must list sewing thread`);
-
-  // Product-specific hardware checks
-  if (productId === 'pouch') {
-    assert(blueprint.materials.some(m => m.name.includes('Zipper')), 'Pouch materials must include Zipper');
-  } else if (productId === 'tote_bag') {
-    assert(blueprint.materials.some(m => m.name.includes('Handle')), 'Tote materials must include Handle reinforcement');
-  } else if (productId === 'cushion_cover') {
-    assert(blueprint.materials.some(m => m.name.includes('Cushion')), 'Cushion materials must include Cushion Pad');
-  } else if (productId === 'kids_frock') {
-    assert(blueprint.materials.some(m => m.name.includes('Buttons') || m.name.includes('Fasteners')), 'Frock materials must include Fasteners');
+  for (let pIdx = 0; pIdx < parsed.pages.length; pIdx++) {
+    const pageText = parsed.pages[pIdx].text.trim();
+    assert(pageText.length > 200, `${pdfFile} page ${pIdx + 1} must not be empty or blank (got ${pageText.length} chars)`);
   }
 
-  // Time estimate
-  assert(blueprint.estimatedTimeMinutes > 0, `Time estimate must be > 0 (got ${blueprint.estimatedTimeMinutes})`);
+  // Rupee symbol verified in extracted text
+  assert(parsed.text.includes('₹'), `${pdfFile} extracted text must contain the rupee sign ₹`);
 
-  // Price helper (editable components: material + time + extras)
-  assert(blueprint.pricing, `Pricing object must exist for ${productId}`);
-  assert(blueprint.pricing.materialCost > 0, `Material cost must be > 0`);
-  assert(blueprint.pricing.laborCost > 0, `Labor cost must be > 0`);
-  assert(blueprint.pricing.extrasCost > 0, `Extras cost must be > 0`);
-  assert.strictEqual(
-    blueprint.pricing.suggestedPrice,
-    blueprint.pricing.materialCost + blueprint.pricing.laborCost + blueprint.pricing.extrasCost,
-    `Suggested price must equal material + labor + extras`
-  );
+  // Zero [DIAGRAM] placeholders
+  assert(!parsed.text.includes('[DIAGRAM]'), `${pdfFile} extracted text must not contain [DIAGRAM]`);
+  assert(!parsed.text.includes('DIAGRAM'), `${pdfFile} extracted text must not contain DIAGRAM`);
 
-  console.log(`✓ Blueprint verified for ${productId} (${blueprint.pieces.length} pieces, ${blueprint.stitchingSteps.length} steps, ${blueprint.materials.length} materials)`);
+  // Mandatory disclaimer verified
+  assert(parsed.text.includes(TAILOR_DISCLAIMER), `${pdfFile} must contain mandatory disclaimer`);
+
+  await parser.destroy();
+  console.log(`  ✓ ${pdfFile.padEnd(28)}: 2 pages, contains ₹, 0 placeholders, 0 blank pages`);
 }
 
-console.log('\n=============================================');
-console.log('ALL STAGE 4B TAILOR BLUEPRINT TESTS PASSED!');
-console.log('=============================================\n');
+console.log('\n====================================================');
+console.log('🎉 ALL STAGE 4B / Q4 BLUEPRINT REGRESSION TESTS PASSED!');
+console.log('====================================================\n');

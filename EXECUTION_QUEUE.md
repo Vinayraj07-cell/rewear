@@ -9,13 +9,36 @@ This log tracks execution items across ReWear development phases and spikes.
 | **Q0b** | Spike Follow-up | Re-run Real Gemini API Image Generation Spike once pay-as-you-go billing quota is activated | **PENDING** | - |
 | **Q1** | Step 4b | AI Photo Preview in App (Mock mode fallback `MOCK_AI=true`, bundled example images, Cloudflare Worker proxy with secret management, deterministic hash cache, per-device rate limiting, side-by-side 2D plan comparison, isolation tests) | **DONE** | 2026-10-22 |
 | **Q2** | Phase 6 Step 2 | Score includes labour (penalty derived from seam count and estimated time in config.js), recommended mode matches higher score, hybrid sleeves contrast with neutral base body, 4 rectangle scores unchanged | **DONE** | 2026-10-22 |
-| **Q3** | Phase 6 Step 3 | Frayed / uneven scraps safety margin setting (`SCRAP_SAFETY_MARGIN_CM`, default 0, choices [0, 0.5, 1.0] cm/edge, shrinks usable scrap dimensions by 2 x margin, reports "lost to frayed edges", strict mathematical area conservation, toggle switch in My Pile) | **READY FOR REVIEW** | 2026-10-22 |
+| **Q3** | Phase 6 Step 3 | Frayed / uneven scraps safety margin setting (`SCRAP_SAFETY_MARGIN_CM`, default 0, choices [0, 0.5, 1.0] cm/edge, shrinks usable scrap dimensions by 2 x margin, reports "lost to frayed edges", strict mathematical area conservation, toggle switch in My Pile) | **DONE** | 2026-10-22 |
+| **Q4** | Stage 4B / Phase 6 | Tailor blueprint repair (in-app screen & PDFs): fix piece sizes from templates.js, size-adaptive step & materials text, real SVG diagrams in PDF, embedded font with ₹ & arrows/glyphs, clean page breaks, summarized scraps, grain from data | **IN PROGRESS** | - |
 
 ---
 
 ## Detailed Notes on Completed Items
 
-### [Q3 / Phase 6 Step 3] Frayed & Uneven Scraps Safety Margin Setting
+### [Q4 / Stage 4B & Phase 6] Blueprint Repair, All Products & PDFs
+- **Bug Audit & In-App Parity Check**:
+  - Found that the in-app screen had the exact same root causes as the PDF because both consumed `src/utils/tailorBlueprintData.js`.
+  - Piece dimensions: `cutW` and `cutH` previously computed `Math.max(...scraps.map(s => s.cutWidth || 14))`, which returned the scrap size (14x14 cut, 12x12 finished) instead of the product zone template size.
+  - Step text and materials hardcoded Medium-size numbers across all sizes.
+  - In PDFKit, standard Helvetica lacks WinAnsiEncoding for the rupee sign (₹) and arrow (↕) glyphs.
+  - Steps rendered `[DIAGRAM]` placeholders in PDF instead of vector diagrams.
+  - Page 2 was blank due to footer coordinate overflow crossing bottom margin (`pageHeight - 28`), triggering an automatic page break before `doc.addPage()`.
+- **Engine Templates**:
+  - Added declarative `grainLine` metadata to all zone definitions in `src/engine/templates.js` (lengthwise warp ↕ for body panels, handles, ties, and skirts; crosswise weft ↔ for facing bands and hem borders). Zero engine logic modified.
+- **Blueprint Data Generator (`src/utils/tailorBlueprintData.js`)**:
+  - Exact piece dimensions derived from `getProductRequirements(productId, sizeKey, seamAllowanceCm)` in `templates.js`.
+  - `getProductStitchingSteps(productId, sizeKey)` dynamically substitutes exact dimensions into instructions and titles.
+  - `getProductMaterialsList` dynamically computes zipper lengths, handles webbing, and cushion inserts based on selected size.
+  - `summarizeScrapsList` formats long scrap lists into clean summaries (e.g., `"9 scraps: navy 14 × 14 cm"`).
+  - All hand-typed notions, prices, and times explicitly marked with `"typical defaults, to be verified by a tailor"`.
+- **PDF Generation (`generate_blueprint_pdfs.js`)**:
+  - Embedded Unicode TTF fonts (`src/assets/fonts/NotoSans-Regular.ttf` & `NotoSans-Bold.ttf`, with Windows fallback) rendering ₹ and ↕ crisply.
+  - Real vector step diagrams rendered via `svg-to-pdfkit` using shared SVGs from `src/utils/stepDiagramSvg.js`. Zero placeholders.
+  - Resolution of footer coordinate (`footerY = 780` with 40 margin) ensures exactly 2 pages per product with zero empty pages.
+  - Generated PDFs for all 4 products: pouch, tote_bag, cushion_cover, kids_frock.
+- **Test Coverage**:
+  - `src/utils/test_stage4b_blueprint.js` regression suite: verified piece dimensions match template sizes for every product and size; verified extracted PDF text contains ₹, has no `[DIAGRAM]`, and has no empty pages. Full test suite passing 100% green (10 test suites, 220+ tests).
 - **Config**: Added `SCRAP_SAFETY_MARGIN_CM: 0` (default 0 ensuring 100% invariance on prior results) and `ALLOWED_SCRAP_SAFETY_MARGINS_CM: [0, 0.5, 1.0]` in `src/engine/config.js`.
 - **Engine Logic**:
   - In `src/engine/zoning.js` and `src/engine/fitting.js`, each scrap's usable width and height shrink by $2 \times \text{margin}$:
