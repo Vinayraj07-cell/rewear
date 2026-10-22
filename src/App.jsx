@@ -17,6 +17,7 @@ import CustomizeScreen from './screens/CustomizeScreen';
 import SizeChoiceScreen from './screens/SizeChoiceScreen';
 import FeasibilityScreen from './screens/FeasibilityScreen';
 import TailorBlueprintScreen from './screens/TailorBlueprintScreen';
+import Product3DViewer from './components/Product3DViewer';
 
 import { translations } from './i18n/translations';
 import { INITIAL_SAMPLE_PIECES, SAMPLE_PILE_A, SAMPLE_PILE_B } from './utils/storage';
@@ -280,6 +281,9 @@ export default function App() {
   } else if (activeTab === 'tailor_blueprint') {
     screenTitle = 'Tailor Blueprint';
     speakText = `Tailor Blueprint. ${selectedDesign ? selectedDesign.productName : ''}. Measurements to be verified by a tailor.`;
+  } else if (activeTab === '3d_spike') {
+    screenTitle = '3D Preview (Spike)';
+    speakText = '3D Texture Mapped Preview Spike. Generic cushion model. Measurements to be verified by a tailor.';
   }
 
   // Open context help
@@ -475,9 +479,17 @@ export default function App() {
               onOpenFeasibility={() => setActiveTab('feasibility')}
               onOpenSizeChoice={() => setActiveTab('size_choice')}
               onOpenTailorBlueprint={() => setActiveTab('tailor_blueprint')}
+              onOpen3DSpike={() => setActiveTab('3d_spike')}
               onOpenHelp={handleOpenHelp}
               t={t}
               lang={lang}
+            />
+          )}
+
+          {activeTab === '3d_spike' && (
+            <Product3DViewer
+              onBack={() => setActiveTab(selectedDesign ? 'design_view' : 'home')}
+              initialModel={selectedDesign?.productId === 'cushion_cover' ? 'cushion' : (selectedDesign?.productId === 'pouch' ? 'pouch' : 'cushion')}
             />
           )}
 

@@ -13,7 +13,8 @@ import {
   Sparkles,
   ShieldAlert,
   Edit3,
-  FileText
+  FileText,
+  Box
 } from 'lucide-react';
 import FabricNumbersCard from '../components/FabricNumbersCard';
 import ProductVisual from '../components/ProductVisual';
@@ -35,6 +36,7 @@ export default function DesignViewScreen({
   onOpenFeasibility,
   onOpenSizeChoice,
   onOpenTailorBlueprint,
+  onOpen3DSpike,
   onOpenHelp,
   t,
   lang,
@@ -459,6 +461,15 @@ export default function DesignViewScreen({
         >
           <FileText className="w-4 h-4" />
           <span>Tailor Blueprint & Stitching Guide (PDF)</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={onOpen3DSpike}
+          className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs rounded-2xl shadow-md flex items-center justify-center gap-2 transition"
+        >
+          <Box className="w-4 h-4" />
+          <span>3D Texture Preview (Phase 5 Spike)</span>
         </button>
 
         <button
