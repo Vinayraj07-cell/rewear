@@ -17,6 +17,34 @@ This log tracks execution items across ReWear development phases and spikes.
 
 ## Detailed Notes on Completed Items
 
+### [Q5 / Phase 6 Step 5] Sample Piles, Bulk Add, Size Presets & Clear Pile
+- **Try a Sample Pile**:
+  - Implemented 3 ready sample piles with one-tap loading into My Pile:
+    1. **Neutral (Navy/Beige/Grey)**: 30 plain cotton scraps (14×14 cm) across calm navy, beige, and grey.
+    2. **Colourful**: 36 scraps featuring neutral navy base, high-energy orange, pink, yellow, and printed green accents.
+    3. **Mixed Fabrics**: 30 scraps across varied fabric weights & textures (denim, cotton, linen, silk).
+  - Tapping any pile updates state immediately, persists to `localStorage`, and provides toast confirmation.
+- **Bulk Add Inline Form**:
+  - Single compact row/card with:
+    - Quantity stepper: `[-] [ qty ] [+]` (clamps 1–99)
+    - Size presets as chips: `10×10 cm`, `12×12 cm`, `14×14 cm`, `15×20 cm`, `20×20 cm`, plus `Custom` (revealing inline W × H cm inputs).
+    - Fabric selector: Cotton, Denim, Linen, Silk, Georgette, Knit.
+    - Pattern flag: `Plain` vs `Printed`.
+    - Colour swatches: full palette including Slate Grey swatch with selection checkmark.
+    - "Add to Pile" button: adds scraps in bulk with feedback toast, keeping the form open so user can rapidly tap to add more.
+- **Duplicate Piece**:
+  - Added duplicate button on every piece card with copy icon, creating a duplicated scrap with unique ID and identical attributes.
+- **Clear Pile**:
+  - Clear pile button with confirmation modal ("Clear all scraps? This will remove all pieces from your pile. This cannot be undone.").
+  - Setting pieces to `[]` persists to `localStorage` (`rewear_pieces`), surviving app reloads and closures.
+- **Pure Helpers & Test Suite (`src/utils/test_q5_pile_helpers.js`)**:
+  - Unit tests for size presets, custom matcher, sample piles structure, quantity clamping, dimension validation, scrap creation with fabric defaults, scrap duplication with unique IDs, and localStorage serialization roundtrip. Full suite passing 100% green (11 test suites).
+- **Screenshots (360 px)**:
+  - `pile_sample_piles_360px.png`: "Try a sample pile" section with the 3 ready piles.
+  - `pile_bulk_add_360px.png`: Bulk add row with quantity stepper, size presets chips, colour, fabric, print toggle, and Add button.
+  - `pile_duplicate_piece_360px.png`: Scrap list showing duplicate button and copied piece.
+  - `pile_clear_confirm_360px.png`: Clear pile confirmation modal.
+
 ### [Q4 / Stage 4B & Phase 6] Blueprint Repair, All Products & PDFs
 - **Bug Audit & In-App Parity Check**:
   - Found that the in-app screen had the exact same root causes as the PDF because both consumed `src/utils/tailorBlueprintData.js`.

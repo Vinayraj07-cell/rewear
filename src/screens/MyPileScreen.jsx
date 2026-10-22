@@ -15,17 +15,30 @@ import {
   ShieldAlert,
   Sliders,
   Volume2,
-  Scissors
+  Scissors,
+  Plus,
+  Minus,
+  RefreshCw,
+  X
 } from 'lucide-react';
 import { COLOR_SWATCHES, FABRIC_TYPES } from '../i18n/translations';
 import { calculateArea } from '../utils/storage';
 import { soundManager } from '../utils/audio';
+import { 
+  SIZE_PRESETS, 
+  SAMPLE_PILES, 
+  validateQuantity, 
+  validateDimensions, 
+  createScrapItem 
+} from '../utils/pileHelpers';
 
 export default function MyPileScreen({ 
   pieces, 
   onToggleInclude, 
   onDeleteRequest, 
   onDuplicate, 
+  onBulkAdd,
+  onClearPile,
   onEditPiece, 
   onAddNew, 
   onWhatCanIMake,
@@ -36,6 +49,17 @@ export default function MyPileScreen({
   lang 
 }) {
   const [groupBy, setGroupBy] = useState('color'); // 'color' or 'fabric'
+  const [showClearModal, setShowClearModal] = useState(false);
+  const [lastAddedMsg, setLastAddedMsg] = useState(null);
+
+  // Bulk add state
+  const [bulkQty, setBulkQty] = useState(5);
+  const [selectedPreset, setSelectedPreset] = useState('14x14');
+  const [customWidth, setCustomWidth] = useState(14);
+  const [customHeight, setCustomHeight] = useState(14);
+  const [bulkColor, setBulkColor] = useState('navy');
+  const [bulkFabric, setBulkFabric] = useState('cotton');
+  const [bulkPrint, setBulkPrint] = useState('plain'); // 'plain' or 'printed'
 
   const activePieces = pieces.filter((p) => p.included);
   const excludedPieces = pieces.filter((p) => !p.included);
@@ -50,7 +74,11 @@ export default function MyPileScreen({
   if (groupBy === 'color') {
     pieces.forEach((p) => {
       const colorObj = COLOR_SWATCHES.find((c) => c.id === p.color) || { family: 'other' };
-      const familyName = colorObj.family === 'warm' ? 'Warm Tones (రెడ్స్, ఆరెంజ్)' : colorObj.family === 'cool' ? 'Cool Tones (బ్లూస్, గ్రీన్స్)' : 'Neutrals (వైట్, బ్లాక్, బీజ్)';
+      const familyName = colorObj.family === 'warm' 
+        ? 'Warm Tones (రెడ్స్, ఆరెంజ్)' 
+        : colorObj.family === 'cool' 
+        ? 'Cool Tones (బ్లూస్, గ్రీన్స్)' 
+        : 'Neutrals (వైట్, బ్లాక్, బీజ్, గ్రే)';
       if (!groups[familyName]) groups[familyName] = [];
       groups[familyName].push(p);
     });
@@ -85,6 +113,42 @@ export default function MyPileScreen({
   const handleSpeakSummary = () => {
     const text = `${t.pileAssessmentTitle}: ${assessmentText}. Total area is ${Math.round(totalSqCm)} square centimeters across ${totalPiecesCount} pieces.`;
     soundManager.speak(text, lang);
+  };
+
+  // Handle Preset Chip Selection
+  const handleSelectPreset = (preset) => {
+    setSelectedPreset(preset.id);
+    setCustomWidth(preset.width);
+    setCustomHeight(preset.height);
+  };
+
+  // Handle Bulk Add Execution
+  const handleExecuteBulkAdd = () => {
+    const w = parseFloat(customWidth);
+    const h = parseFloat(customHeight);
+    const dim = validateDimensions(w, h);
+    if (!dim.valid) return;
+
+    const safeQty = validateQuantity(bulkQty);
+
+    if (onBulkAdd) {
+      onBulkAdd({
+        width: dim.width,
+        height: dim.height,
+        color: bulkColor,
+        fabricType: bulkFabric,
+        print: bulkPrint,
+        quantity: safeQty,
+      });
+    }
+
+    const colorName = t.colors[bulkColor] || bulkColor;
+    const fabricName = t.fabrics[bulkFabric]?.split(' ')[0] || bulkFabric;
+    const msg = `✓ Added ${safeQty} × ${colorName} ${fabricName} (${dim.width}×${dim.height} cm)`;
+    setLastAddedMsg(msg);
+    setTimeout(() => {
+      setLastAddedMsg(null);
+    }, 3000);
   };
 
   return (
@@ -129,14 +193,28 @@ export default function MyPileScreen({
             <h3 className="text-base font-bold text-stone-900">{t.pileTitle}</h3>
             <p className="text-xs text-stone-500">{t.pileSub}</p>
           </div>
-          <button
-            type="button"
-            onClick={handleSpeakSummary}
-            className="p-2 rounded-full bg-emerald-100 text-emerald-800 hover:bg-emerald-200 transition"
-            title={t.listen}
-          >
-            <Volume2 className="w-4 h-4" />
-          </button>
+          <div className="flex items-center gap-2">
+            {pieces.length > 0 && onClearPile && (
+              <button
+                type="button"
+                data-testid="clear-pile-btn"
+                onClick={() => setShowClearModal(true)}
+                className="px-2.5 py-1 text-xs font-bold text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 rounded-xl border border-red-200 transition flex items-center gap-1 shadow-2xs"
+                title={t.clearPileBtn || 'Clear Pile'}
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span>{t.clearPileBtn || 'Clear'}</span>
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={handleSpeakSummary}
+              className="p-2 rounded-full bg-emerald-100 text-emerald-800 hover:bg-emerald-200 transition"
+              title={t.listen}
+            >
+              <Volume2 className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-2 gap-3 pt-3">
@@ -188,6 +266,375 @@ export default function MyPileScreen({
             <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-2.5 flex items-center space-x-2 text-xs text-emerald-950">
               <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
               <span className="leading-snug">{t.compatibilityGood}</span>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* FEATURE 1: "Try a sample pile" with 3 Ready Piles */}
+      {onLoadPile && (
+        <div className="bg-white rounded-3xl p-4 border border-stone-200 shadow-xs space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 rounded-xl bg-amber-100 text-amber-900">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-stone-900">
+                  {t.trySamplePileTitle || 'Try a sample pile'}
+                </h4>
+                <p className="text-[11px] text-stone-500">
+                  {t.trySamplePileSub || 'One tap loads a ready fabric scrap pile'}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-2">
+            {/* 1. Neutral (navy/beige/grey) */}
+            <button
+              type="button"
+              data-testid="sample-pile-neutral-btn"
+              onClick={() => {
+                onLoadPile('neutral');
+                setLastAddedMsg('✓ Loaded Neutral sample pile (30 pcs)');
+                setTimeout(() => setLastAddedMsg(null), 3000);
+              }}
+              className="p-2.5 bg-stone-50 hover:bg-sky-50 border border-stone-200 hover:border-sky-300 rounded-2xl text-left transition flex flex-col justify-between group shadow-2xs"
+            >
+              <div>
+                <span className="text-base block mb-1">👔</span>
+                <span className="text-xs font-bold text-stone-900 group-hover:text-sky-900 block leading-tight">
+                  Neutral
+                </span>
+                <span className="text-[10px] text-stone-500 block mt-0.5 leading-tight">
+                  Navy, beige, grey
+                </span>
+              </div>
+              <div className="mt-2 pt-1 border-t border-stone-200/60 flex items-center justify-between">
+                <span className="text-[10px] font-bold text-sky-700 bg-sky-100/70 px-1.5 py-0.5 rounded">
+                  30 pcs
+                </span>
+                <div className="flex -space-x-1">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#1E3A8A] border border-white" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#D6C0A4] border border-white" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#64748B] border border-white" />
+                </div>
+              </div>
+            </button>
+
+            {/* 2. Colourful */}
+            <button
+              type="button"
+              data-testid="sample-pile-colourful-btn"
+              onClick={() => {
+                onLoadPile('colourful');
+                setLastAddedMsg('✓ Loaded Colourful sample pile (36 pcs)');
+                setTimeout(() => setLastAddedMsg(null), 3000);
+              }}
+              className="p-2.5 bg-stone-50 hover:bg-amber-50 border border-stone-200 hover:border-amber-300 rounded-2xl text-left transition flex flex-col justify-between group shadow-2xs"
+            >
+              <div>
+                <span className="text-base block mb-1">🎨</span>
+                <span className="text-xs font-bold text-stone-900 group-hover:text-amber-900 block leading-tight">
+                  Colourful
+                </span>
+                <span className="text-[10px] text-stone-500 block mt-0.5 leading-tight">
+                  Pops & prints
+                </span>
+              </div>
+              <div className="mt-2 pt-1 border-t border-stone-200/60 flex items-center justify-between">
+                <span className="text-[10px] font-bold text-amber-800 bg-amber-100/70 px-1.5 py-0.5 rounded">
+                  36 pcs
+                </span>
+                <div className="flex -space-x-1">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#F97316] border border-white" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#EC4899] border border-white" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#EAB308] border border-white" />
+                </div>
+              </div>
+            </button>
+
+            {/* 3. Mixed Fabrics */}
+            <button
+              type="button"
+              data-testid="sample-pile-mixed-btn"
+              onClick={() => {
+                onLoadPile('mixed_fabrics');
+                setLastAddedMsg('✓ Loaded Mixed Fabrics sample pile (30 pcs)');
+                setTimeout(() => setLastAddedMsg(null), 3000);
+              }}
+              className="p-2.5 bg-stone-50 hover:bg-emerald-50 border border-stone-200 hover:border-emerald-300 rounded-2xl text-left transition flex flex-col justify-between group shadow-2xs"
+            >
+              <div>
+                <span className="text-base block mb-1">🧵</span>
+                <span className="text-xs font-bold text-stone-900 group-hover:text-emerald-900 block leading-tight">
+                  Mixed
+                </span>
+                <span className="text-[10px] text-stone-500 block mt-0.5 leading-tight">
+                  Denim, silk, etc.
+                </span>
+              </div>
+              <div className="mt-2 pt-1 border-t border-stone-200/60 flex items-center justify-between">
+                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100/70 px-1.5 py-0.5 rounded">
+                  30 pcs
+                </span>
+                <div className="flex -space-x-1">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#1E293B] border border-white" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#881337] border border-white" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#65A30D] border border-white" />
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* FEATURE 2 & 3: Bulk Add Row with Quantity Stepper, Size Presets, Color, Fabric, Print */}
+      <div className="bg-white rounded-3xl p-4 border border-stone-200 shadow-xs space-y-3.5">
+        <div className="flex items-center justify-between pb-2 border-b border-stone-100">
+          <div className="flex items-center gap-2">
+            <div className="p-1.5 rounded-xl bg-emerald-100 text-emerald-800">
+              <PlusCircle className="w-4 h-4" />
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-stone-900">
+                {t.quickAddTitle || 'Quick Add Scraps'}
+              </h4>
+              <p className="text-[10px] text-stone-500">
+                Add batches fast — tap Add repeatedly to add more
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Row 1: Quantity Stepper + Size Presets as Chips */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-stone-700">
+              {t.sizePresetsLabel || 'Size Presets'}:
+            </span>
+
+            {/* Quantity Stepper */}
+            <div className="flex items-center gap-1 bg-stone-100 px-2 py-1 rounded-xl border border-stone-200">
+              <span className="text-[10px] font-semibold text-stone-500 mr-1">Qty:</span>
+              <button
+                type="button"
+                data-testid="bulk-qty-decrement"
+                onClick={() => setBulkQty((prev) => Math.max(1, prev - 1))}
+                className="w-5 h-5 rounded-lg bg-white hover:bg-stone-200 text-stone-700 flex items-center justify-center font-bold text-xs shadow-2xs transition"
+              >
+                <Minus className="w-3 h-3" />
+              </button>
+              <input
+                type="number"
+                min="1"
+                max="99"
+                data-testid="bulk-qty-input"
+                value={bulkQty}
+                onChange={(e) => setBulkQty(validateQuantity(e.target.value))}
+                className="w-8 text-center text-xs font-black text-stone-900 bg-transparent focus:outline-hidden"
+              />
+              <button
+                type="button"
+                data-testid="bulk-qty-increment"
+                onClick={() => setBulkQty((prev) => Math.min(99, prev + 1))}
+                className="w-5 h-5 rounded-lg bg-white hover:bg-stone-200 text-stone-700 flex items-center justify-center font-bold text-xs shadow-2xs transition"
+              >
+                <Plus className="w-3 h-3" />
+              </button>
+            </div>
+          </div>
+
+          {/* Size Chips */}
+          <div className="flex flex-wrap items-center gap-1.5">
+            {SIZE_PRESETS.map((preset) => {
+              const isSelected = selectedPreset === preset.id;
+              return (
+                <button
+                  key={preset.id}
+                  type="button"
+                  data-testid={`size-chip-${preset.id}`}
+                  onClick={() => handleSelectPreset(preset)}
+                  className={`px-2.5 py-1 rounded-xl text-xs font-bold transition border ${
+                    isSelected
+                      ? 'bg-emerald-800 text-white border-emerald-800 shadow-xs'
+                      : 'bg-stone-50 hover:bg-stone-100 text-stone-700 border-stone-200'
+                  }`}
+                >
+                  {preset.label}
+                </button>
+              );
+            })}
+
+            {/* Custom Chip */}
+            <button
+              type="button"
+              data-testid="size-chip-custom"
+              onClick={() => setSelectedPreset('custom')}
+              className={`px-2.5 py-1 rounded-xl text-xs font-bold transition border ${
+                selectedPreset === 'custom'
+                  ? 'bg-emerald-800 text-white border-emerald-800 shadow-xs'
+                  : 'bg-stone-50 hover:bg-stone-100 text-stone-700 border-stone-200'
+              }`}
+            >
+              {t.customSizeLabel || 'Custom'}
+            </button>
+          </div>
+
+          {/* Custom Dimension Inputs when 'custom' is selected */}
+          {selectedPreset === 'custom' && (
+            <div className="flex items-center gap-2 bg-stone-50 p-2 rounded-xl border border-stone-200 text-xs">
+              <span className="font-semibold text-stone-600">Custom (cm):</span>
+              <div className="flex items-center gap-1">
+                <input
+                  type="number"
+                  min="1"
+                  max="200"
+                  data-testid="custom-width-input"
+                  value={customWidth}
+                  onChange={(e) => setCustomWidth(e.target.value)}
+                  placeholder="W"
+                  className="w-14 px-2 py-1 bg-white border border-stone-300 rounded-lg text-center font-bold text-stone-900 focus:outline-emerald-600"
+                />
+                <span className="text-stone-400 font-bold">×</span>
+                <input
+                  type="number"
+                  min="1"
+                  max="200"
+                  data-testid="custom-height-input"
+                  value={customHeight}
+                  onChange={(e) => setCustomHeight(e.target.value)}
+                  placeholder="H"
+                  className="w-14 px-2 py-1 bg-white border border-stone-300 rounded-lg text-center font-bold text-stone-900 focus:outline-emerald-600"
+                />
+                <span className="text-stone-500 font-medium">cm</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Row 2: Fabric Selector + Print Flag */}
+        <div className="space-y-1.5">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-stone-700">Fabric & Pattern:</span>
+            
+            {/* Print vs Plain Toggle */}
+            <div className="flex items-center bg-stone-100 p-0.5 rounded-xl border border-stone-200 text-[11px]">
+              <button
+                type="button"
+                data-testid="bulk-print-plain"
+                onClick={() => setBulkPrint('plain')}
+                className={`px-2.5 py-0.5 rounded-lg font-bold transition ${
+                  bulkPrint === 'plain'
+                    ? 'bg-white text-stone-900 shadow-2xs'
+                    : 'text-stone-500 hover:text-stone-800'
+                }`}
+              >
+                {t.printPlain || 'Plain'}
+              </button>
+              <button
+                type="button"
+                data-testid="bulk-print-printed"
+                onClick={() => setBulkPrint('printed')}
+                className={`px-2.5 py-0.5 rounded-lg font-bold transition ${
+                  bulkPrint === 'printed'
+                    ? 'bg-amber-400 text-stone-900 shadow-2xs'
+                    : 'text-stone-500 hover:text-stone-800'
+                }`}
+              >
+                {t.printPatterned || 'Printed'}
+              </button>
+            </div>
+          </div>
+
+          {/* Fabric Chips */}
+          <div className="flex flex-wrap gap-1">
+            {FABRIC_TYPES.slice(0, 6).map((fabric) => {
+              const isSelected = bulkFabric === fabric.id;
+              const fabricName = t.fabrics[fabric.id]?.split(' ')[0] || fabric.id;
+              return (
+                <button
+                  key={fabric.id}
+                  type="button"
+                  data-testid={`bulk-fabric-${fabric.id}`}
+                  onClick={() => setBulkFabric(fabric.id)}
+                  className={`px-2 py-1 rounded-xl text-[11px] font-bold transition border flex items-center gap-1 ${
+                    isSelected
+                      ? 'bg-emerald-100 text-emerald-950 border-emerald-400 shadow-2xs'
+                      : 'bg-stone-50 hover:bg-stone-100 text-stone-600 border-stone-200'
+                  }`}
+                >
+                  <span>{fabric.icon}</span>
+                  <span>{fabricName}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Row 3: Colour Swatches + Add Button */}
+        <div className="space-y-2 pt-1 border-t border-stone-100">
+          <span className="text-[11px] font-bold text-stone-700 block">
+            Colour ({t.colors[bulkColor] || bulkColor}):
+          </span>
+
+          <div className="flex items-center justify-between gap-2">
+            {/* Color Swatches Grid / Scroll */}
+            <div className="flex items-center gap-1.5 overflow-x-auto py-1 max-w-[210px] sm:max-w-none no-scrollbar">
+              {COLOR_SWATCHES.map((swatch) => {
+                const isSelected = bulkColor === swatch.id;
+                return (
+                  <button
+                    key={swatch.id}
+                    type="button"
+                    data-testid={`bulk-color-${swatch.id}`}
+                    onClick={() => setBulkColor(swatch.id)}
+                    style={{ backgroundColor: swatch.hex }}
+                    className={`w-6 h-6 rounded-full flex-shrink-0 border transition-all flex items-center justify-center relative ${
+                      isSelected
+                        ? 'ring-2 ring-emerald-700 ring-offset-2 scale-110 shadow-xs'
+                        : 'border-stone-300 hover:scale-105'
+                    }`}
+                    title={t.colors[swatch.id] || swatch.id}
+                  >
+                    {isSelected && (
+                      <Check
+                        className={`w-3 h-3 stroke-[3] ${
+                          swatch.id === 'white' || swatch.id === 'beige' || swatch.id === 'yellow'
+                            ? 'text-stone-900'
+                            : 'text-white'
+                        }`}
+                      />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* "Add" Button — Repeats without leaving screen */}
+            <button
+              type="button"
+              data-testid="bulk-add-btn"
+              onClick={handleExecuteBulkAdd}
+              className="flex-1 py-2 px-3 bg-emerald-700 hover:bg-emerald-800 text-white font-black text-xs rounded-xl shadow-xs transition flex items-center justify-center gap-1.5 active:scale-95 whitespace-nowrap"
+            >
+              <Plus className="w-4 h-4 stroke-[3]" />
+              <span>Add {bulkQty > 1 ? `${bulkQty} pcs` : '1 pc'}</span>
+            </button>
+          </div>
+
+          {/* Feedback banner when scraps added */}
+          {lastAddedMsg && (
+            <div className="bg-emerald-50 border border-emerald-300 rounded-xl p-2 flex items-center justify-between text-xs text-emerald-950 font-bold animate-in fade-in slide-in-from-top-1">
+              <span>{lastAddedMsg}</span>
+              <button
+                type="button"
+                onClick={() => setLastAddedMsg(null)}
+                className="text-emerald-700 hover:text-emerald-900 p-0.5"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
             </div>
           )}
         </div>
@@ -274,71 +721,67 @@ export default function MyPileScreen({
         )}
       </div>
 
-      {/* Sample Pile Selector: Pile A / Pile B */}
-      {onLoadPile && (
-        <div className="bg-stone-50 border border-stone-200 rounded-2xl p-2.5 flex items-center justify-between text-xs">
-          <span className="font-semibold text-stone-700">Test Piles:</span>
-          <div className="flex items-center gap-1.5">
+      {/* Grouping Filter Buttons & Scraps Summary Header */}
+      <div className="flex items-center justify-between pt-1">
+        <div className="flex items-center gap-1.5">
+          <span className="text-xs font-bold text-stone-700">Group By:</span>
+          <div className="flex bg-stone-200/80 p-0.5 rounded-xl border border-stone-300">
             <button
               type="button"
-              onClick={() => onLoadPile('A')}
-              className="px-2.5 py-1 bg-white hover:bg-sky-50 text-sky-800 border border-sky-300 rounded-xl font-bold shadow-2xs transition"
+              onClick={() => setGroupBy('color')}
+              className={`px-3 py-1 rounded-lg text-xs font-bold transition ${
+                groupBy === 'color'
+                  ? 'bg-white text-emerald-900 shadow-xs'
+                  : 'text-stone-600'
+              }`}
             >
-              📦 Pile A (40 pcs)
+              {t.groupByColour}
             </button>
             <button
               type="button"
-              onClick={() => onLoadPile('B')}
-              className="px-2.5 py-1 bg-white hover:bg-amber-50 text-amber-800 border border-amber-300 rounded-xl font-bold shadow-2xs transition"
+              onClick={() => setGroupBy('fabric')}
+              className={`px-3 py-1 rounded-lg text-xs font-bold transition ${
+                groupBy === 'fabric'
+                  ? 'bg-white text-emerald-900 shadow-xs'
+                  : 'text-stone-600'
+              }`}
             >
-              📦 Pile B (30 pcs)
+              {t.groupByFabric}
             </button>
           </div>
         </div>
-      )}
 
-      {/* Grouping Filter Buttons */}
-      <div className="flex items-center justify-between">
-        <span className="text-xs font-bold text-stone-700">Group By:</span>
-        <div className="flex bg-stone-200/80 p-0.5 rounded-xl border border-stone-300">
+        {/* Clear Pile Button */}
+        {pieces.length > 0 && onClearPile && (
           <button
             type="button"
-            onClick={() => setGroupBy('color')}
-            className={`px-3 py-1 rounded-lg text-xs font-bold transition ${
-              groupBy === 'color'
-                ? 'bg-white text-emerald-900 shadow-xs'
-                : 'text-stone-600'
-            }`}
+            data-testid="clear-pile-secondary-btn"
+            onClick={() => setShowClearModal(true)}
+            className="text-xs font-bold text-red-600 hover:text-red-700 hover:bg-red-50 px-2.5 py-1 rounded-xl transition flex items-center gap-1"
           >
-            {t.groupByColour}
+            <Trash2 className="w-3.5 h-3.5" />
+            <span>{t.clearPileBtn || 'Clear Pile'}</span>
           </button>
-          <button
-            type="button"
-            onClick={() => setGroupBy('fabric')}
-            className={`px-3 py-1 rounded-lg text-xs font-bold transition ${
-              groupBy === 'fabric'
-                ? 'bg-white text-emerald-900 shadow-xs'
-                : 'text-stone-600'
-            }`}
-          >
-            {t.groupByFabric}
-          </button>
-        </div>
+        )}
       </div>
 
       {/* Pieces List by Group */}
       {Object.keys(groups).length === 0 ? (
-        <div className="bg-white rounded-3xl p-6 text-center border border-stone-200 space-y-3">
+        <div className="bg-white rounded-3xl p-6 text-center border border-stone-200 space-y-4">
           <span className="text-4xl">🧺</span>
           <h3 className="text-sm font-bold text-stone-900">{t.emptyPileTitle}</h3>
-          <p className="text-xs text-stone-600">{t.emptyPileDesc}</p>
-          <button
-            type="button"
-            onClick={onAddNew}
-            className="px-4 py-2 bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs"
-          >
-            {t.addNewPieceBtn}
-          </button>
+          <p className="text-xs text-stone-600 max-w-xs mx-auto">
+            {t.emptyPileDesc || 'Your pile is currently empty. Try one of the ready sample piles above or use the quick add tool!'}
+          </p>
+          <div className="pt-2">
+            <button
+              type="button"
+              onClick={onAddNew}
+              className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs rounded-xl shadow-xs transition"
+            >
+              {t.addNewPieceBtn}
+            </button>
+          </div>
         </div>
       ) : (
         Object.entries(groups).map(([groupTitle, groupPieces]) => (
@@ -385,7 +828,7 @@ export default function MyPileScreen({
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs font-bold text-stone-900 truncate">
-                            {t.fabrics[piece.fabricType]?.split(' ')[0]}
+                            {t.fabrics[piece.fabricType]?.split(' ')[0] || piece.fabricType}
                           </span>
                           <span className="text-[10px] bg-stone-100 text-stone-700 px-1.5 py-0.2 rounded font-semibold">
                             {piece.quantity || 1} {piece.quantity > 1 ? 'pcs' : 'pc'}
@@ -398,7 +841,7 @@ export default function MyPileScreen({
                         </p>
 
                         <div className="flex items-center gap-2 text-[10px] text-stone-400 mt-0.5">
-                          <span>{t.colors[piece.color]}</span>
+                          <span>{t.colors[piece.color] || piece.color}</span>
                           <span>•</span>
                           <span>{piece.feel}</span>
                           <span>•</span>
@@ -437,12 +880,13 @@ export default function MyPileScreen({
                         <Edit3 className="w-4 h-4" />
                       </button>
 
-                      {/* Duplicate */}
+                      {/* FEATURE: Duplicate Button on any piece */}
                       <button
                         type="button"
+                        data-testid={`duplicate-btn-${piece.id}`}
                         onClick={() => onDuplicate(piece.id)}
-                        className="p-2 rounded-xl text-stone-600 hover:bg-stone-100 transition"
-                        title={t.duplicate}
+                        className="p-2 rounded-xl text-stone-700 hover:bg-stone-100 active:scale-95 transition"
+                        title={t.duplicate || 'Duplicate'}
                       >
                         <Copy className="w-4 h-4" />
                       </button>
@@ -476,6 +920,52 @@ export default function MyPileScreen({
           <span>{t.addNewPieceBtn}</span>
         </button>
       </div>
+
+      {/* FEATURE 4: Clear Pile Confirmation Modal */}
+      {showClearModal && (
+        <div 
+          data-testid="clear-pile-modal"
+          className="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-4"
+        >
+          <div className="bg-white rounded-3xl max-w-sm w-full p-5 space-y-4 shadow-xl border border-stone-200">
+            <div className="flex items-start space-x-3 text-red-600">
+              <div className="p-2.5 bg-red-100 rounded-2xl flex-shrink-0">
+                <Trash2 className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-stone-900">
+                  {t.clearPileConfirmTitle || 'Clear all scraps?'}
+                </h3>
+                <p className="text-xs text-stone-500 mt-1 leading-snug">
+                  {t.clearPileConfirmMessage || 'This will remove all pieces from your pile. This cannot be undone.'}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 pt-2 border-t border-stone-100">
+              <button
+                type="button"
+                data-testid="cancel-clear-pile-btn"
+                onClick={() => setShowClearModal(false)}
+                className="flex-1 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs rounded-xl transition"
+              >
+                {t.cancel || 'Cancel'}
+              </button>
+              <button
+                type="button"
+                data-testid="confirm-clear-pile-btn"
+                onClick={() => {
+                  if (onClearPile) onClearPile();
+                  setShowClearModal(false);
+                }}
+                className="flex-1 py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded-xl shadow-xs transition"
+              >
+                {t.clearPileConfirmBtn || 'Yes, Clear Pile'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
