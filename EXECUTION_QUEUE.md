@@ -8,6 +8,7 @@ This log tracks execution items across ReWear development phases and spikes.
 | **Q0** | Step 4a | REAL Gemini API Spike (API model evaluation, zero-text prompts, dominant color comparison) | **DONE** | 2026-10-22 |
 | **Q0b** | Spike Follow-up | Re-run Real Gemini API Image Generation Spike once pay-as-you-go billing quota is activated | **PENDING** | - |
 | **Q1** | Step 4b | AI Photo Preview in App (Mock mode fallback `MOCK_AI=true`, bundled example images, Cloudflare Worker proxy with secret management, deterministic hash cache, per-device rate limiting, side-by-side 2D plan comparison, isolation tests) | **DONE** | 2026-10-22 |
+| **Q2** | Phase 6 Step 2 | Score includes labour (penalty derived from seam count and estimated time in config.js), recommended mode matches higher score, hybrid sleeves contrast with neutral base body, 4 rectangle scores unchanged | **READY FOR REVIEW** | 2026-10-22 |
 
 ---
 

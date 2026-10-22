@@ -1422,6 +1422,9 @@ function computeChildTopLayout(design, sizeTemplate, placements, view) {
   // Bodice panel
   const bodiceW = bodiceCad.halfWidthCm * 2;
   const bodiceH = bodiceCad.heightCm;
+  const plainColor = design.plainBase?.color || bodicePlacement?.color || 'navy';
+  const plainHex = getHexForColor(plainColor, '#1E3A8A');
+
   const bodicePatches = isHybrid
     ? [
         {
@@ -1430,8 +1433,8 @@ function computeChildTopLayout(design, sizeTemplate, placements, view) {
           relY: -20,
           width: bodiceW * 10,
           height: bodiceH * 10 + 50,
-          color: 'navy',
-          colorHex: '#1E3A8A',
+          color: plainColor,
+          colorHex: plainHex,
           scrapId: 'plain_base',
         },
       ]

@@ -12,6 +12,7 @@
 
 import assert from 'node:assert';
 import { fitPileToProduct, packPiecesOnSheet } from './fitting.js';
+import { calculateDesignScore, suggestProducts } from './index.js';
 import { CHILD_TOP_BRIAN_DATA, FREESEWING_VERSION, PATTERN_DESIGN, TAILOR_VERIFIED } from './childTopBrianData.js';
 import { PRODUCT_TEMPLATES } from './templates.js';
 
@@ -284,6 +285,97 @@ test('both sleeves match: mirrored pair with identical colours and symmetrical p
       );
     }
   }
+});
+
+// ---------------------------------------------------------------------------
+// 7. Q2: Score Includes Labour & Recommended Mode Alignment
+// ---------------------------------------------------------------------------
+console.log('\n--- 7. Q2: Score Includes Labour & Recommended Mode Alignment ---');
+
+test('recommended mode == higher score for Pile B and the colourful pile', () => {
+  const pileColorful = [
+    { id: 'c_navy', width: 14, height: 14, quantity: 16, fabricType: 'cotton', thickness: 'medium', stretchy: false, colors: ['navy'], print: 'plain' },
+    { id: 'c_orange', width: 14, height: 14, quantity: 10, fabricType: 'cotton', thickness: 'medium', stretchy: false, colors: ['orange'], print: 'plain' },
+    { id: 'c_pink', width: 12, height: 12, quantity: 6, fabricType: 'cotton', thickness: 'medium', stretchy: false, colors: ['pink'], print: 'plain' },
+    { id: 'c_olive', width: 12, height: 12, quantity: 6, fabricType: 'cotton', thickness: 'medium', stretchy: false, colors: ['olive'], print: 'plain' },
+  ];
+
+  // 1. Pile B
+  const fitB_hybrid = fitPileToProduct(pileB, 'child_top', 'chest56', 1.0, { variant: 'hybrid' });
+  const fitB_patch = fitPileToProduct(pileB, 'child_top', 'chest56', 1.0, { variant: 'patchwork' });
+  const scoreB_hybrid = calculateDesignScore(fitB_hybrid);
+  const scoreB_patch = calculateDesignScore(fitB_patch);
+  assert(scoreB_hybrid > scoreB_patch, `Pile B Hybrid score (${scoreB_hybrid}) must exceed Patchwork score (${scoreB_patch}) due to labour penalty`);
+
+  const sugB = suggestProducts(pileB);
+  const topB = sugB.suggestions.find((s) => s.productId === 'child_top');
+  assert(topB, 'child_top suggested for Pile B');
+  assert.strictEqual(topB.variant, 'hybrid', 'Recommended mode for Pile B is hybrid');
+  assert.strictEqual(topB.designScore, scoreB_hybrid, 'Suggested score matches higher hybrid score');
+
+  // 2. Colourful Pile
+  const fitC_hybrid = fitPileToProduct(pileColorful, 'child_top', 'chest56', 1.0, { variant: 'hybrid' });
+  const fitC_patch = fitPileToProduct(pileColorful, 'child_top', 'chest56', 1.0, { variant: 'patchwork' });
+  const scoreC_hybrid = calculateDesignScore(fitC_hybrid);
+  const scoreC_patch = calculateDesignScore(fitC_patch);
+  assert(scoreC_hybrid > scoreC_patch, `Colourful Pile Hybrid score (${scoreC_hybrid}) must exceed Patchwork score (${scoreC_patch})`);
+
+  const sugC = suggestProducts(pileColorful);
+  const topC = sugC.suggestions.find((s) => s.productId === 'child_top');
+  assert(topC, 'child_top suggested for Colourful pile');
+  assert.strictEqual(topC.variant, 'hybrid', 'Recommended mode for Colourful pile is hybrid');
+  assert.strictEqual(topC.designScore, scoreC_hybrid, 'Suggested score matches higher hybrid score');
+});
+
+test('hybrid sleeves contain at least one non-body colour when the pile has one', () => {
+  // Pile B has body color navy, and non-body colors beige and grey
+  const fitB = fitPileToProduct(pileB, 'child_top', 'chest56', 1.0, { variant: 'hybrid' });
+  const bodyColor = fitB.plainBase.color;
+  assert.strictEqual(bodyColor, 'navy', 'Body color is neutral base navy');
+
+  const s1 = fitB.placements.find((p) => p.zoneId === 'sleeve_1');
+  const sleeveColors = s1.scraps.map((s) => s.color);
+  const hasNonBodyColor = sleeveColors.some((c) => c !== bodyColor);
+  assert(hasNonBodyColor, `Hybrid sleeves (${sleeveColors.join(', ')}) must contain at least one non-body colour (differs from ${bodyColor})`);
+
+  // Colourful pile has body color navy, and non-body colors orange, pink, olive
+  const pileColorful = [
+    { id: 'c_navy', width: 14, height: 14, quantity: 16, fabricType: 'cotton', thickness: 'medium', stretchy: false, colors: ['navy'], print: 'plain' },
+    { id: 'c_orange', width: 14, height: 14, quantity: 10, fabricType: 'cotton', thickness: 'medium', stretchy: false, colors: ['orange'], print: 'plain' },
+  ];
+  const fitC = fitPileToProduct(pileColorful, 'child_top', 'chest56', 1.0, { variant: 'hybrid' });
+  const s1C = fitC.placements.find((p) => p.zoneId === 'sleeve_1');
+  const sleeveColorsC = s1C.scraps.map((s) => s.color);
+  assert(sleeveColorsC.some((c) => c !== fitC.plainBase.color), 'Colourful hybrid sleeves must contain non-body colours');
+});
+
+test('if the pile has only one colour, note is reported in design notes', () => {
+  const singleColorPile = [
+    { id: 'one_navy', width: 14, height: 14, quantity: 20, fabricType: 'cotton', thickness: 'medium', stretchy: false, colors: ['navy'], print: 'plain' },
+  ];
+  const fit = fitPileToProduct(singleColorPile, 'child_top', 'chest56', 1.0, { variant: 'hybrid' });
+  assert(fit.designNotes && fit.designNotes.some((n) => n.includes('only one colour')), 'Must state pile has only one colour in design notes');
+});
+
+test('scores of the 4 rectangle products must not change', () => {
+  const pileA = [
+    { id: '1', width: 10, height: 10, quantity: 20, fabricType: 'cotton', thickness: 'medium', stretchy: false, colors: ['navy'], print: 'plain' },
+    { id: '2', width: 12, height: 12, quantity: 20, fabricType: 'cotton', thickness: 'medium', stretchy: false, colors: ['beige'], print: 'plain' },
+  ];
+  const pileB_std = [
+    { id: '1', width: 14, height: 14, quantity: 10, fabricType: 'cotton', thickness: 'medium', stretchy: false, colors: ['navy'], print: 'plain' },
+    { id: '2', width: 14, height: 14, quantity: 10, fabricType: 'cotton', thickness: 'medium', stretchy: false, colors: ['beige'], print: 'plain' },
+    { id: '3', width: 14, height: 14, quantity: 10, fabricType: 'cotton', thickness: 'medium', stretchy: false, colors: ['grey'], print: 'plain' },
+  ];
+  const pileC = [
+    { id: '1', width: 8, height: 8, quantity: 20, fabricType: 'cotton', thickness: 'medium', stretchy: false, colors: ['navy'], print: 'plain' },
+    { id: '2', width: 8, height: 8, quantity: 20, fabricType: 'cotton', thickness: 'medium', stretchy: false, colors: ['beige'], print: 'plain' },
+  ];
+
+  // Exact benchmark scores for pouch from try_pile
+  assert.strictEqual(calculateDesignScore(fitPileToProduct(pileA, 'pouch', 'medium')), 62, 'Pile A pouch score is exactly 62');
+  assert.strictEqual(calculateDesignScore(fitPileToProduct(pileB_std, 'pouch', 'medium')), 71, 'Pile B pouch score is exactly 71');
+  assert.strictEqual(calculateDesignScore(fitPileToProduct(pileC, 'pouch', 'medium')), 52, 'Pile C pouch score is exactly 52');
 });
 
 console.log('====================================================');

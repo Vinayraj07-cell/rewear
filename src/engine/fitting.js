@@ -533,6 +533,19 @@ export function fitPileToProduct(
   expandPool(zoning.supportingPieces, 'supporting');
   expandPool(zoning.accentPieces, 'accent');
 
+  // Extract unique colors across the pile to detect single-color piles
+  const uniquePileColors = [...new Set(pile.map((p) => p.dominantColor || p.color || (p.colors && p.colors[0])).filter(Boolean))];
+  const isSingleColorPile = uniquePileColors.length === 1;
+
+  // Determine pile's neutral base color (for hybrid plain body and contrast reference)
+  let pileNeutralBaseColor = 'navy';
+  if (zoning.basePieces && zoning.basePieces.length > 0) {
+    pileNeutralBaseColor = zoning.basePieces[0].dominantColor || zoning.basePieces[0].color || 'navy';
+  } else if (availablePool.length > 0) {
+    const neutralPiece = availablePool.find((p) => p.isNeutral);
+    pileNeutralBaseColor = neutralPiece ? (neutralPiece.dominantColor || neutralPiece.color) : (availablePool[0].dominantColor || availablePool[0].color || 'navy');
+  }
+
   const placements = [];
   const reusableLeftovers = [];
   let totalRawAreaUsed = 0;
@@ -572,9 +585,26 @@ export function fitPileToProduct(
           byColorGroup[k].push(p);
         });
 
+        const isHybrid = (requirements.variant || variant || (options && options.variant)) !== 'patchwork';
+
+        // Sort color groups:
+        // In hybrid mode, prioritize supporting/accent colors (colors different from pileNeutralBaseColor)
+        // so that the sleeves are visibly different from the plain body!
+        const colorKeys = Object.keys(byColorGroup).sort((a, b) => {
+          const colorA = a.split('_')[0];
+          const colorB = b.split('_')[0];
+          if (isHybrid && uniquePileColors.length > 1) {
+            const aIsNonBody = colorA !== pileNeutralBaseColor;
+            const bIsNonBody = colorB !== pileNeutralBaseColor;
+            if (aIsNonBody && !bIsNonBody) return -1;
+            if (!aIsNonBody && bIsNonBody) return 1;
+          }
+          return byColorGroup[b].length - byColorGroup[a].length;
+        });
+
         const leftPool = [];
         const rightPool = [];
-        for (const k in byColorGroup) {
+        for (const k of colorKeys) {
           const list = byColorGroup[k];
           const pairsCount = Math.floor(list.length / 2);
           for (let i = 0; i < pairsCount; i++) {
@@ -1106,6 +1136,8 @@ export function fitPileToProduct(
       role: zone.role,
       method: 'plain_base',
       fabricSource: 'plain_base',
+      color: pileNeutralBaseColor,
+      dominantColor: pileNeutralBaseColor,
       scraps: [],
       seamsCount: 0,
       cutWidth: zone.cutWidth,
@@ -1174,6 +1206,17 @@ export function fitPileToProduct(
 
   const combinedWarnings = [...(zoning.warnings || (zoning.warning ? [zoning.warning] : []))];
   const effectiveVariant = requirements.variant || variant || 'plain';
+
+  // Design notes: Note if pile has only one colour
+  const designNotes = [];
+  if (isSingleColorPile && uniquePileColors.length === 1) {
+    const singleColor = uniquePileColors[0];
+    designNotes.push(`Pile has only one colour (${singleColor}); body and sleeves use the same colour.`);
+  }
+  if (designNotes.length > 0) {
+    combinedWarnings.push(...designNotes);
+  }
+
   if (effectiveVariant === 'patchwork') {
     const totalScrapsCount = placements.reduce((sum, p) => sum + (p.scraps ? p.scraps.length : 0), 0);
     const estTimeMins = (totalExtraSeams * 3.5) + (productId === 'child_top' ? 45 : 40);
@@ -1199,11 +1242,21 @@ export function fitPileToProduct(
     wastePercentage,
     totalExtraSeams,
     warnings: combinedWarnings,
+    designNotes,
     hasAnchorWarning: Boolean(zoning.hasAnchorWarning),
     missing: missingMessage,
     missingDetails: missingRequirements,
-    zoningBreakdown: zoning.breakdown,
+    zoningBreakdown: (plainBaseZones.length > 0)
+      ? {
+          basePct: 65,
+          supportingPct: 25,
+          accentPct: 10,
+          dominantColor: pileNeutralBaseColor,
+        }
+      : zoning.breakdown,
     plainBase: {
+      color: pileNeutralBaseColor,
+      dominantColor: pileNeutralBaseColor,
       piecesCount: plainBaseZones.length,
       totalCutAreaCm2: plainBaseTotalCutArea,
       boltWidthCm,
@@ -1212,6 +1265,7 @@ export function fitPileToProduct(
       pieces: plainBaseZones.map((z) => ({
         id: z.id,
         name: z.name,
+        color: pileNeutralBaseColor,
         cutWidth: z.cutWidth,
         cutHeight: z.cutHeight,
         finishedWidth: z.finishedWidth,

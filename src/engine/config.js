@@ -257,4 +257,36 @@ export const CONFIG = {
    * Additional minutes for handling fraying fabrics (overlocking / zig-zagging edges).
    */
   MINUTES_FOR_FRAYING_FINISH: 5.0,
+
+  // =========================================================================
+  // 7. LABOUR & SEAM PENALTY THRESHOLDS (FOR APPAREL & HYBRID GARMENTS)
+  // =========================================================================
+
+  /**
+   * Labour penalty configuration for apparel garments (e.g. child_top and future hybrid garments).
+   * Rectangle home/utility products (pouch, tote_bag, cushion_cover, kids_frock) are exempt
+   * to guarantee their existing baseline scores do not change.
+   *
+   * In apparel tailoring, excessive seams against sensitive skin and long sewing times
+   * make full patchwork impractical and uncomfortable, incurring a substantial labour penalty.
+   */
+  LABOUR_PENALTY: {
+    // Exempt classic rectangle products so their scores do not change
+    EXEMPT_PRODUCT_IDS: ['pouch', 'tote_bag', 'cushion_cover', 'kids_frock'],
+
+    // Seam threshold above which extra piecing labour penalty begins
+    SEAM_THRESHOLD: 12,
+
+    // Points deducted per seam over SEAM_THRESHOLD
+    POINTS_PER_EXCESS_SEAM: 1.5,
+
+    // Sewing time threshold in minutes above which labour penalty begins
+    TIME_THRESHOLD_MINUTES: 60,
+
+    // Points deducted per 10 minutes exceeding TIME_THRESHOLD_MINUTES
+    POINTS_PER_10_MINS_EXCESS: 3.0,
+
+    // Cap on maximum total labour penalty deducted from design score
+    MAX_LABOUR_PENALTY: 45,
+  },
 };

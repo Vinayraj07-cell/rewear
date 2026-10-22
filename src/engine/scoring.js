@@ -51,10 +51,10 @@ export function scoreColorHarmony(placements, zoningBreakdown) {
 
   for (let i = 0; i < placements.length; i++) {
     for (let j = i + 1; j < placements.length; j++) {
-      const p1 = placements[i].scraps[0];
-      const p2 = placements[j].scraps[0];
-      if (p1 && p2 && p1.color && p2.color) {
-        const evalResult = evaluateColorPair(p1.color, p2.color);
+      const c1 = placements[i].scraps?.[0]?.color || placements[i].color || placements[i].dominantColor;
+      const c2 = placements[j].scraps?.[0]?.color || placements[j].color || placements[j].dominantColor;
+      if (c1 && c2) {
+        const evalResult = evaluateColorPair(c1, c2);
         if (evalResult.clashRisk) clashCount++;
         if (evalResult.relationship === 'tonal' || evalResult.relationship === 'neutral-compatible') {
           harmoniousCount++;
@@ -129,6 +129,30 @@ export function scoreMinimalWaste(wastePercentage) {
 }
 
 /**
+ * Computes labour penalty derived from seam count and estimated sewing time.
+ * Exempts the 4 classic rectangle products so their scores never change.
+ */
+export function computeLabourPenalty(productId, totalExtraSeams, estimatedTimeMinutes) {
+  const cfg = CONFIG.LABOUR_PENALTY;
+  if (!cfg) return 0;
+  if (cfg.EXEMPT_PRODUCT_IDS && cfg.EXEMPT_PRODUCT_IDS.includes(productId)) {
+    return 0;
+  }
+
+  let penalty = 0;
+
+  // 1. Seam count penalty
+  const excessSeams = Math.max(0, (totalExtraSeams || 0) - cfg.SEAM_THRESHOLD);
+  penalty += excessSeams * cfg.POINTS_PER_EXCESS_SEAM;
+
+  // 2. Sewing time penalty
+  const excessMins = Math.max(0, (estimatedTimeMinutes || 0) - cfg.TIME_THRESHOLD_MINUTES);
+  penalty += (excessMins / 10) * cfg.POINTS_PER_10_MINS_EXCESS;
+
+  return Math.min(cfg.MAX_LABOUR_PENALTY, Math.round(penalty));
+}
+
+/**
  * Calculates the comprehensive Design / Aesthetic Score (0-100).
  */
 export function calculateDesignScore(fitResult) {
@@ -153,6 +177,11 @@ export function calculateDesignScore(fitResult) {
   if (fitResult.hasAnchorWarning || (fitResult.warnings && fitResult.warnings.some((w) => w.includes('more premium')))) {
     adjustedScore -= (CONFIG.SMALL_PATCH_WARNING_PENALTY || 15);
   }
+
+  // Deduct labour penalty for apparel garments (exempt for 4 rectangle products)
+  const estTime = fitResult.estimatedTimeMinutes || calculateEstimatedTime(fitResult.productId, fitResult.totalExtraSeams || 0, false);
+  const labourPenalty = computeLabourPenalty(fitResult.productId, fitResult.totalExtraSeams || 0, estTime);
+  adjustedScore -= labourPenalty;
 
   return Math.round(Math.max(15, Math.min(99, adjustedScore)));
 }

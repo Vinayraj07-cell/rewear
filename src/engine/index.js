@@ -84,7 +84,26 @@ export function suggestProducts(pile, options = {}) {
     const product = PRODUCT_TEMPLATES[productId];
     Object.keys(product.sizes).forEach((sizeKey) => {
       const sizeObj = product.sizes[sizeKey];
-      const fitResult = fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm);
+      let fitResult = fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm);
+
+      // If product defines construction variants (e.g. child_top with hybrid vs patchwork):
+      // Evaluate both variants and recommend the higher-scoring one so score & recommendation never disagree!
+      if (product.variants && Object.keys(product.variants).length > 1) {
+        let bestFit = fitResult;
+        let bestScore = calculateDesignScore(fitResult);
+        Object.keys(product.variants).forEach((vKey) => {
+          if (vKey === fitResult.variant) return;
+          const candidateFit = fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm, { variant: vKey });
+          if (candidateFit.fits) {
+            const candidateScore = calculateDesignScore(candidateFit);
+            if (!bestFit.fits || candidateScore > bestScore) {
+              bestFit = candidateFit;
+              bestScore = candidateScore;
+            }
+          }
+        });
+        fitResult = bestFit;
+      }
 
       const hasFraying = pile.some((p) => p.frays !== false);
       const designScore = calculateDesignScore(fitResult);
@@ -220,7 +239,29 @@ export function buildDesign(pile, productId, sizeKey, style = 'patchwork', optio
   }
 
   const seamAllowanceCm = options.seamAllowanceCm || CONFIG.SEAM_ALLOWANCE_CM;
-  const fitResult = fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm);
+  let chosenVariant = options.variant;
+  if (!chosenVariant && product.variants && Object.keys(product.variants).length > 1) {
+    const vKeys = Object.keys(product.variants);
+    let bestFit = fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm, { ...options, variant: vKeys[0] });
+    let bestScore = calculateDesignScore(bestFit);
+    chosenVariant = vKeys[0];
+    for (let i = 1; i < vKeys.length; i++) {
+      const candFit = fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm, { ...options, variant: vKeys[i] });
+      if (candFit.fits) {
+        const candScore = calculateDesignScore(candFit);
+        if (!bestFit.fits || candScore > bestScore) {
+          bestFit = candFit;
+          bestScore = candScore;
+          chosenVariant = vKeys[i];
+        }
+      }
+    }
+  }
+
+  const fitResult = fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm, {
+    ...options,
+    variant: chosenVariant || options.variant,
+  });
 
   const hasFraying = pile.some((p) => p.frays !== false);
   const designScore = calculateDesignScore(fitResult);
@@ -233,6 +274,8 @@ export function buildDesign(pile, productId, sizeKey, style = 'patchwork', optio
     sizeKey,
     sizeLabel: size.label,
     style,
+    variant: fitResult.variant || chosenVariant || 'plain',
+    recommendedVariant: chosenVariant || fitResult.variant || 'plain',
     fits: fitResult.fits,
     designScore,
     estimatedTimeMinutes,

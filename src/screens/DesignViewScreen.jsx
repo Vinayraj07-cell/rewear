@@ -106,6 +106,19 @@ export default function DesignViewScreen({
   const productName = getTranslatedProductName(activeDesign.productId, activeDesign.productName, t);
   const sizeLabel = getTranslatedSizeLabel(activeDesign.sizeKey, activeDesign.sizeLabel, t);
 
+  // Compute recommended mode from scores so recommendation and score never disagree
+  const recommendedMode = useMemo(() => {
+    if (design.productId === 'child_top' && pile && pile.length > 0) {
+      const seamAllowanceCm = design.seamAllowanceCm || 1.0;
+      const fitH = fitPileToProduct(pile, 'child_top', design.sizeKey, seamAllowanceCm, { variant: 'hybrid' });
+      const fitP = fitPileToProduct(pile, 'child_top', design.sizeKey, seamAllowanceCm, { variant: 'patchwork' });
+      const scoreH = calculateDesignScore(fitH);
+      const scoreP = calculateDesignScore(fitP);
+      return scoreH >= scoreP ? 'hybrid' : 'patchwork';
+    }
+    return design.recommendedVariant || design.variant || 'hybrid';
+  }, [design, pile]);
+
   // Available patterns as defined in requirement 2
   const patternList = [
     { id: 'patchwork', label: t.patterns?.patchwork || 'Patchwork', icon: '🧩' },
@@ -251,26 +264,44 @@ export default function DesignViewScreen({
             <button
               type="button"
               onClick={() => setVariantToggle('hybrid')}
-              className={`py-2.5 px-2 rounded-2xl border transition flex items-center justify-center gap-1.5 ${
+              className={`py-2 px-2 rounded-2xl border transition flex flex-col items-center justify-center gap-0.5 ${
                 variantToggle === 'hybrid'
                   ? 'bg-emerald-700 text-white border-emerald-800 shadow-sm'
                   : 'bg-stone-50 text-stone-700 border-stone-200 hover:bg-stone-100'
               }`}
             >
-              <span>🌿</span>
-              <span>Hybrid (Plain Body)</span>
+              <div className="flex items-center gap-1">
+                <span>🌿</span>
+                <span>Hybrid (Plain Body)</span>
+              </div>
+              {recommendedMode === 'hybrid' && (
+                <span className={`text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full ${
+                  variantToggle === 'hybrid' ? 'bg-amber-300 text-stone-900' : 'bg-emerald-100 text-emerald-800'
+                }`}>
+                  ★ Recommended
+                </span>
+              )}
             </button>
             <button
               type="button"
               onClick={() => setVariantToggle('patchwork')}
-              className={`py-2.5 px-2 rounded-2xl border transition flex items-center justify-center gap-1.5 ${
+              className={`py-2 px-2 rounded-2xl border transition flex flex-col items-center justify-center gap-0.5 ${
                 variantToggle === 'patchwork'
                   ? 'bg-emerald-700 text-white border-emerald-800 shadow-sm'
                   : 'bg-stone-50 text-stone-700 border-stone-200 hover:bg-stone-100'
               }`}
             >
-              <span>🧩</span>
-              <span>Full Patchwork</span>
+              <div className="flex items-center gap-1">
+                <span>🧩</span>
+                <span>Full Patchwork</span>
+              </div>
+              {recommendedMode === 'patchwork' && (
+                <span className={`text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full ${
+                  variantToggle === 'patchwork' ? 'bg-amber-300 text-stone-900' : 'bg-emerald-100 text-emerald-800'
+                }`}>
+                  ★ Recommended
+                </span>
+              )}
             </button>
           </div>
 
