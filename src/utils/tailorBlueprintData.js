@@ -59,7 +59,25 @@ export function getProductStitchingSteps(productId, sizeKey = 'small', template 
   const finishedW = sizeObj?.finishedWidthCm || 36;
   const finishedH = sizeObj?.finishedHeightCm || 38;
 
-  if (productId === 'pouch') {
+  // 1. Explicit steps defined on the template/spec
+  if (prod?.stitchingSteps) {
+    return typeof prod.stitchingSteps === 'function' ? prod.stitchingSteps(sizeKey, sizeObj) : prod.stitchingSteps;
+  }
+  if (prod?.steps) {
+    return typeof prod.steps === 'function' ? prod.steps(sizeKey, sizeObj) : prod.steps;
+  }
+
+  // 2. Step template chosen from construction field (tee, skirt, trousers, bag, cushion, pouch)
+  const construction = prod?.construction || (
+    productId === 'kids_frock' ? 'skirt' :
+    productId === 'tote_bag' ? 'bag' :
+    productId === 'child_top' ? 'tee' :
+    productId === 'cushion_cover' ? 'cushion' :
+    productId === 'pouch' ? 'pouch' :
+    productId
+  );
+
+  if (construction === 'pouch') {
     return [
       {
         stepNumber: 1,
@@ -106,7 +124,7 @@ export function getProductStitchingSteps(productId, sizeKey = 'small', template 
     ];
   }
 
-  if (productId === 'tote_bag') {
+  if (construction === 'bag') {
     const gussetDepth = sizeKey === 'small' ? 4 : (sizeKey === 'large' ? 8 : 6);
     return [
       {
@@ -154,7 +172,7 @@ export function getProductStitchingSteps(productId, sizeKey = 'small', template 
     ];
   }
 
-  if (productId === 'cushion_cover') {
+  if (construction === 'cushion') {
     const overlapCm = sizeKey === 'small' ? 8 : (sizeKey === 'large' ? 12 : 10);
     return [
       {
@@ -202,7 +220,7 @@ export function getProductStitchingSteps(productId, sizeKey = 'small', template 
     ];
   }
 
-  if (productId === 'kids_frock') {
+  if (construction === 'skirt') {
     const bodiceW = sizeKey === '0-1y' ? 22 : (sizeKey === '2-3y' ? 26 : (sizeKey === '4-5y' ? 30 : 34));
     const bodiceH = sizeKey === '0-1y' ? 12 : (sizeKey === '2-3y' ? 14 : (sizeKey === '4-5y' ? 16 : 18));
     const skirtH = sizeKey === '0-1y' ? 22 : (sizeKey === '2-3y' ? 28 : (sizeKey === '4-5y' ? 35 : 42));
@@ -253,7 +271,101 @@ export function getProductStitchingSteps(productId, sizeKey = 'small', template 
     ];
   }
 
-  // Fallback for child_top or generic products
+  if (construction === 'tee') {
+    return [
+      {
+        stepNumber: 1,
+        title: 'Piece Patchwork Scrap Panels',
+        instruction: `Arrange scrap pieces for sleeves and accent panels according to the cut blueprint. Join with 1.0 cm (0.4 in) seam allowance and press all seams open flat to prevent bulk.`,
+        audioText: 'Step 1: Piece scrap panels with one centimeter seam allowance and press open flat.',
+        diagramType: 'tee_piece_sleeves',
+      },
+      {
+        stepNumber: 2,
+        title: 'Assemble Shoulder Seams',
+        instruction: 'Align front and back body panels with right sides facing. Pin and stitch shoulder seams at 1.0 cm seam allowance, inserting stay-tape inside the seam to prevent stretching.',
+        audioText: 'Step 2: Align front and back panels and stitch shoulder seams with stay-tape.',
+        diagramType: 'tee_assemble_shoulders',
+      },
+      {
+        stepNumber: 3,
+        title: 'Set In Sleeves to Armholes',
+        instruction: 'Open the body flat. Match sleeve cap center notch to shoulder seam. Pin sleeve edge along the armhole curve and stitch with 1.0 cm seam allowance. Press seam toward sleeves.',
+        audioText: 'Step 3: Pin sleeve cap to armhole matching notches and stitch with one centimeter seam allowance.',
+        diagramType: 'tee_insert_sleeves',
+      },
+      {
+        stepNumber: 4,
+        title: 'Continuous Side & Underarm Seams',
+        instruction: 'Fold garment right sides facing. Align underarm sleeve cross-seams and side edges. Stitch continuously from sleeve cuff down along the underarm to the bottom hem.',
+        audioText: 'Step 4: Stitch side seams continuously from sleeve cuff down to bottom hem.',
+        diagramType: 'tee_side_seams',
+      },
+      {
+        stepNumber: 5,
+        title: 'Attach Ribbed Neckband',
+        instruction: 'Fold neckband strip lengthwise with wrong sides together. Pin to neckline opening evenly matching quarter marks. Stitch stretching neckband slightly to fit. Press seam allowance downward.',
+        audioText: 'Step 5: Fold neckband and stitch to neckline opening stretching slightly.',
+        diagramType: 'tee_neckband',
+      },
+      {
+        stepNumber: 6,
+        title: 'Hem Sleeves, Body & Steam Press',
+        instruction: 'Double-fold sleeve cuffs (1.5 cm) and lower body hem (2.0 cm). Stitch with twin needle or flexible stretch stitch. Give the finished garment a comprehensive final steam press.',
+        audioText: 'Step 6: Hem sleeve cuffs and bottom edge, then steam press.',
+        diagramType: 'tee_finish',
+      },
+    ];
+  }
+
+  if (construction === 'trousers') {
+    return [
+      {
+        stepNumber: 1,
+        title: 'Assemble Patchwork Leg Panels',
+        instruction: 'Arrange and stitch scrap pieces for front and back leg panels according to cut blueprint. Stitch with 1.0 cm seam allowance and press all seams open flat.',
+        audioText: 'Step 1: Assemble scrap patchwork leg panels and press all seams open.',
+        diagramType: 'trousers_piece_panels',
+      },
+      {
+        stepNumber: 2,
+        title: 'Attach Side Pockets',
+        instruction: 'Pin pocket bag facing to front waist and upper side seam with right sides facing. Stitch pocket opening at 0.7 cm, understitch, turn inside, and press.',
+        audioText: 'Step 2: Pin pocket facings to front waist and side seam, stitch and press.',
+        diagramType: 'trousers_pockets',
+      },
+      {
+        stepNumber: 3,
+        title: 'Stitch Inseam / Inner Leg Seams',
+        instruction: 'Place front and back leg panels right sides facing. Pin and stitch inner leg seam from crotch curve down to bottom ankle hem with 1.0 cm seam allowance.',
+        audioText: 'Step 3: Stitch inner leg seams from crotch to ankle hem with one centimeter allowance.',
+        diagramType: 'trousers_inseam',
+      },
+      {
+        stepNumber: 4,
+        title: 'Join Center Crotch Curve',
+        instruction: 'Turn one leg right side out and slip it inside the other leg (right sides facing). Align inseam junction and pin center crotch curve. Stitch twice for seam strength.',
+        audioText: 'Step 4: Slip one leg inside the other, pin crotch curve and stitch securely.',
+        diagramType: 'trousers_crotch',
+      },
+      {
+        stepNumber: 5,
+        title: 'Construct Elastic Waistband Casing',
+        instruction: 'Fold top waistband edge down 3.5 cm to form elastic casing. Stitch along bottom fold leaving a 4 cm opening. Thread 2.5 cm elastic through, overlap ends 2 cm, stitch secure, and close opening.',
+        audioText: 'Step 5: Fold waistband casing, thread elastic through, and stitch closed.',
+        diagramType: 'trousers_waistband',
+      },
+      {
+        stepNumber: 6,
+        title: 'Hem Ankle Cuffs & Steam Press',
+        instruction: 'Double-fold ankle cuffs (1.5 cm) and edge-stitch around circumference. Turn trousers right side out and steam press leg creases flat.',
+        audioText: 'Step 6: Hem ankle cuffs and steam press leg creases.',
+        diagramType: 'trousers_finish',
+      },
+    ];
+  }
+
+  // Fallback generic 4-step assembly
   return [
     {
       stepNumber: 1,
@@ -271,9 +383,16 @@ export function getProductStitchingSteps(productId, sizeKey = 'small', template 
     },
     {
       stepNumber: 3,
+      title: 'Finish Structural Seams',
+      instruction: 'Stitch side and closing seams. Finish raw seam allowances with overlock or zigzag stitch.',
+      audioText: 'Step 3: Stitch side and closing seams and finish raw edges.',
+      diagramType: 'pouch_join_lower',
+    },
+    {
+      stepNumber: 4,
       title: 'Hemming & Final Press',
       instruction: 'Hem edges and steam press flat for a professional finish.',
-      audioText: 'Step 3: Hem edges and steam press.',
+      audioText: 'Step 4: Hem edges and steam press flat.',
       diagramType: 'pouch_finish',
     },
   ];
@@ -294,6 +413,7 @@ export const PRODUCT_STITCHING_STEPS = {
 export function getProductMaterialsList(productId, sizeKeyOrDesign, maybeDesign) {
   const design = typeof sizeKeyOrDesign === 'object' && sizeKeyOrDesign !== null ? sizeKeyOrDesign : (maybeDesign || {});
   const sizeKey = typeof sizeKeyOrDesign === 'string' ? sizeKeyOrDesign : (design.sizeKey || 'small');
+  const prod = PRODUCT_TEMPLATES[productId] || design.spec;
 
   const scrapsCount = design?.placements?.reduce((sum, p) => sum + (p.scraps?.length || 1), 0) || 0;
   const wastePct = design?.wastePercentage || 0;
@@ -318,7 +438,29 @@ export function getProductMaterialsList(productId, sizeKeyOrDesign, maybeDesign)
     },
   ];
 
-  if (productId === 'pouch') {
+  // 1. Explicit materials in spec
+  if (prod?.materials) {
+    const rawList = typeof prod.materials === 'function' ? prod.materials(sizeKey, design) : prod.materials;
+    if (Array.isArray(rawList)) {
+      return rawList.map((m) => ({
+        ...m,
+        disclaimer: m.disclaimer || TYPICAL_DEFAULTS_DISCLAIMER,
+        note: m.note ? (m.note.includes('tailor') ? m.note : `${m.note} (${TYPICAL_DEFAULTS_DISCLAIMER})`) : TYPICAL_DEFAULTS_DISCLAIMER,
+      }));
+    }
+  }
+
+  // 2. Materials chosen from construction field
+  const construction = prod?.construction || (
+    productId === 'kids_frock' ? 'skirt' :
+    productId === 'tote_bag' ? 'bag' :
+    productId === 'child_top' ? 'tee' :
+    productId === 'cushion_cover' ? 'cushion' :
+    productId === 'pouch' ? 'pouch' :
+    productId
+  );
+
+  if (construction === 'pouch') {
     const zipperLength = sizeKey === 'small' ? '15 cm (6 in)' : (sizeKey === 'large' ? '30 cm (12 in)' : '25 cm (10 in)');
     const interfacingDim = sizeKey === 'small' ? '8 × 8 cm (3 × 3 in)' : (sizeKey === 'large' ? '14 × 14 cm (5.5 × 5.5 in)' : '10 × 10 cm (4 × 4 in)');
     return [
@@ -342,7 +484,7 @@ export function getProductMaterialsList(productId, sizeKeyOrDesign, maybeDesign)
     ];
   }
 
-  if (productId === 'tote_bag') {
+  if (construction === 'bag') {
     const handlesLength = sizeKey === 'small' ? '50 cm (20 in)' : (sizeKey === 'large' ? '70 cm (28 in)' : '60 cm (24 in)');
     const gussetDim = sizeKey === 'small' ? '28 × 8 cm (11 × 3.1 in)' : (sizeKey === 'large' ? '44 × 12 cm (17.3 × 4.7 in)' : '36 × 10 cm (14.2 × 3.9 in)');
     return [
@@ -366,7 +508,7 @@ export function getProductMaterialsList(productId, sizeKeyOrDesign, maybeDesign)
     ];
   }
 
-  if (productId === 'cushion_cover') {
+  if (construction === 'cushion') {
     const insertDim = sizeKey === 'small' ? '30 × 30 cm (12 × 12 in)' : (sizeKey === 'large' ? '50 × 50 cm (20 × 20 in)' : '40 × 40 cm (16 × 16 in)');
     return [
       ...baseMaterials,
@@ -381,7 +523,7 @@ export function getProductMaterialsList(productId, sizeKeyOrDesign, maybeDesign)
     ];
   }
 
-  if (productId === 'kids_frock') {
+  if (construction === 'skirt') {
     const tapeLength = sizeKey === '0-1y' ? '1.0 meters (40 in)' : (sizeKey === '6-8y' ? '1.6 meters (64 in)' : (sizeKey === '4-5y' ? '1.4 meters (56 in)' : '1.2 meters (48 in)'));
     return [
       ...baseMaterials,
@@ -404,6 +546,50 @@ export function getProductMaterialsList(productId, sizeKeyOrDesign, maybeDesign)
     ];
   }
 
+  if (construction === 'tee') {
+    return [
+      ...baseMaterials,
+      {
+        name: 'Ribbed Collar Band',
+        spec: '1×1 cotton / elastane rib knit (4 cm width) for comfortable neckline recovery',
+        qty: '1 strip (45 cm)',
+        source: 'Notions',
+        note: `Stretches to fit neckline circumference (${TYPICAL_DEFAULTS_DISCLAIMER})`,
+        disclaimer: TYPICAL_DEFAULTS_DISCLAIMER,
+      },
+      {
+        name: 'Shoulder Stabilizing Stay-Tape',
+        spec: 'Clear polyurethane stay-tape or narrow cotton twill ribbon for shoulder seams',
+        qty: '2 strips × 12 cm',
+        source: 'Notions',
+        note: `Prevents shoulder seam sagging during wear (${TYPICAL_DEFAULTS_DISCLAIMER})`,
+        disclaimer: TYPICAL_DEFAULTS_DISCLAIMER,
+      },
+    ];
+  }
+
+  if (construction === 'trousers') {
+    return [
+      ...baseMaterials,
+      {
+        name: 'Waistband Elastic',
+        spec: '2.5 cm (1 in) braided non-roll knit elastic for comfortable waistband casing',
+        qty: '1 strip (65 cm)',
+        source: 'Notions',
+        note: `Adjust to child waist measurement (${TYPICAL_DEFAULTS_DISCLAIMER})`,
+        disclaimer: TYPICAL_DEFAULTS_DISCLAIMER,
+      },
+      {
+        name: 'Pocket Lining Fabric',
+        spec: 'Lightweight plain woven cotton scrap for inner pocket bags',
+        qty: '2 pieces (20 × 20 cm)',
+        source: 'Scrap pile / lining',
+        note: `Smooth finish inside pocket (${TYPICAL_DEFAULTS_DISCLAIMER})`,
+        disclaimer: TYPICAL_DEFAULTS_DISCLAIMER,
+      },
+    ];
+  }
+
   return baseMaterials;
 }
 
@@ -415,6 +601,11 @@ export function getProductPriceDefaults(productId, estimatedMinutes = 35) {
     cushion_cover: { materialCost: 45, laborRatePerHour: 120, extrasCost: 25 },
     kids_frock: { materialCost: 65, laborRatePerHour: 120, extrasCost: 35 },
     child_top: { materialCost: 50, laborRatePerHour: 120, extrasCost: 25 },
+    tee: { materialCost: 50, laborRatePerHour: 120, extrasCost: 25 },
+    skirt: { materialCost: 65, laborRatePerHour: 120, extrasCost: 35 },
+    bag: { materialCost: 55, laborRatePerHour: 120, extrasCost: 30 },
+    cushion: { materialCost: 45, laborRatePerHour: 120, extrasCost: 25 },
+    trousers: { materialCost: 55, laborRatePerHour: 120, extrasCost: 30 },
   };
 
   const def = baseDefaults[productId] || { materialCost: 40, laborRatePerHour: 120, extrasCost: 25 };
@@ -448,7 +639,8 @@ export function buildTailorBlueprint(design) {
   const { productId, productName, sizeKey, sizeLabel, seamAllowanceCm = 1.0, placements = [] } = design;
 
   // Retrieve exact template requirements for this product and size
-  const templateReq = getProductRequirements(productId, sizeKey, seamAllowanceCm, design.variant);
+  const template = PRODUCT_TEMPLATES[productId] || design.spec;
+  const templateReq = getProductRequirements(template || productId, sizeKey, seamAllowanceCm, design.variant);
   const templateZones = templateReq?.zones || [];
 
   // Extract individual piece blueprints
@@ -563,7 +755,7 @@ export function buildTailorBlueprint(design) {
   });
 
   const materials = getProductMaterialsList(productId, sizeKey, design);
-  const stitchingSteps = getProductStitchingSteps(productId, sizeKey);
+  const stitchingSteps = getProductStitchingSteps(productId, sizeKey, template);
   const pricing = getProductPriceDefaults(productId, design.estimatedTimeMinutes || 35);
 
   return {

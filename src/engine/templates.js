@@ -37,6 +37,7 @@ export const PRODUCT_TEMPLATES = {
     id: 'tote_bag',
     name: 'Quilted Tote Bag',
     category: 'bags',
+    construction: 'bag',
     description: 'Sturdy shopping or market bag with reinforced handles and optional front scrap pocket.',
     defaultVariant: 'plain',
     verifiedByTailor: false,
@@ -90,6 +91,7 @@ export const PRODUCT_TEMPLATES = {
     id: 'pouch',
     name: 'Zippered Utility Pouch',
     category: 'accessories',
+    construction: 'pouch',
     description: 'Compact pouch for stationery, makeup, tailoring tools, or coins.',
     defaultVariant: 'plain',
     verifiedByTailor: false,
@@ -138,6 +140,7 @@ export const PRODUCT_TEMPLATES = {
     id: 'cushion_cover',
     name: 'Patchwork Cushion Cover',
     category: 'home',
+    construction: 'cushion',
     description: 'Envelope-back cushion cover. Default is Plain pieced; optional Decorated variant adds frame strips and motif.',
     defaultVariant: 'plain',
     verifiedByTailor: false,
@@ -213,6 +216,7 @@ export const PRODUCT_TEMPLATES = {
     id: 'kids_frock',
     name: "Kids' Patchwork Frock",
     category: 'apparel',
+    construction: 'skirt',
     description: 'Easy-sew rectangular pinafore frock with gathered skirt tier, bodice, and optional accent bow/pocket/border.',
     defaultVariant: 'plain',
     verifiedByTailor: false,
@@ -280,6 +284,7 @@ export const PRODUCT_TEMPLATES = {
     id: 'child_top',
     name: 'Kids top, patchwork sleeves',
     category: 'garments',
+    construction: 'tee',
     description: 'Comfortable child raglan top with smooth solid plain fabric body and pieced patchwork sleeves made from upcycled scraps.',
     defaultVariant: 'hybrid',
     verifiedByTailor: false,
@@ -732,9 +737,10 @@ export function normalizeGarmentSpec(productOrSpec) {
   const category = productOrSpec.category || 'accessories';
   const description = productOrSpec.description || productOrSpec.descriptionKey || '';
   const defaultVariant = productOrSpec.defaultVariant || 'plain';
-  const tailorVerified = Boolean(productOrSpec.tailorVerified);
+  const tailorVerified = Boolean(productOrSpec.tailorVerified || productOrSpec.verifiedByTailor);
   const disclaimer = productOrSpec.disclaimer || TAILOR_DISCLAIMER;
   const schemaVersion = productOrSpec.schemaVersion || '1.0.0';
+  const construction = productOrSpec.construction || (category === 'bags' ? (id === 'pouch' ? 'pouch' : 'bag') : (category === 'home' ? 'cushion' : (id === 'kids_frock' ? 'skirt' : 'tee')));
 
   const normalizedSizes = {};
 
@@ -839,6 +845,7 @@ export function normalizeGarmentSpec(productOrSpec) {
     id,
     name,
     category,
+    construction,
     description,
     defaultVariant,
     tailorVerified,
@@ -982,6 +989,9 @@ export function getProductRequirements(productIdOrObj, sizeKey, seamAllowanceCm 
           scrapEligible: zone.scrapEligible !== undefined ? Boolean(zone.scrapEligible) : true,
           grainLine: zone.grainLine || null,
           geometry: zone.geometry || null,
+          area: zone.area,
+          finishedAreaCm2: zone.finishedAreaCm2,
+          cutAreaCm2: zone.cutAreaCm2,
         });
       }
     });

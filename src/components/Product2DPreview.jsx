@@ -181,6 +181,16 @@ export default function Product2DPreview({
             <pattern id="unplaced-hatch" width="6" height="6" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
               <line x1="0" y1="0" x2="0" y2="6" stroke="#EF4444" strokeWidth="1.2" strokeOpacity="0.5" />
             </pattern>
+            {/* Panel clip paths for generic & custom piece outlines */}
+            {panels.map((panel) => {
+              const clipD = panel.canvasClipPathD || panel.clipPathD;
+              if (!clipD) return null;
+              return (
+                <clipPath key={`clip-${panel.id}`} id={`clip-${panel.id}`}>
+                  <path d={clipD} />
+                </clipPath>
+              );
+            })}
           </defs>
 
           {/* CURVED GARMENT FINISHED LOOK (FreeSewing Brian CAD) */}
@@ -256,65 +266,82 @@ export default function Product2DPreview({
                     />
                   ) : (
                     // Render real patches at exact computed coordinates with subtle fabric texture
-                    panel.patches.map((patch, pIdx) => (
-                      <g key={`patch-${panel.id}-${pIdx}`}>
-                        <rect
-                          x={patch.canvasX}
-                          y={patch.canvasY}
-                          width={patch.width}
-                          height={patch.height}
-                          fill={patch.colorHex}
-                          stroke="#334155"
-                          strokeWidth={0.5}
-                          strokeOpacity={0.4}
-                        />
-                        <rect
-                          x={patch.canvasX}
-                          y={patch.canvasY}
-                          width={patch.width}
-                          height={patch.height}
-                          fill="url(#fabric-weave)"
-                          className="pointer-events-none"
-                        />
-                      </g>
-                    ))
+                    <g clipPath={panel.canvasClipPathD || panel.clipPathD ? `url(#clip-${panel.id})` : undefined}>
+                      {panel.patches.map((patch, pIdx) => (
+                        <g key={`patch-${panel.id}-${pIdx}`}>
+                          <rect
+                            x={patch.canvasX}
+                            y={patch.canvasY}
+                            width={patch.width}
+                            height={patch.height}
+                            fill={patch.colorHex}
+                            stroke="#334155"
+                            strokeWidth={0.5}
+                            strokeOpacity={0.4}
+                          />
+                          <rect
+                            x={patch.canvasX}
+                            y={patch.canvasY}
+                            width={patch.width}
+                            height={patch.height}
+                            fill="url(#fabric-weave)"
+                            className="pointer-events-none"
+                          />
+                        </g>
+                      ))}
+
+                      {/* Panel Internal Seams (visible tailor stitching) */}
+                      {panel.seams &&
+                        panel.seams.map((seam, sIdx) => (
+                          <line
+                            key={`seam-${panel.id}-${sIdx}`}
+                            x1={seam.canvasX1}
+                            y1={seam.canvasY1}
+                            x2={seam.canvasX2}
+                            y2={seam.canvasY2}
+                            stroke="#FFFFFF"
+                            strokeWidth={0.7}
+                            strokeDasharray="1.5 1.5"
+                            strokeOpacity={0.85}
+                          />
+                        ))}
+                    </g>
                   )}
 
-                  {/* Panel Internal Seams (visible tailor stitching) */}
-                  {hasPatches &&
-                    panel.seams &&
-                    panel.seams.map((seam, sIdx) => (
-                      <line
-                        key={`seam-${panel.id}-${sIdx}`}
-                        x1={seam.canvasX1}
-                        y1={seam.canvasY1}
-                        x2={seam.canvasX2}
-                        y2={seam.canvasY2}
-                        stroke="#FFFFFF"
-                        strokeWidth={0.7}
-                        strokeDasharray="1.5 1.5"
-                        strokeOpacity={0.85}
-                      />
-                    ))}
-
                   {/* Panel Outer Border / Selection Outline */}
-                  <rect
-                    x={panel.canvasX}
-                    y={panel.canvasY}
-                    width={panel.width}
-                    height={panel.height}
-                    rx={panel.rx || 1.5}
-                    fill="none"
-                    stroke={
-                      isSelected
-                        ? '#2563EB'
-                        : hasPatches
-                        ? '#475569'
-                        : '#DC2626'
-                    }
-                    strokeWidth={isSelected ? 2.5 : 1}
-                    className="transition-all duration-150"
-                  />
+                  {panel.canvasClipPathD ? (
+                    <path
+                      d={panel.canvasClipPathD}
+                      fill="none"
+                      stroke={
+                        isSelected
+                          ? '#2563EB'
+                          : hasPatches
+                          ? '#475569'
+                          : '#DC2626'
+                      }
+                      strokeWidth={isSelected ? 2.5 : 1}
+                      className="transition-all duration-150"
+                    />
+                  ) : (
+                    <rect
+                      x={panel.canvasX}
+                      y={panel.canvasY}
+                      width={panel.width}
+                      height={panel.height}
+                      rx={panel.rx || 1.5}
+                      fill="none"
+                      stroke={
+                        isSelected
+                          ? '#2563EB'
+                          : hasPatches
+                          ? '#475569'
+                          : '#DC2626'
+                      }
+                      strokeWidth={isSelected ? 2.5 : 1}
+                      className="transition-all duration-150"
+                    />
+                  )}
 
                   {/* Optional Label Badge on the Panel */}
                   {showLabels && (

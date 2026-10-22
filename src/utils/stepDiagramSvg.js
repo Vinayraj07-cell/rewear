@@ -248,6 +248,120 @@ export function getStepSvgString(type, stepNumber = 1, context = {}) {
       `;
       break;
 
+    // ==========================================
+    // TEE / TOP DIAGRAMS
+    // ==========================================
+    case 'tee_piece_sleeves':
+      body = `
+        <polygon points="32,22 48,22 52,48 28,48" fill="#FED7AA" stroke="#C2410C" stroke-width="1" />
+        <polygon points="68,22 84,22 88,48 64,48" fill="#FED7AA" stroke="#C2410C" stroke-width="1" />
+        <line x1="40" y1="22" x2="40" y2="48" stroke="#EF4444" stroke-width="1.2" stroke-dasharray="2,1.5" />
+        <line x1="76" y1="22" x2="76" y2="48" stroke="#EF4444" stroke-width="1.2" stroke-dasharray="2,1.5" />
+        <text x="60" y="66" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#C2410C" font-weight="bold" text-anchor="middle">Piece Sleeves 1 cm</text>
+      `;
+      break;
+
+    case 'tee_assemble_shoulders':
+      body = `
+        <rect x="36" y="24" width="48" height="34" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" rx="2" />
+        <line x1="36" y1="24" x2="52" y2="24" stroke="#EF4444" stroke-width="2" />
+        <line x1="68" y1="24" x2="84" y2="24" stroke="#EF4444" stroke-width="2" />
+        <text x="60" y="68" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#EF4444" font-weight="bold" text-anchor="middle">Shoulder Seams 1 cm</text>
+      `;
+      break;
+
+    case 'tee_insert_sleeves':
+      body = `
+        <rect x="42" y="22" width="36" height="36" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" rx="2" />
+        <polygon points="22,24 42,24 42,42 26,36" fill="#FED7AA" stroke="#C2410C" stroke-width="1" />
+        <polygon points="78,24 98,24 94,36 78,42" fill="#FED7AA" stroke="#C2410C" stroke-width="1" />
+        <path d="M 42 24 Q 38 33 42 42" fill="none" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="2,1.5" />
+        <path d="M 78 24 Q 82 33 78 42" fill="none" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="2,1.5" />
+        <text x="60" y="68" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#047857" font-weight="bold" text-anchor="middle">Set In Sleeves</text>
+      `;
+      break;
+
+    case 'tee_side_seams':
+      body = `
+        <rect x="40" y="20" width="40" height="38" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" rx="2" />
+        <line x1="40" y1="20" x2="40" y2="58" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="3,2" />
+        <line x1="80" y1="20" x2="80" y2="58" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="3,2" />
+        <text x="60" y="68" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#EF4444" font-weight="bold" text-anchor="middle">Continuous Side Seams</text>
+      `;
+      break;
+
+    case 'tee_neckband':
+      body = `
+        <ellipse cx="60" cy="30" rx="24" ry="12" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" />
+        <ellipse cx="60" cy="30" rx="16" ry="7" fill="#FED7AA" stroke="#C2410C" stroke-width="1.2" />
+        <ellipse cx="60" cy="30" rx="10" ry="4" fill="#F8FAFC" />
+        <text x="60" y="66" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#C2410C" font-weight="bold" text-anchor="middle">Ribbed Collar Band</text>
+      `;
+      break;
+
+    case 'tee_finish':
+      body = `
+        <path d="M 38 20 L 82 20 L 80 54 L 40 54 Z" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1.2" />
+        <line x1="40" y1="51" x2="80" y2="51" stroke="#047857" stroke-width="1.5" stroke-dasharray="2,2" />
+        <text x="60" y="68" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#047857" font-weight="bold" text-anchor="middle">Double Hem &amp; Press</text>
+      `;
+      break;
+
+    // ==========================================
+    // TROUSERS DIAGRAMS
+    // ==========================================
+    case 'trousers_piece_panels':
+      body = `
+        <polygon points="36,18 52,18 54,60 38,60" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" />
+        <polygon points="68,18 84,18 82,60 66,60" fill="#FED7AA" stroke="#C2410C" stroke-width="1" />
+        <line x1="36" y1="36" x2="52" y2="36" stroke="#EF4444" stroke-width="1.2" stroke-dasharray="2,1.5" />
+        <line x1="68" y1="36" x2="84" y2="36" stroke="#EF4444" stroke-width="1.2" stroke-dasharray="2,1.5" />
+        <text x="60" y="68" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#1E3A8A" font-weight="bold" text-anchor="middle">Piece Leg Panels</text>
+      `;
+      break;
+
+    case 'trousers_pockets':
+      body = `
+        <rect x="35" y="20" width="50" height="40" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" rx="1" />
+        <path d="M 35 26 L 45 36" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="2,1.5" />
+        <path d="M 85 26 L 75 36" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="2,1.5" />
+        <text x="60" y="68" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#047857" font-weight="bold" text-anchor="middle">Attach Pocket Bags</text>
+      `;
+      break;
+
+    case 'trousers_inseam':
+      body = `
+        <path d="M 40 18 L 80 18 L 86 60 L 64 60 L 60 36 L 56 60 L 34 60 Z" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" />
+        <line x1="34" y1="60" x2="56" y2="60" stroke="#EF4444" stroke-width="1.2" stroke-dasharray="2,1.5" />
+        <line x1="64" y1="60" x2="86" y2="60" stroke="#EF4444" stroke-width="1.2" stroke-dasharray="2,1.5" />
+        <text x="60" y="69" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#EF4444" font-weight="bold" text-anchor="middle">Stitch Inseam</text>
+      `;
+      break;
+
+    case 'trousers_crotch':
+      body = `
+        <path d="M 38 20 Q 60 48 82 20" fill="none" stroke="#EF4444" stroke-width="2" stroke-dasharray="3,2" />
+        <text x="60" y="66" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#EF4444" font-weight="bold" text-anchor="middle">Center Crotch Seam</text>
+      `;
+      break;
+
+    case 'trousers_waistband':
+      body = `
+        <rect x="32" y="20" width="56" height="12" fill="#FED7AA" stroke="#C2410C" stroke-width="1" rx="2" />
+        <line x1="32" y1="26" x2="88" y2="26" stroke="#047857" stroke-width="1.5" stroke-dasharray="3,1" />
+        <text x="60" y="66" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#047857" font-weight="bold" text-anchor="middle">Elastic Waistband Casing</text>
+      `;
+      break;
+
+    case 'trousers_finish':
+      body = `
+        <path d="M 42 16 L 78 16 L 84 56 L 64 56 L 60 34 L 56 56 L 36 56 Z" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1.2" />
+        <line x1="36" y1="53" x2="56" y2="53" stroke="#047857" stroke-width="1.2" stroke-dasharray="2,2" />
+        <line x1="64" y1="53" x2="84" y2="53" stroke="#047857" stroke-width="1.2" stroke-dasharray="2,2" />
+        <text x="60" y="68" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#047857" font-weight="bold" text-anchor="middle">Hem Cuffs &amp; Press</text>
+      `;
+      break;
+
     default:
       body = `
         <rect x="28" y="18" width="64" height="44" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1.2" rx="2" />

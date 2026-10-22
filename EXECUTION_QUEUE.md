@@ -11,7 +11,41 @@ This log tracks execution items across ReWear development phases and spikes.
 | **Q2** | Phase 6 Step 2 | Score includes labour (penalty derived from seam count and estimated time in config.js), recommended mode matches higher score, hybrid sleeves contrast with neutral base body, 4 rectangle scores unchanged | **DONE** | 2026-10-22 |
 | **Q3** | Phase 6 Step 3 | Frayed / uneven scraps safety margin setting (`SCRAP_SAFETY_MARGIN_CM`, default 0, choices [0, 0.5, 1.0] cm/edge, shrinks usable scrap dimensions by 2 x margin, reports "lost to frayed edges", strict mathematical area conservation, toggle switch in My Pile) | **DONE** | 2026-10-22 |
 | **Q4** | Stage 4B / Phase 6 | Tailor blueprint repair (in-app screen & PDFs): fix piece sizes from templates.js, size-adaptive step & materials text, real SVG diagrams in PDF, embedded font with ₹ & arrows/glyphs, clean page breaks, summarized scraps, grain from data | **DONE** | 2026-10-22 |
-| **Q5** | Phase 6 Step 5 | Fast scrap adding: 3 sample piles (neutral, colourful, mixed fabrics) with one-tap load, bulk add row with quantity stepper + size chips + colour + fabric + print, repeat add without leaving, duplicate button on pieces, clear pile with confirmation, local persistence | **IN PROGRESS** | - |
+| **Q5** | Phase 6 Step 5 | Fast scrap adding: 3 sample piles (neutral, colourful, mixed fabrics) with one-tap load, bulk add row with quantity stepper + size chips + colour + fabric + print, repeat add without leaving, duplicate button on pieces, clear pile with confirmation, local persistence | **DONE** | 2026-10-22 |
+| **Q6** | Product Pipeline Part 1 | Product registry validator (`npm run check-products`), generic flat preview with clipped patchwork, generic blueprint with construction step templates, validator self-tests | **IN PROGRESS (Pending Approval)** | 2026-10-22 |
+
+---
+
+## Detailed Notes on Completed Items
+
+### [Q6 / Product Pipeline Part 1] Product Registry Validator & Generic Renderers
+- **CLI Validator (`npm run check-products` & `src/engine/productValidator.js`)**:
+  - Implemented automated verification across every product, size, and variant in the registry:
+    1. **Piece Areas**: Verified `finishedAreaCm2` and `cutAreaCm2` match $W \times H$ and $(W + 2 \cdot \text{SA}) \times (H + 2 \cdot \text{SA})$ respectively (and curved piece finished area > 0, cut > finished, cut $\ge$ finished dimensions).
+    2. **Zero Overlaps**: Verified cut pieces packed on the cutting sheet produce 0 collisions (`pack.collisions.length === 0`) and pairwise clearance $\ge 0.5\text{ cm}$.
+    3. **Sheet Boundary Containment**: Verified pieces are bounded within fabric bolt dimensions including seam allowance and $1.0\text{ cm}$ margin.
+    4. **plain_base Zero Scraps**: Verified pieces with `fabricSource: 'plain_base'` have `scrapEligible: false` and receive zero scrap joins.
+    5. **Hybrid Rules**: Verified hybrid variants contain at least one `plain_base` body piece, at least one scrap patchwork piece, and mirrored pairs (sleeves) match in dimensions.
+    6. **Translations**: Verified product IDs, size keys, and piece/zone IDs are defined across English (`en`), Hindi (`hi`), and Telugu (`te`). Added missing piece name keys to `translations.js`.
+    7. **Verification Honesty**: Enforced that no unverified claims (`tailor-approved`, `tailor-verified`, `verified pattern`) appear unless `tailorVerified` is true, while safely permitting honest negations (`to be verified by a tailor`).
+  - Outputs exactly one summary line per product in `npm run check-products` and exits with code 0.
+- **Generic Flat Preview (`src/utils/product2DLayout.js` & `src/components/Product2DPreview.jsx`)**:
+  - Implemented `computeGenericFlatLayout(design, sizeTemplate, placements, view)`:
+    - Automatically organizes spec pieces into a clean, centered shelf layout.
+    - Computes accurate patches and seams via `computePanelPatches`.
+    - Generates piece path contours (`canvasClipPathD`).
+    - In `Product2DPreview.jsx`, patches and seams are wrapped in `<g clipPath={url(#clip-${panel.id})}>` to neatly clip patchwork within each piece's path.
+    - Preserved 100% backward compatibility: existing 5 custom outlines (`tote_bag`, `pouch`, `cushion_cover`, `kids_frock`, and FreeSewing `child_top`) continue to use their custom renderers unchanged.
+- **Generic Blueprint (`src/utils/tailorBlueprintData.js` & `src/utils/stepDiagramSvg.js`)**:
+  - Dynamically routes assembly steps from the spec's `construction` field (`tee`, `skirt`, `trousers`, `bag`, `cushion`, `pouch`).
+  - Added standalone vector SVG illustrations in `stepDiagramSvg.js` for `tee_*` and `trousers_*` steps.
+  - Pulls notions from `spec.materials` when present, or maps construction defaults.
+  - Explicitly flags all hand-typed defaults, notions, and pricing with `TYPICAL_DEFAULTS_DISCLAIMER` (`"typical defaults, to be verified by a tailor"`).
+- **Validator Self-Tests (`src/engine/test_product_validator.js`)**:
+  - Implemented 64 automated tests covering live registry validation, deliberate broken specs (area mismatch, sheet overlap/overflow, plain_base scrap violation, hybrid sleeve asymmetry, missing translations, unverified claims), generic flat preview layout, and blueprint construction templates.
+- **`package.json` Integration**:
+  - Added `"check-products": "node src/engine/check_products.js"`.
+  - Appended `check_products.js` and `test_product_validator.js` to `npm test`. Runs green across all 13 test suites.
 
 ---
 

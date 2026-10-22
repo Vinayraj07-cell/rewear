@@ -6,7 +6,7 @@
 // 3. Boundary containment: no patch is placed outside its panel
 
 import { COLOR_SWATCHES } from '../i18n/translations.js';
-import { PRODUCT_TEMPLATES } from '../engine/templates.js';
+import { PRODUCT_TEMPLATES, getProductRequirements } from '../engine/templates.js';
 import { CHILD_TOP_BRIAN_DATA } from '../engine/childTopBrianData.js';
 
 // Color map fallback
@@ -227,7 +227,8 @@ export function computeProduct2DLayout(design, view = 'front') {
       layout = computeChildTopLayout(design, sizeTemplate, placements, view);
       break;
     default:
-      return { error: `Unsupported product: ${productId}` };
+      layout = computeGenericFlatLayout(design, sizeTemplate, placements, view);
+      break;
   }
 
   if (layout && Array.isArray(layout.panels)) {
@@ -237,6 +238,166 @@ export function computeProduct2DLayout(design, view = 'front') {
   }
 
   return layout;
+}
+
+// ---------------------------------------------------------------------------
+// GENERIC FLAT PREVIEW LAYOUT (Automatic shelf layout with patchwork clipped to piece path)
+// ---------------------------------------------------------------------------
+export function computeGenericFlatLayout(design, sizeTemplate, placements = [], view = 'front') {
+  const template = PRODUCT_TEMPLATES[design.productId] || design.spec;
+  const sizeKey = design.sizeKey || 'medium';
+  const variant = design.variant || 'plain';
+
+  let pieces = [];
+  try {
+    if (template) {
+      const req = getProductRequirements(template, sizeKey, 1.0, variant);
+      if (req && req.zones) {
+        pieces = req.zones;
+      }
+    }
+  } catch (err) {
+    // Fallback if not registered in PRODUCT_TEMPLATES
+  }
+
+  if (pieces.length === 0 && sizeTemplate?.zones) {
+    pieces = sizeTemplate.zones;
+  }
+
+  if (pieces.length === 0 && placements.length > 0) {
+    pieces = placements.map((pl, idx) => ({
+      id: pl.zoneId || `piece_${idx + 1}`,
+      name: pl.zoneName || pl.zoneId || `Piece ${idx + 1}`,
+      finishedWidth: pl.finishedWidth || pl.width || 30,
+      finishedHeight: pl.finishedHeight || pl.height || 30,
+      role: pl.role || 'base',
+    }));
+  }
+
+  if (pieces.length === 0) {
+    return {
+      viewBox: '0 0 300 200',
+      width: 300,
+      height: 200,
+      panels: [],
+      decorations: [],
+      isGenericLayout: true,
+    };
+  }
+
+  // Filter pieces by view if specified
+  let activePieces = pieces.filter((p) => {
+    if (!p.view || p.view === 'both') return true;
+    return p.view === view;
+  });
+  if (activePieces.length === 0) {
+    activePieces = pieces;
+  }
+
+  const margin = 20;
+  const gap = 16;
+  const maxRowWidth = 360;
+
+  const rows = [];
+  let currentRow = [];
+  let currentRowW = 0;
+  let currentRowH = 0;
+
+  for (const piece of activePieces) {
+    const w = piece.finishedWidth || piece.width || 30;
+    const h = piece.finishedHeight || piece.height || 30;
+
+    if (currentRow.length > 0 && currentRowW + gap + w > maxRowWidth) {
+      rows.push({ pieces: currentRow, width: currentRowW, height: currentRowH });
+      currentRow = [];
+      currentRowW = 0;
+      currentRowH = 0;
+    }
+
+    currentRow.push({ ...piece, w, h });
+    currentRowW = currentRow.length === 1 ? w : currentRowW + gap + w;
+    currentRowH = Math.max(currentRowH, h);
+  }
+
+  if (currentRow.length > 0) {
+    rows.push({ pieces: currentRow, width: currentRowW, height: currentRowH });
+  }
+
+  const maxTotalRowW = Math.max(...rows.map((r) => r.width), 120);
+  const totalCanvasW = maxTotalRowW + 2 * margin;
+
+  let currentY = margin;
+  const panels = [];
+
+  for (const row of rows) {
+    const rowStartX = margin + (maxTotalRowW - row.width) / 2;
+    let currentX = rowStartX;
+
+    for (const piece of row.pieces) {
+      const panelX = currentX;
+      const panelY = currentY + (row.height - piece.h) / 2;
+
+      const placement = placements.find(
+        (pl) => pl.zoneId === piece.id || pl.zoneId === piece.baseZoneId || pl.baseZoneId === piece.id
+      );
+
+      const { patches: localPatches, seams: localSeams } = computePanelPatches(
+        placement,
+        piece.w,
+        piece.h
+      );
+
+      const canvasPatches = localPatches.map((p) => ({
+        ...p,
+        canvasX: panelX + p.relX,
+        canvasY: panelY + p.relY,
+      }));
+
+      const canvasSeams = localSeams.map((s) => ({
+        ...s,
+        canvasX1: panelX + s.relX1,
+        canvasY1: panelY + s.relY1,
+        canvasX2: panelX + s.relX2,
+        canvasY2: panelY + s.relY2,
+      }));
+
+      const clipPathD = piece.clipPathD || piece.geometry?.seamPath || `M 0 0 h ${piece.w} v ${piece.h} h -${piece.w} Z`;
+      const canvasClipPathD = `M ${panelX} ${panelY} h ${piece.w} v ${piece.h} h -${piece.w} Z`;
+
+      panels.push({
+        id: piece.id,
+        zoneId: piece.id,
+        name: piece.name || piece.id,
+        role: piece.role || 'base',
+        canvasX: panelX,
+        canvasY: panelY,
+        width: piece.w,
+        height: piece.h,
+        rx: 2,
+        clipPathD,
+        canvasClipPathD,
+        isPlaced: Boolean(placement),
+        placement,
+        patches: canvasPatches,
+        seams: canvasSeams,
+      });
+
+      currentX += piece.w + gap;
+    }
+
+    currentY += row.height + gap;
+  }
+
+  const totalCanvasH = currentY - gap + margin;
+
+  return {
+    viewBox: `0 0 ${Math.ceil(totalCanvasW)} ${Math.ceil(totalCanvasH)}`,
+    width: Math.ceil(totalCanvasW),
+    height: Math.ceil(totalCanvasH),
+    panels,
+    decorations: [],
+    isGenericLayout: true,
+  };
 }
 
 // ---------------------------------------------------------------------------
