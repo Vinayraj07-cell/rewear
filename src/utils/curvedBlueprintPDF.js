@@ -12,8 +12,6 @@
 // 8. Faint blueprint grid background in PDF (no FreeSewing logo)
 // 9. 100% English only, zero "undefined", zero broken glyphs
 
-import fs from 'fs';
-import path from 'path';
 import PDFDocument from 'pdfkit';
 import SVGtoPDF from 'svg-to-pdfkit';
 import { buildDesign } from '../engine/index.js';
@@ -570,6 +568,18 @@ export function buildPatternPiecePageSvg(piece, options = {}) {
     originY = 300;
     labelX = 40;
     labelY = 50;
+  } else if (totalTiles > 1 && yOffsetMm > 0 && xOffsetMm > 0) {
+    // 2x2 grid bottom-right tile
+    originX = 50 - xOffsetMm * MM_TO_PT;
+    originY = 55 - yOffsetMm * MM_TO_PT;
+    labelX = 40;
+    labelY = 705;
+  } else if (totalTiles > 1 && xOffsetMm > 0) {
+    // Horizontal tile (right half)
+    originX = 50 - xOffsetMm * MM_TO_PT;
+    originY = 160;
+    labelX = 40;
+    labelY = 40;
   } else if (totalTiles > 1 && yOffsetMm > 0) {
     // Bottom tile of vertically tiled piece (Bodice or Sleeve)
     originX = Math.max(40, (A4_WIDTH_PT - widthMm * MM_TO_PT) / 2);
@@ -586,8 +596,10 @@ export function buildPatternPiecePageSvg(piece, options = {}) {
 
   // Grainline arrow coordinates centered on piece contour
   const grainArrowX = originX + (widthMm * 0.5) * MM_TO_PT;
-  const grainArrowY1 = originY + Math.max(25, (heightMm * 0.25) * MM_TO_PT);
-  const grainArrowY2 = originY + Math.min(heightMm * MM_TO_PT - 25, (heightMm * 0.75) * MM_TO_PT);
+  const grainArrowY1 = originY + Math.max(10, (heightMm * 0.2) * MM_TO_PT);
+  const grainArrowY2 = originY + Math.min(heightMm * MM_TO_PT - 10, (heightMm * 0.8) * MM_TO_PT);
+  const showGrainArrow = (grainArrowY2 - grainArrowY1) >= 12;
+  const showGrainBadge = (grainArrowY2 - grainArrowY1) >= 28;
 
   return `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${A4_WIDTH_PT} ${A4_HEIGHT_PT}" width="${A4_WIDTH_PT}" height="${A4_HEIGHT_PT}">
@@ -626,7 +638,7 @@ export function buildPatternPiecePageSvg(piece, options = {}) {
   </g>
 
   <!-- 4. Grainline Vector Arrow Sitting Directly on Piece -->
-  ${piece.grainLine ? `
+  ${piece.grainLine && showGrainArrow ? `
   <g id="grainline-arrow">
     <line
       x1="${grainArrowX}"
@@ -638,8 +650,10 @@ export function buildPatternPiecePageSvg(piece, options = {}) {
       marker-start="url(#grain-arrow-start-${pageIndex})"
       marker-end="url(#grain-arrow-end-${pageIndex})"
     />
+    ${showGrainBadge ? `
     <rect x="${grainArrowX - 42}" y="${(grainArrowY1 + grainArrowY2) / 2 - 8}" width="84" height="16" fill="#FFFFFF" fill-opacity="0.95" stroke="#1E3A8A" stroke-width="1" rx="3" />
     <text x="${grainArrowX}" y="${(grainArrowY1 + grainArrowY2) / 2 + 3}" font-family="Helvetica, Arial, sans-serif" font-size="7" font-weight="bold" fill="#1E3A8A" text-anchor="middle">GRAINLINE / WARP ↕</text>
+    ` : ''}
   </g>
   ` : ''}
 
@@ -762,51 +776,126 @@ export function buildTiledBindingPageSvg(piece, options = {}) {
 }
 
 /**
- * Generates the complete publication-quality PDF for a curved garment.
- *
- * @param {string} productId - 'child_top' | 'sandy_skirt' | 'aaron_tank'
- * @param {string} sizeKey - e.g. 'chest56', 'waist54'
- * @param {string} outputPath - file path to write PDF
- * @param {Array} [pile] - optional scrap pile
+ * Generic Tiled Blueprint Generator helper for rectangular products.
+ * Groups identical cut pieces and calculates 1.0 cm seam allowances,
+ * 1:1 scale SVG cutting paths, grainline orientations, and A4 tiling.
+ * 
+ * @param {string} productId - Product ID (e.g. 'pouch', 'tote_bag')
+ * @param {string} sizeKey - Size key (e.g. 'small', '0-1y')
+ * @param {Array} [pile] - Scrap pile
  */
-export async function generateCurvedBlueprintPdf(productId, sizeKey, outputPath, pile = null) {
-  const activePile = pile || SAMPLE_PILES.neutral.pieces;
+export function getRectangularGarmentPieceList(productId, sizeKey, pile = null) {
+  const activePile = pile && pile.length > 0 ? pile : SAMPLE_TEST_PILE;
+  const design = buildDesign(activePile, productId, sizeKey);
+  const bp = buildTailorBlueprint(design);
+  const rawPieces = bp.pieces || [];
+
+  const grouped = new Map();
+  for (const pc of rawPieces) {
+    const baseName = pc.name.replace(/\s*\(\d+\/\d+\)/, '').trim();
+    const key = `${baseName}_${pc.cutWidth}x${pc.cutHeight}`;
+    if (!grouped.has(key)) {
+      grouped.set(key, {
+        id: pc.zoneId || `pc_${pc.pieceNumber}`,
+        name: baseName,
+        cutQty: 1,
+        cutWidthCm: pc.cutWidth,
+        cutHeightCm: pc.cutHeight,
+        finishedWidthCm: pc.finishedWidth || Math.max(1, pc.cutWidth - 2 * (pc.seamAllowanceCm || 1)),
+        finishedHeightCm: pc.finishedHeight || Math.max(1, pc.cutHeight - 2 * (pc.seamAllowanceCm || 1)),
+        seamAllowanceCm: pc.seamAllowanceCm || 1.0,
+        role: pc.role,
+        scraps: pc.scraps || [],
+        scrapsSummary: pc.scrapsSummary,
+      });
+    } else {
+      grouped.get(key).cutQty += 1;
+    }
+  }
+
+  const pieceList = [];
+  for (const item of grouped.values()) {
+    const cutW_mm = item.cutWidthCm * 10;
+    const cutH_mm = item.cutHeightCm * 10;
+    const sa_mm = item.seamAllowanceCm * 10;
+
+    const saPath = `M 0,0 L ${cutW_mm},0 L ${cutW_mm},${cutH_mm} L 0,${cutH_mm} Z`;
+    const finW_mm = Math.max(0, cutW_mm - 2 * sa_mm);
+    const finH_mm = Math.max(0, cutH_mm - 2 * sa_mm);
+    const seamPath = `M ${sa_mm},${sa_mm} L ${sa_mm + finW_mm},${sa_mm} L ${sa_mm + finW_mm},${sa_mm + finH_mm} L ${sa_mm},${sa_mm + finH_mm} Z`;
+
+    const sourceText = item.scrapsSummary || (item.role === 'plain' ? 'Solid Plain Fabric (Continuous yardage)' : 'Fabric Scraps (Pieced patchwork)');
+    const cutQtyLabel = `CUT ${item.cutQty} ${item.role === 'plain' ? 'FROM SOLID FABRIC' : 'FROM FABRIC SCRAPS'}`;
+
+    const xTiles = cutW_mm > 170 ? 2 : 1;
+    const yTiles = cutH_mm > 220 ? 2 : 1;
+    const totalTiles = xTiles * yTiles;
+
+    pieceList.push({
+      id: item.id,
+      name: item.name,
+      cutQty: item.cutQty,
+      cutQtyLabel,
+      source: sourceText,
+      cutWidthCm: item.cutWidthCm,
+      cutHeightCm: item.cutHeightCm,
+      finishedWidthCm: item.finishedWidthCm,
+      finishedHeightCm: item.finishedHeightCm,
+      seamAllowanceCm: item.seamAllowanceCm,
+      seamPath,
+      saPath,
+      grainLine: { orientation: 'vertical', symbol: '↕' },
+      cutOnFold: false,
+      tilesCount: totalTiles,
+      xTiles,
+      yTiles,
+    });
+  }
+
+  return pieceList;
+}
+
+/**
+ * Renders all blueprint pages for a product into a PDFKit document.
+ * Supports both FreeSewing curved CAD garments and rectangular products.
+ * 
+ * @param {PDFDocument} doc - PDFKit document instance
+ * @param {string} productId - Product ID
+ * @param {string} sizeKey - Size key
+ * @param {Array} [pile] - Optional scrap pile
+ * @returns {{ totalPages: number, bp: Object }}
+ */
+export function renderBlueprintDoc(doc, productId, sizeKey, pile = null) {
+  const activePile = pile && pile.length > 0 ? pile : SAMPLE_PILES.neutral.pieces;
   const design = buildDesign(activePile, productId, sizeKey);
   const bp = buildTailorBlueprint(design);
   const measurementTable = getGarmentMeasurementTable(productId, sizeKey);
-  const pieces = getCurvedGarmentPieceList(productId, sizeKey);
+
+  const isCurved = ['child_top', 'sandy_skirt', 'aaron_tank'].includes(productId);
 
   let totalPages = 1;
-  if (productId === 'sandy_skirt') totalPages = 4;
-  else if (productId === 'aaron_tank') totalPages = 7;
-  else if (productId === 'child_top') totalPages = 8;
-  else totalPages = 4;
+  let pieces = [];
+  if (isCurved) {
+    pieces = getCurvedGarmentPieceList(productId, sizeKey);
+    if (productId === 'sandy_skirt') totalPages = 4;
+    else if (productId === 'aaron_tank') totalPages = 7;
+    else if (productId === 'child_top') totalPages = 8;
+  } else {
+    pieces = getRectangularGarmentPieceList(productId, sizeKey, activePile);
+    const totalPieceTiles = pieces.reduce((sum, p) => sum + (p.tilesCount || 1), 0);
+    totalPages = 1 + totalPieceTiles;
+  }
 
-  return new Promise((resolve, reject) => {
-    const doc = new PDFDocument({
-      size: 'A4',
-      margins: { top: 0, bottom: 0, left: 0, right: 0 },
-      autoFirstPage: true,
-      bufferPages: true,
-      info: {
-        Title: `ReWear Blueprint — ${bp.productName} (${sizeKey})`,
-        Author: 'ReWear Upcycling Studio & FreeSewing 4.10.2',
-        Subject: 'Real-Scale Tiled Garment Pattern',
-      },
-    });
+  // ==========================================
+  // PAGE 1: OVERVIEW & ASSEMBLY SPECIFICATION
+  // ==========================================
+  const page1Svg = buildAssemblyPageSvg(bp, measurementTable);
+  SVGtoPDF(doc, page1Svg, 0, 0, { width: A4_WIDTH_PT, height: A4_HEIGHT_PT });
 
-    const writeStream = fs.createWriteStream(outputPath);
-    doc.pipe(writeStream);
-
-    // ==========================================
-    // PAGE 1: OVERVIEW & ASSEMBLY SPECIFICATION
-    // ==========================================
-    const page1Svg = buildAssemblyPageSvg(bp, measurementTable);
-    SVGtoPDF(doc, page1Svg, 0, 0, { width: A4_WIDTH_PT, height: A4_HEIGHT_PT });
-
-    // ==========================================
-    // PATTERN PAGES (REAL SCALE TILES)
-    // ==========================================
+  // ==========================================
+  // PATTERN PAGES (REAL SCALE TILES)
+  // ==========================================
+  if (isCurved) {
     if (productId === 'sandy_skirt') {
       const gorePiece = pieces.find((p) => p.id === 'skirt_gore');
       const wbPiece = pieces.find((p) => p.id === 'waistband');
@@ -1012,10 +1101,201 @@ export async function generateCurvedBlueprintPdf(productId, sizeKey, outputPath,
       });
       SVGtoPDF(doc, page8Svg, 0, 0, { width: A4_WIDTH_PT, height: A4_HEIGHT_PT });
     }
+  } else {
+    // ----------------------------------------------------
+    // Rectangular Products Tiled Real-Scale Pattern Pages
+    // ----------------------------------------------------
+    let currentPage = 2;
+    for (const piece of pieces) {
+      if (piece.tilesCount === 1) {
+        doc.addPage();
+        const pageSvg = buildPatternPiecePageSvg(piece, {
+          pageIndex: currentPage++,
+          totalPages,
+          tileIndex: 1,
+          totalTiles: 1,
+          tileLabel: `${piece.name} (${piece.cutQtyLabel})`,
+          garmentName: bp.productName,
+        });
+        SVGtoPDF(doc, pageSvg, 0, 0, { width: A4_WIDTH_PT, height: A4_HEIGHT_PT });
+      } else if (piece.xTiles === 1 && piece.yTiles === 2) {
+        // Vertically tiled piece (e.g. handle or casing)
+        doc.addPage();
+        const p1Svg = buildPatternPiecePageSvg(piece, {
+          pageIndex: currentPage++,
+          totalPages,
+          tileIndex: 1,
+          totalTiles: 2,
+          tileLabel: `${piece.name} (Tile 1 of 2 - Top)`,
+          yOffsetMm: 0,
+          garmentName: bp.productName,
+        });
+        SVGtoPDF(doc, p1Svg, 0, 0, { width: A4_WIDTH_PT, height: A4_HEIGHT_PT });
 
-    doc.end();
+        doc.addPage();
+        const p2Svg = buildPatternPiecePageSvg(piece, {
+          pageIndex: currentPage++,
+          totalPages,
+          tileIndex: 2,
+          totalTiles: 2,
+          tileLabel: `${piece.name} (Tile 2 of 2 - Bottom)`,
+          yOffsetMm: 170,
+          garmentName: bp.productName,
+        });
+        SVGtoPDF(doc, p2Svg, 0, 0, { width: A4_WIDTH_PT, height: A4_HEIGHT_PT });
+      } else if (piece.xTiles === 2 && piece.yTiles === 1) {
+        // Horizontally tiled piece
+        doc.addPage();
+        const p1Svg = buildPatternPiecePageSvg(piece, {
+          pageIndex: currentPage++,
+          totalPages,
+          tileIndex: 1,
+          totalTiles: 2,
+          tileLabel: `${piece.name} (Tile 1 of 2 - Left)`,
+          xOffsetMm: 0,
+          garmentName: bp.productName,
+        });
+        SVGtoPDF(doc, p1Svg, 0, 0, { width: A4_WIDTH_PT, height: A4_HEIGHT_PT });
 
-    writeStream.on('finish', () => resolve(outputPath));
-    writeStream.on('error', reject);
+        doc.addPage();
+        const p2Svg = buildPatternPiecePageSvg(piece, {
+          pageIndex: currentPage++,
+          totalPages,
+          tileIndex: 2,
+          totalTiles: 2,
+          tileLabel: `${piece.name} (Tile 2 of 2 - Right)`,
+          xOffsetMm: 140,
+          garmentName: bp.productName,
+        });
+        SVGtoPDF(doc, p2Svg, 0, 0, { width: A4_WIDTH_PT, height: A4_HEIGHT_PT });
+      } else if (piece.xTiles === 2 && piece.yTiles === 2) {
+        // 2x2 grid tiled piece (e.g. tote bag body)
+        doc.addPage();
+        const p1Svg = buildPatternPiecePageSvg(piece, {
+          pageIndex: currentPage++,
+          totalPages,
+          tileIndex: 1,
+          totalTiles: 4,
+          tileLabel: `${piece.name} (Tile 1 of 4 - Top-Left)`,
+          xOffsetMm: 0,
+          yOffsetMm: 0,
+          garmentName: bp.productName,
+        });
+        SVGtoPDF(doc, p1Svg, 0, 0, { width: A4_WIDTH_PT, height: A4_HEIGHT_PT });
+
+        doc.addPage();
+        const p2Svg = buildPatternPiecePageSvg(piece, {
+          pageIndex: currentPage++,
+          totalPages,
+          tileIndex: 2,
+          totalTiles: 4,
+          tileLabel: `${piece.name} (Tile 2 of 4 - Top-Right)`,
+          xOffsetMm: 140,
+          yOffsetMm: 0,
+          garmentName: bp.productName,
+        });
+        SVGtoPDF(doc, p2Svg, 0, 0, { width: A4_WIDTH_PT, height: A4_HEIGHT_PT });
+
+        doc.addPage();
+        const p3Svg = buildPatternPiecePageSvg(piece, {
+          pageIndex: currentPage++,
+          totalPages,
+          tileIndex: 3,
+          totalTiles: 4,
+          tileLabel: `${piece.name} (Tile 3 of 4 - Bottom-Left)`,
+          xOffsetMm: 0,
+          yOffsetMm: 170,
+          garmentName: bp.productName,
+        });
+        SVGtoPDF(doc, p3Svg, 0, 0, { width: A4_WIDTH_PT, height: A4_HEIGHT_PT });
+
+        doc.addPage();
+        const p4Svg = buildPatternPiecePageSvg(piece, {
+          pageIndex: currentPage++,
+          totalPages,
+          tileIndex: 4,
+          totalTiles: 4,
+          tileLabel: `${piece.name} (Tile 4 of 4 - Bottom-Right)`,
+          xOffsetMm: 140,
+          yOffsetMm: 170,
+          garmentName: bp.productName,
+        });
+        SVGtoPDF(doc, p4Svg, 0, 0, { width: A4_WIDTH_PT, height: A4_HEIGHT_PT });
+      }
+    }
+  }
+
+  return { totalPages, bp };
+}
+
+/**
+ * In-memory PDF generator returning Blob and Uint8Array.
+ * Operates isomorphically across Node.js and browser WebViews.
+ * 
+ * @param {string} productId
+ * @param {string} sizeKey
+ * @param {Array} [pile]
+ * @returns {Promise<{ blob: Blob, uint8Array: Uint8Array, totalPages: number, bp: Object }>}
+ */
+export function generateBlueprintPdfBlob(productId, sizeKey, pile = null) {
+  return new Promise((resolve, reject) => {
+    try {
+      const doc = new PDFDocument({
+        size: 'A4',
+        margins: { top: 0, bottom: 0, left: 0, right: 0 },
+        autoFirstPage: true,
+        bufferPages: true,
+        info: {
+          Title: `ReWear Blueprint — ${productId} (${sizeKey})`,
+          Author: 'ReWear Upcycling Studio & FreeSewing 4.10.2',
+          Subject: 'Real-Scale Tiled Garment Pattern',
+        },
+      });
+
+      const chunks = [];
+      doc.on('data', (c) => chunks.push(c instanceof Uint8Array ? c : new Uint8Array(c)));
+      doc.on('error', (err) => reject(err));
+
+      const { totalPages, bp } = renderBlueprintDoc(doc, productId, sizeKey, pile);
+
+      doc.on('end', () => {
+        let totalLen = 0;
+        for (const c of chunks) totalLen += c.byteLength;
+        const merged = new Uint8Array(totalLen);
+        let offset = 0;
+        for (const c of chunks) {
+          merged.set(c, offset);
+          offset += c.byteLength;
+        }
+
+        const blob = typeof Blob !== 'undefined'
+          ? new Blob([merged], { type: 'application/pdf' })
+          : null;
+
+        resolve({ blob, uint8Array: merged, totalPages, bp });
+      });
+
+      doc.end();
+    } catch (err) {
+      reject(err);
+    }
   });
+}
+
+/**
+ * Generates the complete publication-quality PDF for a garment and saves to disk.
+ * Preserves exact backwards compatibility with Node test suites and scripts.
+ *
+ * @param {string} productId - Product ID (e.g. 'child_top', 'sandy_skirt', 'aaron_tank', 'pouch')
+ * @param {string} sizeKey - e.g. 'chest56', 'waist54', 'small'
+ * @param {string} outputPath - file path to write PDF
+ * @param {Array} [pile] - optional scrap pile
+ */
+export async function generateCurvedBlueprintPdf(productId, sizeKey, outputPath, pile = null) {
+  const { uint8Array } = await generateBlueprintPdfBlob(productId, sizeKey, pile);
+  if (typeof window === 'undefined') {
+    const fs = await import(/* @vite-ignore */ 'node:fs');
+    fs.writeFileSync(outputPath, Buffer.from(uint8Array));
+  }
+  return outputPath;
 }

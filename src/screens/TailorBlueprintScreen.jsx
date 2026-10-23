@@ -40,6 +40,11 @@ export default function TailorBlueprintScreen({
   // Audio speech status
   const [activeSpeakingStep, setActiveSpeakingStep] = useState(null);
 
+  // PDF Export Status
+  const [isExporting, setIsExporting] = useState(false);
+  const [exportMessage, setExportMessage] = useState(null);
+  const [exportError, setExportError] = useState(null);
+
   // Editable Price Helper State
   const [materialCost, setMaterialCost] = useState(blueprint.pricing?.materialCost || 35);
   const [laborHours, setLaborHours] = useState(
@@ -65,8 +70,44 @@ export default function TailorBlueprintScreen({
     soundManager.speak(speechText, lang);
   };
 
-  const handlePrint = () => {
-    window.print();
+  const handleExportPdf = async () => {
+    try {
+      setIsExporting(true);
+      setExportError(null);
+      setExportMessage(null);
+
+      const { exportTailorBlueprintPdf } = await import('../utils/pdfExportService.js');
+      const prodId = design.productId || design.product?.id;
+      const sizeKey = design.sizeKey || design.size || 'small';
+      const pile = design.pile || (design.placements ? design.placements.map((p) => ({
+        id: p.scrapId,
+        width: p.width,
+        height: p.height,
+        color: p.color,
+        colorHex: p.colorHex,
+        fabricType: p.fabricType || 'cotton',
+        thickness: p.thickness || 'medium',
+        stretchy: !!p.stretchy,
+        print: p.print || 'plain',
+      })) : null);
+
+      const result = await exportTailorBlueprintPdf({
+        productId: prodId,
+        sizeKey,
+        pile,
+        productName: blueprint.productName,
+      });
+
+      if (result.method === 'browser_download') {
+        setExportMessage(`Blueprint PDF downloaded: ${result.fileName} (${result.totalPages} pages)`);
+      } else if (result.method === 'native_share') {
+        setExportMessage(`Blueprint ready (${result.totalPages} pages) — saved & shared.`);
+      }
+    } catch (err) {
+      setExportError(`Export failed: ${err?.message || 'Unable to generate or save PDF'}`);
+    } finally {
+      setIsExporting(false);
+    }
   };
 
   if (!blueprint || blueprint.error) {
@@ -440,15 +481,39 @@ export default function TailorBlueprintScreen({
         </div>
       </div>
 
-      {/* 8. Export PDF Button */}
-      <div className="pt-2 print:hidden">
+      {/* 8. Export PDF Button & Feedback */}
+      <div className="pt-2 print:hidden space-y-2">
+        {exportError && (
+          <div className="p-3 bg-red-100 border border-red-300 text-red-900 rounded-2xl text-xs flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 shrink-0 text-red-600" />
+            <span className="font-semibold">{exportError}</span>
+          </div>
+        )}
+
+        {exportMessage && (
+          <div className="p-3 bg-emerald-100 border border-emerald-300 text-emerald-900 rounded-2xl text-xs flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+            <span className="font-semibold">{exportMessage}</span>
+          </div>
+        )}
+
         <button
           type="button"
-          onClick={handlePrint}
-          className="w-full py-3.5 bg-emerald-700 hover:bg-emerald-800 text-white font-extrabold text-xs rounded-2xl shadow-md flex items-center justify-center gap-2 transition"
+          onClick={handleExportPdf}
+          disabled={isExporting}
+          className="w-full py-3.5 bg-emerald-700 hover:bg-emerald-800 disabled:bg-emerald-500 text-white font-extrabold text-xs rounded-2xl shadow-md flex items-center justify-center gap-2 transition cursor-pointer disabled:cursor-not-allowed"
         >
-          <Download className="w-4 h-4" />
-          <span>Export Tailor Blueprint as PDF</span>
+          {isExporting ? (
+            <>
+              <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              <span>Generating Tiled Blueprint PDF...</span>
+            </>
+          ) : (
+            <>
+              <Download className="w-4 h-4" />
+              <span>Export Tailor Blueprint as PDF</span>
+            </>
+          )}
         </button>
       </div>
 
