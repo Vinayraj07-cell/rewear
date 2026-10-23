@@ -1,0 +1,201 @@
+{
+  "id": "table_runner",
+  "names": {
+    "en": "Table Runner",
+    "hi": "मेज़पोश रनर",
+    "te": "డైనింగ్ టేబుల్ రన్నర్"
+  },
+  "category": "home",
+  "construction": "flat",
+  "description": "Decorative dining table runner assembled from 3 center patchwork body zones and contrasting border ends.",
+  "materials": [
+    {
+      "name": "Medium or heavyweight cotton/linen scraps",
+      "qty": "Approx 40x140 cm total area",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "Lightweight fusible interfacing (optional for body)",
+      "qty": "Matching runner dimensions",
+      "optional": true,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "Matching topstitching thread",
+      "qty": "1 spool (100 m)",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (Coffee Table 30 × 90 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": { "widthCm": 30, "heightCm": 90 },
+      "pieces": [
+        {
+          "id": "border_band_left",
+          "names": { "en": "Left Border Band", "hi": "बाईं किनारी पट्टी", "te": "ఎడమ సరిహద్దు పట్టీ" },
+          "role": "accent",
+          "width": 30,
+          "height": 10,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "center_left",
+          "names": { "en": "Center Left Section", "hi": "मध्य बायाँ हिस्सा", "te": "మధ్య ఎడమ భాగం" },
+          "role": "base",
+          "width": 30,
+          "height": 23,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "center_middle",
+          "names": { "en": "Center Middle Section", "hi": "मध्य केंद्रीय हिस्सा", "te": "మధ్య కేంద్ర భాగం" },
+          "role": "base",
+          "width": 30,
+          "height": 24,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "center_right",
+          "names": { "en": "Center Right Section", "hi": "मध्य दायाँ हिस्सा", "te": "మధ్య కుడి భాగం" },
+          "role": "base",
+          "width": 30,
+          "height": 23,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "border_band_right",
+          "names": { "en": "Right Border Band", "hi": "दाईं किनारी पट्टी", "te": "కుడి సరిహద్దు పట్టీ" },
+          "role": "accent",
+          "width": 30,
+          "height": 10,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (4-6 Seater 35 × 140 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": { "widthCm": 35, "heightCm": 140 },
+      "pieces": [
+        {
+          "id": "border_band_left",
+          "names": { "en": "Left Border Band", "hi": "बाईं किनारी पट्टी", "te": "ఎడమ సరిహద్దు పట్టీ" },
+          "role": "accent",
+          "width": 35,
+          "height": 15,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "center_left",
+          "names": { "en": "Center Left Section", "hi": "मध्य बायाँ हिस्सा", "te": "మధ్య ఎడమ భాగం" },
+          "role": "base",
+          "width": 35,
+          "height": 36,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "center_middle",
+          "names": { "en": "Center Middle Section", "hi": "मध्य केंद्रीय हिस्सा", "te": "మధ్య కేంద్ర భాగం" },
+          "role": "base",
+          "width": 35,
+          "height": 38,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "center_right",
+          "names": { "en": "Center Right Section", "hi": "मध्य दायाँ हिस्सा", "te": "మధ్య కుడి భాగం" },
+          "role": "base",
+          "width": 35,
+          "height": 36,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "border_band_right",
+          "names": { "en": "Right Border Band", "hi": "दाईं किनारी पट्टी", "te": "కుడి సరిహద్దు పట్టీ" },
+          "role": "accent",
+          "width": 35,
+          "height": 15,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (8-10 Seater 40 × 180 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": { "widthCm": 40, "heightCm": 180 },
+      "pieces": [
+        {
+          "id": "border_band_left",
+          "names": { "en": "Left Border Band", "hi": "बाईं किनारी पट्टी", "te": "ఎడమ సరిహద్దు పట్టీ" },
+          "role": "accent",
+          "width": 40,
+          "height": 20,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "center_left",
+          "names": { "en": "Center Left Section", "hi": "मध्य बायाँ हिस्सा", "te": "మధ్య ఎడమ భాగం" },
+          "role": "base",
+          "width": 40,
+          "height": 46,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "center_middle",
+          "names": { "en": "Center Middle Section", "hi": "मध्य केंद्रीय हिस्सा", "te": "మధ్య కేంద్ర భాగం" },
+          "role": "base",
+          "width": 40,
+          "height": 48,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "center_right",
+          "names": { "en": "Center Right Section", "hi": "मध्य दायाँ हिस्सा", "te": "మధ్య కుడి భాగం" },
+          "role": "base",
+          "width": 40,
+          "height": 46,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "border_band_right",
+          "names": { "en": "Right Border Band", "hi": "दाईं किनारी पट्टी", "te": "కుడి సరిహద్దు పట్టీ" },
+          "role": "accent",
+          "width": 40,
+          "height": 20,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}
