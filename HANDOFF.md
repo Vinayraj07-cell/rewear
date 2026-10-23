@@ -41,7 +41,7 @@ d12448e Q7b: Pipeline hardening, translation strictness, score guards, and fraye
    - `aaron_tank` (Tank Top) — *FreeSewing Aaron 4.10.2 geometry*
 
 ### Baseline Test Counts
-Running `npm test` executes 16 test suites without failures. Baseline passed counts:
+Running `npm test` executes 18 test suites without failures. Baseline passed counts:
 - Stage 2 Logic: **59** passed
 - Stage 2 Scoring: **58** passed
 - Gate 2 Integration: **20** passed
@@ -52,10 +52,16 @@ Running `npm test` executes 16 test suites without failures. Baseline passed cou
 - Phase 6 Step 1 AI Photo Preview: **11** passed
 - Q3 Frayed Scrap Warning: **11** passed
 - Q5 Pile Helpers: **11** passed
-- Product Validator & Pipeline Specs: **155** passed
+- Product Validator & Pipeline Specs: **184** passed
 - Product Factory & Lifecycle (`test_factory.js`): **33** passed
 - Q10 Garments Granular Suite (`src/engine/test_q10_garments.js`): all assertions passed
 - Q11 Curved Garments & Blueprints (`src/utils/test_q11_blueprints.js`): **16** assertions passed
+- Error Boundary Regression Suite (`src/components/test_error_boundary.js`): all assertions passed
+- Audio & Text-to-Speech Suite (`src/utils/test_audio.js`): **8** passed
+- Undefined Identifiers Check (`src/utils/test_undefined_identifiers.js`): **0** errors passed
+
+### Done (Verified on Hardware)
+- **Voice / Text-to-Speech**: Voice works on the phone in English, Hindi and Telugu (user verified on a real phone).
 
 *Note: Test counts must only increase or stay constant; never remove tests.*
 
@@ -121,6 +127,8 @@ Running `npm test` executes 16 test suites without failures. Baseline passed cou
     Temporary URL query-parameter routing helpers used for automated screenshots were reverted to maintain base integrity. Automated direct deep-linking into screens is not present in the current production code.
 11. **Generic Rectangle Product Blueprint PDFs & Gradle Toolchain**:
     Generic PDFs for the 10 rectangle products are unreviewed: possible double seam allowance, no regression test, 17 pages for kids_frock and table_runner. Gradle forces Java 17 for Capacitor 8 plugins as a workaround.
+12. **PDF Export Font Notice & Hardcoded UI Strings**:
+    PDF export on phone shows a red error: 'Standard font Helvetica is not registered. Call registerStdFonts() before using it' (pdfkit browser build). The PDF itself opens. Not fixed yet. Also 10 hardcoded English UI strings (list in the Q12c report).
 
 ---
 
