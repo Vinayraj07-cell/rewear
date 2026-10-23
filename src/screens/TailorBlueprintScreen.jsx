@@ -79,17 +79,7 @@ export default function TailorBlueprintScreen({
       const { exportTailorBlueprintPdf } = await import('../utils/pdfExportService.js');
       const prodId = design.productId || design.product?.id;
       const sizeKey = design.sizeKey || design.size || 'small';
-      const pile = design.pile || (design.placements ? design.placements.map((p) => ({
-        id: p.scrapId,
-        width: p.width,
-        height: p.height,
-        color: p.color,
-        colorHex: p.colorHex,
-        fabricType: p.fabricType || 'cotton',
-        thickness: p.thickness || 'medium',
-        stretchy: !!p.stretchy,
-        print: p.print || 'plain',
-      })) : null);
+      const pile = design.pile || null;
 
       const result = await exportTailorBlueprintPdf({
         productId: prodId,
@@ -166,11 +156,16 @@ export default function TailorBlueprintScreen({
           </button>
           <button
             type="button"
-            onClick={handlePrint}
-            className="px-3 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold text-xs flex items-center gap-1.5 shadow-sm transition"
-            title="Export PDF / Print"
+            onClick={handleExportPdf}
+            disabled={isExporting}
+            className="px-3 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 disabled:opacity-50 text-stone-950 font-bold text-xs flex items-center gap-1.5 shadow-sm transition cursor-pointer disabled:cursor-not-allowed"
+            title="Export Tailor Blueprint as PDF"
           >
-            <Printer className="w-3.5 h-3.5" />
+            {isExporting ? (
+              <span className="w-3.5 h-3.5 border-2 border-stone-950 border-t-transparent rounded-full animate-spin" />
+            ) : (
+              <Printer className="w-3.5 h-3.5" />
+            )}
             <span>PDF</span>
           </button>
         </div>

@@ -18,6 +18,7 @@ import SizeChoiceScreen from './screens/SizeChoiceScreen';
 import FeasibilityScreen from './screens/FeasibilityScreen';
 import TailorBlueprintScreen from './screens/TailorBlueprintScreen';
 import Product3DViewer from './components/Product3DViewer';
+import ErrorBoundary from './components/ErrorBoundary';
 
 import { translations } from './i18n/translations';
 import { INITIAL_SAMPLE_PIECES, SAMPLE_PILE_A, SAMPLE_PILE_B } from './utils/storage';
@@ -417,6 +418,7 @@ export default function App() {
 
         {/* Screen Content Body */}
         <main className="flex-1 p-4 pb-36 overflow-y-auto min-h-0">
+          <ErrorBoundary onReset={() => setActiveTab('home')}>
           {activeTab === 'home' && (
             <HomeScreen
               onSelectFeature={(featureTab) => {
@@ -626,6 +628,7 @@ export default function App() {
           {activeTab === 'guides' && (
             <StitchingGuidesScreen t={t} lang={lang} />
           )}
+        </ErrorBoundary>
         </main>
 
         {/* Bottom Tab Navigation */}
