@@ -163,7 +163,7 @@ export default function Product2DPreview({
       <div className="relative w-full bg-gradient-to-b from-stone-50/50 to-stone-100/60 p-3 sm:p-4 flex items-center justify-center select-none overflow-hidden min-h-[220px]">
         <svg
           viewBox={viewBoxStr}
-          className="w-full max-h-[300px] h-auto transition-transform duration-200 drop-shadow-md"
+          className="w-full max-h-[300px] h-auto"
           style={{ shapeRendering: 'geometricPrecision' }}
         >
           <defs>
@@ -181,13 +181,43 @@ export default function Product2DPreview({
             <pattern id="unplaced-hatch" width="6" height="6" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
               <line x1="0" y1="0" x2="0" y2="6" stroke="#EF4444" strokeWidth="1.2" strokeOpacity="0.5" />
             </pattern>
+            {/* Soft drop shadow filter for realistic product grounding */}
+            <filter id="soft-drop-shadow" x="-25%" y="-25%" width="150%" height="150%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="1.8" />
+            </filter>
+
+            {/* 3D Object Lighting / Shading Overlay */}
+            <linearGradient id="object-shading" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.32" />
+              <stop offset="35%" stopColor="#FFFFFF" stopOpacity="0.04" />
+              <stop offset="75%" stopColor="#000000" stopOpacity="0.04" />
+              <stop offset="100%" stopColor="#000000" stopOpacity="0.25" />
+            </linearGradient>
+
+            {/* Horizontal fabric lighting overlay */}
+            <linearGradient id="horizontal-shading" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.22" />
+              <stop offset="20%" stopColor="#FFFFFF" stopOpacity="0.0" />
+              <stop offset="80%" stopColor="#000000" stopOpacity="0.0" />
+              <stop offset="100%" stopColor="#000000" stopOpacity="0.2" />
+            </linearGradient>
+
+            {/* Toroidal ring shading for scrunchie loop */}
+            <radialGradient id="ring-shading" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#000000" stopOpacity="0.32" />
+              <stop offset="35%" stopColor="#000000" stopOpacity="0.06" />
+              <stop offset="55%" stopColor="#FFFFFF" stopOpacity="0.28" />
+              <stop offset="82%" stopColor="#FFFFFF" stopOpacity="0.04" />
+              <stop offset="100%" stopColor="#000000" stopOpacity="0.3" />
+            </radialGradient>
+
             {/* Panel clip paths for generic & custom piece outlines */}
             {panels.map((panel) => {
               const clipD = panel.canvasClipPathD || panel.clipPathD;
               if (!clipD) return null;
               return (
-                <clipPath key={`clip-${panel.id}`} id={`clip-${panel.id}`}>
-                  <path d={clipD} />
+                <clipPath key={`clip-${panel.id}`} id={`clip-${panel.id}`} clipRule={panel.clipRule || 'nonzero'}>
+                  <path d={clipD} fillRule={panel.clipRule || 'nonzero'} />
                 </clipPath>
               );
             })}
@@ -203,9 +233,35 @@ export default function Product2DPreview({
             />
           ) : (
             <>
-              {/* LAYER 1: Background Decorations (Handles arch, shoulder straps, pouch tabs) */}
+              {/* LAYER 1: Background Decorations (Handles arch, shoulder straps, pouch tabs, shadows) */}
               <g id="decorations-back">
             {decorations.map((deco, idx) => {
+              if (deco.type === 'soft_shadow') {
+                return (
+                  <ellipse
+                    key={`shadow-${idx}`}
+                    cx={deco.cx}
+                    cy={deco.cy}
+                    rx={deco.rx}
+                    ry={deco.ry}
+                    fill="#0F172A"
+                    opacity={deco.opacity || 0.16}
+                    filter="url(#soft-drop-shadow)"
+                  />
+                );
+              }
+              if (deco.type === 'drawstring_back_loop') {
+                return (
+                  <path
+                    key={`ds-back-${idx}`}
+                    d={deco.d}
+                    stroke={deco.stroke || '#D4C5B9'}
+                    strokeWidth={deco.strokeWidth || 1.6}
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+                );
+              }
               if (deco.type === 'handle_arch' || deco.type === 'handle_stitch') {
                 return (
                   <path
@@ -494,6 +550,127 @@ export default function Product2DPreview({
                     fill="#FFFFFF"
                     stroke="#334155"
                     strokeWidth={0.6}
+                  />
+                );
+              }
+              if (deco.type === 'zipper_pull') {
+                return (
+                  <g key={`zip-pull-${idx}`}>
+                    <rect
+                      x={deco.x}
+                      y={deco.y}
+                      width={deco.width}
+                      height={deco.height}
+                      rx={deco.rx || 0.8}
+                      fill="#CBD5E1"
+                      stroke="#334155"
+                      strokeWidth={0.5}
+                    />
+                    <circle
+                      cx={deco.x + deco.width / 2}
+                      cy={deco.y + deco.height * 0.65}
+                      r={deco.width * 0.22}
+                      fill="#64748B"
+                    />
+                  </g>
+                );
+              }
+              if (deco.type === 'keyring') {
+                return (
+                  <g key={`keyring-${idx}`}>
+                    <circle
+                      cx={deco.cx}
+                      cy={deco.cy}
+                      r={deco.r}
+                      stroke={deco.stroke || '#94A3B8'}
+                      strokeWidth={deco.strokeWidth || 1.2}
+                      fill="none"
+                    />
+                    <circle
+                      cx={deco.cx}
+                      cy={deco.cy}
+                      r={deco.r - (deco.strokeWidth || 1.2)}
+                      stroke="#64748B"
+                      strokeWidth={0.3}
+                      fill="none"
+                    />
+                  </g>
+                );
+              }
+              if (deco.type === 'stitch_line') {
+                return (
+                  <path
+                    key={`stitch-${idx}`}
+                    d={deco.d}
+                    stroke={deco.stroke || '#FFFFFF'}
+                    strokeWidth={deco.strokeWidth || 0.8}
+                    strokeDasharray={deco.strokeDasharray || '2 1.5'}
+                    strokeOpacity={deco.strokeOpacity || 0.85}
+                    fill="none"
+                  />
+                );
+              }
+              if (deco.type === 'crease_line') {
+                return (
+                  <line
+                    key={`crease-${idx}`}
+                    x1={deco.x1}
+                    y1={deco.y1}
+                    x2={deco.x2}
+                    y2={deco.y2}
+                    stroke={deco.stroke || '#1E293B'}
+                    strokeWidth={deco.strokeWidth || 0.6}
+                    strokeOpacity={deco.opacity || 0.25}
+                    strokeLinecap="round"
+                  />
+                );
+              }
+              if (deco.type === 'drawstring_cord') {
+                return (
+                  <path
+                    key={`ds-cord-${idx}`}
+                    d={deco.d}
+                    stroke={deco.stroke || '#D4C5B9'}
+                    strokeWidth={deco.strokeWidth || 1.6}
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+                );
+              }
+              if (deco.type === 'cord_knot') {
+                return (
+                  <circle
+                    key={`knot-${idx}`}
+                    cx={deco.cx}
+                    cy={deco.cy}
+                    r={deco.r || 1.4}
+                    fill="#B45309"
+                    stroke="#78350F"
+                    strokeWidth={0.5}
+                  />
+                );
+              }
+              if (deco.type === 'shading_overlay') {
+                return (
+                  <path
+                    key={`shade-${idx}`}
+                    d={deco.d}
+                    fill={`url(#${deco.gradient || 'object-shading'})`}
+                    opacity={deco.opacity || 0.15}
+                    className="pointer-events-none"
+                  />
+                );
+              }
+              if (deco.type === 'ring_shading') {
+                return (
+                  <circle
+                    key={`ring-shade-${idx}`}
+                    cx={deco.cx}
+                    cy={deco.cy}
+                    r={deco.r}
+                    fill="url(#ring-shading)"
+                    opacity={deco.opacity || 0.22}
+                    className="pointer-events-none"
                   />
                 );
               }

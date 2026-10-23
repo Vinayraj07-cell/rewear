@@ -197,7 +197,7 @@ npm test
 
 ## 4. Pattern-Library Garments (FreeSewing CAD Integration)
 
-For garments requiring curved anthropometric CAD patterns (such as raglan shirts, bodices, and sleeves), the factory script integrates directly with pinned CAD datasets.
+For garments requiring curved parametric CAD patterns (such as raglan shirts, bodices, and sleeves), the factory script integrates directly with pinned CAD datasets.
 
 ### Using FreeSewing Brian CAD:
 Specify `"patternLibrary"` in your config:
@@ -261,3 +261,146 @@ This will:
   > *"All pattern measurements are rectangle-based approximations for scrap cutting and must be verified by a professional tailor before final cutting."*
 - Unverified marketing claims (e.g. `"tailor-verified"`, `"tailor-approved"`, `"verified pattern"`) are strictly forbidden by `productValidator.js` and will cause the validator to reject the specification.
 - Only when an authorized master tailor has physically cut, stitched, and verified the garment may `tailorVerified` be marked `true`.
+
+---
+
+## 7. Product Silhouette & 2D Realistic Object Rendering
+
+To make products render as recognizable finished objects rather than plain boxes in the 2D flat preview, any product config can declare an optional `"silhouette"` block.
+
+When `"silhouette"` is present, the generic 2D renderer ([`src/utils/product2DLayout.js`](file:///c:/Users/vinay/Documents/antigravity/happy-volta/src/utils/product2DLayout.js)) automatically clips patchwork pieces to the specified contours and overlays tailored decorations (soft grounding shadows, 3D fabric volume shading, topstitching lines, zippers, and drawstring cords).
+
+### Supported Silhouette Types:
+
+1. **`rounded_rect`**:
+   - **Used for**: pouches, coin purses, pencil cases, placemats, mats.
+   - **Options**:
+     - `rx`, `ry` (`number`): Corner rounding radius in centimeters (e.g. `2.5`).
+     - `shadow` (`boolean`): Adds a soft grounding drop shadow beneath the object.
+     - `shading` (`boolean`): Adds a subtle 3D lighting/sheen overlay.
+     - `zipper` (`object`): `{ position: "top", pull: true }` — renders top zipper teeth, slider, and pull tab.
+     - `keyring` (`boolean`): Renders a metal split keyring attached to the tab piece.
+     - `tabs` (`string`): e.g. `"side_zipper"` — renders reinforced side zipper end-tabs.
+     - `topstitch` (`object`): `{ inset: 1.2, dash: "2 1.5" }` — renders perimeter topstitching.
+
+   *Example Config snippet:*
+   ```json
+   "silhouette": {
+     "type": "rounded_rect",
+     "rx": 2.5,
+     "ry": 2.5,
+     "shadow": true,
+     "shading": true,
+     "zipper": { "position": "top", "pull": true },
+     "keyring": true
+   }
+   ```
+
+2. **`drawstring`**:
+   - **Used for**: drawstring bags, cinch sacks, dice bags, shoe bags.
+   - **Options**:
+     - `rx`, `ry` (`number`): Bag bottom corner radius (e.g. `3.0`).
+     - `shadow` (`boolean`): Adds soft grounding drop shadow.
+     - `shading` (`boolean`): Adds cylindrical 3D fabric volume shading.
+     - `casingGather` (`number`): Gather ratio for the top casing ruffle (e.g. `0.9`).
+     - `cord` (`object`): `{ color: "#D4C5B9", tails: 2 }` — renders looping drawstring cords and knotted cord tails.
+
+   *Example Config snippet:*
+   ```json
+   "silhouette": {
+     "type": "drawstring",
+     "rx": 3.0,
+     "ry": 3.0,
+     "shadow": true,
+     "shading": true,
+     "casingGather": 0.9,
+     "cord": { "color": "#D4C5B9", "tails": 2 }
+   }
+   ```
+
+3. **`ring` / `loop`**:
+   - **Used for**: hair scrunchies, wrist loops, neck ribbons, fabric rings.
+   - **Options**:
+     - `outerRadius` (`number`): Outer boundary radius in cm (e.g. `13`).
+     - `innerRadius` (`number`): Inner elastic hole radius in cm (e.g. `5.5`).
+     - `ruffles` (`number`): Number of radial undulations/ripples (e.g. `18`).
+     - `shadow` (`boolean`): Circular soft drop shadow.
+     - `shading` (`boolean`): Toroidal 3D highlight/shadow ring overlay.
+
+   *Example Config snippet:*
+   ```json
+   "silhouette": {
+     "type": "ring",
+     "outerRadius": 13,
+     "innerRadius": 5.5,
+     "ruffles": 18,
+     "shadow": true,
+     "shading": true
+   }
+   ```
+
+4. **`runner`**:
+   - **Used for**: table runners, bed scarves, long decorative banners.
+   - **Options**:
+     - `orientation` (`string`): `"horizontal"` (default) or `"vertical"`.
+     - `shadow` (`boolean`): Elongated horizontal soft drop shadow.
+     - `shading` (`boolean`): Long fabric lighting overlay.
+     - `hemStitch` (`object`): `{ inset: 1.0 }` — continuous longitudinal hem stitch lines and double topstitching on border bands.
+
+   *Example Config snippet:*
+   ```json
+   "silhouette": {
+     "type": "runner",
+     "orientation": "horizontal",
+     "shadow": true,
+     "shading": true,
+     "hemStitch": { "inset": 1.0 }
+   }
+   ```
+
+### Mathematical Guarantees:
+Every silhouette renderer preserves:
+1. **Patch Containment**: All patch rectangles remain strictly within each panel's canvas bounding box ($\text{relX} \ge 0, \text{relY} \ge 0, \text{relX} + w \le W, \text{relY} + h \le H$).
+2. **Area Conservation**: The sum of patch areas identically matches the panel's rectangular area ($\sum w_i h_i = W \times H$).
+3. **SVG Vector Clipping**: Real arranged scrap colors and pieced tailor seams are preserved and clipped to the product contour via `<clipPath id="...">` using standard (`nonzero` or `evenodd`) fill rules.
+
+---
+
+## 5. Pinned CAD Garments (Circle Skirt & Tank Top)
+
+ReWear supports precision apparel items generated from pinned parametric CAD libraries. Pattern geometry is pre-generated using **FreeSewing 4.10.2 (MIT licence)** and stored in immutable engine datasets (`sandySkirtData.js` and `aaronTankData.js`).
+
+### Registered CAD Products:
+
+1. **Circle Skirt (`sandy_skirt`)**:
+   - **User-Facing Names**:
+     - English: **Circle Skirt**
+     - Hindi: **गोल घाघरा**
+     - Telugu: **గుండ్రని లంగా**
+   - **Credit**: *Pattern geometry by FreeSewing 4.10.2 (MIT licence)*
+   - **Construction**: 8 identical wedge gores engineered for remnant piecing + 1 waistband.
+   - **Cut Sizes (Waist 54 cm)**:
+     - 8 wedge gores: $9.4 \times 27.4\text{ cm}$ (Shoelace net area: $153.1\text{ cm}^2$ each).
+     - Waistband: $63.8 \times 7.0\text{ cm}$ (Shoelace net area: $309.0\text{ cm}^2$).
+   - **Cutting Sheet**: Full pattern piece set packs within $61.7\text{ cm}$ width (strictly $\le 110\text{ cm}$ bolt width limit).
+   - **Piecing Constraint**: `maxPatches: 4` per zone.
+   - **Hybrid Default**: Solid continuous waistband (`plain_base`) for waist comfort; 8 wedge gores pieced from scrap remnants ($3 \times 14\text{ cm}$ scraps per gore).
+
+2. **Tank Top (`aaron_tank`)**:
+   - **User-Facing Names**:
+     - English: **Tank Top**
+     - Hindi: **स्लीवलेस बनियान**
+     - Telugu: **స్లీవ్‌లెస్ బనీన్**
+   - **Credit**: *Pattern geometry by FreeSewing 4.10.2 (MIT licence)*
+   - **Construction**: Continuous front and back bodices with cut-on-fold symmetry + 2 armhole bindings + 1 neckline binding.
+   - **Cut Sizes (Chest 56 cm)**:
+     - Front Bodice: $31.8 \times 37.8\text{ cm}$ cut-on-fold (Shoelace net area: $818.6\text{ cm}^2$).
+     - Back Bodice: $31.8 \times 37.8\text{ cm}$ cut-on-fold (Shoelace net area: $864.0\text{ cm}^2$).
+     - Arm Bindings (2 pieces): $6.0 \times 31.7\text{ cm}$ (Shoelace net area: $190.2\text{ cm}^2$ each).
+     - Neckline Binding: $6.0 \times 34.7\text{ cm}$ (Shoelace net area: $208.1\text{ cm}^2$).
+   - **Cutting Sheet**: Full pattern piece set packs within $66.1\text{ cm}$ width (strictly $\le 110\text{ cm}$ bolt width limit).
+   - **Piecing Constraint**: `maxPatches: 4` per zone.
+   - **Hybrid Default**: Solid smooth knit body (`plain_base`) for skin comfort; armhole and neck bindings pieced from remnant strips ($3 \times 14\text{ cm}$ scraps per binding).
+   - **Patchwork Feasibility**: With standard $14 \times 14\text{ cm}$ scraps, a 4-scrap limit spans at most $26 \times 26\text{ cm}$, making a $31.8 \times 37.8\text{ cm}$ bodice physically impossible to piece from small scraps. Patchwork mode requires large remnants ($\ge 17 \times 20\text{ cm}$, such as $20 \times 20\text{ cm}$ denim). Hybrid mode is the recommended ergonomic construction.
+
+

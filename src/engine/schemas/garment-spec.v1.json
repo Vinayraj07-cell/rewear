@@ -156,7 +156,7 @@
         "labelKey": { "type": "string" },
         "bodyMeasurements": {
           "type": "object",
-          "description": "Target anthropometric dimensions in cm",
+          "description": "Target body dimensions in cm",
           "properties": {
             "chestCm": { "type": "number" },
             "waistCm": { "type": "number" },

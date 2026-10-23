@@ -241,6 +241,792 @@ export function computeProduct2DLayout(design, view = 'front') {
 }
 
 // ---------------------------------------------------------------------------
+// Silhouette Path Helpers & Generic Silhouette Layouts
+// ---------------------------------------------------------------------------
+function roundedRectPath(x, y, w, h, rx, ry = rx) {
+  const rX = Math.max(0, Math.min(rx, w / 2));
+  const rY = Math.max(0, Math.min(ry, h / 2));
+  if (rX === 0 || rY === 0) {
+    return `M ${x} ${y} h ${w} v ${h} h -${w} Z`;
+  }
+  return `M ${x + rX} ${y} h ${w - 2 * rX} a ${rX} ${rY} 0 0 1 ${rX} ${rY} v ${h - 2 * rY} a ${rX} ${rY} 0 0 1 -${rX} ${rY} h -${w - 2 * rX} a ${rX} ${rY} 0 0 1 -${rX} -${rY} v -${h - 2 * rY} a ${rX} ${rY} 0 0 1 ${rX} -${rY} Z`;
+}
+
+function gatheredCasingPath(x, y, w, h) {
+  const scallops = 6;
+  const sw = w / scallops;
+  let d = `M ${x} ${y + 0.8}`;
+  for (let i = 0; i < scallops; i++) {
+    const sx = x + i * sw;
+    d += ` Q ${Number((sx + sw / 2).toFixed(2))} ${Number((y - 0.6).toFixed(2))}, ${Number((sx + sw).toFixed(2))} ${Number((y + 0.8).toFixed(2))}`;
+  }
+  d += ` L ${x + w} ${y + h} L ${x} ${y + h} Z`;
+  return d;
+}
+
+function bagBodyPath(x, y, w, h, rx = 4) {
+  const rX = Math.min(rx, w / 2);
+  const rY = Math.min(rx, h / 2);
+  return `M ${x} ${y} h ${w} v ${h - rY} a ${rX} ${rY} 0 0 1 -${rX} ${rY} h -${w - 2 * rX} a ${rX} ${rY} 0 0 1 -${rX} -${rY} v -${h - rY} Z`;
+}
+
+function scrunchieRingPath(cx, cy, R, r, ripples = 18) {
+  const steps = ripples * 2;
+  const outerPts = [];
+  for (let i = 0; i <= steps; i++) {
+    const angle = (i / steps) * 2 * Math.PI;
+    const rad = R + (i % 2 === 0 ? 0.9 : -0.7);
+    outerPts.push({
+      x: Number((cx + rad * Math.cos(angle)).toFixed(2)),
+      y: Number((cy + rad * Math.sin(angle)).toFixed(2)),
+    });
+  }
+  const innerPts = [];
+  for (let i = steps; i >= 0; i--) {
+    const angle = (i / steps) * 2 * Math.PI;
+    const rad = r + (i % 2 === 0 ? -0.5 : 0.5);
+    innerPts.push({
+      x: Number((cx + rad * Math.cos(angle)).toFixed(2)),
+      y: Number((cy + rad * Math.sin(angle)).toFixed(2)),
+    });
+  }
+  let d = `M ${outerPts[0].x} ${outerPts[0].y}`;
+  for (let i = 1; i < outerPts.length; i++) {
+    d += ` L ${outerPts[i].x} ${outerPts[i].y}`;
+  }
+  d += ` Z M ${innerPts[0].x} ${innerPts[0].y}`;
+  for (let i = 1; i < innerPts.length; i++) {
+    d += ` L ${innerPts[i].x} ${innerPts[i].y}`;
+  }
+  d += ` Z`;
+  return d;
+}
+
+function findPlacementForPiece(placements, pieceId) {
+  if (!placements || !Array.isArray(placements)) return null;
+  return (
+    placements.find(
+      (pl) =>
+        pl.zoneId === pieceId ||
+        pl.zoneId === pieceId?.replace(/_\d+$/, '') ||
+        pl.baseZoneId === pieceId
+    ) || null
+  );
+}
+
+function createPanelObject({
+  piece,
+  placement,
+  canvasX,
+  canvasY,
+  width,
+  height,
+  rx = 2,
+  canvasClipPathD,
+  clipRule = 'nonzero',
+}) {
+  const { patches: localPatches, seams: localSeams } = computePanelPatches(placement, width, height);
+
+  const canvasPatches = localPatches.map((p) => ({
+    ...p,
+    canvasX: Number((canvasX + p.relX).toFixed(2)),
+    canvasY: Number((canvasY + p.relY).toFixed(2)),
+  }));
+
+  const canvasSeams = localSeams.map((s) => ({
+    ...s,
+    canvasX1: Number((canvasX + (s.relX1 ?? s.x1 ?? 0)).toFixed(2)),
+    canvasY1: Number((canvasY + (s.relY1 ?? s.y1 ?? 0)).toFixed(2)),
+    canvasX2: Number((canvasX + (s.relX2 ?? s.x2 ?? 0)).toFixed(2)),
+    canvasY2: Number((canvasY + (s.relY2 ?? s.y2 ?? 0)).toFixed(2)),
+  }));
+
+  return {
+    id: piece.id,
+    zoneId: piece.id,
+    name: piece.name || piece.id,
+    role: piece.role || 'base',
+    canvasX: Number(canvasX.toFixed(2)),
+    canvasY: Number(canvasY.toFixed(2)),
+    width: Number(width.toFixed(2)),
+    height: Number(height.toFixed(2)),
+    rx,
+    clipRule,
+    clipPathD: canvasClipPathD,
+    canvasClipPathD,
+    isPlaced: Boolean(placement),
+    placement: placement || null,
+    patches: canvasPatches,
+    seams: canvasSeams,
+  };
+}
+
+function computeGenericRoundedRectLayout(design, pieces, placements, view, silhouette) {
+  const isFront = view === 'front';
+
+  let mainPiece = pieces.find((p) => {
+    const id = p.id.toLowerCase();
+    if (isFront && id.includes('front')) return true;
+    if (!isFront && id.includes('back')) return true;
+    return false;
+  });
+
+  if (!mainPiece) {
+    const basePieces = pieces.filter((p) => p.role === 'base');
+    mainPiece = basePieces[isFront ? 0 : Math.min(1, basePieces.length - 1)] || pieces[0];
+  }
+
+  const secondaryPieces = pieces.filter((p) => {
+    if (p.id === mainPiece.id) return false;
+    const id = p.id.toLowerCase();
+    if (isFront && id.includes('back')) return false;
+    if (!isFront && id.includes('front')) return false;
+    return true;
+  });
+
+  const bodyW = mainPiece.finishedWidth || mainPiece.width || 30;
+  const bodyH = mainPiece.finishedHeight || mainPiece.height || 20;
+  const rx = silhouette.rx || 2.5;
+  const ry = silhouette.ry || rx;
+
+  const keyTabPiece = secondaryPieces.find(
+    (p) => p.id.includes('key') || (p.id.includes('tab') && !p.id.includes('zipper'))
+  );
+  const startTabPiece = secondaryPieces.find((p) => p.id.includes('start'));
+  const endTabPiece = secondaryPieces.find((p) => p.id.includes('end'));
+
+  const hasLeftTab = Boolean(keyTabPiece || startTabPiece);
+  const hasRightTab = Boolean(endTabPiece);
+  const hasZipper = Boolean(silhouette.zipper);
+
+  const leftMargin = hasLeftTab ? 10 : 8;
+  const rightMargin = hasRightTab ? 10 : 8;
+  const topMargin = hasZipper ? 8 : 8;
+  const bottomMargin = 8;
+
+  const bodyX = leftMargin;
+  const bodyY = topMargin;
+  const totalW = bodyX + bodyW + rightMargin;
+  const totalH = bodyY + bodyH + bottomMargin;
+
+  const panels = [];
+  const decorations = [];
+
+  // Main body panel
+  const bodyPlacement = findPlacementForPiece(placements, mainPiece.id);
+  const bodyClipD = roundedRectPath(bodyX, bodyY, bodyW, bodyH, rx, ry);
+  panels.push(
+    createPanelObject({
+      piece: mainPiece,
+      placement: bodyPlacement,
+      canvasX: bodyX,
+      canvasY: bodyY,
+      width: bodyW,
+      height: bodyH,
+      rx,
+      canvasClipPathD: bodyClipD,
+    })
+  );
+
+  // Key tab (Coin Purse)
+  if (keyTabPiece) {
+    const tabW = keyTabPiece.finishedWidth || keyTabPiece.width || 3;
+    const tabH = keyTabPiece.finishedHeight || keyTabPiece.height || 6;
+    const tabX = bodyX - tabW;
+    const tabY = bodyY + (bodyH - tabH) / 2;
+    const tabClipD = roundedRectPath(tabX, tabY, tabW, tabH, 1, 1);
+    const tabPlacement = findPlacementForPiece(placements, keyTabPiece.id);
+    panels.push(
+      createPanelObject({
+        piece: keyTabPiece,
+        placement: tabPlacement,
+        canvasX: tabX,
+        canvasY: tabY,
+        width: tabW,
+        height: tabH,
+        rx: 1,
+        canvasClipPathD: tabClipD,
+      })
+    );
+
+    if (silhouette.keyring) {
+      decorations.push({
+        type: 'keyring',
+        cx: Number((tabX - 1.2).toFixed(2)),
+        cy: Number((tabY + tabH / 2).toFixed(2)),
+        r: 2.2,
+        stroke: '#94A3B8',
+        strokeWidth: 0.9,
+      });
+    }
+  }
+
+  // Zipper tabs (Pencil Case)
+  if (startTabPiece) {
+    const tabW = startTabPiece.finishedWidth || startTabPiece.width || 4;
+    const tabH = startTabPiece.finishedHeight || startTabPiece.height || 3;
+    const tabX = bodyX - tabW + 0.5;
+    const tabY = bodyY + 0.5;
+    const tabClipD = roundedRectPath(tabX, tabY, tabW, tabH, 1, 1);
+    const tabPlacement = findPlacementForPiece(placements, startTabPiece.id);
+    panels.push(
+      createPanelObject({
+        piece: startTabPiece,
+        placement: tabPlacement,
+        canvasX: tabX,
+        canvasY: tabY,
+        width: tabW,
+        height: tabH,
+        rx: 1,
+        canvasClipPathD: tabClipD,
+      })
+    );
+  }
+
+  if (endTabPiece) {
+    const tabW = endTabPiece.finishedWidth || endTabPiece.width || 4;
+    const tabH = endTabPiece.finishedHeight || endTabPiece.height || 3;
+    const tabX = bodyX + bodyW - 0.5;
+    const tabY = bodyY + 0.5;
+    const tabClipD = roundedRectPath(tabX, tabY, tabW, tabH, 1, 1);
+    const tabPlacement = findPlacementForPiece(placements, endTabPiece.id);
+    panels.push(
+      createPanelObject({
+        piece: endTabPiece,
+        placement: tabPlacement,
+        canvasX: tabX,
+        canvasY: tabY,
+        width: tabW,
+        height: tabH,
+        rx: 1,
+        canvasClipPathD: tabClipD,
+      })
+    );
+  }
+
+  // Soft shadow
+  if (silhouette.shadow) {
+    decorations.push({
+      type: 'soft_shadow',
+      cx: Number((bodyX + bodyW / 2).toFixed(2)),
+      cy: Number((bodyY + bodyH + 1.5).toFixed(2)),
+      rx: Number((bodyW * 0.48).toFixed(2)),
+      ry: 2.5,
+      opacity: 0.18,
+    });
+  }
+
+  // Shading overlay
+  if (silhouette.shading) {
+    decorations.push({
+      type: 'shading_overlay',
+      d: bodyClipD,
+      gradient: 'object-shading',
+      opacity: 0.14,
+    });
+  }
+
+  // Zipper line, slider & pull
+  if (silhouette.zipper) {
+    const zipY = Number((bodyY + 1.2).toFixed(2));
+    const zipX1 = Number((bodyX + rx * 0.6).toFixed(2));
+    const zipX2 = Number((bodyX + bodyW - rx * 0.6).toFixed(2));
+
+    decorations.push({
+      type: 'zipper_line',
+      x1: zipX1,
+      y1: zipY,
+      x2: zipX2,
+      y2: zipY,
+    });
+
+    const sliderX = Number((bodyX + bodyW * 0.32).toFixed(2));
+    const sliderR = Number(Math.min(1.2, bodyH * 0.12).toFixed(2));
+    const pullW = Number(Math.min(1.6, bodyW * 0.09).toFixed(2));
+    const pullH = Number(Math.min(3.2, bodyH * 0.35).toFixed(2));
+
+    decorations.push({
+      type: 'zipper_slider',
+      cx: sliderX,
+      cy: zipY,
+      r: sliderR,
+    });
+
+    if (silhouette.zipper.pull) {
+      decorations.push({
+        type: 'zipper_pull',
+        x: Number((sliderX - pullW / 2).toFixed(2)),
+        y: Number((zipY + sliderR).toFixed(2)),
+        width: pullW,
+        height: pullH,
+        rx: 0.5,
+      });
+    }
+  }
+
+  // Topstitch (Placemat)
+  if (silhouette.topstitch) {
+    const inset = silhouette.topstitch.inset || 1.2;
+    const stitchRx = Math.max(0.5, rx - inset);
+    decorations.push({
+      type: 'stitch_line',
+      d: roundedRectPath(bodyX + inset, bodyY + inset, bodyW - 2 * inset, bodyH - 2 * inset, stitchRx, stitchRx),
+      stroke: '#FFFFFF',
+      strokeWidth: 0.8,
+      strokeDasharray: silhouette.topstitch.dash || '2 1.5',
+      strokeOpacity: 0.85,
+    });
+  }
+
+  return {
+    viewBox: `0 0 ${Math.ceil(totalW)} ${Math.ceil(totalH)}`,
+    width: Math.ceil(totalW),
+    height: Math.ceil(totalH),
+    panels,
+    decorations,
+    isGenericLayout: true,
+  };
+}
+
+function computeGenericDrawstringLayout(design, pieces, placements, view, silhouette) {
+  const isFront = view === 'front';
+
+  let mainPiece = pieces.find((p) => {
+    const id = p.id.toLowerCase();
+    if (isFront && id.includes('front')) return true;
+    if (!isFront && id.includes('back')) return true;
+    return false;
+  });
+
+  if (!mainPiece) {
+    const basePieces = pieces.filter((p) => p.role === 'base');
+    mainPiece = basePieces[isFront ? 0 : Math.min(1, basePieces.length - 1)] || pieces[0];
+  }
+
+  const casingPiece = pieces.find((p) => {
+    const id = p.id.toLowerCase();
+    return id.includes('casing') || id.includes('channel') || p.role === 'supporting' || p.role === 'accent';
+  });
+
+  const bodyW = mainPiece.finishedWidth || mainPiece.width || 20;
+  const bodyH = mainPiece.finishedHeight || mainPiece.height || 26;
+  const casingW = casingPiece?.finishedWidth || casingPiece?.width || bodyW;
+  const casingH = casingPiece?.finishedHeight || casingPiece?.height || 5;
+
+  const marginX = 14;
+  const marginY = 10;
+  const totalW = bodyW + marginX * 2;
+  const totalH = casingH + bodyH + marginY * 2;
+
+  const casingX = marginX;
+  const casingY = marginY;
+  const bodyX = marginX;
+  const bodyY = casingY + casingH;
+
+  const panels = [];
+  const decorations = [];
+
+  // Drawstring back cord loop
+  decorations.push({
+    type: 'drawstring_back_loop',
+    d: `M ${Number((casingX + casingW * 0.25).toFixed(2))} ${casingY + 1} C ${Number((casingX + casingW * 0.35).toFixed(2))} ${casingY - 3}, ${Number((casingX + casingW * 0.65).toFixed(2))} ${casingY - 3}, ${Number((casingX + casingW * 0.75).toFixed(2))} ${casingY + 1}`,
+    stroke: silhouette.cord?.color || '#D4C5B9',
+    strokeWidth: 1.6,
+  });
+
+  // 1. Casing Panel
+  if (casingPiece) {
+    const casingPlacement = findPlacementForPiece(placements, casingPiece.id);
+    const casingClipD = gatheredCasingPath(casingX, casingY, casingW, casingH);
+    panels.push(
+      createPanelObject({
+        piece: casingPiece,
+        placement: casingPlacement,
+        canvasX: casingX,
+        canvasY: casingY,
+        width: casingW,
+        height: casingH,
+        rx: 1,
+        canvasClipPathD: casingClipD,
+      })
+    );
+  }
+
+  // 2. Bag Body Panel
+  const bodyPlacement = findPlacementForPiece(placements, mainPiece.id);
+  const rx = silhouette.rx || 3.5;
+  const bodyClipD = bagBodyPath(bodyX, bodyY, bodyW, bodyH, rx);
+  panels.push(
+    createPanelObject({
+      piece: mainPiece,
+      placement: bodyPlacement,
+      canvasX: bodyX,
+      canvasY: bodyY,
+      width: bodyW,
+      height: bodyH,
+      rx,
+      canvasClipPathD: bodyClipD,
+    })
+  );
+
+  // Soft shadow
+  if (silhouette.shadow) {
+    decorations.push({
+      type: 'soft_shadow',
+      cx: Number((bodyX + bodyW / 2).toFixed(2)),
+      cy: Number((bodyY + bodyH + 1.5).toFixed(2)),
+      rx: Number((bodyW * 0.46).toFixed(2)),
+      ry: 2.8,
+      opacity: 0.18,
+    });
+  }
+
+  // Shading overlay
+  if (silhouette.shading) {
+    decorations.push({
+      type: 'shading_overlay',
+      d: bodyClipD,
+      gradient: 'object-shading',
+      opacity: 0.14,
+    });
+  }
+
+  // Casing seam stitch line
+  decorations.push({
+    type: 'stitch_line',
+    d: `M ${bodyX} ${bodyY} h ${bodyW}`,
+    stroke: '#FFFFFF',
+    strokeWidth: 0.8,
+    strokeDasharray: '2 1.5',
+    strokeOpacity: 0.85,
+  });
+
+  // Channel guide stitch line
+  decorations.push({
+    type: 'stitch_line',
+    d: `M ${bodyX} ${Number((casingY + casingH * 0.55).toFixed(2))} h ${bodyW}`,
+    stroke: '#FFFFFF',
+    strokeWidth: 0.7,
+    strokeDasharray: '2 1.5',
+    strokeOpacity: 0.75,
+  });
+
+  // Drawstring Cords & Knotted Ends
+  const cordColor = silhouette.cord?.color || '#D4C5B9';
+  const exitY = Number((casingY + casingH * 0.55).toFixed(2));
+
+  // Left cord
+  const leftExitX = casingX + 0.5;
+  const leftEnd = { x: Number((casingX - 4.5).toFixed(2)), y: Number((casingY + casingH + 12).toFixed(2)) };
+  decorations.push({
+    type: 'drawstring_cord',
+    d: `M ${leftExitX} ${exitY} C ${Number((leftExitX - 7).toFixed(2))} ${exitY - 1}, ${Number((leftExitX - 8).toFixed(2))} ${exitY + 8}, ${leftEnd.x} ${leftEnd.y}`,
+    stroke: cordColor,
+    strokeWidth: 1.6,
+  });
+  decorations.push({
+    type: 'cord_knot',
+    cx: leftEnd.x,
+    cy: leftEnd.y,
+    r: 1.5,
+  });
+
+  // Right cord
+  const rightExitX = casingX + casingW - 0.5;
+  const rightEnd = { x: Number((casingX + casingW + 4.5).toFixed(2)), y: Number((casingY + casingH + 12).toFixed(2)) };
+  decorations.push({
+    type: 'drawstring_cord',
+    d: `M ${rightExitX} ${exitY} C ${Number((rightExitX + 7).toFixed(2))} ${exitY - 1}, ${Number((rightExitX + 8).toFixed(2))} ${exitY + 8}, ${rightEnd.x} ${rightEnd.y}`,
+    stroke: cordColor,
+    strokeWidth: 1.6,
+  });
+  decorations.push({
+    type: 'cord_knot',
+    cx: rightEnd.x,
+    cy: rightEnd.y,
+    r: 1.5,
+  });
+
+  // Vertical gather fold creases
+  for (let i = 1; i <= 4; i++) {
+    const gx = Number((bodyX + (bodyW * i) / 5).toFixed(2));
+    decorations.push({
+      type: 'crease_line',
+      x1: gx,
+      y1: bodyY - 1,
+      x2: Number((gx + (i % 2 === 0 ? 0.8 : -0.8)).toFixed(2)),
+      y2: bodyY + 3.5,
+      stroke: '#1E293B',
+      strokeWidth: 0.6,
+      opacity: 0.25,
+    });
+  }
+
+  return {
+    viewBox: `0 0 ${Math.ceil(totalW)} ${Math.ceil(totalH)}`,
+    width: Math.ceil(totalW),
+    height: Math.ceil(totalH),
+    panels,
+    decorations,
+    isGenericLayout: true,
+  };
+}
+
+function computeGenericRingLayout(design, pieces, placements, view, silhouette) {
+  const piece = pieces[0];
+  const placement = findPlacementForPiece(placements, piece?.id);
+
+  const R = silhouette.outerRadius || 13;
+  const r = silhouette.innerRadius || 5.5;
+  const D = R * 2;
+  const margin = 8;
+  const totalW = D + margin * 2;
+  const totalH = D + margin * 2;
+
+  const panelX = margin;
+  const panelY = margin;
+  const cx = Number((panelX + R).toFixed(2));
+  const cy = Number((panelY + R).toFixed(2));
+
+  const ringClipD = scrunchieRingPath(cx, cy, R, r, silhouette.ruffles || 18);
+
+  const panels = [];
+  const decorations = [];
+
+  panels.push(
+    createPanelObject({
+      piece: piece || { id: 'scrunchie_strip', name: 'Scrunchie Strip', role: 'base' },
+      placement,
+      canvasX: panelX,
+      canvasY: panelY,
+      width: D,
+      height: D,
+      rx: 0,
+      canvasClipPathD: ringClipD,
+      clipRule: 'evenodd',
+    })
+  );
+
+  // Soft round drop shadow
+  if (silhouette.shadow) {
+    decorations.push({
+      type: 'soft_shadow',
+      cx,
+      cy: Number((cy + 1.5).toFixed(2)),
+      rx: Number((R + 0.8).toFixed(2)),
+      ry: Number((R + 0.8).toFixed(2)),
+      opacity: 0.16,
+    });
+  }
+
+  // Radial gathering crease lines
+  const ripples = silhouette.ruffles || 18;
+  for (let i = 0; i < ripples; i++) {
+    const angle = (i / ripples) * 2 * Math.PI;
+    const x1 = Number((cx + (r + 0.8) * Math.cos(angle)).toFixed(2));
+    const y1 = Number((cy + (r + 0.8) * Math.sin(angle)).toFixed(2));
+    const x2 = Number((cx + (R - 1.2) * Math.cos(angle)).toFixed(2));
+    const y2 = Number((cy + (R - 1.2) * Math.sin(angle)).toFixed(2));
+    decorations.push({
+      type: 'crease_line',
+      x1,
+      y1,
+      x2,
+      y2,
+      stroke: '#1E293B',
+      strokeWidth: 0.6,
+      opacity: 0.28,
+    });
+  }
+
+  // Toroidal shading overlay
+  if (silhouette.shading) {
+    decorations.push({
+      type: 'ring_shading',
+      cx,
+      cy,
+      r: Number((R + 0.5).toFixed(2)),
+      opacity: 0.22,
+    });
+  }
+
+  return {
+    viewBox: `0 0 ${Math.ceil(totalW)} ${Math.ceil(totalH)}`,
+    width: Math.ceil(totalW),
+    height: Math.ceil(totalH),
+    panels,
+    decorations,
+    isGenericLayout: true,
+  };
+}
+
+function computeGenericRunnerLayout(design, pieces, placements, view, silhouette) {
+  // Order pieces: left band, center pieces (sorted), right band
+  const leftBand = pieces.find((p) => p.id.includes('border') && p.id.includes('left'));
+  const rightBand = pieces.find((p) => p.id.includes('border') && p.id.includes('right'));
+  const centerPieces = pieces.filter((p) => p.id.includes('center'));
+
+  centerPieces.sort((a, b) => {
+    const order = { left: 1, middle: 2, center: 2, right: 3 };
+    const getOrder = (id) => {
+      for (const [k, v] of Object.entries(order)) {
+        if (id.includes(k)) return v;
+      }
+      return 5;
+    };
+    return getOrder(a.id) - getOrder(b.id);
+  });
+
+  const ordered = [];
+  if (leftBand) ordered.push(leftBand);
+  ordered.push(...centerPieces);
+  if (rightBand) ordered.push(rightBand);
+
+  const runPieces = ordered.length === pieces.length ? ordered : pieces;
+
+  // Horizontal runner: length = sum of segment lengths (piece.height), width = runner height (piece.width)
+  const runnerH = runPieces[0]?.finishedWidth || runPieces[0]?.width || 30;
+  const segLengths = runPieces.map((p) => p.finishedHeight || p.height || 20);
+  const totalLength = segLengths.reduce((sum, len) => sum + len, 0);
+
+  const marginX = 12;
+  const marginY = 10;
+  const totalW = totalLength + marginX * 2;
+  const totalH = runnerH + marginY * 2;
+
+  const runnerY = marginY;
+  let currentX = marginX;
+
+  const panels = [];
+  const decorations = [];
+
+  for (let i = 0; i < runPieces.length; i++) {
+    const p = runPieces[i];
+    const segLen = segLengths[i];
+    const panelX = currentX;
+    const panelY = runnerY;
+    const placement = findPlacementForPiece(placements, p.id);
+    const clipD = roundedRectPath(panelX, panelY, segLen, runnerH, 0);
+
+    panels.push(
+      createPanelObject({
+        piece: p,
+        placement,
+        canvasX: panelX,
+        canvasY: panelY,
+        width: segLen,
+        height: runnerH,
+        rx: 0,
+        canvasClipPathD: clipD,
+      })
+    );
+
+    // Seam line with adjacent piece
+    if (i > 0) {
+      decorations.push({
+        type: 'stitch_line',
+        d: `M ${panelX} ${panelY} v ${runnerH}`,
+        stroke: '#FFFFFF',
+        strokeWidth: 0.8,
+        strokeDasharray: '2 1.5',
+        strokeOpacity: 0.85,
+      });
+    }
+
+    currentX += segLen;
+  }
+
+  // Soft shadow along bottom
+  if (silhouette.shadow) {
+    decorations.push({
+      type: 'soft_shadow',
+      cx: Number((marginX + totalLength / 2).toFixed(2)),
+      cy: Number((runnerY + runnerH + 1.2).toFixed(2)),
+      rx: Number((totalLength * 0.49).toFixed(2)),
+      ry: 2.2,
+      opacity: 0.18,
+    });
+  }
+
+  // Horizontal shading overlay
+  if (silhouette.shading) {
+    decorations.push({
+      type: 'shading_overlay',
+      d: roundedRectPath(marginX, runnerY, totalLength, runnerH, 0),
+      gradient: 'horizontal-shading',
+      opacity: 0.12,
+    });
+  }
+
+  // Long edge top and bottom hem stitches
+  const inset = silhouette.hemStitch?.inset || 1.0;
+  decorations.push({
+    type: 'stitch_line',
+    d: `M ${marginX} ${Number((runnerY + inset).toFixed(2))} h ${totalLength}`,
+    stroke: '#FFFFFF',
+    strokeWidth: 0.8,
+    strokeDasharray: '2 1.5',
+    strokeOpacity: 0.85,
+  });
+  decorations.push({
+    type: 'stitch_line',
+    d: `M ${marginX} ${Number((runnerY + runnerH - inset).toFixed(2))} h ${totalLength}`,
+    stroke: '#FFFFFF',
+    strokeWidth: 0.8,
+    strokeDasharray: '2 1.5',
+    strokeOpacity: 0.85,
+  });
+
+  // Hemmed end bands double topstitching
+  if (leftBand) {
+    decorations.push({
+      type: 'stitch_line',
+      d: `M ${marginX + 1.2} ${runnerY} v ${runnerH}`,
+      stroke: '#FFFFFF',
+      strokeWidth: 0.8,
+      strokeDasharray: '2 1.5',
+      strokeOpacity: 0.85,
+    });
+    decorations.push({
+      type: 'stitch_line',
+      d: `M ${marginX + 2.2} ${runnerY} v ${runnerH}`,
+      stroke: '#FFFFFF',
+      strokeWidth: 0.8,
+      strokeDasharray: '2 1.5',
+      strokeOpacity: 0.85,
+    });
+  }
+
+  if (rightBand) {
+    decorations.push({
+      type: 'stitch_line',
+      d: `M ${Number((marginX + totalLength - 1.2).toFixed(2))} ${runnerY} v ${runnerH}`,
+      stroke: '#FFFFFF',
+      strokeWidth: 0.8,
+      strokeDasharray: '2 1.5',
+      strokeOpacity: 0.85,
+    });
+    decorations.push({
+      type: 'stitch_line',
+      d: `M ${Number((marginX + totalLength - 2.2).toFixed(2))} ${runnerY} v ${runnerH}`,
+      stroke: '#FFFFFF',
+      strokeWidth: 0.8,
+      strokeDasharray: '2 1.5',
+      strokeOpacity: 0.85,
+    });
+  }
+
+  return {
+    viewBox: `0 0 ${Math.ceil(totalW)} ${Math.ceil(totalH)}`,
+    width: Math.ceil(totalW),
+    height: Math.ceil(totalH),
+    panels,
+    decorations,
+    isGenericLayout: true,
+  };
+}
+
+// ---------------------------------------------------------------------------
 // GENERIC FLAT PREVIEW LAYOUT (Automatic shelf layout with patchwork clipped to piece path)
 // ---------------------------------------------------------------------------
 export function computeGenericFlatLayout(design, sizeTemplate, placements = [], view = 'front') {
@@ -283,6 +1069,23 @@ export function computeGenericFlatLayout(design, sizeTemplate, placements = [], 
       decorations: [],
       isGenericLayout: true,
     };
+  }
+
+  // Check if product specification defines a custom silhouette
+  const silhouette = template?.silhouette || design.spec?.silhouette || design.silhouette;
+  if (silhouette && silhouette.type) {
+    if (silhouette.type === 'rounded_rect') {
+      return computeGenericRoundedRectLayout(design, pieces, placements, view, silhouette);
+    }
+    if (silhouette.type === 'drawstring') {
+      return computeGenericDrawstringLayout(design, pieces, placements, view, silhouette);
+    }
+    if (silhouette.type === 'ring' || silhouette.type === 'loop') {
+      return computeGenericRingLayout(design, pieces, placements, view, silhouette);
+    }
+    if (silhouette.type === 'runner') {
+      return computeGenericRunnerLayout(design, pieces, placements, view, silhouette);
+    }
   }
 
   // Filter pieces by view if specified

@@ -274,6 +274,97 @@ console.log('\n[Suite 3] Cushion Cover Plain vs Decorated Layout');
   console.log('✓ Plain vs Decorated cushion variants generate correct distinctive panel geometries.');
 }
 
+// TEST SUITE 4: Q8b Silhouette Layouts (Containment, Area Conservation, Zero NaN/Undefined)
+console.log('\n[Suite 4] Q8b Silhouette Layouts Verification');
+{
+  const newProductIds = [
+    'drawstring_bag',
+    'scrunchie',
+    'table_runner',
+    'placemat',
+    'coin_purse',
+    'pencil_case',
+  ];
+  const sizes = ['small', 'medium', 'large'];
+  const views = ['front', 'back'];
+
+  for (const pid of newProductIds) {
+    for (const sizeKey of sizes) {
+      for (const view of views) {
+        // Build real design with Pile B scraps
+        const design = buildDesign(PILE_B, pid, sizeKey);
+        const layout = computeProduct2DLayout(design, view);
+
+        assert(layout, `Layout missing for ${pid} ${sizeKey} ${view}`);
+        assert(
+          layout.viewBox && !layout.viewBox.includes('NaN') && !layout.viewBox.includes('undefined'),
+          `Bad viewBox in ${pid} ${sizeKey} ${view}: ${layout.viewBox}`
+        );
+        assert(layout.panels.length > 0, `No panels generated for ${pid} ${sizeKey} ${view}`);
+
+        // Verify each panel
+        for (const panel of layout.panels) {
+          assert(!isNaN(panel.canvasX), `panel.canvasX is NaN in ${panel.id} of ${pid}`);
+          assert(!isNaN(panel.canvasY), `panel.canvasY is NaN in ${panel.id} of ${pid}`);
+          assert(!isNaN(panel.width) && panel.width > 0, `panel.width invalid in ${panel.id} of ${pid}`);
+          assert(!isNaN(panel.height) && panel.height > 0, `panel.height invalid in ${panel.id} of ${pid}`);
+          assert(
+            panel.canvasClipPathD && !panel.canvasClipPathD.includes('NaN') && !panel.canvasClipPathD.includes('undefined'),
+            `Bad canvasClipPathD in ${panel.id} of ${pid}`
+          );
+
+          // Verify patches
+          let patchAreaSum = 0;
+          for (const patch of panel.patches) {
+            assert(!isNaN(patch.canvasX), `patch.canvasX is NaN in ${panel.id}`);
+            assert(!isNaN(patch.canvasY), `patch.canvasY is NaN in ${panel.id}`);
+            assert(!isNaN(patch.width) && patch.width > 0, `patch.width invalid in ${panel.id}`);
+            assert(!isNaN(patch.height) && patch.height > 0, `patch.height invalid in ${panel.id}`);
+
+            // Patch containment: patch must remain strictly inside panel canvas boundaries
+            assert(
+              patch.canvasX >= panel.canvasX - 1e-4,
+              `Patch ${patch.index} in ${panel.id} left overflow: ${patch.canvasX} < ${panel.canvasX}`
+            );
+            assert(
+              patch.canvasY >= panel.canvasY - 1e-4,
+              `Patch ${patch.index} in ${panel.id} top overflow: ${patch.canvasY} < ${panel.canvasY}`
+            );
+            assert(
+              patch.canvasX + patch.width <= panel.canvasX + panel.width + 1e-4,
+              `Patch ${patch.index} in ${panel.id} right overflow: ${patch.canvasX + patch.width} > ${panel.canvasX + panel.width}`
+            );
+            assert(
+              patch.canvasY + patch.height <= panel.canvasY + panel.height + 1e-4,
+              `Patch ${patch.index} in ${panel.id} bottom overflow: ${patch.canvasY + patch.height} > ${panel.canvasY + panel.height}`
+            );
+
+            patchAreaSum += patch.width * patch.height;
+          }
+
+          // Area conservation: sum of patch areas = panel area
+          const panelArea = panel.width * panel.height;
+          assert(
+            Math.abs(patchAreaSum - panelArea) < 1e-3,
+            `Area conservation violated in ${panel.id}: patchAreaSum=${patchAreaSum} vs panelArea=${panelArea}`
+          );
+        }
+
+        // Verify decorations for zero NaN / undefined
+        for (const deco of layout.decorations) {
+          for (const [prop, val] of Object.entries(deco)) {
+            assert(val !== undefined, `Decoration property ${prop} is undefined in ${pid}`);
+            if (typeof val === 'number') {
+              assert(!isNaN(val), `Decoration property ${prop} is NaN in ${pid}`);
+            }
+          }
+        }
+      }
+    }
+    console.log(`✓ Silhouette ${pid.padEnd(16)} verified across all sizes/views (Containment, Area, NaN-free OK)`);
+  }
+}
+
 console.log('\n========================================');
 console.log('ALL STAGE 4A PREVIEW TESTS PASSED (100%)');
 console.log('========================================\n');

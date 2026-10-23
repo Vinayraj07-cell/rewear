@@ -822,12 +822,16 @@ export function normalizeGarmentSpec(productOrSpec) {
 
       const normalizedSize = {
         label,
+        names: rawSize.names || (rawSize.label ? { en: rawSize.label } : undefined),
         finishedWidthCm,
         finishedHeightCm,
         finishedDimensions: rawSize.finishedDimensions || {
           widthCm: finishedWidthCm,
           heightCm: finishedHeightCm,
         },
+        verified: rawSize.verified !== undefined ? rawSize.verified : false,
+        source: rawSize.source || 'typical estimate, unverified, needs a tailor',
+        sources: rawSize.sources || undefined,
       };
 
       if (rawSize.bodyMeasurements) {
@@ -858,8 +862,10 @@ export function normalizeGarmentSpec(productOrSpec) {
     names: productOrSpec.names || { en: name },
     category,
     construction,
+    silhouette: productOrSpec.silhouette || null,
     description,
     defaultVariant,
+    variants: productOrSpec.variants || undefined,
     tailorVerified,
     disclaimer,
     materials: productOrSpec.materials || null,
