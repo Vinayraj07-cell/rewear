@@ -1,0 +1,926 @@
+
+> happy-volta@0.0.0 test
+> node src/engine/test_stage2.js && node src/engine/test_stage2_independent.js && node src/engine/test_gate2_geometry.js && node src/engine/test_gate3_templates_parity.js && node src/engine/test_gate4_sheet_packing.js && node src/engine/test_stage4a_preview.js && node src/utils/test_stage4b_blueprint.js && node src/engine/test_stage6_curved_top.js && node src/utils/test_ai_preview.js && node src/engine/test_stage6_q3_frayed.js && node src/utils/test_q5_pile_helpers.js && node src/engine/check_products.js && node src/engine/test_product_validator.js && node src/engine/test_factory.js && node src/engine/test_q10_garments.js && node src/utils/test_q11_blueprints.js
+
+====================================================
+🧪 RUNNING REWEAR STAGE 2 ENGINE TEST SUITE
+====================================================
+
+--- 1. Testing Colour Rules & CIELAB/LCH Conversions ---
+  ✅ PASS: White has L* > 95 in CIELAB
+  ✅ PASS: White is recognized as Neutral
+  ✅ PASS: Black has L* < 5 in CIELAB
+  ✅ PASS: Black is recognized as Neutral
+  ✅ PASS: Navy is recognized as Neutral anchor
+  ✅ PASS: Beige is recognized as Neutral
+  ✅ PASS: Navy + Red does NOT clash (neutral rule)
+  ✅ PASS: Navy + Red is neutral-compatible
+  ✅ PASS: Beige + Pink does NOT clash (neutral rule)
+  ✅ PASS: Red + Maroon does not clash
+  ✅ PASS: Red + Maroon recognized as Tonal harmony
+  ✅ PASS: Cyan-Blue + Orange is not marked as clash
+  ✅ PASS: Cyan-Blue + Orange recognized as Complementary contrast
+  ✅ PASS: Saturated Orange + Hot Pink triggers Clash Risk
+  ✅ PASS: Identified relationship as clash
+  ✅ PASS: Includes clear tailor explanation for clash
+  ✅ PASS: Two printed pieces adjacent is FORBIDDEN
+  ✅ PASS: Printed + Plain piece adjacent is ALLOWED
+
+--- 2. Testing Fabric Compatibility Rules ---
+  ✅ PASS: Thick denim + Thin silk is REJECTED
+  ✅ PASS: Provides detailed needle/tension explanation
+  ✅ PASS: Thick denim + Medium cotton is COMPATIBLE (diff = 1)
+  ✅ PASS: Medium cotton + Thin silk is COMPATIBLE (diff = 1)
+  ✅ PASS: Knit stretchy + Cotton woven non-stretchy is REJECTED
+  ✅ PASS: Provides feed-dog warp explanation
+
+--- 3. Testing 60-30-10 Zoning & Fallbacks ---
+  ✅ PASS: Good pile successfully establishes a 60% Base anchor
+  ✅ PASS: Navy denim assigned to Base role
+  ✅ PASS: Printed orange piece assigned to Accent role
+  ✅ PASS: Identifies that tiny scraps cannot anchor a Medium Tote Bag
+  ✅ PASS: Returns actionable suggestions for tiny scraps
+  ✅ PASS: Detects lack of calming neutral anchor in loud multi-print pile
+  ✅ PASS: Explains missing neutral anchor clearly
+
+--- 4. Testing Product Templates & Measurements ---
+  ✅ PASS: Product template exists: tote_bag
+  ✅ PASS: Product tote_bag contains tailor verification disclaimer
+  ✅ PASS: Product template exists: pouch
+  ✅ PASS: Product pouch contains tailor verification disclaimer
+  ✅ PASS: Product template exists: cushion_cover
+  ✅ PASS: Product cushion_cover contains tailor verification disclaimer
+  ✅ PASS: Product template exists: kids_frock
+  ✅ PASS: Product kids_frock contains tailor verification disclaimer
+  ✅ PASS: Kids' Frock provides age group sizes (0-1y, 2-3y, 4-5y, 6-8y)
+  ✅ PASS: Small Pouch has rectangular zones defined with 1 cm seam allowance
+
+--- 5. Testing Fitting, Off-Cuts, Leftovers, & Suggestions API ---
+  ✅ PASS: Medium Zipper Pouch FITS successfully with the scrap pile
+  ✅ PASS: Pouch has 5 placements mapped
+  ✅ PASS: Scrap offcuts >= 3cm tracked as leftovers: 13 pieces
+  ✅ PASS: Calculated waste percentage: 0%
+  ✅ PASS: Large Tote Bag detects insufficient scrap size
+  ✅ PASS: Returns plain-language missing diagnostic message
+  ✅ PASS: suggestProducts API executes successfully
+  ✅ PASS: Evaluated 37 template configurations
+  ✅ PASS: Top suggested product is feasible (Kids top, patchwork sleeves - Chest 56 cm (~3–4 Years))
+  ✅ PASS: Top suggestion has aesthetic design score: 99/100
+  ✅ PASS: Estimated sewing time: 50 mins
+  ✅ PASS: Contains clear "Why this design" reasons
+  ✅ PASS: buildDesign API executes successfully
+  ✅ PASS: Small Pouch design layout generated successfully
+  ✅ PASS: Placements manifest generated
+  ✅ PASS: checkFeasibility confirms feasible design
+  ✅ PASS: checkFeasibility correctly identifies infeasible design
+  ✅ PASS: checkFeasibility returns missing explanation
+
+====================================================
+🏁 TEST RESULTS: 59 PASSED, 0 FAILED
+====================================================
+
+🎉 ALL STAGE 2 LOGIC TESTS PASSED PERFECTLY!
+================================================================
+REWEAR STAGE 2 — INDEPENDENT AUTOMATED TEST SUITE
+================================================================
+
+--- 1. 2D Piece Fitting & Rotation ---
+  [PASS] #1: Scrap exactly the size needed fits without rotation
+  [PASS] #2: Scrap slightly smaller in width does not fit
+  [PASS] #3: Scrap slightly smaller in height does not fit
+  [PASS] #4: Scrap needing 90-degree rotation fits when fabric is non-stretchy (boolean)
+  [PASS] #5: Scrap needing 90-degree rotation fits when stretchy input is string "no"
+  [PASS] #6: Stretchy fabric cannot rotate 90 degrees across grain line
+
+--- 2. Perceptual Colour Rules (CIELAB & LCH) ---
+  [PASS] #7: Neutral + any colour is never a clash (Black + Red)
+  [PASS] #8: Neutral + any colour is never a clash (White + Purple)
+  [PASS] #9: Neutral + any colour is never a clash (Grey + Orange)
+  [PASS] #10: Neutral + any colour is never a clash (Beige + Green)
+  [PASS] #11: Neutral + any colour is never a clash (Navy + Yellow)
+  [PASS] #12: Two strong opposite hues are identified as complementary
+  [PASS] #13: Two saturated unrelated hues with close lightness trigger a clash risk
+  [PASS] #14: Two saturated clashing hues must NEVER be placed side-by-side in joined seams
+  [PASS] #15: Two printed pieces must NEVER be placed directly next to each other
+  [PASS] #16: Plain piece adjacent to printed piece is allowed
+  [PASS] #17: Every colour in KNOWN_COLOR_HEX is case-insensitive and not parsed as fallback grey (unless grey/gray)
+
+--- 3. Fabric Compatibility Rules ---
+  [PASS] #18: Stretchy (knit) + non-stretchy (cotton) in same panel is rejected with reason
+  [PASS] #19: Stretch check handles string input ("yes" vs "no")
+  [PASS] #20: Thick (denim) + very thin (silk/georgette) in same panel is rejected with reason
+  [PASS] #21: Medium + thick fabrics are compatible (diff = 1 level)
+  [PASS] #22: Thin + medium fabrics are compatible (diff = 1 level)
+  [PASS] #23: Panel compatibility validates multi-piece group correctly
+
+--- 4. 60-30-10 Zoning & Fallbacks ---
+  [PASS] #24: Pile with NO neutral base returns fallback reason and concrete suggestions
+  [PASS] #25: Pile with calm neutral base is properly segregated into 60-30-10 roles
+
+--- 4B. Product-Specific Tiny-Scrap Fallbacks (Hard Floor vs 40% Anchor Warning) ---
+  [PASS] #26: Tote Bag (Medium) allows scraps above hard floor with warning and lower score (12cm >= 5cm floor, < 15cm anchor)
+  [PASS] #27: Zippered Pouch (Small) rejects scraps below 5cm hard floor (4cm < 5cm hard floor)
+  [PASS] #28: Cushion Cover (Medium) allows scraps above hard floor with warning and lower score (14cm >= 5cm floor, < 16cm anchor)
+  [PASS] #29: Kids' Frock (0-1y) allows scraps above hard floor with warning and lower score (15cm >= 5cm floor, < 18cm anchor)
+
+--- 5. Pile Too Small & Multi-Piece Joining Tests ---
+  [PASS] #30: 15 scraps of 12x12 cm on a medium pouch now FIT via multi-piece patchwork with lower design score
+  [PASS] #31: True shortage test: pile with too little total area fails with clear shortage message
+  [PASS] #32: True shortage test: ample area but scraps cannot join due to saturated clashing colours
+  [PASS] #33: True shortage test: ample area but scraps cannot join due to stretch / thickness mismatch
+
+--- 6. Leftover Accounting & Used Piece Removal ---
+  [PASS] #34: Used pieces are removed from leftover pool and unused pieces remain
+  [PASS] #35: Offcuts >= 3.0 cm are returned as reusable leftovers, offcuts < 3.0 cm are trim waste
+  [PASS] #36: Offcuts with both dimensions >= 3.0 cm are correctly saved as reusable
+
+--- 7. Area Conservation & Waste % Accounting ---
+  [PASS] #37: cutScrap preserves total scrap area: usedArea + reusableOffcutsArea + trimWasteArea = totalScrapArea
+  [PASS] #38: Area conservation check: used cut area + leftover area = total pile area (when all leftovers >= 3 cm)
+  [PASS] #39: Area conservation check: cut area + reusable leftovers + trim waste = total initial area
+
+--- 8. Barely Fitting Pouch (Exact Size) ---
+  [PASS] #40: Pile where pouch fits barely (exact size required) succeeds with 0% waste
+
+--- 9. Aesthetic Design Score Contrast ---
+  [PASS] #41: A good pile with calm neutral base and harmonious accents gets a HIGH design score (>= 80)
+  [PASS] #42: A bad pile with clashing colours, tiny patches, and bad ratios gets a LOW design score (< 60)
+  [PASS] #43: Loud multi-print pile without neutral anchor gets rejected and scores 0 in suggestProducts
+
+--- 10. Edge Cases & Robustness (No Crashes) ---
+  [PASS] #44: Empty pile [] does not crash suggestProducts
+  [PASS] #45: Empty pile [] does not crash fitPileToProduct
+  [PASS] #46: Zero dimension piece { width: 0, height: 10 } does not crash
+  [PASS] #47: Negative dimension piece { width: -10, height: -20 } does not crash
+  [PASS] #48: Huge quantity (10,000) does not crash
+  [PASS] #49: Invalid product ID does not crash buildDesign
+  [PASS] #50: Invalid size key does not crash buildDesign
+
+--- 11. Cushion Cover Variants (Plain vs Decorated) & Smaller Size Fallback ---
+  [PASS] #51: 30 plain 14x14 scraps fit Small Cushion Cover (30x30 cm)
+  [PASS] #52: 30 plain 14x14 scraps on Medium Cushion fall back to small cushion with clear message
+  [PASS] #53: Decorated variant of Medium Cushion Cover reports what is missing
+  [PASS] #54: 36 plain 14x14 scraps fit Plain Medium Cushion Cover completely
+
+--- 12. Zone Dimensions (cm & inches) & Fallback Protection ---
+  [PASS] #55: Every product, size, and zone has valid positive dimensions in cm and inches
+  [PASS] #56: Fallback handles custom placement with scrap dimensions if zone not in template
+  [PASS] #57: Visible fallback ensures dimensions never show empty or "Finished: × cm"
+  [PASS] #58: Translations helper translates product, size, and zone names in English, Telugu, and Hindi
+
+================================================================
+PRODUCT LARGEST ZONE & MINIMUM ANCHOR SIZE TABLE (40% RULE)
+================================================================
+┌─────────┬───────────────────────────────┬───────────────────────────────────────┬─────────────────────────────┬──────────────────┬───────────┬──────────────────┐
+│ (index) │ Product                       │ Size                                  │ Largest Zone                │ Dimensions       │ Max Dim   │ Min Anchor (40%) │
+├─────────┼───────────────────────────────┼───────────────────────────────────────┼─────────────────────────────┼──────────────────┼───────────┼──────────────────┤
+│ 0       │ 'Quilted Tote Bag'            │ 'Small (Book/Lunch Tote)'             │ 'Front Main Body'           │ '28 × 30 cm'     │ '30 cm'   │ '12 cm'          │
+│ 1       │ 'Quilted Tote Bag'            │ 'Medium (Everyday Market Tote)'       │ 'Front Main Body'           │ '36 × 38 cm'     │ '38 cm'   │ '15 cm'          │
+│ 2       │ 'Quilted Tote Bag'            │ 'Large (Weekend Carry-All)'           │ 'Front Main Body'           │ '44 × 42 cm'     │ '44 cm'   │ '18 cm'          │
+│ 3       │ 'Zippered Utility Pouch'      │ 'Small (Coin & Card Pouch)'           │ 'Back Full Panel'           │ '14 × 11 cm'     │ '14 cm'   │ '6 cm'           │
+│ 4       │ 'Zippered Utility Pouch'      │ 'Medium (Stationery / Makeup Pouch)'  │ 'Back Full Panel'           │ '22 × 15 cm'     │ '22 cm'   │ '9 cm'           │
+│ 5       │ 'Zippered Utility Pouch'      │ 'Large (Travel Toiletry Kit)'         │ 'Back Full Panel'           │ '28 × 19 cm'     │ '28 cm'   │ '11 cm'          │
+│ 6       │ 'Patchwork Cushion Cover'     │ 'Small (30 × 30 cm)'                  │ 'Front Main Panel'          │ '30 × 30 cm'     │ '30 cm'   │ '12 cm'          │
+│ 7       │ 'Patchwork Cushion Cover'     │ 'Medium (40 × 40 cm)'                 │ 'Front Main Panel'          │ '40 × 40 cm'     │ '40 cm'   │ '16 cm'          │
+│ 8       │ 'Patchwork Cushion Cover'     │ 'Large (50 × 50 cm)'                  │ 'Front Main Panel'          │ '50 × 50 cm'     │ '50 cm'   │ '20 cm'          │
+│ 9       │ "Kids' Patchwork Frock"       │ 'Infant (0–1 Year)'                   │ 'Front Gathered Skirt Tier' │ '45 × 22 cm'     │ '45 cm'   │ '18 cm'          │
+│ 10      │ "Kids' Patchwork Frock"       │ 'Toddler (2–3 Years)'                 │ 'Front Gathered Skirt Tier' │ '55 × 28 cm'     │ '55 cm'   │ '22 cm'          │
+│ 11      │ "Kids' Patchwork Frock"       │ 'Young Child (4–5 Years)'             │ 'Front Gathered Skirt Tier' │ '65 × 35 cm'     │ '65 cm'   │ '26 cm'          │
+│ 12      │ "Kids' Patchwork Frock"       │ 'Child (6–8 Years)'                   │ 'Front Gathered Skirt Tier' │ '75 × 42 cm'     │ '75 cm'   │ '30 cm'          │
+│ 13      │ 'Kids top, patchwork sleeves' │ 'Chest 56 cm (~3–4 Years)'            │ 'Front Bodice'              │ '32 × 33 cm'     │ '33 cm'   │ '13 cm'          │
+│ 14      │ 'Kids top, patchwork sleeves' │ 'Chest 62 cm (~5–6 Years)'            │ 'Front Bodice'              │ '36 × 37 cm'     │ '37 cm'   │ '15 cm'          │
+│ 15      │ 'Drawstring Bag'              │ 'Small (15 × 20 cm)'                  │ 'Front Body Panel'          │ '15 × 17 cm'     │ '17 cm'   │ '7 cm'           │
+│ 16      │ 'Drawstring Bag'              │ 'Medium (20 × 26 cm)'                 │ 'Front Body Panel'          │ '20 × 22 cm'     │ '22 cm'   │ '9 cm'           │
+│ 17      │ 'Drawstring Bag'              │ 'Large (26 × 34 cm)'                  │ 'Front Body Panel'          │ '26 × 30 cm'     │ '30 cm'   │ '12 cm'          │
+│ 18      │ 'Fabric Scrunchie'            │ 'Small (Slim 8 × 40 cm)'              │ 'Scrunchie Ruffled Strip'   │ '8 × 40 cm'      │ '40 cm'   │ '16 cm'          │
+│ 19      │ 'Fabric Scrunchie'            │ 'Medium (Classic 10 × 50 cm)'         │ 'Scrunchie Ruffled Strip'   │ '10 × 50 cm'     │ '50 cm'   │ '20 cm'          │
+│ 20      │ 'Fabric Scrunchie'            │ 'Large (Fluffy 14 × 60 cm)'           │ 'Scrunchie Ruffled Strip'   │ '14 × 60 cm'     │ '60 cm'   │ '24 cm'          │
+│ 21      │ 'Table Runner'                │ 'Small (Coffee Table 30 × 90 cm)'     │ 'Center Middle Section'     │ '30 × 24 cm'     │ '30 cm'   │ '12 cm'          │
+│ 22      │ 'Table Runner'                │ 'Medium (4-6 Seater 35 × 140 cm)'     │ 'Center Middle Section'     │ '35 × 38 cm'     │ '38 cm'   │ '15 cm'          │
+│ 23      │ 'Table Runner'                │ 'Large (8-10 Seater 40 × 180 cm)'     │ 'Center Middle Section'     │ '40 × 48 cm'     │ '48 cm'   │ '19 cm'          │
+│ 24      │ 'Dining Placemat'             │ 'Small (Tea/Snack Mat 30 × 22 cm)'    │ 'Placemat Front Surface'    │ '30 × 22 cm'     │ '30 cm'   │ '12 cm'          │
+│ 25      │ 'Dining Placemat'             │ 'Medium (Standard Dinner 40 × 30 cm)' │ 'Placemat Front Surface'    │ '40 × 30 cm'     │ '40 cm'   │ '16 cm'          │
+│ 26      │ 'Dining Placemat'             │ 'Large (Charger Dinner 45 × 35 cm)'   │ 'Placemat Front Surface'    │ '45 × 35 cm'     │ '45 cm'   │ '18 cm'          │
+│ 27      │ 'Coin Purse'                  │ 'Small (10 × 8 cm)'                   │ 'Coin Purse Front'          │ '10 × 8 cm'      │ '10 cm'   │ '5 cm'           │
+│ 28      │ 'Coin Purse'                  │ 'Medium (12 × 9 cm)'                  │ 'Coin Purse Front'          │ '12 × 9 cm'      │ '12 cm'   │ '5 cm'           │
+│ 29      │ 'Coin Purse'                  │ 'Large (14 × 10 cm)'                  │ 'Coin Purse Front'          │ '14 × 10 cm'     │ '14 cm'   │ '6 cm'           │
+│ 30      │ 'Zippered Pencil Case'        │ 'Small (Slim Sleeve 20 × 6 cm)'       │ 'Pencil Case Front'         │ '20 × 6 cm'      │ '20 cm'   │ '8 cm'           │
+│ 31      │ 'Zippered Pencil Case'        │ 'Medium (Standard 21 × 9 cm)'         │ 'Pencil Case Front'         │ '21 × 9 cm'      │ '21 cm'   │ '8 cm'           │
+│ 32      │ 'Zippered Pencil Case'        │ 'Large (Wide Art Marker 22 × 12 cm)'  │ 'Pencil Case Front'         │ '22 × 12 cm'     │ '22 cm'   │ '9 cm'           │
+│ 33      │ 'Circle Skirt'                │ 'Child Waist 54 cm (~3–4 Years)'      │ 'Waistband'                 │ '57.7 × 5 cm'    │ '57.7 cm' │ '23 cm'          │
+│ 34      │ 'Circle Skirt'                │ 'Child Waist 56 cm (~5–6 Years)'      │ 'Waistband'                 │ '61.8 × 5 cm'    │ '61.8 cm' │ '25 cm'          │
+│ 35      │ 'Tank Top'                    │ 'Child Chest 56 cm (~3–4 Years)'      │ 'Front Bodice'              │ '29.8 × 35.3 cm' │ '35.3 cm' │ '14 cm'          │
+│ 36      │ 'Tank Top'                    │ 'Child Chest 62 cm (~5–6 Years)'      │ 'Front Bodice'              │ '32.8 × 40.2 cm' │ '40.2 cm' │ '16 cm'          │
+└─────────┴───────────────────────────────┴───────────────────────────────────────┴─────────────────────────────┴──────────────────┴───────────┴──────────────────┘
+
+================================================================
+TEST RESULTS SUMMARY
+================================================================
+Total Tests Run:  58
+Tests Passed:     58
+Tests Failed:     0
+================================================================
+====================================================
+📐 RUNNING GATE 2: GEOMETRY & SCHEMA VALIDATION
+====================================================
+  ✅ PASS: garment-spec.v1.json file exists on disk
+  ✅ PASS: Schema title is ReWearGarmentSpec
+  ✅ PASS: Schema declares schemaVersion property
+  ✅ PASS: Schema defines pieceDefinition
+  ✅ PASS: 100x100 mm square area equals 100 cm² (got 100)
+  ✅ PASS: Square bounding box width & height are 10x10 cm
+  ✅ PASS: Square bbox minX is 0 and maxX is 100 mm
+  ✅ PASS: 1 cm expanded bbox gives 12x12 cm (+2cm)
+  ✅ PASS: Expanded minX is -10 mm and maxX is 110 mm
+  ✅ PASS: Detects overlapping boxes (box1 and box2)
+  ✅ PASS: Detects non-overlapping boxes (box1 and box3 with 10mm gap)
+  ✅ PASS: Detects clearance breach when 15mm clearance is required for 10mm gap
+  ✅ PASS: box1 is contained inside a 200x200 mm sheet
+  ✅ PASS: box1 is not contained inside a 90x200 mm sheet (overflows width)
+  ✅ PASS: Triangle area equals 50 cm² (got 50)
+  ✅ PASS: Quarter-circle Bézier area 78.4 cm² is within 1% of true value 78.54 cm² (error: 0.18%)
+  ✅ PASS: FreeSewing Brian chest 56 net area 3017.4 cm² is within 2% of ~2,960 cm² (error: 1.94%)
+  ✅ PASS: Front bodice area 910.2 cm² is realistic (~910 cm²)
+  ✅ PASS: Back bodice area 936.2 cm² is realistic (~936 cm²)
+  ✅ PASS: Sleeve pair area 1171 cm² is realistic (~1171 cm²)
+====================================================
+GATE 2 TEST RESULTS: 20 PASSED, 0 FAILED
+====================================================
+====================================================
+🧩 RUNNING GATE 3: TEMPLATES & SPEC PARITY TESTS
+====================================================
+
+--- 1. normalizeGarmentSpec Contract & Immutability ---
+  ✅ PASS: normalizeGarmentSpec returns null for invalid input
+  ✅ PASS: normalizeGarmentSpec generates expected top-level schema attributes
+  ✅ PASS: normalizeGarmentSpec does not mutate raw PRODUCT_TEMPLATES
+
+--- 2. getZoneCutDimensions Exact Parity ---
+  ✅ PASS: getZoneCutDimensions parity for product: tote_bag (all sizes & variants)
+  ✅ PASS: getZoneCutDimensions parity for product: pouch (all sizes & variants)
+  ✅ PASS: getZoneCutDimensions parity for product: cushion_cover (all sizes & variants)
+  ✅ PASS: getZoneCutDimensions parity for product: kids_frock (all sizes & variants)
+
+--- 3. getProductLargestZone Exact Parity ---
+  ✅ PASS: getProductLargestZone parity for product: tote_bag (all sizes & variants)
+  ✅ PASS: getProductLargestZone parity for product: pouch (all sizes & variants)
+  ✅ PASS: getProductLargestZone parity for product: cushion_cover (all sizes & variants)
+  ✅ PASS: getProductLargestZone parity for product: kids_frock (all sizes & variants)
+
+--- 4. getProductRequirements Exact Parity ---
+  ✅ PASS: getProductRequirements parity for product: tote_bag (all sizes & variants)
+  ✅ PASS: getProductRequirements parity for product: pouch (all sizes & variants)
+  ✅ PASS: getProductRequirements parity for product: cushion_cover (all sizes & variants)
+  ✅ PASS: getProductRequirements parity for product: kids_frock (all sizes & variants)
+
+--- 5. Direct Template Object vs Product ID Calling ---
+  ✅ PASS: getProductRequirements works interchangeably with ID string or normalized object
+====================================================
+GATE 3 TEST RESULTS: 16 PASSED, 0 FAILED
+====================================================
+====================================================
+📦 RUNNING GATE 4: FABRIC SOURCING & SHEET PACKING
+====================================================
+
+--- 1. fabricSource & Plain Base Handling ---
+  ✅ PASS: 'plain_base' pieces consume zero scraps and report continuous bolt yardage
+  ✅ PASS: Hybrid mode allows a pile insufficient for full garment to succeed when bodice is plain_base
+
+--- 2. packPiecesOnSheet Guarantees ---
+  ✅ PASS: packPiecesOnSheet places multiple rectangular pieces with zero overlap and >= 0.5 cm clearance
+  ✅ PASS: packPiecesOnSheet detects overlapping pieces when coordinates violate clearance
+  ✅ PASS: packPiecesOnSheet rejects layouts that overflow fixed sheet dimensions
+
+--- 3. Bounding-Box Packing Limit on Curved Pieces (v1 Documentation) ---
+     [Documented Limit] True Net Area: 3017.4 cm²
+     [Documented Limit] Packed Sheet Area: 5197.0 cm² (70.9 × 73.3 cm)
+     [Documented Limit] Bounding-box overhead factor: 1.72x (41.9% unused interstitial space)
+  ✅ PASS: Document v1 bounding-box packing overhead on real curved FreeSewing pieces
+
+--- 4. Existing 4 Products Backward Compatibility ---
+  ✅ PASS: Existing product tote_bag preserves 100% scrap sourcing (0 plain_base pieces)
+  ✅ PASS: Existing product pouch preserves 100% scrap sourcing (0 plain_base pieces)
+  ✅ PASS: Existing product cushion_cover preserves 100% scrap sourcing (0 plain_base pieces)
+  ✅ PASS: Existing product kids_frock preserves 100% scrap sourcing (0 plain_base pieces)
+====================================================
+GATE 4 TEST RESULTS: 10 PASSED, 0 FAILED
+====================================================
+--- RUNNING STAGE 4A 2D PREVIEW TESTS ---
+
+[Suite 1] computePanelPatches Unit Tests
+✓ Single piece patch matches panel dimensions exactly.
+✓ 2x3 grid: Area conserved and all patches contained within bounds.
+✓ Horizontal strip: Area conserved and all patches contained within bounds.
+✓ Vertical column: Area conserved and all patches contained within bounds.
+
+[Suite 2] Product 2D Layout Geometry & Area Conservation across Products & Piles
+
+--- Testing with Neutral Pile (Pile B) ---
+✓ tote_bag       [front]: 4 panels verified (Containment & Area OK)
+✓ tote_bag       [back ]: 3 panels verified (Containment & Area OK)
+✓ pouch          [front]: 4 panels verified (Containment & Area OK)
+✓ pouch          [back ]: 3 panels verified (Containment & Area OK)
+✓ cushion_cover  [front]: 1 panels verified (Containment & Area OK)
+✓ cushion_cover  [back ]: 2 panels verified (Containment & Area OK)
+✓ kids_frock     [front]: 4 panels verified (Containment & Area OK)
+✓ kids_frock     [back ]: 3 panels verified (Containment & Area OK)
+
+--- Testing with Colourful Pile ---
+✓ tote_bag       [front]: 4 panels verified (Containment & Area OK)
+✓ tote_bag       [back ]: 3 panels verified (Containment & Area OK)
+✓ pouch          [front]: 4 panels verified (Containment & Area OK)
+✓ pouch          [back ]: 3 panels verified (Containment & Area OK)
+✓ cushion_cover  [front]: 1 panels verified (Containment & Area OK)
+✓ cushion_cover  [back ]: 2 panels verified (Containment & Area OK)
+✓ kids_frock     [front]: 4 panels verified (Containment & Area OK)
+✓ kids_frock     [back ]: 3 panels verified (Containment & Area OK)
+
+[Suite 3] Cushion Cover Plain vs Decorated Layout
+✓ Plain vs Decorated cushion variants generate correct distinctive panel geometries.
+
+[Suite 4] Q8b Silhouette Layouts Verification
+✓ Silhouette drawstring_bag   verified across all sizes/views (Containment, Area, NaN-free OK)
+✓ Silhouette scrunchie        verified across all sizes/views (Containment, Area, NaN-free OK)
+✓ Silhouette table_runner     verified across all sizes/views (Containment, Area, NaN-free OK)
+✓ Silhouette placemat         verified across all sizes/views (Containment, Area, NaN-free OK)
+✓ Silhouette coin_purse       verified across all sizes/views (Containment, Area, NaN-free OK)
+✓ Silhouette pencil_case      verified across all sizes/views (Containment, Area, NaN-free OK)
+
+========================================
+ALL STAGE 4A PREVIEW TESTS PASSED (100%)
+========================================
+
+====================================================
+📐 RUNNING STAGE 4B / Q4 TAILOR BLUEPRINT REGRESSION TESTS
+====================================================
+✓ cm to inch conversion, formatting, and scrap summary verified.
+
+--- Regression Suite 1: Blueprint piece sizes equal template sizes exactly ---
+  ✓ pouch          [small  ]: 5 pieces match template sizes exactly
+  ✓ pouch          [medium ]: 5 pieces match template sizes exactly
+  ✓ pouch          [large  ]: 4 pieces match template sizes exactly
+  ✓ tote_bag       [small  ]: 7 pieces match template sizes exactly
+  ✓ tote_bag       [medium ]: 8 pieces match template sizes exactly
+  ✓ tote_bag       [large  ]: 8 pieces match template sizes exactly
+  ✓ cushion_cover  [small  ]: 3 pieces match template sizes exactly
+  ✓ cushion_cover  [medium ]: 3 pieces match template sizes exactly
+  ✓ cushion_cover  [large  ]: 2 pieces match template sizes exactly
+  ✓ kids_frock     [0-1y   ]: 8 pieces match template sizes exactly
+  ✓ kids_frock     [2-3y   ]: 8 pieces match template sizes exactly
+  ✓ kids_frock     [4-5y   ]: 6 pieces match template sizes exactly
+  ✓ kids_frock     [6-8y   ]: 6 pieces match template sizes exactly
+
+--- Regression Suite 2: Step text & materials line use selected size ---
+  ✓ Tote bag, cushion cover, pouch, and kids frock step text & materials adapt dynamically to size
+
+--- Regression Suite 3: Extracted PDF text contains ₹, no [DIAGRAM], no empty pages ---
+  ✓ tailor_blueprint_pouch.pdf  : 2 pages, contains ₹, 0 placeholders, 0 blank pages
+  ✓ tailor_blueprint_tote.pdf   : 2 pages, contains ₹, 0 placeholders, 0 blank pages
+  ✓ tailor_blueprint_cushion.pdf: 2 pages, contains ₹, 0 placeholders, 0 blank pages
+  ✓ tailor_blueprint_frock.pdf  : 2 pages, contains ₹, 0 placeholders, 0 blank pages
+
+====================================================
+🎉 ALL STAGE 4B / Q4 BLUEPRINT REGRESSION TESTS PASSED!
+====================================================
+
+====================================================
+👶 RUNNING PHASE 6 STEP 1: CURVED CHILD TOP TESTS
+====================================================
+
+--- 0. FreeSewing Brian CAD Dataset Verification ---
+  ✅ PASS: FreeSewing dataset metadata and mathematical authenticity verified
+
+--- 1. Sheet Packing: Zero Overlap & Clearance ---
+  ✅ PASS: no overlap: all cut pieces have >= 0.5 cm clearance on cutting sheet
+
+--- 2. Sheet Packing: Containment with Seam Allowance ---
+  ✅ PASS: pieces inside the sheet including seam allowance
+
+--- 3. Area Conservation & Curved Net Area Coverage ---
+  ✅ PASS: area conservation: raw scrap area equals cut panel area plus seam loss and trim waste
+
+--- 4. plain_base Uses Zero Scraps ---
+  ✅ PASS: plain_base uses zero scraps, zero pieced seams, and reports continuous yardage
+
+--- 5. Hybrid Mode vs Full Patchwork on Small Pile ---
+  ✅ PASS: hybrid works with a pile too small for full patchwork
+
+--- 6. Mirrored Sleeves Matching Verification ---
+  ✅ PASS: both sleeves match: mirrored pair with identical colours and symmetrical patch layout
+
+--- 7. Q2: Score Includes Labour & Recommended Mode Alignment ---
+  ✅ PASS: recommended mode == higher score for Pile B and the colourful pile
+  ✅ PASS: hybrid sleeves contain at least one non-body colour when the pile has one
+  ✅ PASS: if the pile has only one colour, note is reported in design notes
+  ✅ PASS: scores of the 4 rectangle products must not change
+====================================================
+PHASE 6 STEP 1 TEST RESULTS: 11 PASSED, 0 FAILED
+====================================================
+=== Running AI Photo Preview Tests (Step 4b) ===
+
+  PASS: computeDesignHash produces identical hash for identical design
+  PASS: computeDesignHash changes when scrap color or layout changes
+  PASS: aiPreviewCache stores, retrieves, and clears entries
+  PASS: rateLimitTracker tracks daily device limit (10/day) and enforces cap
+  PASS: buildCleanReferenceSvg contains zero text, numbers, or labels
+  PASS: requestAiPhotoPreview returns mock photo with honest disclaimer and caches by hash
+  PASS: requestAiPhotoPreview returns LIMIT_REACHED error when 10 previews exceeded
+  PASS: requestAiPhotoPreview aborts gracefully on user cancel
+  PASS: AI Photo Preview never alters fitting, scores, or blueprint data
+  PASS: aiPreviewCache recovers gracefully from QuotaExceededError without throwing
+  PASS: clearAiPreviewDataAndResetLimit resets both AI preview cache and daily limit counter
+
+All 11 AI Photo Preview tests passed successfully!
+
+====================================================
+🧵 RUNNING Q3: FRAYED & UNEVEN SCRAPS SETTING TESTS
+====================================================
+
+--- 1. Config Thresholds & Allowed Values ---
+  ✅ PASS: config.js defines SCRAP_SAFETY_MARGIN_CM with default 0
+  ✅ PASS: config.js defines ALLOWED_SCRAP_SAFETY_MARGINS_CM with [0, 0.5, 1.0]
+
+--- 2. Scrap Usable Dimension Shrinkage (2 x margin) ---
+  ✅ PASS: each scrap usable width and height shrink by exactly 2 x margin
+
+--- 3. Margin 0 Identical to Baseline Across 5 Products ---
+  ✅ PASS: margin 0 produces 100% identical results to baseline across all 4 rectangle products and child top
+
+--- 4. Monotonicity: Margin > 0 Never Increases What Fits ---
+  ✅ PASS: margin > 0 never increases what fits across pile configurations
+
+--- 5. Area Conservation Holds Strictly with Margin > 0 ---
+  ✅ PASS: cutScrap area conservation with margin > 0: used + reusable + trimWaste + frayedLoss = totalScrapArea
+  ✅ PASS: area conservation holds on child top hybrid sleeves with margin 0.5 and 1.0
+  ✅ PASS: area conservation holds on pouch with margin 0.5 and 1.0
+
+--- 6. checkFeasibility Integration ---
+  ✅ PASS: checkFeasibility respects scrapSafetyMarginCm
+
+--- 7. Frayed Margin Too-Small Warning Count & Translations ---
+  ✅ PASS: countPiecesTooSmallAfterMargin accurately counts pieces turned too small
+  ✅ PASS: frayed too small warning strings exist in en, hi, and te
+
+====================================================
+🏁 Q3 TEST RESULTS: 11 PASSED, 0 FAILED
+====================================================
+
+====================================================
+🧪 RUNNING Q5 PILE HELPERS & BULK ADD TEST SUITE
+====================================================
+
+--- 1. Testing Size Presets ---
+  ✅ PASS: All 5 size presets and custom matcher verified
+
+--- 2. Testing 3 Ready Sample Piles ---
+  ✅ PASS: Neutral sample pile contains navy/beige/grey (total 30 pcs)
+  ✅ PASS: Colourful sample pile has vibrant contrast & prints (total 36 pcs)
+  ✅ PASS: Mixed fabrics sample pile has denim, cotton, linen, silk (total 30 pcs)
+
+--- 3. Testing Validation Helpers ---
+  ✅ PASS: Quantity and dimension validation work as expected
+
+--- 4. Testing createScrapItem Helper ---
+  ✅ PASS: createScrapItem correctly applies fabric defaults and creates unique IDs
+
+--- 5. Testing duplicateScrapItem Helper ---
+  ✅ PASS: duplicateScrapItem duplicates piece with new unique ID
+
+--- 6. Testing Pile Serialization & LocalStorage Resilience ---
+  ✅ PASS: Serialization and resilient deserialization verified
+
+--- 7. Testing Frayed Margin Too-Small Pieces Counting & Formatting ---
+  ✅ PASS: Frayed margin counting and localized warnings verified in en/hi/te
+
+====================================================
+🏁 ALL Q5 PILE HELPERS TESTS PASSED (100%)
+====================================================
+
+✓ tote_bag: 3 sizes, 1 variant, all checks passed (areas match, no overlaps, sheet bounded, verification honest, translations en/hi/te)
+✓ pouch: 3 sizes, 1 variant, all checks passed (areas match, no overlaps, sheet bounded, verification honest, translations en/hi/te)
+✓ cushion_cover: 3 sizes, 2 variants, all checks passed (areas match, no overlaps, sheet bounded, verification honest, translations en/hi/te)
+✓ kids_frock: 4 sizes, 1 variant, all checks passed (areas match, no overlaps, sheet bounded, verification honest, translations en/hi/te)
+✓ child_top: 2 sizes, 3 variants, all checks passed (areas match, no overlaps, sheet bounded, plain_base zero scraps, verification honest, translations en/hi/te)
+✓ drawstring_bag: 3 sizes, 1 variant, all checks passed (areas match, no overlaps, sheet bounded, verification honest, translations en/hi/te)
+✓ scrunchie: 3 sizes, 1 variant, all checks passed (areas match, no overlaps, sheet bounded, verification honest, translations en/hi/te)
+✓ table_runner: 3 sizes, 1 variant, all checks passed (areas match, no overlaps, sheet bounded, verification honest, translations en/hi/te)
+✓ placemat: 3 sizes, 1 variant, all checks passed (areas match, no overlaps, sheet bounded, verification honest, translations en/hi/te)
+✓ coin_purse: 3 sizes, 1 variant, all checks passed (areas match, no overlaps, sheet bounded, verification honest, translations en/hi/te)
+✓ pencil_case: 3 sizes, 1 variant, all checks passed (areas match, no overlaps, sheet bounded, verification honest, translations en/hi/te)
+✓ sandy_skirt: 2 sizes, 2 variants, all checks passed (areas match, no overlaps, sheet bounded, plain_base zero scraps, verification honest, translations en/hi/te)
+✓ aaron_tank: 2 sizes, 2 variants, all checks passed (areas match, no overlaps, sheet bounded, plain_base zero scraps, verification honest, translations en/hi/te)
+====================================================
+🔍 RUNNING PRODUCT VALIDATOR & PIPELINE TEST SUITE
+====================================================
+
+--- 1. Live Product Registry Validation ---
+  ✅ PASS: All products in PRODUCT_TEMPLATES pass validateRegistry()
+  ✅ PASS: Total registry validation errors: 0 (expected 0)
+  ✅ PASS: Produced exactly 13 summary lines (one per product)
+  ✅ PASS: Product "tote_bag" passes validateProductSpec()
+  ✅ PASS: Product "tote_bag" has 0 errors
+  ✅ PASS: Product "pouch" passes validateProductSpec()
+  ✅ PASS: Product "pouch" has 0 errors
+  ✅ PASS: Product "cushion_cover" passes validateProductSpec()
+  ✅ PASS: Product "cushion_cover" has 0 errors
+  ✅ PASS: Product "kids_frock" passes validateProductSpec()
+  ✅ PASS: Product "kids_frock" has 0 errors
+  ✅ PASS: Product "child_top" passes validateProductSpec()
+  ✅ PASS: Product "child_top" has 0 errors
+
+--- 2. Validator Self-Tests (Deliberately Broken Specs) ---
+  ✅ PASS: Catches deliberately broken piece dimensions (cut < finished)
+  ✅ PASS: Reports [Piece Area Mismatch] error when cutWidth < finishedWidth
+  ✅ PASS: Catches stated area mismatch
+  ✅ PASS: Reports [Piece Area Mismatch] when stated area does not match w * h
+  ✅ PASS: Catches piece that overflows sheet width boundaries
+  ✅ PASS: Reports sheet packing failure or sheet boundary overflow
+  ✅ PASS: Catches plain_base piece violating scrap zeroing rule (scrapEligible=true)
+  ✅ PASS: Reports [Plain Base Scrap Violation] error
+  ✅ PASS: Catches hybrid variant lacking a plain_base piece
+  ✅ PASS: Reports [Hybrid Rule Violation] when no plain_base piece exists in hybrid mode
+  ✅ PASS: Catches asymmetrical mirrored sleeves in hybrid spec
+  ✅ PASS: Reports [Hybrid Rule Violation] when mirrored sleeves have mismatched dimensions
+  ✅ PASS: Catches spec with missing product translations in en, hi, or te
+  ✅ PASS: Reports [Missing Translation] for untranslated product ID
+  ✅ PASS: Catches whitespace-only translation in Hindi
+  ✅ PASS: Reports [Missing Translation] for whitespace-only string
+  ✅ PASS: Catches Hindi/Telugu strings identical to English string
+  ✅ PASS: Reports [Unlocalized Translation] when Hindi or Telugu string matches English
+  ✅ PASS: Catches unverified claim "tailor-verified" when tailorVerified=false
+  ✅ PASS: Reports [Unverified Claim] error when tailorVerified is false
+  ✅ PASS: Permits honest negation ("to be verified by a tailor") without triggering claim violation
+
+--- 3. Generic Flat Preview Tests ---
+  ✅ PASS: computeProduct2DLayout handles unmapped product without throwing error
+  ✅ PASS: Returns isGenericLayout: true
+  ✅ PASS: Lays out all 3 pieces on canvas (got: 3)
+  ✅ PASS: Every panel has canvasClipPathD defined for SVG clipping
+  ✅ PASS: Every placed panel contains real computed patches
+  ✅ PASS: Multi-scrap bib panel contains 2 patches with visible seam
+
+--- 4. Generic Blueprint Steps & Materials (All 8 Constructions) ---
+  ✅ PASS: Construction "tee" returns valid step list (length: 6)
+  ✅ PASS: Construction "tee" steps contain all required fields
+  ✅ PASS: Construction "tee" steps must all have a real positive estimatedMinutes number
+  ✅ PASS: Construction "tee" returns valid materials list (length: 4)
+  ✅ PASS: Construction "tee" materials are all flagged with "typical defaults, to be verified by a tailor"
+  ✅ PASS: Construction "skirt" returns valid step list (length: 6)
+  ✅ PASS: Construction "skirt" steps contain all required fields
+  ✅ PASS: Construction "skirt" steps must all have a real positive estimatedMinutes number
+  ✅ PASS: Construction "skirt" returns valid materials list (length: 4)
+  ✅ PASS: Construction "skirt" materials are all flagged with "typical defaults, to be verified by a tailor"
+  ✅ PASS: Construction "trousers" returns valid step list (length: 6)
+  ✅ PASS: Construction "trousers" steps contain all required fields
+  ✅ PASS: Construction "trousers" steps must all have a real positive estimatedMinutes number
+  ✅ PASS: Construction "trousers" returns valid materials list (length: 4)
+  ✅ PASS: Construction "trousers" materials are all flagged with "typical defaults, to be verified by a tailor"
+  ✅ PASS: Construction "bag" returns valid step list (length: 6)
+  ✅ PASS: Construction "bag" steps contain all required fields
+  ✅ PASS: Construction "bag" steps must all have a real positive estimatedMinutes number
+  ✅ PASS: Construction "bag" returns valid materials list (length: 4)
+  ✅ PASS: Construction "bag" materials are all flagged with "typical defaults, to be verified by a tailor"
+  ✅ PASS: Construction "cushion" returns valid step list (length: 6)
+  ✅ PASS: Construction "cushion" steps contain all required fields
+  ✅ PASS: Construction "cushion" steps must all have a real positive estimatedMinutes number
+  ✅ PASS: Construction "cushion" returns valid materials list (length: 3)
+  ✅ PASS: Construction "cushion" materials are all flagged with "typical defaults, to be verified by a tailor"
+  ✅ PASS: Construction "pouch" returns valid step list (length: 6)
+  ✅ PASS: Construction "pouch" steps contain all required fields
+  ✅ PASS: Construction "pouch" steps must all have a real positive estimatedMinutes number
+  ✅ PASS: Construction "pouch" returns valid materials list (length: 4)
+  ✅ PASS: Construction "pouch" materials are all flagged with "typical defaults, to be verified by a tailor"
+  ✅ PASS: Construction "flat" returns valid step list (length: 6)
+  ✅ PASS: Construction "flat" steps contain all required fields
+  ✅ PASS: Construction "flat" steps must all have a real positive estimatedMinutes number
+  ✅ PASS: Construction "flat" returns valid materials list (length: 3)
+  ✅ PASS: Construction "flat" materials are all flagged with "typical defaults, to be verified by a tailor"
+  ✅ PASS: Construction "casing" returns valid step list (length: 6)
+  ✅ PASS: Construction "casing" steps contain all required fields
+  ✅ PASS: Construction "casing" steps must all have a real positive estimatedMinutes number
+  ✅ PASS: Construction "casing" returns valid materials list (length: 4)
+  ✅ PASS: Construction "casing" materials are all flagged with "typical defaults, to be verified by a tailor"
+  ✅ PASS: Core product "tote_bag" steps must all have a real positive estimatedMinutes number
+  ✅ PASS: Core product "pouch" steps must all have a real positive estimatedMinutes number
+  ✅ PASS: Core product "cushion_cover" steps must all have a real positive estimatedMinutes number
+  ✅ PASS: Core product "kids_frock" steps must all have a real positive estimatedMinutes number
+  ✅ PASS: Core product "child_top" steps must all have a real positive estimatedMinutes number
+
+--- 5. Construction Step Text Part-Mention Integrity ---
+  ✅ PASS: Construction "flat" step text must not mention "envelope"
+  ✅ PASS: Construction "flat" step text must not mention "zipper"
+  ✅ PASS: Construction "flat" step text must not mention "sleeve"
+  ✅ PASS: Construction "flat" step text must not mention "crotch"
+  ✅ PASS: Construction "flat" step text must not mention "inseam"
+  ✅ PASS: Construction "flat" step text must not mention "armhole"
+  ✅ PASS: Construction "casing" step text must not mention "envelope"
+  ✅ PASS: Construction "casing" step text must not mention "zipper"
+  ✅ PASS: Construction "casing" step text must not mention "sleeve"
+  ✅ PASS: Construction "casing" step text must not mention "crotch"
+  ✅ PASS: Construction "casing" step text must not mention "inseam"
+  ✅ PASS: Construction "casing" step text must not mention "armhole"
+  ✅ PASS: Construction "tee" step text must not mention "crotch"
+  ✅ PASS: Construction "tee" step text must not mention "inseam"
+  ✅ PASS: Construction "tee" step text must not mention "envelope"
+  ✅ PASS: Construction "tee" step text must not mention "zipper"
+  ✅ PASS: Construction "tee" step text must not mention "gusset"
+  ✅ PASS: Construction "trousers" step text must not mention "envelope"
+  ✅ PASS: Construction "trousers" step text must not mention "zipper"
+  ✅ PASS: Construction "trousers" step text must not mention "sleeve"
+  ✅ PASS: Construction "trousers" step text must not mention "armhole"
+  ✅ PASS: Construction "trousers" step text must not mention "collar"
+  ✅ PASS: Construction "bag" step text must not mention "crotch"
+  ✅ PASS: Construction "bag" step text must not mention "inseam"
+  ✅ PASS: Construction "bag" step text must not mention "sleeve"
+  ✅ PASS: Construction "bag" step text must not mention "armhole"
+  ✅ PASS: Construction "bag" step text must not mention "envelope"
+  ✅ PASS: Construction "cushion" step text must not mention "crotch"
+  ✅ PASS: Construction "cushion" step text must not mention "inseam"
+  ✅ PASS: Construction "cushion" step text must not mention "sleeve"
+  ✅ PASS: Construction "cushion" step text must not mention "armhole"
+  ✅ PASS: Construction "cushion" step text must not mention "waistband"
+  ✅ PASS: Construction "pouch" step text must not mention "crotch"
+  ✅ PASS: Construction "pouch" step text must not mention "inseam"
+  ✅ PASS: Construction "pouch" step text must not mention "sleeve"
+  ✅ PASS: Construction "pouch" step text must not mention "armhole"
+  ✅ PASS: Construction "pouch" step text must not mention "envelope flap"
+  ✅ PASS: Construction "skirt" step text must not mention "crotch"
+  ✅ PASS: Construction "skirt" step text must not mention "inseam"
+  ✅ PASS: Construction "skirt" step text must not mention "sleeve"
+  ✅ PASS: Construction "skirt" step text must not mention "envelope"
+  ✅ PASS: Apron product uses the "flat" construction archetype (hemmed flat piece with ties/pockets, no zipper or envelope flap)
+  ✅ PASS: buildTailorBlueprint handles generic product spec
+  ✅ PASS: Generic trousers blueprint selects 6-step trousers template
+  ✅ PASS: Generic trousers blueprint includes elastic waistband
+  ✅ PASS: Generic blueprint contains defaults disclaimer
+
+--- 6. Score NaN and Missing Step Times Verification ---
+  ✅ PASS: tote_bag designScore is a valid number (not NaN)
+  ✅ PASS: tote_bag labourPenalty is a valid number (not NaN)
+  ✅ PASS: tote_bag estimatedTimeMinutes is a valid number (not NaN)
+  ✅ PASS: tote_bag recommendedMode is defined
+  ✅ PASS: pouch designScore is a valid number (not NaN)
+  ✅ PASS: pouch labourPenalty is a valid number (not NaN)
+  ✅ PASS: pouch estimatedTimeMinutes is a valid number (not NaN)
+  ✅ PASS: pouch recommendedMode is defined
+  ✅ PASS: cushion_cover designScore is a valid number (not NaN)
+  ✅ PASS: cushion_cover labourPenalty is a valid number (not NaN)
+  ✅ PASS: cushion_cover estimatedTimeMinutes is a valid number (not NaN)
+  ✅ PASS: cushion_cover recommendedMode is defined
+  ✅ PASS: kids_frock designScore is a valid number (not NaN)
+  ✅ PASS: kids_frock labourPenalty is a valid number (not NaN)
+  ✅ PASS: kids_frock estimatedTimeMinutes is a valid number (not NaN)
+  ✅ PASS: kids_frock recommendedMode is defined
+  ✅ PASS: child_top designScore is a valid number (not NaN)
+  ✅ PASS: child_top labourPenalty is a valid number (not NaN)
+  ✅ PASS: child_top estimatedTimeMinutes is a valid number (not NaN)
+  ✅ PASS: child_top recommendedMode is defined
+  ✅ PASS: Generic product with missing step times has numeric designScore (not NaN)
+  ✅ PASS: Generic product with missing step times has numeric labourPenalty (not NaN)
+  ✅ PASS: Generic product with missing step times has numeric estimatedTimeMinutes (not NaN)
+  ✅ PASS: Generic product with missing step times has valid recommendedMode
+
+====================================================
+🏁 TEST RESULTS: 155 PASSED, 0 FAILED
+====================================================
+
+🎉 ALL PRODUCT VALIDATOR & PIPELINE TESTS PASSED PERFECTLY!
+
+====================================================
+🧪 RUNNING PRODUCT FACTORY & LIFECYCLE TEST SUITE
+====================================================
+
+--- (a) Temporary Rectangle Config Round Trip ---
+  ✓ newProduct registered "temp_test_rectangle" into CUSTOM_PRODUCT_TEMPLATES
+  ✓ validateProductSpec passes for newly registered rectangle spec
+  ✓ Newly registered spec has tailorVerified: false
+  ✓ computeProduct2DLayout renders generic flat layout
+  ✓ generic flat layout flagged with isGenericLayout: true
+  ✓ Generic preview contains 1 placed panel
+  ✓ Generic flat preview has NO undefined values (found: 0)
+  ✓ buildTailorBlueprint generates blueprint for generic flat product
+  ✓ Generic flat blueprint provides 6 construction steps
+  ✓ Every generic flat blueprint step has a real positive estimatedMinutes number
+  ✓ Generic blueprint has NO undefined values or substrings (found: 0)
+  ✓ customRegistry.js is bitwise identical to before rectangle registration
+  ✓ customTranslations.js is bitwise identical to before rectangle registration
+
+--- (b) Pattern-Library Brian Config Round Trip ---
+  ✓ newProduct registered "temp_test_brian" into CUSTOM_PRODUCT_TEMPLATES
+  ✓ validateProductSpec passes for Brian CAD pattern-library spec
+  ✓ Brian spec automatically compiles hybrid variant
+  ✓ Brian spec automatically compiles patchwork variant
+  ✓ Brian CAD pieces retain pinned FreeSewing CAD provenance
+  ✓ computeProduct2DLayout renders layout for Brian product
+  ✓ Brian layout contains panels (count: 4)
+  ✓ Brian layout has NO undefined values (found: 0)
+  ✓ buildTailorBlueprint generates blueprint for Brian product
+  ✓ Brian tee blueprint provides 6 construction steps
+  ✓ Every Brian tee blueprint step has a real positive estimatedMinutes number
+  ✓ Brian blueprint has NO undefined values or substrings (found: 0)
+  ✓ customRegistry.js is bitwise identical to before Brian registration
+  ✓ customTranslations.js is bitwise identical to before Brian registration
+
+--- (c) Broken Configs Rejected with Zero Disk Writes ---
+  ✓ newProduct rejects config with missing Hindi/Telugu translations
+  ✓ customRegistry.js is completely untouched after rejected translation spec
+  ✓ customTranslations.js is completely untouched after rejected translation spec
+  ✓ newProduct rejects config where cut width is smaller than finished width
+  ✓ customRegistry.js is completely untouched after rejected cut size spec
+  ✓ customTranslations.js is completely untouched after rejected cut size spec
+
+====================================================
+🏁 TEST RESULTS: 33 PASSED, 0 FAILED
+====================================================
+
+🎉 ALL PRODUCT FACTORY & LIFECYCLE TESTS PASSED PERFECTLY!
+
+====================================================
+🧪 RUNNING GRANULAR Q10 GARMENTS TEST SUITE
+====================================================
+
+--- 1. User-Facing Names, Translations, & FreeSewing 4.10.2 Attribution ---
+  ✅ PASS: Circle Skirt registered in CUSTOM_PRODUCT_TEMPLATES
+  ✅ PASS: Tank Top registered in CUSTOM_PRODUCT_TEMPLATES
+  ✅ PASS: Circle Skirt English user-facing name is 'Circle Skirt'
+  ✅ PASS: Tank Top English user-facing name is 'Tank Top'
+  ✅ PASS: Circle Skirt description credits FreeSewing 4.10.2 (MIT licence)
+  ✅ PASS: Tank Top description credits FreeSewing 4.10.2 (MIT licence)
+  ✅ PASS: Circle Skirt translation (en) is 'Circle Skirt'
+  ✅ PASS: Circle Skirt translation (hi) is 'गोल घाघरा'
+  ✅ PASS: Circle Skirt translation (te) is 'గుండ్రని లంగా'
+  ✅ PASS: Tank Top translation (en) is 'Tank Top'
+  ✅ PASS: Tank Top translation (hi) is 'स्लीवलेस बनियान'
+  ✅ PASS: Tank Top translation (te) is 'స్లీవ్‌లెస్ బనీన్'
+  ✅ PASS: Circle Skirt tailorVerified flag is strictly false
+  ✅ PASS: Tank Top tailorVerified flag is strictly false
+
+--- 2. Piece Counts per Garment ---
+  ✅ PASS: Piece count: Circle Skirt waist54 has exactly 17 pieces (16 wedge gores + 1 waistband)
+  ✅ PASS: Piece count: Tank Top chest56 has exactly 5 physical cut pieces (1 front bodice, 1 back bodice, 2 arm bindings, 1 neck binding)
+
+--- 3. Each Cut Size ---
+  ✅ PASS: Cut size: Gore 1 (skirt_gore_1) is 9.4 cm cut width x 27.4 cm cut height (finished 8.5 x 25.8 cm)
+  ✅ PASS: Cut size: Gore 2 (skirt_gore_2) is 9.4 cm cut width x 27.4 cm cut height (finished 8.5 x 25.8 cm)
+  ✅ PASS: Cut size: Gore 3 (skirt_gore_3) is 9.4 cm cut width x 27.4 cm cut height (finished 8.5 x 25.8 cm)
+  ✅ PASS: Cut size: Gore 4 (skirt_gore_4) is 9.4 cm cut width x 27.4 cm cut height (finished 8.5 x 25.8 cm)
+  ✅ PASS: Cut size: Gore 5 (skirt_gore_5) is 9.4 cm cut width x 27.4 cm cut height (finished 8.5 x 25.8 cm)
+  ✅ PASS: Cut size: Gore 6 (skirt_gore_6) is 9.4 cm cut width x 27.4 cm cut height (finished 8.5 x 25.8 cm)
+  ✅ PASS: Cut size: Gore 7 (skirt_gore_7) is 9.4 cm cut width x 27.4 cm cut height (finished 8.5 x 25.8 cm)
+  ✅ PASS: Cut size: Gore 8 (skirt_gore_8) is 9.4 cm cut width x 27.4 cm cut height (finished 8.5 x 25.8 cm)
+  ✅ PASS: Cut size: Gore 9 (skirt_gore_9) is 9.4 cm cut width x 27.4 cm cut height (finished 8.5 x 25.8 cm)
+  ✅ PASS: Cut size: Gore 10 (skirt_gore_10) is 9.4 cm cut width x 27.4 cm cut height (finished 8.5 x 25.8 cm)
+  ✅ PASS: Cut size: Gore 11 (skirt_gore_11) is 9.4 cm cut width x 27.4 cm cut height (finished 8.5 x 25.8 cm)
+  ✅ PASS: Cut size: Gore 12 (skirt_gore_12) is 9.4 cm cut width x 27.4 cm cut height (finished 8.5 x 25.8 cm)
+  ✅ PASS: Cut size: Gore 13 (skirt_gore_13) is 9.4 cm cut width x 27.4 cm cut height (finished 8.5 x 25.8 cm)
+  ✅ PASS: Cut size: Gore 14 (skirt_gore_14) is 9.4 cm cut width x 27.4 cm cut height (finished 8.5 x 25.8 cm)
+  ✅ PASS: Cut size: Gore 15 (skirt_gore_15) is 9.4 cm cut width x 27.4 cm cut height (finished 8.5 x 25.8 cm)
+  ✅ PASS: Cut size: Gore 16 (skirt_gore_16) is 9.4 cm cut width x 27.4 cm cut height (finished 8.5 x 25.8 cm)
+  ✅ PASS: Cut size: Waistband (waist54) is 59.7 cm cut width x 7.0 cm cut height (finished 57.7 x 5.0 cm)
+  ✅ PASS: Cut size: Waistband (waist56) is 63.8 cm cut width x 7.0 cm cut height (finished 61.8 x 5.0 cm)
+  ✅ PASS: Cut size: Front Bodice is 31.8 cm cut width x 37.8 cm cut height (cut-on-fold, finished 29.8 x 35.3 cm)
+  ✅ PASS: Cut size: Back Bodice is 31.8 cm cut width x 37.8 cm cut height (cut-on-fold, finished 29.8 x 35.3 cm)
+  ✅ PASS: Cut size: Armhole Binding strip is 6.0 cm cut width x 31.7 cm cut height (qty 2)
+  ✅ PASS: Cut size: Neckline Binding strip is 6.0 cm cut width x 34.7 cm cut height (qty 1)
+
+--- 4. Each Area (Shoelace Net Polygon Area) ---
+  ✅ PASS: Area: Gore 1 (skirt_gore_1) Shoelace net area is 153.1 cm²
+  ✅ PASS: Area: Gore 2 (skirt_gore_2) Shoelace net area is 153.1 cm²
+  ✅ PASS: Area: Gore 3 (skirt_gore_3) Shoelace net area is 153.1 cm²
+  ✅ PASS: Area: Gore 4 (skirt_gore_4) Shoelace net area is 153.1 cm²
+  ✅ PASS: Area: Gore 5 (skirt_gore_5) Shoelace net area is 153.1 cm²
+  ✅ PASS: Area: Gore 6 (skirt_gore_6) Shoelace net area is 153.1 cm²
+  ✅ PASS: Area: Gore 7 (skirt_gore_7) Shoelace net area is 153.1 cm²
+  ✅ PASS: Area: Gore 8 (skirt_gore_8) Shoelace net area is 153.1 cm²
+  ✅ PASS: Area: Gore 9 (skirt_gore_9) Shoelace net area is 153.1 cm²
+  ✅ PASS: Area: Gore 10 (skirt_gore_10) Shoelace net area is 153.1 cm²
+  ✅ PASS: Area: Gore 11 (skirt_gore_11) Shoelace net area is 153.1 cm²
+  ✅ PASS: Area: Gore 12 (skirt_gore_12) Shoelace net area is 153.1 cm²
+  ✅ PASS: Area: Gore 13 (skirt_gore_13) Shoelace net area is 153.1 cm²
+  ✅ PASS: Area: Gore 14 (skirt_gore_14) Shoelace net area is 153.1 cm²
+  ✅ PASS: Area: Gore 15 (skirt_gore_15) Shoelace net area is 153.1 cm²
+  ✅ PASS: Area: Gore 16 (skirt_gore_16) Shoelace net area is 153.1 cm²
+  ✅ PASS: Area: Waistband (waist54) Shoelace net area is 288.4 cm²
+  ✅ PASS: Area: Waistband (waist56) Shoelace net area is 309.0 cm²
+  ✅ PASS: Area: Front Bodice Shoelace net area is 818.6 cm²
+  ✅ PASS: Area: Back Bodice Shoelace net area is 864.0 cm²
+  ✅ PASS: Area: Armhole Binding Shoelace net area is 190.2 cm² each
+  ✅ PASS: Area: Neckline Binding Shoelace net area is 208.1 cm²
+
+--- 5. Mirrored Gores & Mirrored Bindings Identical ---
+  ✅ PASS: Mirrored gores: Gore 2 identically matches Gore 1 in cut dimensions (9.4x27.4), area (153.1 cm²), and seam path
+  ✅ PASS: Mirrored gores: Gore 3 identically matches Gore 1 in cut dimensions (9.4x27.4), area (153.1 cm²), and seam path
+  ✅ PASS: Mirrored gores: Gore 4 identically matches Gore 1 in cut dimensions (9.4x27.4), area (153.1 cm²), and seam path
+  ✅ PASS: Mirrored gores: Gore 5 identically matches Gore 1 in cut dimensions (9.4x27.4), area (153.1 cm²), and seam path
+  ✅ PASS: Mirrored gores: Gore 6 identically matches Gore 1 in cut dimensions (9.4x27.4), area (153.1 cm²), and seam path
+  ✅ PASS: Mirrored gores: Gore 7 identically matches Gore 1 in cut dimensions (9.4x27.4), area (153.1 cm²), and seam path
+  ✅ PASS: Mirrored gores: Gore 8 identically matches Gore 1 in cut dimensions (9.4x27.4), area (153.1 cm²), and seam path
+  ✅ PASS: Mirrored gores: Gore 9 identically matches Gore 1 in cut dimensions (9.4x27.4), area (153.1 cm²), and seam path
+  ✅ PASS: Mirrored gores: Gore 10 identically matches Gore 1 in cut dimensions (9.4x27.4), area (153.1 cm²), and seam path
+  ✅ PASS: Mirrored gores: Gore 11 identically matches Gore 1 in cut dimensions (9.4x27.4), area (153.1 cm²), and seam path
+  ✅ PASS: Mirrored gores: Gore 12 identically matches Gore 1 in cut dimensions (9.4x27.4), area (153.1 cm²), and seam path
+  ✅ PASS: Mirrored gores: Gore 13 identically matches Gore 1 in cut dimensions (9.4x27.4), area (153.1 cm²), and seam path
+  ✅ PASS: Mirrored gores: Gore 14 identically matches Gore 1 in cut dimensions (9.4x27.4), area (153.1 cm²), and seam path
+  ✅ PASS: Mirrored gores: Gore 15 identically matches Gore 1 in cut dimensions (9.4x27.4), area (153.1 cm²), and seam path
+  ✅ PASS: Mirrored gores: Gore 16 identically matches Gore 1 in cut dimensions (9.4x27.4), area (153.1 cm²), and seam path
+  ✅ PASS: Mirrored bindings: Left and right armhole bindings are an identical mirrored pair of 6.0 x 31.7 cm strips
+
+--- 6. Plain/Scrap Roles per Mode ---
+  ✅ PASS: Role: Circle Skirt hybrid waistband is plain_base (never pieced, consumes 0 scraps from pile)
+  ✅ PASS: Role: Circle Skirt patchwork waistband is plain_base (never pieced in either mode, smooth against skin)
+  ✅ PASS: Role: Circle Skirt hybrid 16 wedge gores are scrap (pieced from upcycled remnants)
+  ✅ PASS: Role: Circle Skirt patchwork 16 wedge gores are scrap (pieced from upcycled remnants)
+  ✅ PASS: Role: Tank Top hybrid front and back bodices are plain_base (solid knit yardage, 0 scraps consumed)
+  ✅ PASS: Role: Tank Top hybrid bindings are scrap (pieced from remnant scrap strips)
+  ✅ PASS: Role: Tank Top patchwork front and back bodices are scrap (pieced from remnants)
+  ✅ PASS: Role: Tank Top patchwork bindings are scrap (pieced from remnants)
+
+--- 7. Cutting Sheet Packing & Standard 110 cm Bolt Width Limit ---
+  ✅ PASS: Packing: Circle Skirt waist54 pieces pack into 80.7 cm sheet width (strictly <= 110 cm bolt width)
+  ✅ PASS: Packing: Tank Top chest56 pieces pack into 66.1 cm sheet width (strictly <= 110 cm bolt width)
+  ✅ PASS: Packing: Zero cutting collisions detected across pattern sheet layouts
+
+--- 8. Labour Scoring & Mode Differentiation on Real Sample Piles ---
+  ✅ PASS: Fitting: Tank Top hybrid fits Neutral pile (9 scraps used, 3 per binding)
+  ✅ PASS: Fitting: Tank Top patchwork fits Neutral pile (27 scraps used, 9 per bodice + 3 per binding)
+  ✅ PASS: Labour: Tank Top patchwork sewing time (122 min) exceeds hybrid sewing time (66 min) on Neutral pile
+  ✅ PASS: Labour: Tank Top patchwork extra seams (22 seams) exceed hybrid extra seams (6 seams) on Neutral pile
+  ✅ PASS: Labour: Tank Top patchwork labour penalty (34 pts) exceeds hybrid labour penalty (2 pts) on Neutral pile
+  ✅ PASS: Labour: Tank Top hybrid design score (80) exceeds patchwork design score (30) due to seam and labour penalties
+  ✅ PASS: Labour: Tank Top patchwork on Mixed Fabrics has higher labour penalty (5 pts) than hybrid (0 pts)
+
+--- 9. Circle Skirt True Half-Circle Geometry Audit Against Formulas ---
+  ✅ PASS: Geometry (waist54): Skirt has exactly 16 wedge gores for authentic scrap piecing
+  ✅ PASS: Geometry (waist54): Sum of all gore angles is exactly 180° (true half circle)
+  ✅ PASS: Geometry (waist54): Total waist arc length at inner radius equals 56.0 cm (waist 54 + ease 2 = 56 cm)
+  ✅ PASS: Geometry (waist54): Total outer hem arc length is 137.1 cm (equals formula pi * R_out)
+  ✅ PASS: Geometry (waist54): Total gore area (2449.6 cm²) matches ring sector formula (2490.4 cm²) within 1.64% error
+  ✅ PASS: Geometry (waist56): Skirt has exactly 16 wedge gores for authentic scrap piecing
+  ✅ PASS: Geometry (waist56): Sum of all gore angles is exactly 180° (true half circle)
+  ✅ PASS: Geometry (waist56): Total waist arc length at inner radius equals 58.0 cm (waist 56 + ease 2 = 58 cm)
+  ✅ PASS: Geometry (waist56): Total outer hem arc length is 149.1 cm (equals formula pi * R_out)
+  ✅ PASS: Geometry (waist56): Total gore area (3004.8 cm²) matches ring sector formula (3003.0 cm²) within 0.06% error
+
+====================================================
+🏁 ALL GRANULAR Q10 GARMENTS TESTS PASSED PERFECTLY!
+====================================================
+
+====================================================
+📐 RUNNING Q11 CURVED GARMENT BLUEPRINTS TEST SUITE
+====================================================
+
+--- 1. Piece Dimensions Against FreeSewing 4.10.2 CAD Data ---
+  ✅ PASS: Circle Skirt piece list has 1 gore (with cut 16 instruction) and 1 waistband
+  ✅ PASS: Circle Skirt Gore: 9.4 × 27.4 cm cut size, 8.5 × 25.8 cm finished size, cut 16 gores from scraps
+  ✅ PASS: Circle Skirt Waistband: 59.7 × 7.0 cm cut size, 57.7 × 5.0 cm finished size, cut 1 from plain solid fabric
+  ✅ PASS: Tank Top piece list has 4 distinct piece types (front bodice, back bodice, arm binding, neck binding)
+  ✅ PASS: Tank Top Front Bodice: 15.9 cm half-width (31.8 cm full) × 37.8 cm cut height, cut on fold
+  ✅ PASS: Tank Top Back Bodice: 15.9 cm half-width (31.8 cm full) × 37.8 cm cut height, cut on fold
+  ✅ PASS: Tank Top Armhole Binding: 6.0 × 31.7 cm cut strip, cut 2 (mirrored pair) from scraps
+  ✅ PASS: Tank Top Neckline Binding: 6.0 × 34.7 cm cut strip, cut 1 from scraps
+  ✅ PASS: Kids Top Front Bodice: 17.1 cm half-width × 34.5 cm cut height, cut on fold
+  ✅ PASS: Kids Top Raglan Sleeve: 24.3 × 36.0 cm cut size, cut 2 (1 mirrored) from scraps
+
+--- 2. Product-Specific Stitching Steps ---
+  ✅ PASS: Circle Skirt stitching steps: 4 specific steps (join gores, attach plain waistband, elastic casing, hem) with zero irrelevant parts
+  ✅ PASS: Circle Skirt step wording correctly derived from data: 16 gores, 8 pairs, 16 radial seams (contradictory 8-gore text absent)
+  ✅ PASS: Tank Top stitching steps: 4 specific steps (shoulder seams, neck & armhole binding, side seams, hem) with zero irrelevant parts
+  ✅ PASS: Kids Top stitching steps: 5 specific steps tailored to Brian raglan tee
+  ✅ PASS: All stitching steps across all products end with terminal punctuation (. ! ?)
+
+--- 3. Measurement Tables (cm and inches) ---
+  ✅ PASS: Wedge Gore Count row: metric "16 gores" and imperial "16 gores" without duplication or column overflow
+  ✅ PASS: Circle Skirt measurement table: 7 dimensions in cm and inches, each marked "typical estimate, to be verified by a tailor"
+  ✅ PASS: Tank Top measurement table: 6 dimensions in cm and inches, each marked "typical estimate, to be verified by a tailor"
+  ✅ PASS: Kids Top measurement table: 6 dimensions in cm and inches, each marked "typical estimate, to be verified by a tailor"
+
+--- 4. Plain Fabric Yardage ---
+  ✅ PASS: Circle Skirt plain fabric yardage: 0.15 meters (solid plain cotton strip 10 × 65 cm for waistband)
+  ✅ PASS: Tank Top plain fabric yardage: 0.45 meters (solid knit fabric, 110 cm bolt width)
+  ✅ PASS: Kids Top plain fabric yardage: 0.45 meters (solid knit fabric, 110 cm bolt width)
+
+--- 5. PDF Generation, Page Counts, and Content Integrity ---
+  ✅ PASS: tailor_blueprint_sandy_skirt.pdf: Exact page count 4 matches expected 4 pages
+  ✅ PASS: tailor_blueprint_sandy_skirt.pdf: All 4 pages verified non-empty (>80 chars per page)
+  ✅ PASS: tailor_blueprint_sandy_skirt.pdf: Zero "undefined", zero "null", and zero "NaN" across entire document
+  ✅ PASS: tailor_blueprint_sandy_skirt.pdf: FreeSewing 4.10.2 attribution and tailor disclaimers verified on every page
+  ✅ PASS: tailor_blueprint_sandy_skirt.pdf: Zero FreeSewing logos present
+  ✅ PASS: tailor_blueprint_sandy_skirt.pdf: 10 cm test calibration square verified
+  ✅ PASS: Sandy Skirt PDF: Correctly displays "Not enough scraps: needs N more" and omits misleading score/time
+  ✅ PASS: tailor_blueprint_aaron_tank.pdf: Exact page count 7 matches expected 7 pages
+  ✅ PASS: tailor_blueprint_aaron_tank.pdf: All 7 pages verified non-empty (>80 chars per page)
+  ✅ PASS: tailor_blueprint_aaron_tank.pdf: Zero "undefined", zero "null", and zero "NaN" across entire document
+  ✅ PASS: tailor_blueprint_aaron_tank.pdf: FreeSewing 4.10.2 attribution and tailor disclaimers verified on every page
+  ✅ PASS: tailor_blueprint_aaron_tank.pdf: Zero FreeSewing logos present
+  ✅ PASS: tailor_blueprint_aaron_tank.pdf: 10 cm test calibration square verified
+  ✅ PASS: tailor_blueprint_child_top.pdf: Exact page count 8 matches expected 8 pages
+  ✅ PASS: tailor_blueprint_child_top.pdf: All 8 pages verified non-empty (>80 chars per page)
+  ✅ PASS: tailor_blueprint_child_top.pdf: Zero "undefined", zero "null", and zero "NaN" across entire document
+  ✅ PASS: tailor_blueprint_child_top.pdf: FreeSewing 4.10.2 attribution and tailor disclaimers verified on every page
+  ✅ PASS: tailor_blueprint_child_top.pdf: Zero FreeSewing logos present
+  ✅ PASS: tailor_blueprint_child_top.pdf: 10 cm test calibration square verified
+
+====================================================
+🎉 ALL Q11 CURVED GARMENT BLUEPRINT TESTS PASSED PERFECTLY!
+====================================================
+
