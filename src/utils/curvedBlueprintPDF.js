@@ -86,7 +86,7 @@ function escapeXml(str = '') {
     .replace(/'/g, '&apos;');
 }
 
-function wrapInstruction(text = '', maxChars = 92) {
+function wrapInstruction(text = '', maxChars = 105) {
   if (!text) return [];
   const words = text.trim().split(/\s+/);
   const lines = [];
@@ -475,22 +475,29 @@ export function buildAssemblyPageSvg(blueprint, measurementTable) {
     `;
   })()}
 
-  <!-- Assembly Stitching Steps Overview (Wrapped 2-Line Text, Never Truncated with "...") -->
+  <!-- Assembly Stitching Steps Overview (Wrapped Text in Dynamically Sized Boxes, Never Overlapping or Truncated) -->
   ${(() => {
     const stepsStartY = 244 + measurementTable.length * 16 + Math.min(mats.length, 4) * 20;
+    let currentStepY = 0;
+    const stepBoxes = steps.map((s) => {
+      const lines = wrapInstruction(s.instruction, 105);
+      const lineHeight = 8.5;
+      const boxHeight = Math.max(34, 18 + lines.length * lineHeight + 5);
+      const y = currentStepY;
+      currentStepY += boxHeight + 4;
+      return `
+        <rect x="0" y="${y}" width="${A4_WIDTH_PT - 60}" height="${boxHeight}" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1" rx="2" />
+        <rect x="6" y="${y + 7}" width="20" height="20" fill="#059669" rx="2" />
+        <text x="16" y="${y + 20}" font-family="Helvetica, Arial, sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">${s.stepNumber}</text>
+        <text x="34" y="${y + 12}" font-family="Helvetica, Arial, sans-serif" font-size="8" font-weight="bold" fill="#0F172A">${escapeXml(s.title)}</text>
+        ${lines.map((ln, lIdx) => `<text x="34" y="${y + 21 + lIdx * lineHeight}" font-family="Helvetica, Arial, sans-serif" font-size="6.5" fill="#475569">${escapeXml(ln)}</text>`).join('')}
+      `;
+    }).join('');
+
     return `
       <text x="30" y="${stepsStartY + 14}" font-family="Helvetica, Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#064E3B">3. PRODUCT ASSEMBLY STEPS (IN TAILOR ORDER)</text>
       <g transform="translate(30, ${stepsStartY + 20})">
-        ${steps.map((s, idx) => {
-          const lines = wrapInstruction(s.instruction, 92);
-          return `
-          <rect x="0" y="${idx * 40}" width="${A4_WIDTH_PT - 60}" height="36" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1" rx="2" />
-          <rect x="6" y="${idx * 40 + 8}" width="20" height="20" fill="#059669" rx="2" />
-          <text x="16" y="${idx * 40 + 21}" font-family="Helvetica, Arial, sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">${s.stepNumber}</text>
-          <text x="34" y="${idx * 40 + 13}" font-family="Helvetica, Arial, sans-serif" font-size="8" font-weight="bold" fill="#0F172A">${escapeXml(s.title)}</text>
-          ${lines.map((ln, lIdx) => `<text x="34" y="${idx * 40 + 22 + lIdx * 8.5}" font-family="Helvetica, Arial, sans-serif" font-size="6.5" fill="#475569">${escapeXml(ln)}</text>`).join('')}
-        `;
-        }).join('')}
+        ${stepBoxes}
       </g>
     `;
   })()}

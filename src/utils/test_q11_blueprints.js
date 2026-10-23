@@ -264,9 +264,7 @@ const PDF_CONFIGS = [
 
 for (const cfg of PDF_CONFIGS) {
   const artifactPath = path.join(ARTIFACT_DIR, cfg.fileName);
-  if (!fs.existsSync(artifactPath)) {
-    await generateCurvedBlueprintPdf(cfg.productId, cfg.sizeKey, artifactPath);
-  }
+  await generateCurvedBlueprintPdf(cfg.productId, cfg.sizeKey, artifactPath);
   assert(fs.existsSync(artifactPath), `Generated PDF must exist at ${artifactPath}`);
 
   const pdfBuf = fs.readFileSync(artifactPath);
@@ -283,6 +281,16 @@ for (const cfg of PDF_CONFIGS) {
     assert(pageText.length > 80, `${cfg.fileName} page ${pIdx + 1} must not be empty (got ${pageText.length} chars)`);
   }
   pass(`${cfg.fileName}: All ${parsed.total} pages verified non-empty (>80 chars per page)`);
+
+  // Step Text Completeness Check: Last words of every step must appear on Page 1 (never clipped or overlapped)
+  const bp = buildTailorBlueprint(buildDesign(SAMPLE_PILES.neutral.pieces, cfg.productId, cfg.sizeKey));
+  const page1Text = parsed.pages[0].text;
+  for (const step of bp.stitchingSteps) {
+    const words = step.instruction.trim().split(/\s+/);
+    const lastWords = words.slice(-3).join(' ');
+    assert(page1Text.includes(lastWords), `${cfg.fileName} Page 1 must include the last words of step ${step.stepNumber}: "${lastWords}"`);
+  }
+  pass(`${cfg.fileName}: Page 1 verified to contain the LAST WORDS of all ${bp.stitchingSteps.length} assembly steps without clipping`);
 
   // Zero "undefined", "null", or "NaN"
   assert(!parsed.text.includes('undefined'), `${cfg.fileName} must not contain "undefined"`);
