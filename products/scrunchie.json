@@ -5,7 +5,7 @@
     "hi": "कपड़े की स्क्रंची",
     "te": "బట్టల స్క్రంచీ"
   },
-  "category": "accessories",
+  "category": "bags",
   "construction": "casing",
   "description": "Gentle hair scrunchie stitched from long cotton, silk, or satin offcuts with elastic inner core.",
   "materials": [
@@ -42,11 +42,18 @@
         "hi": "छोटा",
         "te": "చిన్నది"
       },
-      "finishedDimensions": { "widthCm": 8, "heightCm": 40 },
+      "finishedDimensions": {
+        "widthCm": 8,
+        "heightCm": 40
+      },
       "pieces": [
         {
           "id": "scrunchie_strip",
-          "names": { "en": "Scrunchie Ruffled Strip", "hi": "स्क्रंची की मुख्य पट्टी", "te": "స్క్రంచీ కుచ్చుల పట్టీ" },
+          "names": {
+            "en": "Scrunchie Ruffled Strip",
+            "hi": "स्क्रंची की मुख्य पट्टी",
+            "te": "స్క్రంచీ కుచ్చుల పట్టీ"
+          },
           "role": "base",
           "width": 8,
           "height": 40,
@@ -62,11 +69,18 @@
         "hi": "मध्यम",
         "te": "మధ్యస్థం"
       },
-      "finishedDimensions": { "widthCm": 10, "heightCm": 50 },
+      "finishedDimensions": {
+        "widthCm": 10,
+        "heightCm": 50
+      },
       "pieces": [
         {
           "id": "scrunchie_strip",
-          "names": { "en": "Scrunchie Ruffled Strip", "hi": "स्क्रंची की मुख्य पट्टी", "te": "స్క్రంచీ కుచ్చుల పట్టీ" },
+          "names": {
+            "en": "Scrunchie Ruffled Strip",
+            "hi": "स्क्रंची की मुख्य पट्टी",
+            "te": "స్క్రంచీ కుచ్చుల పట్టీ"
+          },
           "role": "base",
           "width": 10,
           "height": 50,
@@ -82,11 +96,18 @@
         "hi": "बड़ा",
         "te": "పెద్దది"
       },
-      "finishedDimensions": { "widthCm": 14, "heightCm": 60 },
+      "finishedDimensions": {
+        "widthCm": 14,
+        "heightCm": 60
+      },
       "pieces": [
         {
           "id": "scrunchie_strip",
-          "names": { "en": "Scrunchie Ruffled Strip", "hi": "स्क्रंची की मुख्य पट्टी", "te": "స్క్రంచీ కుచ్చుల పట్టీ" },
+          "names": {
+            "en": "Scrunchie Ruffled Strip",
+            "hi": "स्क्रंची की मुख्य पट्टी",
+            "te": "స్క్రంచీ కుచ్చుల పట్టీ"
+          },
           "role": "base",
           "width": 14,
           "height": 60,

@@ -683,6 +683,58 @@ assert(
 );
 
 // ---------------------------------------------------------------------------
+// 7. Category Tabs Coverage Verification (Every Product under 1 Tab & All)
+// ---------------------------------------------------------------------------
+console.log('\n--- 7. Category Tabs Coverage Verification ---');
+
+const CATEGORY_TABS = ['bags', 'home', 'kids'];
+const registeredProductIds = Object.keys(PRODUCT_TEMPLATES);
+
+// 1. Every registered product must have a category matching one of the 3 tabs
+registeredProductIds.forEach((prodId) => {
+  const prod = PRODUCT_TEMPLATES[prodId];
+  const hasCategory = Boolean(prod.category);
+  const isValidCategory = CATEGORY_TABS.includes(prod.category);
+  assert(
+    hasCategory && isValidCategory,
+    'Product "' + prodId + '" defines valid category "' + prod.category + '" (one of ' + CATEGORY_TABS.join(', ') + ')'
+  );
+});
+
+// 2. Tab membership test: Every product appears under "all" and under EXACTLY ONE category tab
+registeredProductIds.forEach((prodId) => {
+  const prod = PRODUCT_TEMPLATES[prodId];
+  const matchingTabs = CATEGORY_TABS.filter((tab) => prod.category === tab);
+  assert(
+    matchingTabs.length === 1,
+    'Product "' + prodId + '" appears under exactly one category tab: "' + matchingTabs[0] + '" (and under "all")'
+  );
+});
+
+// 3. Verify each category tab contains its expected custom products
+const bagsProducts = registeredProductIds.filter((id) => PRODUCT_TEMPLATES[id].category === 'bags');
+const homeProducts = registeredProductIds.filter((id) => PRODUCT_TEMPLATES[id].category === 'home');
+const kidsProducts = registeredProductIds.filter((id) => PRODUCT_TEMPLATES[id].category === 'kids');
+
+assert(
+  bagsProducts.includes('drawstring_bag') &&
+  bagsProducts.includes('coin_purse') &&
+  bagsProducts.includes('pencil_case') &&
+  bagsProducts.includes('scrunchie'),
+  'Bags tab includes custom products (drawstring_bag, coin_purse, pencil_case, scrunchie)'
+);
+
+assert(
+  homeProducts.includes('table_runner') && homeProducts.includes('placemat'),
+  'Home tab includes custom products (table_runner, placemat)'
+);
+
+assert(
+  kidsProducts.includes('sandy_skirt') && kidsProducts.includes('aaron_tank'),
+  'Kids tab includes custom products (sandy_skirt, aaron_tank)'
+);
+
+// ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------
 console.log('\n====================================================');

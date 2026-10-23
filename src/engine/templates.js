@@ -91,7 +91,7 @@ export const DEFAULT_PRODUCT_TEMPLATES = {
   pouch: {
     id: 'pouch',
     name: 'Zippered Utility Pouch',
-    category: 'accessories',
+    category: 'bags',
     construction: 'pouch',
     description: 'Compact pouch for stationery, makeup, tailoring tools, or coins.',
     defaultVariant: 'plain',
@@ -216,7 +216,7 @@ export const DEFAULT_PRODUCT_TEMPLATES = {
   kids_frock: {
     id: 'kids_frock',
     name: "Kids' Patchwork Frock",
-    category: 'apparel',
+    category: 'kids',
     construction: 'skirt',
     description: 'Easy-sew rectangular pinafore frock with gathered skirt tier, bodice, and optional accent bow/pocket/border.',
     defaultVariant: 'plain',
@@ -284,7 +284,7 @@ export const DEFAULT_PRODUCT_TEMPLATES = {
   child_top: {
     id: 'child_top',
     name: 'Kids top, patchwork sleeves',
-    category: 'garments',
+    category: 'kids',
     construction: 'tee',
     description: 'Comfortable child raglan top with smooth solid plain fabric body and pieced patchwork sleeves made from upcycled scraps.',
     defaultVariant: 'hybrid',

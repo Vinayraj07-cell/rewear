@@ -82,15 +82,13 @@ export default function WhatCanIMakeScreen({
   // Filter suggestions by Category
   const filteredSuggestions = useMemo(() => {
     return allSuggestions.filter((item) => {
-      // Category match
-      if (categoryFilter === 'bags' && item.productId !== 'tote_bag' && item.productId !== 'pouch') return false;
-      if (categoryFilter === 'home' && item.productId !== 'cushion_cover') return false;
-      if (categoryFilter === 'kids' && item.productId !== 'kids_frock' && item.productId !== 'child_top') return false;
+      // Category match (derived from product's own category field)
+      if (categoryFilter !== 'all' && item.category !== categoryFilter) return false;
 
       // Audience match
-      if (audienceFilter === 'kids' && item.productId !== 'kids_frock' && item.productId !== 'child_top') return false;
-      if (audienceFilter === 'home' && item.productId !== 'cushion_cover') return false;
-      if (audienceFilter === 'adults' && (item.productId === 'kids_frock' || item.productId === 'child_top')) return false;
+      if (audienceFilter === 'kids' && item.category !== 'kids') return false;
+      if (audienceFilter === 'home' && item.category !== 'home') return false;
+      if (audienceFilter === 'adults' && item.category === 'kids') return false;
 
       return true;
     });

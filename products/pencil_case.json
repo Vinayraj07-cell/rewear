@@ -5,7 +5,7 @@
     "hi": "पेंसिल पाउच",
     "te": "పెన్సిల్ పౌచ్"
   },
-  "category": "accessories",
+  "category": "bags",
   "construction": "pouch",
   "description": "Elongated zippered stationery and pen pouch with reinforced tab ends pieced from durable scraps.",
   "materials": [
@@ -42,11 +42,18 @@
         "hi": "छोटा",
         "te": "చిన్నది"
       },
-      "finishedDimensions": { "widthCm": 20, "heightCm": 6 },
+      "finishedDimensions": {
+        "widthCm": 20,
+        "heightCm": 6
+      },
       "pieces": [
         {
           "id": "case_front",
-          "names": { "en": "Pencil Case Front", "hi": "केस का अगला हिस्सा", "te": "కేసు ముందు భాగం" },
+          "names": {
+            "en": "Pencil Case Front",
+            "hi": "केस का अगला हिस्सा",
+            "te": "కేసు ముందు భాగం"
+          },
           "role": "base",
           "width": 20,
           "height": 6,
@@ -55,7 +62,11 @@
         },
         {
           "id": "case_back",
-          "names": { "en": "Pencil Case Back", "hi": "केस का पिछला हिस्सा", "te": "కేసు వెనుక భాగం" },
+          "names": {
+            "en": "Pencil Case Back",
+            "hi": "केस का पिछला हिस्सा",
+            "te": "కేసు వెనుక భాగం"
+          },
           "role": "base",
           "width": 20,
           "height": 6,
@@ -64,7 +75,11 @@
         },
         {
           "id": "zipper_tab_start",
-          "names": { "en": "Zipper Top Tab", "hi": "ज़िप्पर का ऊपरी टैब", "te": "జిప్పర్ పై ట్యాబ్" },
+          "names": {
+            "en": "Zipper Top Tab",
+            "hi": "ज़िप्पर का ऊपरी टैब",
+            "te": "జిప్పర్ పై ట్యాబ్"
+          },
           "role": "accent",
           "width": 4,
           "height": 3,
@@ -73,7 +88,11 @@
         },
         {
           "id": "zipper_tab_end",
-          "names": { "en": "Zipper Bottom Tab", "hi": "ज़िप्पर का निचला टैब", "te": "జిప్పర్ కింది ట్యాబ్" },
+          "names": {
+            "en": "Zipper Bottom Tab",
+            "hi": "ज़िप्पर का निचला टैब",
+            "te": "జిప్పర్ కింది ట్యాబ్"
+          },
           "role": "accent",
           "width": 4,
           "height": 3,
@@ -89,11 +108,18 @@
         "hi": "मध्यम",
         "te": "మధ్యస్థం"
       },
-      "finishedDimensions": { "widthCm": 21, "heightCm": 9 },
+      "finishedDimensions": {
+        "widthCm": 21,
+        "heightCm": 9
+      },
       "pieces": [
         {
           "id": "case_front",
-          "names": { "en": "Pencil Case Front", "hi": "केस का अगला हिस्सा", "te": "కేసు ముందు భాగం" },
+          "names": {
+            "en": "Pencil Case Front",
+            "hi": "केस का अगला हिस्सा",
+            "te": "కేసు ముందు భాగం"
+          },
           "role": "base",
           "width": 21,
           "height": 9,
@@ -102,7 +128,11 @@
         },
         {
           "id": "case_back",
-          "names": { "en": "Pencil Case Back", "hi": "केस का पिछला हिस्सा", "te": "కేసు వెనుక భాగం" },
+          "names": {
+            "en": "Pencil Case Back",
+            "hi": "केस का पिछला हिस्सा",
+            "te": "కేసు వెనుక భాగం"
+          },
           "role": "base",
           "width": 21,
           "height": 9,
@@ -111,7 +141,11 @@
         },
         {
           "id": "zipper_tab_start",
-          "names": { "en": "Zipper Top Tab", "hi": "ज़िप्पर का ऊपरी टैब", "te": "జిప్పర్ పై ట్యాబ్" },
+          "names": {
+            "en": "Zipper Top Tab",
+            "hi": "ज़िप्पर का ऊपरी टैब",
+            "te": "జిప్పర్ పై ట్యాబ్"
+          },
           "role": "accent",
           "width": 4,
           "height": 3,
@@ -120,7 +154,11 @@
         },
         {
           "id": "zipper_tab_end",
-          "names": { "en": "Zipper Bottom Tab", "hi": "ज़िप्पर का निचला टैब", "te": "జిప్పర్ కింది ట్యాబ్" },
+          "names": {
+            "en": "Zipper Bottom Tab",
+            "hi": "ज़िप्पर का निचला टैब",
+            "te": "జిప్పర్ కింది ట్యాబ్"
+          },
           "role": "accent",
           "width": 4,
           "height": 3,
@@ -136,11 +174,18 @@
         "hi": "बड़ा",
         "te": "పెద్దది"
       },
-      "finishedDimensions": { "widthCm": 22, "heightCm": 12 },
+      "finishedDimensions": {
+        "widthCm": 22,
+        "heightCm": 12
+      },
       "pieces": [
         {
           "id": "case_front",
-          "names": { "en": "Pencil Case Front", "hi": "केस का अगला हिस्सा", "te": "కేసు ముందు భాగం" },
+          "names": {
+            "en": "Pencil Case Front",
+            "hi": "केस का अगला हिस्सा",
+            "te": "కేసు ముందు భాగం"
+          },
           "role": "base",
           "width": 22,
           "height": 12,
@@ -149,7 +194,11 @@
         },
         {
           "id": "case_back",
-          "names": { "en": "Pencil Case Back", "hi": "केस का पिछला हिस्सा", "te": "కేసు వెనుక భాగం" },
+          "names": {
+            "en": "Pencil Case Back",
+            "hi": "केस का पिछला हिस्सा",
+            "te": "కేసు వెనుక భాగం"
+          },
           "role": "base",
           "width": 22,
           "height": 12,
@@ -158,7 +207,11 @@
         },
         {
           "id": "zipper_tab_start",
-          "names": { "en": "Zipper Top Tab", "hi": "ज़िप्पर का ऊपरी टैब", "te": "జిప్పర్ పై ట్యాబ్" },
+          "names": {
+            "en": "Zipper Top Tab",
+            "hi": "ज़िप्पर का ऊपरी टैब",
+            "te": "జిప్పర్ పై ట్యాబ్"
+          },
           "role": "accent",
           "width": 4,
           "height": 3,
@@ -167,7 +220,11 @@
         },
         {
           "id": "zipper_tab_end",
-          "names": { "en": "Zipper Bottom Tab", "hi": "ज़िप्पर का निचला टैब", "te": "జిప్పర్ కింది ట్యాబ్" },
+          "names": {
+            "en": "Zipper Bottom Tab",
+            "hi": "ज़िप्पर का निचला टैब",
+            "te": "జిప్పర్ కింది ట్యాబ్"
+          },
           "role": "accent",
           "width": 4,
           "height": 3,

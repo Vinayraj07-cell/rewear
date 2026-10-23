@@ -822,7 +822,7 @@ export const CUSTOM_PRODUCT_TEMPLATES = {
       "hi": "कपड़े की स्क्रंची",
       "te": "బట్టల స్క్రంచీ"
     },
-    "category": "accessories",
+    "category": "bags",
     "construction": "casing",
     "silhouette": {
       "type": "ring",
@@ -2992,7 +2992,7 @@ export const CUSTOM_PRODUCT_TEMPLATES = {
       "hi": "छोटा सिक्का बटुआ",
       "te": "చిల్లర పైసల పర్స్"
     },
-    "category": "accessories",
+    "category": "bags",
     "construction": "pouch",
     "silhouette": {
       "type": "rounded_rect",
@@ -3799,7 +3799,7 @@ export const CUSTOM_PRODUCT_TEMPLATES = {
       "hi": "पेंसिल पाउच",
       "te": "పెన్సిల్ పౌచ్"
     },
-    "category": "accessories",
+    "category": "bags",
     "construction": "pouch",
     "silhouette": {
       "type": "rounded_rect",
@@ -4840,7 +4840,7 @@ export const CUSTOM_PRODUCT_TEMPLATES = {
       "hi": "गोल घाघरा",
       "te": "గుండ్రని లంగా"
     },
-    "category": "garments",
+    "category": "kids",
     "construction": "skirt",
     "silhouette": {
       "type": "skirt",
@@ -11504,7 +11504,7 @@ export const CUSTOM_PRODUCT_TEMPLATES = {
       "hi": "स्लीवलेस बनियान",
       "te": "స్లీవ్‌లెస్ బనీన్"
     },
-    "category": "garments",
+    "category": "kids",
     "construction": "tee",
     "silhouette": {
       "type": "tee",

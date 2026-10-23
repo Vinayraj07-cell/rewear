@@ -35,7 +35,7 @@
     },
     "category": {
       "type": "string",
-      "enum": ["bags", "accessories", "home", "apparel", "childrenswear"]
+      "enum": ["bags", "accessories", "home", "apparel", "childrenswear", "kids", "garments"]
     },
     "defaultVariant": {
       "type": "string",

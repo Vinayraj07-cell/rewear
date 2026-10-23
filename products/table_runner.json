@@ -36,11 +36,18 @@
         "hi": "छोटा",
         "te": "చిన్నది"
       },
-      "finishedDimensions": { "widthCm": 30, "heightCm": 90 },
+      "finishedDimensions": {
+        "widthCm": 30,
+        "heightCm": 90
+      },
       "pieces": [
         {
           "id": "border_band_left",
-          "names": { "en": "Left Border Band", "hi": "बाईं किनारी पट्टी", "te": "ఎడమ సరిహద్దు పట్టీ" },
+          "names": {
+            "en": "Left Border Band",
+            "hi": "बाईं किनारी पट्टी",
+            "te": "ఎడమ సరిహద్దు పట్టీ"
+          },
           "role": "accent",
           "width": 30,
           "height": 10,
@@ -49,7 +56,11 @@
         },
         {
           "id": "center_left",
-          "names": { "en": "Center Left Section", "hi": "मध्य बायाँ हिस्सा", "te": "మధ్య ఎడమ భాగం" },
+          "names": {
+            "en": "Center Left Section",
+            "hi": "मध्य बायाँ हिस्सा",
+            "te": "మధ్య ఎడమ భాగం"
+          },
           "role": "base",
           "width": 30,
           "height": 23,
@@ -58,7 +69,11 @@
         },
         {
           "id": "center_middle",
-          "names": { "en": "Center Middle Section", "hi": "मध्य केंद्रीय हिस्सा", "te": "మధ్య కేంద్ర భాగం" },
+          "names": {
+            "en": "Center Middle Section",
+            "hi": "मध्य केंद्रीय हिस्सा",
+            "te": "మధ్య కేంద్ర భాగం"
+          },
           "role": "base",
           "width": 30,
           "height": 24,
@@ -67,7 +82,11 @@
         },
         {
           "id": "center_right",
-          "names": { "en": "Center Right Section", "hi": "मध्य दायाँ हिस्सा", "te": "మధ్య కుడి భాగం" },
+          "names": {
+            "en": "Center Right Section",
+            "hi": "मध्य दायाँ हिस्सा",
+            "te": "మధ్య కుడి భాగం"
+          },
           "role": "base",
           "width": 30,
           "height": 23,
@@ -76,7 +95,11 @@
         },
         {
           "id": "border_band_right",
-          "names": { "en": "Right Border Band", "hi": "दाईं किनारी पट्टी", "te": "కుడి సరిహద్దు పట్టీ" },
+          "names": {
+            "en": "Right Border Band",
+            "hi": "दाईं किनारी पट्टी",
+            "te": "కుడి సరిహద్దు పట్టీ"
+          },
           "role": "accent",
           "width": 30,
           "height": 10,
@@ -92,11 +115,18 @@
         "hi": "मध्यम",
         "te": "మధ్యస్థం"
       },
-      "finishedDimensions": { "widthCm": 35, "heightCm": 140 },
+      "finishedDimensions": {
+        "widthCm": 35,
+        "heightCm": 140
+      },
       "pieces": [
         {
           "id": "border_band_left",
-          "names": { "en": "Left Border Band", "hi": "बाईं किनारी पट्टी", "te": "ఎడమ సరిహద్దు పట్టీ" },
+          "names": {
+            "en": "Left Border Band",
+            "hi": "बाईं किनारी पट्टी",
+            "te": "ఎడమ సరిహద్దు పట్టీ"
+          },
           "role": "accent",
           "width": 35,
           "height": 15,
@@ -105,7 +135,11 @@
         },
         {
           "id": "center_left",
-          "names": { "en": "Center Left Section", "hi": "मध्य बायाँ हिस्सा", "te": "మధ్య ఎడమ భాగం" },
+          "names": {
+            "en": "Center Left Section",
+            "hi": "मध्य बायाँ हिस्सा",
+            "te": "మధ్య ఎడమ భాగం"
+          },
           "role": "base",
           "width": 35,
           "height": 36,
@@ -114,7 +148,11 @@
         },
         {
           "id": "center_middle",
-          "names": { "en": "Center Middle Section", "hi": "मध्य केंद्रीय हिस्सा", "te": "మధ్య కేంద్ర భాగం" },
+          "names": {
+            "en": "Center Middle Section",
+            "hi": "मध्य केंद्रीय हिस्सा",
+            "te": "మధ్య కేంద్ర భాగం"
+          },
           "role": "base",
           "width": 35,
           "height": 38,
@@ -123,7 +161,11 @@
         },
         {
           "id": "center_right",
-          "names": { "en": "Center Right Section", "hi": "मध्य दायाँ हिस्सा", "te": "మధ్య కుడి భాగం" },
+          "names": {
+            "en": "Center Right Section",
+            "hi": "मध्य दायाँ हिस्सा",
+            "te": "మధ్య కుడి భాగం"
+          },
           "role": "base",
           "width": 35,
           "height": 36,
@@ -132,7 +174,11 @@
         },
         {
           "id": "border_band_right",
-          "names": { "en": "Right Border Band", "hi": "दाईं किनारी पट्टी", "te": "కుడి సరిహద్దు పట్టీ" },
+          "names": {
+            "en": "Right Border Band",
+            "hi": "दाईं किनारी पट्टी",
+            "te": "కుడి సరిహద్దు పట్టీ"
+          },
           "role": "accent",
           "width": 35,
           "height": 15,
@@ -148,11 +194,18 @@
         "hi": "बड़ा",
         "te": "పెద్దది"
       },
-      "finishedDimensions": { "widthCm": 40, "heightCm": 180 },
+      "finishedDimensions": {
+        "widthCm": 40,
+        "heightCm": 180
+      },
       "pieces": [
         {
           "id": "border_band_left",
-          "names": { "en": "Left Border Band", "hi": "बाईं किनारी पट्टी", "te": "ఎడమ సరిహద్దు పట్టీ" },
+          "names": {
+            "en": "Left Border Band",
+            "hi": "बाईं किनारी पट्टी",
+            "te": "ఎడమ సరిహద్దు పట్టీ"
+          },
           "role": "accent",
           "width": 40,
           "height": 20,
@@ -161,7 +214,11 @@
         },
         {
           "id": "center_left",
-          "names": { "en": "Center Left Section", "hi": "मध्य बायाँ हिस्सा", "te": "మధ్య ఎడమ భాగం" },
+          "names": {
+            "en": "Center Left Section",
+            "hi": "मध्य बायाँ हिस्सा",
+            "te": "మధ్య ఎడమ భాగం"
+          },
           "role": "base",
           "width": 40,
           "height": 46,
@@ -170,7 +227,11 @@
         },
         {
           "id": "center_middle",
-          "names": { "en": "Center Middle Section", "hi": "मध्य केंद्रीय हिस्सा", "te": "మధ్య కేంద్ర భాగం" },
+          "names": {
+            "en": "Center Middle Section",
+            "hi": "मध्य केंद्रीय हिस्सा",
+            "te": "మధ్య కేంద్ర భాగం"
+          },
           "role": "base",
           "width": 40,
           "height": 48,
@@ -179,7 +240,11 @@
         },
         {
           "id": "center_right",
-          "names": { "en": "Center Right Section", "hi": "मध्य दायाँ हिस्सा", "te": "మధ్య కుడి భాగం" },
+          "names": {
+            "en": "Center Right Section",
+            "hi": "मध्य दायाँ हिस्सा",
+            "te": "మధ్య కుడి భాగం"
+          },
           "role": "base",
           "width": 40,
           "height": 46,
@@ -188,7 +253,11 @@
         },
         {
           "id": "border_band_right",
-          "names": { "en": "Right Border Band", "hi": "दाईं किनारी पट्टी", "te": "కుడి సరిహద్దు పట్టీ" },
+          "names": {
+            "en": "Right Border Band",
+            "hi": "दाईं किनारी पट्टी",
+            "te": "కుడి సరిహద్దు పట్టీ"
+          },
           "role": "accent",
           "width": 40,
           "height": 20,

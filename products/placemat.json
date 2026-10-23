@@ -42,11 +42,18 @@
         "hi": "छोटा",
         "te": "చిన్నది"
       },
-      "finishedDimensions": { "widthCm": 30, "heightCm": 22 },
+      "finishedDimensions": {
+        "widthCm": 30,
+        "heightCm": 22
+      },
       "pieces": [
         {
           "id": "placemat_front",
-          "names": { "en": "Placemat Front Surface", "hi": "प्लेसमैट का ऊपरी भाग", "te": "మ్యాట్ పై భాగం" },
+          "names": {
+            "en": "Placemat Front Surface",
+            "hi": "प्लेसमैट का ऊपरी भाग",
+            "te": "మ్యాట్ పై భాగం"
+          },
           "role": "base",
           "width": 30,
           "height": 22,
@@ -55,7 +62,11 @@
         },
         {
           "id": "placemat_back",
-          "names": { "en": "Placemat Back Lining", "hi": "प्लेसमैट का अस्तर", "te": "మ్యాట్ వెనుక భాగం" },
+          "names": {
+            "en": "Placemat Back Lining",
+            "hi": "प्लेसमैट का अस्तर",
+            "te": "మ్యాట్ వెనుక భాగం"
+          },
           "role": "supporting",
           "width": 30,
           "height": 22,
@@ -71,11 +82,18 @@
         "hi": "मध्यम",
         "te": "మధ్యస్థం"
       },
-      "finishedDimensions": { "widthCm": 40, "heightCm": 30 },
+      "finishedDimensions": {
+        "widthCm": 40,
+        "heightCm": 30
+      },
       "pieces": [
         {
           "id": "placemat_front",
-          "names": { "en": "Placemat Front Surface", "hi": "प्लेसमैट का ऊपरी भाग", "te": "మ్యాట్ పై భాగం" },
+          "names": {
+            "en": "Placemat Front Surface",
+            "hi": "प्लेसमैट का ऊपरी भाग",
+            "te": "మ్యాట్ పై భాగం"
+          },
           "role": "base",
           "width": 40,
           "height": 30,
@@ -84,7 +102,11 @@
         },
         {
           "id": "placemat_back",
-          "names": { "en": "Placemat Back Lining", "hi": "प्लेसमैट का अस्तर", "te": "మ్యాట్ వెనుక భాగం" },
+          "names": {
+            "en": "Placemat Back Lining",
+            "hi": "प्लेसमैट का अस्तर",
+            "te": "మ్యాట్ వెనుక భాగం"
+          },
           "role": "supporting",
           "width": 40,
           "height": 30,
@@ -100,11 +122,18 @@
         "hi": "बड़ा",
         "te": "పెద్దది"
       },
-      "finishedDimensions": { "widthCm": 45, "heightCm": 35 },
+      "finishedDimensions": {
+        "widthCm": 45,
+        "heightCm": 35
+      },
       "pieces": [
         {
           "id": "placemat_front",
-          "names": { "en": "Placemat Front Surface", "hi": "प्लेसमैट का ऊपरी भाग", "te": "మ్యాట్ పై భాగం" },
+          "names": {
+            "en": "Placemat Front Surface",
+            "hi": "प्लेसमैट का ऊपरी भाग",
+            "te": "మ్యాట్ పై భాగం"
+          },
           "role": "base",
           "width": 45,
           "height": 35,
@@ -113,7 +142,11 @@
         },
         {
           "id": "placemat_back",
-          "names": { "en": "Placemat Back Lining", "hi": "प्लेसमैट का अस्तर", "te": "మ్యాట్ వెనుక భాగం" },
+          "names": {
+            "en": "Placemat Back Lining",
+            "hi": "प्लेसमैट का अस्तर",
+            "te": "మ్యాట్ వెనుక భాగం"
+          },
           "role": "supporting",
           "width": 45,
           "height": 35,

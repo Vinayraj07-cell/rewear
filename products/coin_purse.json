@@ -5,7 +5,7 @@
     "hi": "छोटा सिक्का बटुआ",
     "te": "చిల్లర పైసల పర్స్"
   },
-  "category": "accessories",
+  "category": "bags",
   "construction": "pouch",
   "description": "Pocket-sized zippered coin and change pouch with a keyring loop tab made from sturdy fabric offcuts.",
   "materials": [
@@ -42,11 +42,18 @@
         "hi": "छोटा",
         "te": "చిన్నది"
       },
-      "finishedDimensions": { "widthCm": 10, "heightCm": 8 },
+      "finishedDimensions": {
+        "widthCm": 10,
+        "heightCm": 8
+      },
       "pieces": [
         {
           "id": "purse_front",
-          "names": { "en": "Coin Purse Front", "hi": "बटुए का अगला हिस्सा", "te": "పర్స్ ముందు భాగం" },
+          "names": {
+            "en": "Coin Purse Front",
+            "hi": "बटुए का अगला हिस्सा",
+            "te": "పర్స్ ముందు భాగం"
+          },
           "role": "base",
           "width": 10,
           "height": 8,
@@ -55,7 +62,11 @@
         },
         {
           "id": "purse_back",
-          "names": { "en": "Coin Purse Back", "hi": "बटुए का पिछला हिस्सा", "te": "పర్స్ వెనుక భాగం" },
+          "names": {
+            "en": "Coin Purse Back",
+            "hi": "बटुए का पिछला हिस्सा",
+            "te": "పర్స్ వెనుక భాగం"
+          },
           "role": "base",
           "width": 10,
           "height": 8,
@@ -64,7 +75,11 @@
         },
         {
           "id": "key_tab",
-          "names": { "en": "Keyring Pull Tab", "hi": "चाबी का छल्ला टैब", "te": "కీరింగ్ లాగే ట్యాబ్" },
+          "names": {
+            "en": "Keyring Pull Tab",
+            "hi": "चाबी का छल्ला टैब",
+            "te": "కీరింగ్ లాగే ట్యాబ్"
+          },
           "role": "accent",
           "width": 3,
           "height": 6,
@@ -80,11 +95,18 @@
         "hi": "मध्यम",
         "te": "మధ్యస్థం"
       },
-      "finishedDimensions": { "widthCm": 12, "heightCm": 9 },
+      "finishedDimensions": {
+        "widthCm": 12,
+        "heightCm": 9
+      },
       "pieces": [
         {
           "id": "purse_front",
-          "names": { "en": "Coin Purse Front", "hi": "बटुए का अगला हिस्सा", "te": "పర్స్ ముందు భాగం" },
+          "names": {
+            "en": "Coin Purse Front",
+            "hi": "बटुए का अगला हिस्सा",
+            "te": "పర్స్ ముందు భాగం"
+          },
           "role": "base",
           "width": 12,
           "height": 9,
@@ -93,7 +115,11 @@
         },
         {
           "id": "purse_back",
-          "names": { "en": "Coin Purse Back", "hi": "बटुए का पिछला हिस्सा", "te": "పర్స్ వెనుక భాగం" },
+          "names": {
+            "en": "Coin Purse Back",
+            "hi": "बटुए का पिछला हिस्सा",
+            "te": "పర్స్ వెనుక భాగం"
+          },
           "role": "base",
           "width": 12,
           "height": 9,
@@ -102,7 +128,11 @@
         },
         {
           "id": "key_tab",
-          "names": { "en": "Keyring Pull Tab", "hi": "चाबी का छल्ला टैब", "te": "కీరింగ్ లాగే ట్యాబ్" },
+          "names": {
+            "en": "Keyring Pull Tab",
+            "hi": "चाबी का छल्ला टैब",
+            "te": "కీరింగ్ లాగే ట్యాబ్"
+          },
           "role": "accent",
           "width": 3,
           "height": 6,
@@ -118,11 +148,18 @@
         "hi": "बड़ा",
         "te": "పెద్దది"
       },
-      "finishedDimensions": { "widthCm": 14, "heightCm": 10 },
+      "finishedDimensions": {
+        "widthCm": 14,
+        "heightCm": 10
+      },
       "pieces": [
         {
           "id": "purse_front",
-          "names": { "en": "Coin Purse Front", "hi": "बटुए का अगला हिस्सा", "te": "పర్స్ ముందు భాగం" },
+          "names": {
+            "en": "Coin Purse Front",
+            "hi": "बटुए का अगला हिस्सा",
+            "te": "పర్స్ ముందు భాగం"
+          },
           "role": "base",
           "width": 14,
           "height": 10,
@@ -131,7 +168,11 @@
         },
         {
           "id": "purse_back",
-          "names": { "en": "Coin Purse Back", "hi": "बटुए का पिछला हिस्सा", "te": "పర్స్ వెనుక భాగం" },
+          "names": {
+            "en": "Coin Purse Back",
+            "hi": "बटुए का पिछला हिस्सा",
+            "te": "పర్స్ వెనుక భాగం"
+          },
           "role": "base",
           "width": 14,
           "height": 10,
@@ -140,7 +181,11 @@
         },
         {
           "id": "key_tab",
-          "names": { "en": "Keyring Pull Tab", "hi": "चाबी का छल्ला टैब", "te": "కీరింగ్ లాగే ట్యాబ్" },
+          "names": {
+            "en": "Keyring Pull Tab",
+            "hi": "चाबी का छल्ला टैब",
+            "te": "కీరింగ్ లాగే ట్యాబ్"
+          },
           "role": "accent",
           "width": 3,
           "height": 6,
