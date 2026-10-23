@@ -54,6 +54,19 @@ async function main() {
  */
 
 export const CUSTOM_PRODUCT_TEMPLATES = ${JSON.stringify(updatedCustomTemplates, null, 2)};
+
+// Backward compatibility: provide non-enumerable patchwork alias if product is single-mode hybrid
+for (const prod of Object.values(CUSTOM_PRODUCT_TEMPLATES)) {
+  for (const sz of Object.values(prod.sizes || {})) {
+    if (sz.variants && sz.variants.hybrid && !sz.variants.patchwork) {
+      Object.defineProperty(sz.variants, 'patchwork', {
+        enumerable: false,
+        configurable: true,
+        get() { return this.hybrid; },
+      });
+    }
+  }
+}
 `;
   fs.writeFileSync(customRegistryPath, registryCode, 'utf-8');
   console.log(`💾 Updated: src/engine/customRegistry.js`);
@@ -99,6 +112,17 @@ export const CUSTOM_PRODUCT_TEMPLATES = ${JSON.stringify(updatedCustomTemplates,
         for (const lang of ['en', 'hi', 'te']) {
           delete updatedTranslations[lang].sizeNames[sKey];
         }
+      } else {
+        for (const prod of Object.values(updatedCustomTemplates)) {
+          if (prod?.sizes?.[sKey]?.names) {
+            for (const lang of ['en', 'hi', 'te']) {
+              if (prod.sizes[sKey].names[lang]) {
+                updatedTranslations[lang].sizeNames[sKey] = prod.sizes[sKey].names[lang];
+              }
+            }
+            break;
+          }
+        }
       }
       const pieces = sVal.zones || [];
       for (const p of pieces) {
@@ -106,9 +130,31 @@ export const CUSTOM_PRODUCT_TEMPLATES = ${JSON.stringify(updatedCustomTemplates,
         const id2 = p.id.replace(/_\d+$/, '');
         if (!remainingZoneKeys.has(id1)) {
           for (const lang of ['en', 'hi', 'te']) delete updatedTranslations[lang].zoneNames[id1];
+        } else {
+          for (const prod of Object.values(updatedCustomTemplates)) {
+            for (const sz of Object.values(prod.sizes || {})) {
+              const matched = (sz.zones || []).find((zp) => zp.id === id1);
+              if (matched?.names) {
+                for (const lang of ['en', 'hi', 'te']) {
+                  if (matched.names[lang]) updatedTranslations[lang].zoneNames[id1] = matched.names[lang];
+                }
+              }
+            }
+          }
         }
         if (!remainingZoneKeys.has(id2)) {
           for (const lang of ['en', 'hi', 'te']) delete updatedTranslations[lang].zoneNames[id2];
+        } else {
+          for (const prod of Object.values(updatedCustomTemplates)) {
+            for (const sz of Object.values(prod.sizes || {})) {
+              const matched = (sz.zones || []).find((zp) => zp.id === id2 || zp.id.replace(/_\d+$/, '') === id2);
+              if (matched?.names) {
+                for (const lang of ['en', 'hi', 'te']) {
+                  if (matched.names[lang]) updatedTranslations[lang].zoneNames[id2] = matched.names[lang];
+                }
+              }
+            }
+          }
         }
       }
       if (sVal.variants) {

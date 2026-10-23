@@ -27,6 +27,8 @@ import { fileURLToPath } from 'node:url';
 import { CONFIG } from '../config.js';
 import { TAILOR_DISCLAIMER, normalizeGarmentSpec } from '../templates.js';
 import { CHILD_TOP_BRIAN_DATA, FREESEWING_VERSION, PATTERN_DESIGN } from '../childTopBrianData.js';
+import { SANDY_SKIRT_DATA } from '../sandySkirtData.js';
+import { AARON_TANK_DATA } from '../aaronTankData.js';
 import { validateProductSpec } from '../productValidator.js';
 import { CUSTOM_PRODUCT_TEMPLATES } from '../customRegistry.js';
 import { CUSTOM_TRANSLATIONS } from '../../i18n/customTranslations.js';
@@ -120,6 +122,7 @@ function assembleGarmentSpec(rawConfig) {
     name,
     category,
     construction,
+    silhouette,
     description,
     materials = [],
     sizes = {},
@@ -133,9 +136,12 @@ function assembleGarmentSpec(rawConfig) {
   const enName = names.en || name || id.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
   const prodDescription = description || `${enName} made from leftover patchwork and upcycled fabric.`;
 
-  // Pattern library check (e.g. FreeSewing Brian CAD generator)
+  // Pattern library check (e.g. FreeSewing Brian/Sandy/Aaron CAD generator)
   const libDesign = (patternLibrary?.design || design || '').toLowerCase();
   const isBrianCad = libDesign.includes('brian');
+  const isSandyCad = libDesign.includes('sandy');
+  const isAaronCad = libDesign.includes('aaron');
+  const isCadPattern = isBrianCad || isSandyCad || isAaronCad;
 
   const compiledSizes = {};
 
@@ -146,12 +152,16 @@ function assembleGarmentSpec(rawConfig) {
 
     const sizeObj = {
       label: sizeLabel,
+      names: sizeData.names || { en: sizeLabel },
       finishedWidthCm: w,
       finishedHeightCm: h,
       finishedDimensions: {
         widthCm: w,
         heightCm: h,
       },
+      verified: sizeData.verified !== undefined ? sizeData.verified : false,
+      source: sizeData.source || 'typical estimate, unverified, needs a tailor',
+      sources: sizeData.sources || undefined,
     };
 
     if (sizeData.bodyMeasurements) {
@@ -161,14 +171,28 @@ function assembleGarmentSpec(rawConfig) {
     // Determine pieces
     let rawPieces = sizeData.pieces || rootPieces || [];
 
-    // If using Brian CAD pattern library
-    if (isBrianCad) {
-      const brianSizeKey = sizeKey in CHILD_TOP_BRIAN_DATA ? sizeKey : Object.keys(CHILD_TOP_BRIAN_DATA)[0];
-      const cadData = CHILD_TOP_BRIAN_DATA[brianSizeKey];
+    // If using a CAD pattern library
+    if (isCadPattern) {
+      let cadData = null;
+      let patternName = 'Brian';
+      if (isBrianCad) {
+        const brianSizeKey = sizeKey in CHILD_TOP_BRIAN_DATA ? sizeKey : Object.keys(CHILD_TOP_BRIAN_DATA)[0];
+        cadData = CHILD_TOP_BRIAN_DATA[brianSizeKey];
+        patternName = 'Brian';
+      } else if (isSandyCad) {
+        const sandySizeKey = sizeKey in SANDY_SKIRT_DATA ? sizeKey : Object.keys(SANDY_SKIRT_DATA)[0];
+        cadData = SANDY_SKIRT_DATA[sandySizeKey];
+        patternName = 'Sandy';
+      } else if (isAaronCad) {
+        const aaronSizeKey = sizeKey in AARON_TANK_DATA ? sizeKey : Object.keys(AARON_TANK_DATA)[0];
+        cadData = AARON_TANK_DATA[aaronSizeKey];
+        patternName = 'Aaron';
+      }
+
       if (cadData) {
         sizeObj.finishedDimensions = cadData.finishedDimensions;
-        sizeObj.finishedWidthCm = cadData.finishedDimensions.widthCm;
-        sizeObj.finishedHeightCm = cadData.finishedDimensions.heightCm;
+        sizeObj.finishedWidthCm = cadData.finishedDimensions.widthCm || 30;
+        sizeObj.finishedHeightCm = cadData.finishedDimensions.heightCm || 30;
         if (cadData.bodyMeasurements) {
           sizeObj.bodyMeasurements = cadData.bodyMeasurements;
         }
@@ -176,14 +200,17 @@ function assembleGarmentSpec(rawConfig) {
         // Build pieces from CAD data
         rawPieces = Object.values(cadData.pieces).map((cadPiece) => {
           // Check config overrides for piece
-          const override = (sizeData.pieces || rootPieces || []).find((p) => p.id === cadPiece.id);
-          const fabricSource = override?.fabricSource || override?.source || (cadPiece.id === 'sleeve' ? 'scrap' : 'plain');
+          const override = (sizeData.pieces || rootPieces || []).find((p) => p.id === cadPiece.id || p.id === cadPiece.id.replace(/_\d+$/, ''));
+          const defaultSrc = cadPiece.hybridDefault
+            ? (cadPiece.hybridDefault === 'plain_base' ? 'plain' : 'scrap')
+            : (cadPiece.fabricSource === 'plain' ? 'plain' : (cadPiece.id === 'sleeve' || cadPiece.id.startsWith('skirt_gore') || cadPiece.id.includes('binding') ? 'scrap' : 'plain'));
+          const fabricSource = override?.fabricSource || override?.source || defaultSrc;
 
           return {
             id: cadPiece.id,
             name: cadPiece.name,
             names: override?.names,
-            role: cadPiece.role,
+            role: cadPiece.role || override?.role || 'base',
             width: cadPiece.widthCm || (cadPiece.halfWidthCm ? cadPiece.halfWidthCm * 2 : 30),
             height: cadPiece.heightCm || 30,
             cutWidth: cadPiece.cutWidthCm || (cadPiece.cutHalfWidthCm ? cadPiece.cutHalfWidthCm * 2 : 32),
@@ -191,14 +218,14 @@ function assembleGarmentSpec(rawConfig) {
             qty: cadPiece.cutQty || 1,
             cutQty: cadPiece.cutQty || 1,
             optional: false,
-            fabricSource: fabricSource === 'plain' ? 'plain_base' : 'scrap',
-            scrapEligible: fabricSource !== 'plain',
+            fabricSource: fabricSource === 'plain' || fabricSource === 'plain_base' ? 'plain_base' : 'scrap',
+            scrapEligible: fabricSource !== 'plain' && fabricSource !== 'plain_base',
             cutOnFold: Boolean(cadPiece.cutOnFold),
             grainLine: cadPiece.grainLine || { orientation: 'vertical', angleDegrees: 90, strict: true },
             geometry: cadPiece.geometry,
             provenance: {
               patternLibrary: 'FreeSewing',
-              design: PATTERN_DESIGN,
+              design: patternName,
               version: FREESEWING_VERSION,
               pinned: true,
               generatedWithoutHandTyping: true,
@@ -283,11 +310,14 @@ function assembleGarmentSpec(rawConfig) {
       // Provide hybrid and patchwork variants
       sizeObj.variants = {
         hybrid: processedPieces,
-        patchwork: processedPieces.map((p) => ({
-          ...p,
-          fabricSource: 'scrap',
-          scrapEligible: true,
-        })),
+        patchwork: processedPieces.map((p) => {
+          const alwaysPlain = id === 'sandy_skirt' && p.id === 'waistband';
+          return {
+            ...p,
+            fabricSource: alwaysPlain ? 'plain_base' : 'scrap',
+            scrapEligible: !alwaysPlain,
+          };
+        }),
       };
       sizeObj.zones = processedPieces;
     } else {
@@ -317,8 +347,21 @@ function assembleGarmentSpec(rawConfig) {
     names: names || { en: enName },
     category,
     construction,
+    silhouette: rawConfig.silhouette || null,
     description: prodDescription,
     defaultVariant: hasHybrid ? 'hybrid' : 'plain',
+    variants: rawConfig.variants || (hasHybrid ? {
+      hybrid: {
+        name: 'Hybrid (Plain Base + Scrap Accents)',
+        description: 'Main body panels cut from continuous solid fabric; accents/trim pieced from scraps.',
+        isDefault: true,
+      },
+      patchwork: {
+        name: 'Full Patchwork',
+        description: 'Entire garment pieced together from fabric scraps.',
+        warning: 'Full patchwork requires piecing master sheets for body panels, creating many seams and taking substantial sewing time. Hybrid construction is recommended for comfort against skin.',
+      },
+    } : undefined),
     tailorVerified: false,
     verifiedByTailor: false,
     disclaimer: TAILOR_DISCLAIMER,

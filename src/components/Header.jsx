@@ -47,9 +47,6 @@ export default function Header({
           <div>
             <h1 className="text-base font-bold leading-tight flex items-center gap-1.5">
               <span>{t.appName}</span>
-              <span className="text-[10px] uppercase tracking-wider bg-emerald-950/60 px-1.5 py-0.5 rounded text-amber-300 border border-amber-400/40 font-black">
-                Stage 2
-              </span>
             </h1>
             <p className="text-xs text-emerald-100 font-medium truncate max-w-[140px] sm:max-w-[180px]">
               {screenTitle}

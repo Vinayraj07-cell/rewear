@@ -14,6 +14,7 @@ import {
   TYPICAL_DEFAULTS_DISCLAIMER,
 } from './src/utils/tailorBlueprintData.js';
 import { getStepSvgString } from './src/utils/stepDiagramSvg.js';
+import { generateCurvedBlueprintPdf } from './src/utils/curvedBlueprintPDF.js';
 
 const ARTIFACT_DIR = 'C:/Users/vinay/.gemini/antigravity/brain/ec75a86c-861d-4711-81f7-d4872260aedc';
 
@@ -373,7 +374,20 @@ export async function run() {
   await generateBlueprintPdf('kids_frock', '0-1y', frockPdfPath);
   console.log('✓ Generated:', frockPdfPath);
 
-  console.log('All 4 PDF files generated successfully.');
+  const topPdfPath = path.join(ARTIFACT_DIR, 'tailor_blueprint_child_top.pdf');
+  const skirtPdfPath = path.join(ARTIFACT_DIR, 'tailor_blueprint_sandy_skirt.pdf');
+  const tankPdfPath = path.join(ARTIFACT_DIR, 'tailor_blueprint_aaron_tank.pdf');
+
+  await generateCurvedBlueprintPdf('child_top', 'chest56', topPdfPath);
+  console.log('✓ Generated:', topPdfPath);
+
+  await generateCurvedBlueprintPdf('sandy_skirt', 'waist54', skirtPdfPath);
+  console.log('✓ Generated:', skirtPdfPath);
+
+  await generateCurvedBlueprintPdf('aaron_tank', 'chest56', tankPdfPath);
+  console.log('✓ Generated:', tankPdfPath);
+
+  console.log('All 7 PDF files generated successfully.');
 }
 
 // Execute if run directly from CLI

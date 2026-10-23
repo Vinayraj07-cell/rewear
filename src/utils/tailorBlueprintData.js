@@ -4,6 +4,9 @@
 
 import { PRODUCT_TEMPLATES, getProductRequirements } from '../engine/templates.js';
 import { CONFIG } from '../engine/config.js';
+import { CHILD_TOP_BRIAN_DATA } from '../engine/childTopBrianData.js';
+import { SANDY_SKIRT_DATA } from '../engine/sandySkirtData.js';
+import { AARON_TANK_DATA } from '../engine/aaronTankData.js';
 
 export const TAILOR_DISCLAIMER = 'Measurements to be verified by a tailor';
 export const TYPICAL_DEFAULTS_DISCLAIMER = 'typical defaults, to be verified by a tailor';
@@ -94,7 +97,125 @@ export function getProductStitchingSteps(productId, sizeKey = 'small', template 
 
   let steps = [];
 
-  if (construction === 'pouch') {
+  // Product-specific overrides for CAD curved garments
+  if (productId === 'sandy_skirt' || prod?.patternLibrary?.design === 'sandy') {
+    const data = SANDY_SKIRT_DATA[sizeKey] || SANDY_SKIRT_DATA.waist54;
+    const goreCount = Object.keys(data?.pieces || {}).filter((k) => k.startsWith('skirt_gore')).length || 16;
+    const pairCount = goreCount / 2;
+    const quarterCount = Math.max(2, pairCount / 2);
+    steps = [
+      {
+        stepNumber: 1,
+        title: 'Join Wedge Gores',
+        instruction: `Arrange the ${goreCount} wedge gores in pairs, right sides facing. Stitch radial side seams with 1.0 cm (0.4 in) seam allowance to form ${pairCount} pairs, then ${quarterCount} sections, 2 halves, and close into a complete circular skirt ring. Press all ${goreCount} radial seams open flat.`,
+        audioText: `Step 1: Stitch the ${goreCount} wedge gores together in pairs with one centimeter seam allowance, then close the ring and press all seams open.`,
+        diagramType: 'skirt_join_gores',
+        estimatedMinutes: 18,
+      },
+      {
+        stepNumber: 2,
+        title: 'Attach Plain Waistband',
+        instruction: `Stitch short ends of the solid waistband strip right sides together with 1.0 cm seam allowance to form a matching continuous loop. Pin waistband to upper circular waist opening right sides facing, matching quarter notches. Stitch waist seam with 1.0 cm seam allowance.`,
+        audioText: 'Step 2: Join waistband into a loop, pin to upper waist opening matching quarter notches, and stitch.',
+        diagramType: 'skirt_attach_plain_waistband',
+        estimatedMinutes: 12,
+      },
+      {
+        stepNumber: 3,
+        title: 'Form Elastic Casing',
+        instruction: 'Fold waistband in half over seam allowance to inside. Turn under lower raw edge 0.6 cm. Stitch in the ditch or edge-stitch along the lower fold to create an elastic casing, leaving a 2.5 cm opening. Thread 2.0 cm wide elastic through, adjust fit, zigzag ends together, and stitch opening closed.',
+        audioText: 'Step 3: Fold waistband to inside, stitch casing leaving an opening, thread elastic through, secure ends, and stitch closed.',
+        diagramType: 'skirt_elastic_casing',
+        estimatedMinutes: 14,
+      },
+      {
+        stepNumber: 4,
+        title: 'Hem Lower Curved Edge',
+        instruction: 'Double-fold the wide outer circular curved hem (0.5 cm then 0.5 cm narrow baby hem or bias binding), easing in fullness smoothly around the circumference. Press flat and topstitch along the folded edge.',
+        audioText: 'Step 4: Double fold curved lower hem, ease in fullness, press flat, and topstitch.',
+        diagramType: 'skirt_hem',
+        estimatedMinutes: 16,
+      },
+    ];
+  } else if (productId === 'aaron_tank' || prod?.patternLibrary?.design === 'aaron') {
+    steps = [
+      {
+        stepNumber: 1,
+        title: 'Stitch Shoulder Seams',
+        instruction: 'Align front and back bodice panels right sides together at the shoulders. Stitch shoulder seams with 1.0 cm (0.4 in) seam allowance (or 4-thread overlock/serger). Press seam allowances toward the back bodice.',
+        audioText: 'Step 1: Align front and back bodices right sides together and stitch shoulder seams with one centimeter allowance.',
+        diagramType: 'tank_shoulder_seams',
+        estimatedMinutes: 10,
+      },
+      {
+        stepNumber: 2,
+        title: 'Neckline & Armhole Binding',
+        instruction: 'Fold scrap binding strips in half lengthwise wrong sides facing and press flat. Align neckline binding to neck opening and stitch with 1.0 cm seam allowance while gently stretching binding. Repeat for both armhole openings with armhole binding strips. Press bindings outward and topstitch 2 mm from seam.',
+        audioText: 'Step 2: Fold binding strips and stitch to neckline and both armholes while stretching slightly. Topstitch edges.',
+        diagramType: 'tank_neck_armhole_binding',
+        estimatedMinutes: 24,
+      },
+      {
+        stepNumber: 3,
+        title: 'Stitch Side Seams',
+        instruction: 'Align front and back bodices right sides together along side seams, matching underarm binding edges and bottom hem edges precisely. Stitch both side seams from lower armhole down to bottom hem with 1.0 cm seam allowance. Press seams open flat.',
+        audioText: 'Step 3: Align front and back bodices at side seams matching underarm binding edges and stitch down to bottom hem.',
+        diagramType: 'tank_side_seams',
+        estimatedMinutes: 12,
+      },
+      {
+        stepNumber: 4,
+        title: 'Hem Bottom Edge',
+        instruction: 'Turn up lower body hem allowance by 2.0 cm (0.8 in) toward the inside. Steam press the fold line. Stitch hem using a twin needle or flexible stretch stitch 1.5 cm from the folded edge.',
+        audioText: 'Step 4: Turn up bottom hem two centimeters, press flat, and stitch with a twin needle or stretch stitch.',
+        diagramType: 'tank_hem',
+        estimatedMinutes: 10,
+      },
+    ];
+  } else if (productId === 'child_top' || prod?.patternLibrary?.design === 'brian') {
+    steps = [
+      {
+        stepNumber: 1,
+        title: 'Assemble Patchwork Sleeves',
+        instruction: 'Arrange and stitch scrap pieces for left and right raglan sleeves according to the cut blueprint. Join patches with 1.0 cm (0.4 in) seam allowance and press all seams open flat to prevent bulk.',
+        audioText: 'Step 1: Assemble scrap patchwork sleeves and press all seams open flat.',
+        diagramType: 'tee_piece_sleeves',
+        estimatedMinutes: 18,
+      },
+      {
+        stepNumber: 2,
+        title: 'Attach Raglan Sleeves to Bodice',
+        instruction: 'Align front raglan sleeve seams to front bodice right sides facing; stitch with 1.0 cm seam allowance. Repeat for back raglan sleeve seams to back bodice. Press seams toward sleeves.',
+        audioText: 'Step 2: Align and stitch raglan sleeve seams to front and back bodices.',
+        diagramType: 'tee_raglan_seams',
+        estimatedMinutes: 14,
+      },
+      {
+        stepNumber: 3,
+        title: 'Continuous Side & Underarm Seams',
+        instruction: 'Fold garment right sides facing. Align underarm sleeve cross-seams and side bodice edges precisely. Stitch continuously from sleeve cuff down along the underarm to the bottom hem with 1.0 cm seam allowance.',
+        audioText: 'Step 3: Stitch continuously from sleeve cuff down along underarm to bottom hem.',
+        diagramType: 'tee_side_seams',
+        estimatedMinutes: 12,
+      },
+      {
+        stepNumber: 4,
+        title: 'Attach Ribbed Neckband',
+        instruction: 'Fold neckband strip lengthwise with wrong sides together. Pin to neckline opening evenly matching quarter marks. Stitch stretching neckband slightly to fit. Press seam allowance downward.',
+        audioText: 'Step 4: Fold neckband and stitch to neckline opening stretching slightly.',
+        diagramType: 'tee_neckband',
+        estimatedMinutes: 12,
+      },
+      {
+        stepNumber: 5,
+        title: 'Hem Sleeves & Body',
+        instruction: 'Turn up sleeve cuffs (1.5 cm) and lower body hem (2.0 cm). Stitch with twin needle or flexible stretch stitch. Give the finished garment a comprehensive final steam press.',
+        audioText: 'Step 5: Hem sleeve cuffs and bottom edge, then steam press.',
+        diagramType: 'tee_finish',
+        estimatedMinutes: 10,
+      },
+    ];
+  } else if (construction === 'pouch') {
     steps = [
       {
         stepNumber: 1,
@@ -787,6 +908,81 @@ export function getProductPriceDefaults(productId, estimatedMinutes = 35) {
 }
 
 /**
+ * Product-specific measurement table in cm and inches from pattern data.
+ * Each item marked "typical estimate, to be verified by a tailor".
+ */
+export function getGarmentMeasurementTable(productId, sizeKey = 'waist54', template = null) {
+  const disclaimer = 'typical estimate, to be verified by a tailor';
+
+  if (productId === 'sandy_skirt') {
+    const data = SANDY_SKIRT_DATA[sizeKey] || SANDY_SKIRT_DATA.waist54;
+    const waistCm = data.waistCm || 54;
+    const lengthCm = data.finishedDimensions?.skirtLengthCm || 25.8;
+    const wbHeightCm = 5.0;
+    const wbCircCm = Number((waistCm + 2.0).toFixed(1));
+    // True geometric hem sweep: pi * R_out (where R_out = R_in + length)
+    const rIn = (waistCm + 2.0) / Math.PI;
+    const rOut = rIn + lengthCm;
+    const hemCircCm = Number((Math.PI * rOut).toFixed(1));
+
+    return [
+      { name: 'Finished Waist Circumference', cm: `${waistCm.toFixed(1)} cm`, inches: `${cmToInch(waistCm, 1)} in`, note: disclaimer },
+      { name: 'Finished Skirt Length (Waist to Hem)', cm: `${lengthCm.toFixed(1)} cm`, inches: `${cmToInch(lengthCm, 1)} in`, note: disclaimer },
+      { name: 'Waistband Finished Height', cm: `${wbHeightCm.toFixed(1)} cm`, inches: `${cmToInch(wbHeightCm, 1)} in`, note: disclaimer },
+      { name: 'Waistband Finished Circumference', cm: `${wbCircCm.toFixed(1)} cm`, inches: `${cmToInch(wbCircCm, 1)} in`, note: disclaimer },
+      { name: 'Total Hem Sweep (Circumference)', cm: `${hemCircCm.toFixed(1)} cm`, inches: `${cmToInch(hemCircCm, 1)} in`, note: disclaimer },
+      { name: 'Wedge Gore Count', cm: '16 gores', inches: '16 gores', note: disclaimer },
+      { name: 'Recommended Elastic Width', cm: '2.0 cm', inches: '0.8 in', note: disclaimer },
+    ];
+  }
+
+  if (productId === 'aaron_tank') {
+    const data = AARON_TANK_DATA[sizeKey] || AARON_TANK_DATA.chest56;
+    const chestCm = data.chestCm || 56;
+    const lengthCm = data.finishedDimensions?.heightCm || 35.3;
+    const armBindingCm = data.pieces.arm_binding?.heightCm || 31.7;
+    const neckBindingCm = data.pieces.neck_binding?.heightCm || 34.7;
+
+    return [
+      { name: 'Finished Chest Circumference', cm: `${chestCm.toFixed(1)} cm`, inches: `${cmToInch(chestCm, 1)} in`, note: disclaimer },
+      { name: 'Finished Center Back Length', cm: `${lengthCm.toFixed(1)} cm`, inches: `${cmToInch(lengthCm, 1)} in`, note: disclaimer },
+      { name: 'Armhole Opening Curve Length', cm: `${armBindingCm.toFixed(1)} cm`, inches: `${cmToInch(armBindingCm, 1)} in`, note: disclaimer },
+      { name: 'Neckline Opening Circumference', cm: `${neckBindingCm.toFixed(1)} cm`, inches: `${cmToInch(neckBindingCm, 1)} in`, note: disclaimer },
+      { name: 'Binding Finished Width', cm: '2.0 cm', inches: '0.8 in', note: disclaimer },
+      { name: 'Lower Hem Allowance Depth', cm: '2.0 cm', inches: '0.8 in', note: disclaimer },
+    ];
+  }
+
+  if (productId === 'child_top') {
+    const data = CHILD_TOP_BRIAN_DATA[sizeKey] || CHILD_TOP_BRIAN_DATA.chest56;
+    const chestCm = data.chestCm || 56;
+    const lengthCm = data.finishedDimensions?.heightCm || 32.5;
+    const neckCm = data.bodyMeasurements?.neck ? Number((data.bodyMeasurements.neck / 10).toFixed(1)) : 26.0;
+    const bicepsCm = data.bodyMeasurements?.biceps ? Number((data.bodyMeasurements.biceps / 10).toFixed(1)) : 17.5;
+    const shoulderCm = data.bodyMeasurements?.shoulderToShoulder ? Number((data.bodyMeasurements.shoulderToShoulder / 10).toFixed(1)) : 26.0;
+    const sleeveLengthCm = data.pieces?.sleeve?.heightCm || 34.0;
+
+    return [
+      { name: 'Finished Chest Circumference', cm: `${chestCm.toFixed(1)} cm`, inches: `${cmToInch(chestCm, 1)} in`, note: disclaimer },
+      { name: 'Finished Center Back Length', cm: `${lengthCm.toFixed(1)} cm`, inches: `${cmToInch(lengthCm, 1)} in`, note: disclaimer },
+      { name: 'Neckline Circumference', cm: `${neckCm.toFixed(1)} cm`, inches: `${cmToInch(neckCm, 1)} in`, note: disclaimer },
+      { name: 'Biceps Circumference', cm: `${bicepsCm.toFixed(1)} cm`, inches: `${cmToInch(bicepsCm, 1)} in`, note: disclaimer },
+      { name: 'Cross Shoulder Width', cm: `${shoulderCm.toFixed(1)} cm`, inches: `${cmToInch(shoulderCm, 1)} in`, note: disclaimer },
+      { name: 'Sleeve Length (Raglan Neck to Hem)', cm: `${sleeveLengthCm.toFixed(1)} cm`, inches: `${cmToInch(sleeveLengthCm, 1)} in`, note: disclaimer },
+    ];
+  }
+
+  const prod = template || PRODUCT_TEMPLATES[productId];
+  const sz = prod?.sizes?.[sizeKey] || Object.values(prod?.sizes || {})[0];
+  const w = sz?.finishedWidthCm || 30;
+  const h = sz?.finishedHeightCm || 30;
+  return [
+    { name: 'Finished Width', cm: `${w.toFixed(1)} cm`, inches: `${cmToInch(w, 1)} in`, note: disclaimer },
+    { name: 'Finished Height', cm: `${h.toFixed(1)} cm`, inches: `${cmToInch(h, 1)} in`, note: disclaimer },
+  ];
+}
+
+/**
  * Main Tailor Blueprint Generator:
  * Takes design output from buildDesign() and constructs the full blueprint model.
  * Piece cut and finished sizes come directly from the selected product size in templates.js.
@@ -922,6 +1118,20 @@ export function buildTailorBlueprint(design) {
       : (CONFIG.CONSTRUCTION_STEP_MINUTES?.[template?.construction || 'pouch']?.[idx] || 5),
   }));
   const pricing = getProductPriceDefaults(productId, design.estimatedTimeMinutes || 35);
+  const measurementTable = getGarmentMeasurementTable(productId, sizeKey, template);
+  const plainFabricYardage = productId === 'child_top' ? '0.45 meters (solid knit fabric, 110 cm bolt width)'
+    : productId === 'sandy_skirt' ? '0.15 meters (solid plain cotton strip 10 × 65 cm for waistband)'
+    : productId === 'aaron_tank' ? '0.45 meters (solid knit fabric, 110 cm bolt width)'
+    : (design.yardageNeededMeters ? `${design.yardageNeededMeters} meters` : '0 meters (pieced from scraps)');
+
+  let neededMoreScraps = 0;
+  if (design.missingDetails && design.missingDetails.length > 0) {
+    const samplePlaced = (design.placements || []).find((p) => p.fabricSource === 'scrap' && (p.scraps?.length || p.patchCount));
+    const scrapsPerZone = samplePlaced ? (samplePlaced.scraps?.length || samplePlaced.patchCount || 1) : 3;
+    neededMoreScraps = design.missingDetails.length * scrapsPerZone;
+  } else if (!design.success || design.fits === false || (design.designScore || 0) === 0) {
+    neededMoreScraps = design.missingPiecesCount || 18;
+  }
 
   return {
     productId,
@@ -932,6 +1142,8 @@ export function buildTailorBlueprint(design) {
     defaultsDisclaimer: TYPICAL_DEFAULTS_DISCLAIMER,
     designScore: design.designScore || 0,
     estimatedTimeMinutes: design.estimatedTimeMinutes || 35,
+    neededMoreScraps,
+    fitStatus: (design.designScore > 0 && design.success !== false) ? 'fit' : 'unfit',
     wastePercentage: design.wastePercentage || 0,
     fabricUsedInSeamsCm2: design.fabricUsedInSeamsCm2 || 0,
     totalExtraSeams: design.totalExtraSeams || 0,
@@ -940,5 +1152,8 @@ export function buildTailorBlueprint(design) {
     materials,
     stitchingSteps,
     pricing,
+    measurementTable,
+    plainFabricYardage,
+    patternAttribution: 'Pattern geometry by FreeSewing 4.10.2 (MIT licence)',
   };
 }

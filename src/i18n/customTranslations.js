@@ -10,12 +10,18 @@ export const CUSTOM_TRANSLATIONS = {
       "table_runner": "Table Runner",
       "placemat": "Dining Placemat",
       "coin_purse": "Coin Purse",
-      "pencil_case": "Zippered Pencil Case"
+      "pencil_case": "Zippered Pencil Case",
+      "sandy_skirt": "Circle Skirt",
+      "aaron_tank": "Tank Top"
     },
     "sizeNames": {
       "small": "Small",
       "medium": "Medium",
-      "large": "Large"
+      "large": "Large",
+      "waist54": "Waist 54 cm (~3–4 Years)",
+      "waist56": "Waist 56 cm (~5–6 Years)",
+      "chest56": "Chest 56 cm (~3–4 Years)",
+      "chest62": "Chest 62 cm (~5–6 Years)"
     },
     "zoneNames": {
       "casing_channel": "Drawstring Casing Channel",
@@ -35,7 +41,29 @@ export const CUSTOM_TRANSLATIONS = {
       "zipper_tab_start": "Zipper Top Tab",
       "zipper_tab_end": "Zipper Bottom Tab",
       "drawstring_front": "Front Body Panel",
-      "drawstring_back": "Back Body Panel"
+      "drawstring_back": "Back Body Panel",
+      "skirt_gore_1": "Skirt Wedge Gore",
+      "skirt_gore": "Skirt Wedge Gore",
+      "skirt_gore_2": "Skirt Wedge Gore",
+      "skirt_gore_3": "Skirt Wedge Gore",
+      "skirt_gore_4": "Skirt Wedge Gore",
+      "skirt_gore_5": "Skirt Wedge Gore",
+      "skirt_gore_6": "Skirt Wedge Gore",
+      "skirt_gore_7": "Skirt Wedge Gore",
+      "skirt_gore_8": "Skirt Wedge Gore",
+      "waistband": "Waistband",
+      "bodice_front": "Front Bodice",
+      "bodice_back": "Back Bodice",
+      "arm_binding": "Armhole Binding",
+      "neck_binding": "Neckline Binding",
+      "skirt_gore_9": "Skirt Wedge Gore",
+      "skirt_gore_10": "Skirt Wedge Gore",
+      "skirt_gore_11": "Skirt Wedge Gore",
+      "skirt_gore_12": "Skirt Wedge Gore",
+      "skirt_gore_13": "Skirt Wedge Gore",
+      "skirt_gore_14": "Skirt Wedge Gore",
+      "skirt_gore_15": "Skirt Wedge Gore",
+      "skirt_gore_16": "Skirt Wedge Gore"
     }
   },
   "hi": {
@@ -45,12 +73,18 @@ export const CUSTOM_TRANSLATIONS = {
       "table_runner": "मेज़पोश रनर",
       "placemat": "डाइनिंग प्लेसमैट",
       "coin_purse": "छोटा सिक्का बटुआ",
-      "pencil_case": "पेंसिल पाउच"
+      "pencil_case": "पेंसिल पाउच",
+      "sandy_skirt": "गोल घाघरा",
+      "aaron_tank": "स्लीवलेस बनियान"
     },
     "sizeNames": {
       "small": "छोटा",
       "medium": "मध्यम",
-      "large": "बड़ा"
+      "large": "बड़ा",
+      "waist54": "कमर 54 सेमी (~3-4 वर्ष)",
+      "waist56": "कमर 56 सेमी (~5-6 वर्ष)",
+      "chest56": "छाती 56 सेमी (~3-4 वर्ष)",
+      "chest62": "छाती 62 सेमी (~5-6 वर्ष)"
     },
     "zoneNames": {
       "casing_channel": "डोरी की केसिंग पट्टी",
@@ -70,7 +104,29 @@ export const CUSTOM_TRANSLATIONS = {
       "zipper_tab_start": "ज़िप्पर का ऊपरी टैब",
       "zipper_tab_end": "ज़िप्पर का निचला टैब",
       "drawstring_front": "आगे का मुख्य भाग",
-      "drawstring_back": "पीछे का मुख्य भाग"
+      "drawstring_back": "पीछे का मुख्य भाग",
+      "skirt_gore_1": "स्कर्ट का कलीदार टुकड़ा",
+      "skirt_gore": "स्कर्ट का कलीदार टुकड़ा",
+      "skirt_gore_2": "स्कर्ट का कलीदार टुकड़ा",
+      "skirt_gore_3": "स्कर्ट का कलीदार टुकड़ा",
+      "skirt_gore_4": "स्कर्ट का कलीदार टुकड़ा",
+      "skirt_gore_5": "स्कर्ट का कलीदार टुकड़ा",
+      "skirt_gore_6": "स्कर्ट का कलीदार टुकड़ा",
+      "skirt_gore_7": "स्कर्ट का कलीदार टुकड़ा",
+      "skirt_gore_8": "स्कर्ट का कलीदार टुकड़ा",
+      "waistband": "कमरबंद",
+      "bodice_front": "सामने का हिस्सा (बॉडी)",
+      "bodice_back": "पीछे का हिस्सा (बॉडी)",
+      "arm_binding": "आस्तीन की बाइंडिंग पट्टी",
+      "neck_binding": "गले की बाइंडिंग पट्टी",
+      "skirt_gore_9": "स्कर्ट का कलीदार टुकड़ा",
+      "skirt_gore_10": "स्कर्ट का कलीदार टुकड़ा",
+      "skirt_gore_11": "स्कर्ट का कलीदार टुकड़ा",
+      "skirt_gore_12": "स्कर्ट का कलीदार टुकड़ा",
+      "skirt_gore_13": "स्कर्ट का कलीदार टुकड़ा",
+      "skirt_gore_14": "स्कर्ट का कलीदार टुकड़ा",
+      "skirt_gore_15": "स्कर्ट का कलीदार टुकड़ा",
+      "skirt_gore_16": "स्कर्ट का कलीदार टुकड़ा"
     }
   },
   "te": {
@@ -80,12 +136,18 @@ export const CUSTOM_TRANSLATIONS = {
       "table_runner": "డైనింగ్ టేబుల్ రన్నర్",
       "placemat": "భోజన పళ్ళెం మ్యాట్",
       "coin_purse": "చిల్లర పైసల పర్స్",
-      "pencil_case": "పెన్సిల్ పౌచ్"
+      "pencil_case": "పెన్సిల్ పౌచ్",
+      "sandy_skirt": "గుండ్రని లంగా",
+      "aaron_tank": "స్లీవ్‌లెస్ బనీన్"
     },
     "sizeNames": {
       "small": "చిన్నది",
       "medium": "మధ్యస్థం",
-      "large": "పెద్దది"
+      "large": "పెద్దది",
+      "waist54": "నడుము 54 సెం.మీ (~3-4 సం.)",
+      "waist56": "నడుము 56 సెం.మీ (~5-6 సం.)",
+      "chest56": "ఛాతీ 56 సెం.మీ (~3-4 సం.)",
+      "chest62": "ఛాతీ 62 సెం.మీ (~5-6 సం.)"
     },
     "zoneNames": {
       "casing_channel": "తాడు పట్టే మార్గం",
@@ -105,7 +167,29 @@ export const CUSTOM_TRANSLATIONS = {
       "zipper_tab_start": "జిప్పర్ పై ట్యాబ్",
       "zipper_tab_end": "జిప్పర్ కింది ట్యాబ్",
       "drawstring_front": "ముందు ప్రధాన భాగం",
-      "drawstring_back": "వెనుక ప్రధాన భాగం"
+      "drawstring_back": "వెనుక ప్రధాన భాగం",
+      "skirt_gore_1": "లంగా చీలిక భాగం",
+      "skirt_gore": "లంగా చీలిక భాగం",
+      "skirt_gore_2": "లంగా చీలిక భాగం",
+      "skirt_gore_3": "లంగా చీలిక భాగం",
+      "skirt_gore_4": "లంగా చీలిక భాగం",
+      "skirt_gore_5": "లంగా చీలిక భాగం",
+      "skirt_gore_6": "లంగా చీలిక భాగం",
+      "skirt_gore_7": "లంగా చీలిక భాగం",
+      "skirt_gore_8": "లంగా చీలిక భాగం",
+      "waistband": "నడుము పట్టీ",
+      "bodice_front": "ముందు భాగం (బాడీస్)",
+      "bodice_back": "వెనుక భాగం (బాడీస్)",
+      "arm_binding": "చేతుల చంక భాగం పట్టీలు",
+      "neck_binding": "మెడ अంచు పట్టీ",
+      "skirt_gore_9": "లంగా చీలిక భాగం",
+      "skirt_gore_10": "లంగా చీలిక భాగం",
+      "skirt_gore_11": "లంగా చీలిక భాగం",
+      "skirt_gore_12": "లంగా చీలిక భాగం",
+      "skirt_gore_13": "లంగా చీలిక భాగం",
+      "skirt_gore_14": "లంగా చీలిక భాగం",
+      "skirt_gore_15": "లంగా చీలిక భాగం",
+      "skirt_gore_16": "లంగా చీలిక భాగం"
     }
   }
 };

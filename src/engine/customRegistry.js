@@ -17,6 +17,18 @@ export const CUSTOM_PRODUCT_TEMPLATES = {
     },
     "category": "bags",
     "construction": "casing",
+    "silhouette": {
+      "type": "drawstring",
+      "rx": 3,
+      "ry": 3,
+      "shadow": true,
+      "shading": true,
+      "casingGather": 0.9,
+      "cord": {
+        "color": "#D4C5B9",
+        "tails": 2
+      }
+    },
     "description": "Versatile drawstring storage pouch made from pieced fabric scraps with a channeled top cord.",
     "defaultVariant": "plain",
     "tailorVerified": false,
@@ -812,6 +824,14 @@ export const CUSTOM_PRODUCT_TEMPLATES = {
     },
     "category": "accessories",
     "construction": "casing",
+    "silhouette": {
+      "type": "ring",
+      "shadow": true,
+      "shading": true,
+      "ruffles": 18,
+      "outerRadius": 13,
+      "innerRadius": 5.5
+    },
     "description": "Gentle hair scrunchie stitched from long cotton, silk, or satin offcuts with elastic inner core.",
     "defaultVariant": "plain",
     "tailorVerified": false,
@@ -1139,6 +1159,15 @@ export const CUSTOM_PRODUCT_TEMPLATES = {
     },
     "category": "home",
     "construction": "flat",
+    "silhouette": {
+      "type": "runner",
+      "shadow": true,
+      "shading": true,
+      "orientation": "horizontal",
+      "hemStitch": {
+        "inset": 1
+      }
+    },
     "description": "Decorative dining table runner assembled from 3 center patchwork body zones and contrasting border ends.",
     "defaultVariant": "plain",
     "tailorVerified": false,
@@ -2394,6 +2423,16 @@ export const CUSTOM_PRODUCT_TEMPLATES = {
     },
     "category": "home",
     "construction": "flat",
+    "silhouette": {
+      "type": "rounded_rect",
+      "rx": 2.5,
+      "ry": 2.5,
+      "shadow": true,
+      "shading": true,
+      "topstitch": {
+        "inset": 1.2
+      }
+    },
     "description": "Double-sided quilted dining placemat stitched from colorful patchwork cotton or canvas scraps.",
     "defaultVariant": "plain",
     "tailorVerified": false,
@@ -2955,6 +2994,18 @@ export const CUSTOM_PRODUCT_TEMPLATES = {
     },
     "category": "accessories",
     "construction": "pouch",
+    "silhouette": {
+      "type": "rounded_rect",
+      "rx": 2.5,
+      "ry": 2.5,
+      "shadow": true,
+      "shading": true,
+      "zipper": {
+        "position": "top",
+        "pull": true
+      },
+      "keyring": true
+    },
     "description": "Pocket-sized zippered coin and change pouch with a keyring loop tab made from sturdy fabric offcuts.",
     "defaultVariant": "plain",
     "tailorVerified": false,
@@ -3750,6 +3801,18 @@ export const CUSTOM_PRODUCT_TEMPLATES = {
     },
     "category": "accessories",
     "construction": "pouch",
+    "silhouette": {
+      "type": "rounded_rect",
+      "rx": 2,
+      "ry": 2,
+      "shadow": true,
+      "shading": true,
+      "zipper": {
+        "position": "top",
+        "pull": true
+      },
+      "tabs": "side_zipper"
+    },
     "description": "Elongated zippered stationery and pen pouch with reinforced tab ends pieced from durable scraps.",
     "defaultVariant": "plain",
     "tailorVerified": false,
@@ -4767,5 +4830,8373 @@ export const CUSTOM_PRODUCT_TEMPLATES = {
         ]
       }
     }
+  },
+  "sandy_skirt": {
+    "schemaVersion": "1.0.0",
+    "id": "sandy_skirt",
+    "name": "Circle Skirt",
+    "names": {
+      "en": "Circle Skirt",
+      "hi": "गोल घाघरा",
+      "te": "గుండ్రని లంగా"
+    },
+    "category": "garments",
+    "construction": "skirt",
+    "silhouette": {
+      "type": "skirt",
+      "shadow": true,
+      "shading": true
+    },
+    "description": "Classic circular skirt with 16 wedge gores engineered for remnant fabric piecing and a smooth waistband. Pattern geometry by FreeSewing 4.10.2 (MIT licence).",
+    "defaultVariant": "hybrid",
+    "variants": {
+      "hybrid": {
+        "name": "Hybrid (Plain Waistband + Patchwork Gores)",
+        "description": "Waistband cut from solid fabric for smooth waist comfort; skirt gores pieced from upcycled scraps.",
+        "isDefault": true
+      }
+    },
+    "tailorVerified": false,
+    "disclaimer": "All pattern measurements are rectangle-based approximations for scrap cutting and must be verified by a professional tailor before final cutting.",
+    "materials": [
+      {
+        "name": "Cotton or linen fabric scraps",
+        "qty": "Approx 40x60 cm total remnant area",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical default, to be verified by a tailor"
+      },
+      {
+        "name": "Solid waist fabric",
+        "qty": "60x10 cm plain cotton strip",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical default, to be verified by a tailor"
+      },
+      {
+        "name": "Waistband elastic (2 cm width)",
+        "qty": "50-60 cm",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical default, to be verified by a tailor"
+      },
+      {
+        "name": "All-purpose sewing thread",
+        "qty": "1 spool",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical default, to be verified by a tailor"
+      }
+    ],
+    "timeEstimateFormula": null,
+    "stitchingSteps": [],
+    "sizes": {
+      "waist54": {
+        "label": "Child Waist 54 cm (~3–4 Years)",
+        "names": {
+          "en": "Waist 54 cm (~3–4 Years)",
+          "hi": "कमर 54 सेमी (~3-4 वर्ष)",
+          "te": "నడుము 54 సెం.మీ (~3-4 సం.)"
+        },
+        "finishedWidthCm": 54,
+        "finishedHeightCm": 25.8,
+        "finishedDimensions": {
+          "widthCm": 54,
+          "heightCm": 25.8,
+          "waistCm": 54,
+          "skirtLengthCm": 25.8
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "sources": {
+          "waist": "typical estimate, unverified, needs a tailor",
+          "waistToFloor": "typical estimate, unverified, needs a tailor",
+          "waistToHips": "typical estimate, unverified, needs a tailor",
+          "hips": "typical estimate, unverified, needs a tailor",
+          "skirtLength": "typical estimate, unverified, needs a tailor"
+        },
+        "variants": {
+          "hybrid": [
+            {
+              "id": "skirt_gore_1",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_2",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_3",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_4",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_5",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_6",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_7",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_8",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_9",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_10",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_11",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_12",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_13",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_14",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_15",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_16",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "waistband",
+              "name": "Waistband",
+              "names": {
+                "en": "Waistband",
+                "hi": "कमरबंद",
+                "te": "నడుము పట్టీ"
+              },
+              "role": "base",
+              "width": 57.7,
+              "height": 5,
+              "cutWidth": 59.7,
+              "cutHeight": 7,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "plain_base",
+              "scrapEligible": false,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "horizontal",
+                "angleDegrees": 0,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 57.7,
+                "finishedHeightCm": 5,
+                "finishedAreaCm2": 288.4,
+                "cutWidthCm": 59.7,
+                "cutHeightCm": 7,
+                "seamPath": "M -280,-25 L -280,25 L 296.8,25 L 296.8,-25 L -280,-25 z",
+                "saPath": "M -290,-25 L -290,25 L -280,35 L 296.8,35 L 306.8,25 L 306.8,-25 L 296.8,-35 L -280,-35 z"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            }
+          ],
+          "patchwork": [
+            {
+              "id": "skirt_gore_1",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_2",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_3",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_4",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_5",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_6",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_7",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_8",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_9",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_10",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_11",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_12",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_13",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_14",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_15",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_16",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 8.5,
+              "height": 25.8,
+              "cutWidth": 9.4,
+              "cutHeight": 27.4,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 8.5,
+                "finishedHeightCm": 25.8,
+                "finishedAreaCm2": 153.1,
+                "cutWidthCm": 9.4,
+                "cutHeightCm": 27.4,
+                "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+                "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "waistband",
+              "name": "Waistband",
+              "names": {
+                "en": "Waistband",
+                "hi": "कमरबंद",
+                "te": "నడుము పట్టీ"
+              },
+              "role": "base",
+              "width": 57.7,
+              "height": 5,
+              "cutWidth": 59.7,
+              "cutHeight": 7,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "plain_base",
+              "scrapEligible": false,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "horizontal",
+                "angleDegrees": 0,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 57.7,
+                "finishedHeightCm": 5,
+                "finishedAreaCm2": 288.4,
+                "cutWidthCm": 59.7,
+                "cutHeightCm": 7,
+                "seamPath": "M -280,-25 L -280,25 L 296.8,25 L 296.8,-25 L -280,-25 z",
+                "saPath": "M -290,-25 L -290,25 L -280,35 L 296.8,35 L 306.8,25 L 306.8,-25 L 296.8,-35 L -280,-35 z"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            }
+          ]
+        },
+        "zones": [
+          {
+            "id": "skirt_gore_1",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_2",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_3",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_4",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_5",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_6",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_7",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_8",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_9",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_10",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_11",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_12",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_13",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_14",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_15",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_16",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "waistband",
+            "name": "Waistband",
+            "names": {
+              "en": "Waistband",
+              "hi": "कमरबंद",
+              "te": "నడుము పట్టీ"
+            },
+            "role": "base",
+            "width": 57.7,
+            "height": 5,
+            "cutWidth": 59.7,
+            "cutHeight": 7,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "plain_base",
+            "scrapEligible": false,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "horizontal",
+              "angleDegrees": 0,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 57.7,
+              "finishedHeightCm": 5,
+              "finishedAreaCm2": 288.4,
+              "cutWidthCm": 59.7,
+              "cutHeightCm": 7,
+              "seamPath": "M -280,-25 L -280,25 L 296.8,25 L 296.8,-25 L -280,-25 z",
+              "saPath": "M -290,-25 L -290,25 L -280,35 L 296.8,35 L 306.8,25 L 306.8,-25 L 296.8,-35 L -280,-35 z"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "skirt_gore_1",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_2",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_3",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_4",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_5",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_6",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_7",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_8",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_9",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_10",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_11",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_12",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_13",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_14",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_15",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_16",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 8.5,
+            "height": 25.8,
+            "cutWidth": 9.4,
+            "cutHeight": 27.4,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 8.5,
+              "finishedHeightCm": 25.8,
+              "finishedAreaCm2": 153.1,
+              "cutWidthCm": 9.4,
+              "cutHeightCm": 27.4,
+              "seamPath": "M -17.47,432.4 C -3.29,432.4 10.88,431.7 24.99,430.31 C 39.11,428.92 53.14,426.84 67.05,424.07 L 17.3,173.97 C 11.58,175.11 5.81,175.96 0,176.54 C -5.81,177.11 -11.64,177.4 -17.47,177.4 L -17.47,432.4 z",
+              "saPath": "M -17.47,432.4 L -17.47,438 C -3.11,438 11.25,437.29 25.54,435.88 C 39.84,434.47 54.06,432.37 68.14,429.56 L 76.86,422.12 L 27.11,172.02 L 15.35,164.16 C 9.95,165.24 4.5,166.05 -0.98,166.59 C -6.46,167.12 -11.96,167.4 -17.47,167.4 L -17.47,177.4"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "waistband",
+            "name": "Waistband",
+            "names": {
+              "en": "Waistband",
+              "hi": "कमरबंद",
+              "te": "నడుము పట్టీ"
+            },
+            "role": "base",
+            "width": 57.7,
+            "height": 5,
+            "cutWidth": 59.7,
+            "cutHeight": 7,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "plain_base",
+            "scrapEligible": false,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "horizontal",
+              "angleDegrees": 0,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 57.7,
+              "finishedHeightCm": 5,
+              "finishedAreaCm2": 288.4,
+              "cutWidthCm": 59.7,
+              "cutHeightCm": 7,
+              "seamPath": "M -280,-25 L -280,25 L 296.8,25 L 296.8,-25 L -280,-25 z",
+              "saPath": "M -290,-25 L -290,25 L -280,35 L 296.8,35 L 306.8,25 L 306.8,-25 L 296.8,-35 L -280,-35 z"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          }
+        ]
+      },
+      "waist56": {
+        "label": "Child Waist 56 cm (~5–6 Years)",
+        "names": {
+          "en": "Waist 56 cm (~5–6 Years)",
+          "hi": "कमर 56 सेमी (~5-6 वर्ष)",
+          "te": "నడుము 56 సెం.మీ (~5-6 సం.)"
+        },
+        "finishedWidthCm": 56,
+        "finishedHeightCm": 29,
+        "finishedDimensions": {
+          "widthCm": 56,
+          "heightCm": 29,
+          "waistCm": 56,
+          "skirtLengthCm": 29
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "sources": {
+          "waist": "typical estimate, unverified, needs a tailor",
+          "waistToFloor": "typical estimate, unverified, needs a tailor",
+          "waistToHips": "typical estimate, unverified, needs a tailor",
+          "hips": "typical estimate, unverified, needs a tailor",
+          "skirtLength": "typical estimate, unverified, needs a tailor"
+        },
+        "variants": {
+          "hybrid": [
+            {
+              "id": "skirt_gore_1",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_2",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_3",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_4",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_5",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_6",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_7",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_8",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_9",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_10",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_11",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_12",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_13",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_14",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_15",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_16",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "waistband",
+              "name": "Waistband",
+              "names": {
+                "en": "Waistband",
+                "hi": "कमरबंद",
+                "te": "నడుము పట్టీ"
+              },
+              "role": "base",
+              "width": 61.8,
+              "height": 5,
+              "cutWidth": 63.8,
+              "cutHeight": 7,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "plain_base",
+              "scrapEligible": false,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "horizontal",
+                "angleDegrees": 0,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 61.8,
+                "finishedHeightCm": 5,
+                "finishedAreaCm2": 309,
+                "cutWidthCm": 63.8,
+                "cutHeightCm": 7,
+                "seamPath": "M -300,-25 L -300,25 L 318,25 L 318,-25 L -300,-25 z",
+                "saPath": "M -310,-25 L -310,25 L -300,35 L 318,35 L 328,25 L 328,-25 L 318,-35 L -300,-35 z"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            }
+          ],
+          "patchwork": [
+            {
+              "id": "skirt_gore_1",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_2",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_3",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_4",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_5",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_6",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_7",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_8",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_9",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_10",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_11",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_12",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_13",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_14",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_15",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "skirt_gore_16",
+              "name": "Skirt Wedge Gore",
+              "names": {
+                "en": "Skirt Wedge Gore",
+                "hi": "स्कर्ट का कलीदार टुकड़ा",
+                "te": "లంగా చీలిక భాగం"
+              },
+              "role": "base",
+              "width": 9.3,
+              "height": 29,
+              "cutWidth": 10.3,
+              "cutHeight": 30.6,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 9.3,
+                "finishedHeightCm": 29,
+                "finishedAreaCm2": 187.8,
+                "cutWidthCm": 10.3,
+                "cutHeightCm": 30.6,
+                "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+                "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "waistband",
+              "name": "Waistband",
+              "names": {
+                "en": "Waistband",
+                "hi": "कमरबंद",
+                "te": "నడుము పట్టీ"
+              },
+              "role": "base",
+              "width": 61.8,
+              "height": 5,
+              "cutWidth": 63.8,
+              "cutHeight": 7,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "plain_base",
+              "scrapEligible": false,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "horizontal",
+                "angleDegrees": 0,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 61.8,
+                "finishedHeightCm": 5,
+                "finishedAreaCm2": 309,
+                "cutWidthCm": 63.8,
+                "cutHeightCm": 7,
+                "seamPath": "M -300,-25 L -300,25 L 318,25 L 318,-25 L -300,-25 z",
+                "saPath": "M -310,-25 L -310,25 L -300,35 L 318,35 L 328,25 L 328,-25 L 318,-35 L -300,-35 z"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Sandy",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            }
+          ]
+        },
+        "zones": [
+          {
+            "id": "skirt_gore_1",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_2",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_3",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_4",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_5",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_6",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_7",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_8",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_9",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_10",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_11",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_12",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_13",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_14",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_15",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_16",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "waistband",
+            "name": "Waistband",
+            "names": {
+              "en": "Waistband",
+              "hi": "कमरबंद",
+              "te": "నడుము పట్టీ"
+            },
+            "role": "base",
+            "width": 61.8,
+            "height": 5,
+            "cutWidth": 63.8,
+            "cutHeight": 7,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "plain_base",
+            "scrapEligible": false,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "horizontal",
+              "angleDegrees": 0,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 61.8,
+              "finishedHeightCm": 5,
+              "finishedAreaCm2": 309,
+              "cutWidthCm": 63.8,
+              "cutHeightCm": 7,
+              "seamPath": "M -300,-25 L -300,25 L 318,25 L 318,-25 L -300,-25 z",
+              "saPath": "M -310,-25 L -310,25 L -300,35 L 318,35 L 328,25 L 328,-25 L 318,-35 L -300,-35 z"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "skirt_gore_1",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_2",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_3",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_4",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_5",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_6",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_7",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_8",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_9",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_10",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_11",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_12",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_13",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_14",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_15",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "skirt_gore_16",
+            "name": "Skirt Wedge Gore",
+            "names": {
+              "en": "Skirt Wedge Gore",
+              "hi": "स्कर्ट का कलीदार टुकड़ा",
+              "te": "లంగా చీలిక భాగం"
+            },
+            "role": "base",
+            "width": 9.3,
+            "height": 29,
+            "cutWidth": 10.3,
+            "cutHeight": 30.6,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 9.3,
+              "finishedHeightCm": 29,
+              "finishedAreaCm2": 187.8,
+              "cutWidthCm": 10.3,
+              "cutHeightCm": 30.6,
+              "seamPath": "M -18.72,476.32 C -3.1,476.32 12.51,475.55 28.06,474.02 C 43.6,472.49 59.06,470.19 74.38,467.15 L 18.54,186.4 C 12.41,187.62 6.22,188.53 0,189.15 C -6.22,189.76 -12.47,190.07 -18.72,190.07 L -18.72,476.32 z",
+              "saPath": "M -18.72,476.32 L -18.72,482.54 C -2.9,482.54 12.92,481.76 28.67,480.21 C 44.42,478.66 60.08,476.34 75.6,473.25 L 84.19,465.2 L 28.35,184.45 L 16.59,176.59 C 10.78,177.74 4.92,178.61 -0.98,179.19 C -6.88,179.78 -12.8,180.07 -18.72,180.07 L -18.72,190.07"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "waistband",
+            "name": "Waistband",
+            "names": {
+              "en": "Waistband",
+              "hi": "कमरबंद",
+              "te": "నడుము పట్టీ"
+            },
+            "role": "base",
+            "width": 61.8,
+            "height": 5,
+            "cutWidth": 63.8,
+            "cutHeight": 7,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "plain_base",
+            "scrapEligible": false,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "horizontal",
+              "angleDegrees": 0,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 61.8,
+              "finishedHeightCm": 5,
+              "finishedAreaCm2": 309,
+              "cutWidthCm": 63.8,
+              "cutHeightCm": 7,
+              "seamPath": "M -300,-25 L -300,25 L 318,25 L 318,-25 L -300,-25 z",
+              "saPath": "M -310,-25 L -310,25 L -300,35 L 318,35 L 328,25 L 328,-25 L 318,-35 L -300,-35 z"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Sandy",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          }
+        ]
+      }
+    }
+  },
+  "aaron_tank": {
+    "schemaVersion": "1.0.0",
+    "id": "aaron_tank",
+    "name": "Tank Top",
+    "names": {
+      "en": "Tank Top",
+      "hi": "स्लीवलेस बनियान",
+      "te": "స్లీవ్‌లెస్ బనీన్"
+    },
+    "category": "garments",
+    "construction": "tee",
+    "silhouette": {
+      "type": "tee",
+      "shadow": true,
+      "shading": true
+    },
+    "description": "Classic sleeveless tank top with continuous plain front and back bodice panels and contrasting patchwork trim bindings. Pattern geometry by FreeSewing 4.10.2 (MIT licence).",
+    "defaultVariant": "hybrid",
+    "variants": {
+      "hybrid": {
+        "name": "Hybrid (Plain Body + Patchwork Binding)",
+        "description": "Front and back bodices cut from smooth solid fabric; armhole and neck bindings pieced from scrap strips.",
+        "isDefault": true
+      },
+      "patchwork": {
+        "name": "Full Patchwork",
+        "description": "Entire tank top (bodices and bindings) pieced together from fabric scraps.",
+        "warning": "Full patchwork requires piecing master sheets for body panels, creating many seams and taking substantial sewing time. Hybrid construction is recommended for comfort against skin."
+      }
+    },
+    "tailorVerified": false,
+    "disclaimer": "All pattern measurements are rectangle-based approximations for scrap cutting and must be verified by a professional tailor before final cutting.",
+    "materials": [
+      {
+        "name": "Cotton jersey or knit fabric",
+        "qty": "40x80 cm for plain body",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical default, to be verified by a tailor"
+      },
+      {
+        "name": "Cotton scrap strips for binding",
+        "qty": "Approx 6x100 cm total strip area",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical default, to be verified by a tailor"
+      },
+      {
+        "name": "Stretch sewing thread",
+        "qty": "1 spool",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical default, to be verified by a tailor"
+      }
+    ],
+    "timeEstimateFormula": null,
+    "stitchingSteps": [],
+    "sizes": {
+      "chest56": {
+        "label": "Child Chest 56 cm (~3–4 Years)",
+        "names": {
+          "en": "Chest 56 cm (~3–4 Years)",
+          "hi": "छाती 56 सेमी (~3-4 वर्ष)",
+          "te": "ఛాతీ 56 సెం.మీ (~3-4 సం.)"
+        },
+        "finishedWidthCm": 28,
+        "finishedHeightCm": 35.3,
+        "finishedDimensions": {
+          "widthCm": 28,
+          "heightCm": 35.3
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "sources": {
+          "chest": "typical estimate, unverified, needs a tailor",
+          "biceps": "typical estimate, unverified, needs a tailor",
+          "hpsToBust": "typical estimate, unverified, needs a tailor",
+          "hpsToWaistBack": "typical estimate, unverified, needs a tailor",
+          "neck": "typical estimate, unverified, needs a tailor",
+          "shoulderToShoulder": "typical estimate, unverified, needs a tailor",
+          "shoulderSlope": "typical estimate, unverified, needs a tailor",
+          "waistToArmpit": "typical estimate, unverified, needs a tailor",
+          "waistToHips": "typical estimate, unverified, needs a tailor",
+          "hips": "typical estimate, unverified, needs a tailor"
+        },
+        "variants": {
+          "hybrid": [
+            {
+              "id": "bodice_front",
+              "name": "Front Bodice",
+              "names": {
+                "en": "Front Bodice",
+                "hi": "सामने का हिस्सा (बॉडी)",
+                "te": "ముందు భాగం (బాడీస్)"
+              },
+              "role": "base",
+              "width": 29.8,
+              "height": 35.3,
+              "cutWidth": 31.8,
+              "cutHeight": 37.8,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "plain_base",
+              "scrapEligible": false,
+              "cutOnFold": true,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": true,
+                "finishedWidthCm": 29.8,
+                "finishedHeightCm": 35.3,
+                "halfFinishedWidthCm": 14.9,
+                "finishedAreaCm2": 818.6,
+                "cutWidthCm": 31.8,
+                "cutHeightCm": 37.8,
+                "seamPath": "M 0,62 L 0,357.5 L 148.77,357.5 C 148.77,236.85 144.01,148.69 144.01,148.69 C 100.65,148.69 74.18,79.16 91.08,9.63 L 69.47,4.38 C 55.47,62 55.47,62 0,62 z",
+                "saPath": "M 0,357.5 L 0,382.5 L 148.77,382.5 L 158.77,357.5 C 158.77,245 154.1,150.7 154.01,148.69 L 144.01,148.69"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Aaron",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "bodice_back",
+              "name": "Back Bodice",
+              "names": {
+                "en": "Back Bodice",
+                "hi": "पीछे का हिस्सा (बॉडी)",
+                "te": "వెనుక భాగం (బాడీస్)"
+              },
+              "role": "base",
+              "width": 29.8,
+              "height": 35.3,
+              "cutWidth": 31.8,
+              "cutHeight": 37.8,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "plain_base",
+              "scrapEligible": false,
+              "cutOnFold": true,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": true,
+                "finishedWidthCm": 29.8,
+                "finishedHeightCm": 35.3,
+                "halfFinishedWidthCm": 14.9,
+                "finishedAreaCm2": 864,
+                "cutWidthCm": 31.8,
+                "cutHeightCm": 37.8,
+                "seamPath": "M 0,26 L 0,357.5 L 148.77,357.5 C 148.77,236.85 144.01,148.69 144.01,148.69 C 100.65,148.69 74.18,79.16 91.08,9.63 L 69.47,4.38 L 69.47,4.38 C 64.21,26 0,26 0,26 z",
+                "saPath": "M 0,357.5 L 0,382.5 L 148.77,382.5 L 158.77,357.5 C 158.77,245 154.1,150.7 154.01,148.69 L 144.01,148.69"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Aaron",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "arm_binding",
+              "name": "Armhole Binding",
+              "names": {
+                "en": "Armhole Binding",
+                "hi": "आस्तीन की बाइंडिंग पट्टी",
+                "te": "చేతుల చంక భాగం పట్టీలు"
+              },
+              "role": "supporting",
+              "width": 6,
+              "height": 31.7,
+              "cutWidth": 6,
+              "cutHeight": 31.7,
+              "qty": 2,
+              "cutQty": 2,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": false
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 6,
+                "finishedHeightCm": 31.7,
+                "finishedAreaCm2": 190.2,
+                "cutWidthCm": 6,
+                "cutHeightCm": 31.7,
+                "seamPath": "M 0,0 L 0,317.02 L 60,317.02 L 60,0 L 0,0 z",
+                "saPath": "M 0,0 L 0,317.02 L 60,317.02 L 60,0 L 0,0 z"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Aaron",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "neck_binding",
+              "name": "Neckline Binding",
+              "names": {
+                "en": "Neckline Binding",
+                "hi": "गले की बाइंडिंग पट्टी",
+                "te": "మెడ अంచు పట్టీ"
+              },
+              "role": "supporting",
+              "width": 6,
+              "height": 34.7,
+              "cutWidth": 6,
+              "cutHeight": 34.7,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": false
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 6,
+                "finishedHeightCm": 34.7,
+                "finishedAreaCm2": 208.1,
+                "cutWidthCm": 6,
+                "cutHeightCm": 34.7,
+                "seamPath": "M 0,0 L 0,346.8 L 60,346.8 L 60,0 L 0,0 z",
+                "saPath": "M 0,0 L 0,346.8 L 60,346.8 L 60,0 L 0,0 z"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Aaron",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            }
+          ],
+          "patchwork": [
+            {
+              "id": "bodice_front",
+              "name": "Front Bodice",
+              "names": {
+                "en": "Front Bodice",
+                "hi": "सामने का हिस्सा (बॉडी)",
+                "te": "ముందు భాగం (బాడీస్)"
+              },
+              "role": "base",
+              "width": 29.8,
+              "height": 35.3,
+              "cutWidth": 31.8,
+              "cutHeight": 37.8,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": true,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": true,
+                "finishedWidthCm": 29.8,
+                "finishedHeightCm": 35.3,
+                "halfFinishedWidthCm": 14.9,
+                "finishedAreaCm2": 818.6,
+                "cutWidthCm": 31.8,
+                "cutHeightCm": 37.8,
+                "seamPath": "M 0,62 L 0,357.5 L 148.77,357.5 C 148.77,236.85 144.01,148.69 144.01,148.69 C 100.65,148.69 74.18,79.16 91.08,9.63 L 69.47,4.38 C 55.47,62 55.47,62 0,62 z",
+                "saPath": "M 0,357.5 L 0,382.5 L 148.77,382.5 L 158.77,357.5 C 158.77,245 154.1,150.7 154.01,148.69 L 144.01,148.69"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Aaron",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "bodice_back",
+              "name": "Back Bodice",
+              "names": {
+                "en": "Back Bodice",
+                "hi": "पीछे का हिस्सा (बॉडी)",
+                "te": "వెనుక భాగం (బాడీస్)"
+              },
+              "role": "base",
+              "width": 29.8,
+              "height": 35.3,
+              "cutWidth": 31.8,
+              "cutHeight": 37.8,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": true,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": true,
+                "finishedWidthCm": 29.8,
+                "finishedHeightCm": 35.3,
+                "halfFinishedWidthCm": 14.9,
+                "finishedAreaCm2": 864,
+                "cutWidthCm": 31.8,
+                "cutHeightCm": 37.8,
+                "seamPath": "M 0,26 L 0,357.5 L 148.77,357.5 C 148.77,236.85 144.01,148.69 144.01,148.69 C 100.65,148.69 74.18,79.16 91.08,9.63 L 69.47,4.38 L 69.47,4.38 C 64.21,26 0,26 0,26 z",
+                "saPath": "M 0,357.5 L 0,382.5 L 148.77,382.5 L 158.77,357.5 C 158.77,245 154.1,150.7 154.01,148.69 L 144.01,148.69"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Aaron",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "arm_binding",
+              "name": "Armhole Binding",
+              "names": {
+                "en": "Armhole Binding",
+                "hi": "आस्तीन की बाइंडिंग पट्टी",
+                "te": "చేతుల చంక భాగం పట్టీలు"
+              },
+              "role": "supporting",
+              "width": 6,
+              "height": 31.7,
+              "cutWidth": 6,
+              "cutHeight": 31.7,
+              "qty": 2,
+              "cutQty": 2,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": false
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 6,
+                "finishedHeightCm": 31.7,
+                "finishedAreaCm2": 190.2,
+                "cutWidthCm": 6,
+                "cutHeightCm": 31.7,
+                "seamPath": "M 0,0 L 0,317.02 L 60,317.02 L 60,0 L 0,0 z",
+                "saPath": "M 0,0 L 0,317.02 L 60,317.02 L 60,0 L 0,0 z"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Aaron",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "neck_binding",
+              "name": "Neckline Binding",
+              "names": {
+                "en": "Neckline Binding",
+                "hi": "गले की बाइंडिंग पट्टी",
+                "te": "మెడ अంచు పట్టీ"
+              },
+              "role": "supporting",
+              "width": 6,
+              "height": 34.7,
+              "cutWidth": 6,
+              "cutHeight": 34.7,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": false
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 6,
+                "finishedHeightCm": 34.7,
+                "finishedAreaCm2": 208.1,
+                "cutWidthCm": 6,
+                "cutHeightCm": 34.7,
+                "seamPath": "M 0,0 L 0,346.8 L 60,346.8 L 60,0 L 0,0 z",
+                "saPath": "M 0,0 L 0,346.8 L 60,346.8 L 60,0 L 0,0 z"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Aaron",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            }
+          ]
+        },
+        "zones": [
+          {
+            "id": "bodice_front",
+            "name": "Front Bodice",
+            "names": {
+              "en": "Front Bodice",
+              "hi": "सामने का हिस्सा (बॉडी)",
+              "te": "ముందు భాగం (బాడీస్)"
+            },
+            "role": "base",
+            "width": 29.8,
+            "height": 35.3,
+            "cutWidth": 31.8,
+            "cutHeight": 37.8,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "plain_base",
+            "scrapEligible": false,
+            "cutOnFold": true,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": true,
+              "finishedWidthCm": 29.8,
+              "finishedHeightCm": 35.3,
+              "halfFinishedWidthCm": 14.9,
+              "finishedAreaCm2": 818.6,
+              "cutWidthCm": 31.8,
+              "cutHeightCm": 37.8,
+              "seamPath": "M 0,62 L 0,357.5 L 148.77,357.5 C 148.77,236.85 144.01,148.69 144.01,148.69 C 100.65,148.69 74.18,79.16 91.08,9.63 L 69.47,4.38 C 55.47,62 55.47,62 0,62 z",
+              "saPath": "M 0,357.5 L 0,382.5 L 148.77,382.5 L 158.77,357.5 C 158.77,245 154.1,150.7 154.01,148.69 L 144.01,148.69"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Aaron",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "bodice_back",
+            "name": "Back Bodice",
+            "names": {
+              "en": "Back Bodice",
+              "hi": "पीछे का हिस्सा (बॉडी)",
+              "te": "వెనుక భాగం (బాడీస్)"
+            },
+            "role": "base",
+            "width": 29.8,
+            "height": 35.3,
+            "cutWidth": 31.8,
+            "cutHeight": 37.8,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "plain_base",
+            "scrapEligible": false,
+            "cutOnFold": true,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": true,
+              "finishedWidthCm": 29.8,
+              "finishedHeightCm": 35.3,
+              "halfFinishedWidthCm": 14.9,
+              "finishedAreaCm2": 864,
+              "cutWidthCm": 31.8,
+              "cutHeightCm": 37.8,
+              "seamPath": "M 0,26 L 0,357.5 L 148.77,357.5 C 148.77,236.85 144.01,148.69 144.01,148.69 C 100.65,148.69 74.18,79.16 91.08,9.63 L 69.47,4.38 L 69.47,4.38 C 64.21,26 0,26 0,26 z",
+              "saPath": "M 0,357.5 L 0,382.5 L 148.77,382.5 L 158.77,357.5 C 158.77,245 154.1,150.7 154.01,148.69 L 144.01,148.69"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Aaron",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "arm_binding",
+            "name": "Armhole Binding",
+            "names": {
+              "en": "Armhole Binding",
+              "hi": "आस्तीन की बाइंडिंग पट्टी",
+              "te": "చేతుల చంక భాగం పట్టీలు"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 31.7,
+            "cutWidth": 6,
+            "cutHeight": 31.7,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": false
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 31.7,
+              "finishedAreaCm2": 190.2,
+              "cutWidthCm": 6,
+              "cutHeightCm": 31.7,
+              "seamPath": "M 0,0 L 0,317.02 L 60,317.02 L 60,0 L 0,0 z",
+              "saPath": "M 0,0 L 0,317.02 L 60,317.02 L 60,0 L 0,0 z"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Aaron",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "neck_binding",
+            "name": "Neckline Binding",
+            "names": {
+              "en": "Neckline Binding",
+              "hi": "गले की बाइंडिंग पट्टी",
+              "te": "మెడ अంచు పట్టీ"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 34.7,
+            "cutWidth": 6,
+            "cutHeight": 34.7,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": false
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 34.7,
+              "finishedAreaCm2": 208.1,
+              "cutWidthCm": 6,
+              "cutHeightCm": 34.7,
+              "seamPath": "M 0,0 L 0,346.8 L 60,346.8 L 60,0 L 0,0 z",
+              "saPath": "M 0,0 L 0,346.8 L 60,346.8 L 60,0 L 0,0 z"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Aaron",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "bodice_front",
+            "name": "Front Bodice",
+            "names": {
+              "en": "Front Bodice",
+              "hi": "सामने का हिस्सा (बॉडी)",
+              "te": "ముందు భాగం (బాడీస్)"
+            },
+            "role": "base",
+            "width": 29.8,
+            "height": 35.3,
+            "cutWidth": 31.8,
+            "cutHeight": 37.8,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "plain_base",
+            "scrapEligible": false,
+            "cutOnFold": true,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": true,
+              "finishedWidthCm": 29.8,
+              "finishedHeightCm": 35.3,
+              "halfFinishedWidthCm": 14.9,
+              "finishedAreaCm2": 818.6,
+              "cutWidthCm": 31.8,
+              "cutHeightCm": 37.8,
+              "seamPath": "M 0,62 L 0,357.5 L 148.77,357.5 C 148.77,236.85 144.01,148.69 144.01,148.69 C 100.65,148.69 74.18,79.16 91.08,9.63 L 69.47,4.38 C 55.47,62 55.47,62 0,62 z",
+              "saPath": "M 0,357.5 L 0,382.5 L 148.77,382.5 L 158.77,357.5 C 158.77,245 154.1,150.7 154.01,148.69 L 144.01,148.69"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Aaron",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "bodice_back",
+            "name": "Back Bodice",
+            "names": {
+              "en": "Back Bodice",
+              "hi": "पीछे का हिस्सा (बॉडी)",
+              "te": "వెనుక భాగం (బాడీస్)"
+            },
+            "role": "base",
+            "width": 29.8,
+            "height": 35.3,
+            "cutWidth": 31.8,
+            "cutHeight": 37.8,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "plain_base",
+            "scrapEligible": false,
+            "cutOnFold": true,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": true,
+              "finishedWidthCm": 29.8,
+              "finishedHeightCm": 35.3,
+              "halfFinishedWidthCm": 14.9,
+              "finishedAreaCm2": 864,
+              "cutWidthCm": 31.8,
+              "cutHeightCm": 37.8,
+              "seamPath": "M 0,26 L 0,357.5 L 148.77,357.5 C 148.77,236.85 144.01,148.69 144.01,148.69 C 100.65,148.69 74.18,79.16 91.08,9.63 L 69.47,4.38 L 69.47,4.38 C 64.21,26 0,26 0,26 z",
+              "saPath": "M 0,357.5 L 0,382.5 L 148.77,382.5 L 158.77,357.5 C 158.77,245 154.1,150.7 154.01,148.69 L 144.01,148.69"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Aaron",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "arm_binding",
+            "name": "Armhole Binding",
+            "names": {
+              "en": "Armhole Binding",
+              "hi": "आस्तीन की बाइंडिंग पट्टी",
+              "te": "చేతుల చంక భాగం పట్టీలు"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 31.7,
+            "cutWidth": 6,
+            "cutHeight": 31.7,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": false
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 31.7,
+              "finishedAreaCm2": 190.2,
+              "cutWidthCm": 6,
+              "cutHeightCm": 31.7,
+              "seamPath": "M 0,0 L 0,317.02 L 60,317.02 L 60,0 L 0,0 z",
+              "saPath": "M 0,0 L 0,317.02 L 60,317.02 L 60,0 L 0,0 z"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Aaron",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "neck_binding",
+            "name": "Neckline Binding",
+            "names": {
+              "en": "Neckline Binding",
+              "hi": "गले की बाइंडिंग पट्टी",
+              "te": "మెడ अంచు పట్టీ"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 34.7,
+            "cutWidth": 6,
+            "cutHeight": 34.7,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": false
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 34.7,
+              "finishedAreaCm2": 208.1,
+              "cutWidthCm": 6,
+              "cutHeightCm": 34.7,
+              "seamPath": "M 0,0 L 0,346.8 L 60,346.8 L 60,0 L 0,0 z",
+              "saPath": "M 0,0 L 0,346.8 L 60,346.8 L 60,0 L 0,0 z"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Aaron",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          }
+        ]
+      },
+      "chest62": {
+        "label": "Child Chest 62 cm (~5–6 Years)",
+        "names": {
+          "en": "Chest 62 cm (~5–6 Years)",
+          "hi": "छाती 62 सेमी (~5-6 वर्ष)",
+          "te": "ఛాతీ 62 సెం.మీ (~5-6 సం.)"
+        },
+        "finishedWidthCm": 31,
+        "finishedHeightCm": 40.2,
+        "finishedDimensions": {
+          "widthCm": 31,
+          "heightCm": 40.2
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "sources": {
+          "chest": "typical estimate, unverified, needs a tailor",
+          "biceps": "typical estimate, unverified, needs a tailor",
+          "hpsToBust": "typical estimate, unverified, needs a tailor",
+          "hpsToWaistBack": "typical estimate, unverified, needs a tailor",
+          "neck": "typical estimate, unverified, needs a tailor",
+          "shoulderToShoulder": "typical estimate, unverified, needs a tailor",
+          "shoulderSlope": "typical estimate, unverified, needs a tailor",
+          "waistToArmpit": "typical estimate, unverified, needs a tailor",
+          "waistToHips": "typical estimate, unverified, needs a tailor",
+          "hips": "typical estimate, unverified, needs a tailor"
+        },
+        "variants": {
+          "hybrid": [
+            {
+              "id": "bodice_front",
+              "name": "Front Bodice",
+              "names": {
+                "en": "Front Bodice",
+                "hi": "सामने का हिस्सा (बॉडी)",
+                "te": "ముందు భాగం (బాడీస్)"
+              },
+              "role": "base",
+              "width": 32.8,
+              "height": 40.2,
+              "cutWidth": 34.8,
+              "cutHeight": 42.7,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "plain_base",
+              "scrapEligible": false,
+              "cutOnFold": true,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": true,
+                "finishedWidthCm": 32.8,
+                "finishedHeightCm": 40.2,
+                "halfFinishedWidthCm": 16.4,
+                "finishedAreaCm2": 1034,
+                "cutWidthCm": 34.8,
+                "cutHeightCm": 42.7,
+                "seamPath": "M 0,69 L 0,407 L 164.16,407 C 164.16,267.97 159.38,165.94 159.38,165.94 C 110.52,165.94 80.53,88.31 99.39,10.69 L 75.41,4.86 C 59.82,69 59.82,69 0,69 z",
+                "saPath": "M 0,407 L 0,432 L 164.16,432 L 174.16,407 C 174.16,275 169.47,167.95 169.38,165.94 L 159.38,165.94"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Aaron",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "bodice_back",
+              "name": "Back Bodice",
+              "names": {
+                "en": "Back Bodice",
+                "hi": "पीछे का हिस्सा (बॉडी)",
+                "te": "వెనుక భాగం (బాడీస్)"
+              },
+              "role": "base",
+              "width": 32.8,
+              "height": 40.2,
+              "cutWidth": 34.8,
+              "cutHeight": 42.7,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "plain_base",
+              "scrapEligible": false,
+              "cutOnFold": true,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": true,
+                "finishedWidthCm": 32.8,
+                "finishedHeightCm": 40.2,
+                "halfFinishedWidthCm": 16.4,
+                "finishedAreaCm2": 1089.8,
+                "cutWidthCm": 34.8,
+                "cutHeightCm": 42.7,
+                "seamPath": "M 0,28 L 0,407 L 164.16,407 C 164.16,267.97 159.38,165.94 159.38,165.94 C 110.52,165.94 80.53,88.31 99.39,10.69 L 75.41,4.86 L 75.41,4.86 C 69.78,28 0,28 0,28 z",
+                "saPath": "M 0,407 L 0,432 L 164.16,432 L 174.16,407 C 174.16,275 169.47,167.95 169.38,165.94 L 159.38,165.94"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Aaron",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "arm_binding",
+              "name": "Armhole Binding",
+              "names": {
+                "en": "Armhole Binding",
+                "hi": "आस्तीन की बाइंडिंग पट्टी",
+                "te": "చేతుల చంక భాగం పట్టీలు"
+              },
+              "role": "supporting",
+              "width": 6,
+              "height": 35.5,
+              "cutWidth": 6,
+              "cutHeight": 35.5,
+              "qty": 2,
+              "cutQty": 2,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": false
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 6,
+                "finishedHeightCm": 35.5,
+                "finishedAreaCm2": 212.9,
+                "cutWidthCm": 6,
+                "cutHeightCm": 35.5,
+                "seamPath": "M 0,0 L 0,354.86 L 60,354.86 L 60,0 L 0,0 z",
+                "saPath": "M 0,0 L 0,354.86 L 60,354.86 L 60,0 L 0,0 z"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Aaron",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "neck_binding",
+              "name": "Neckline Binding",
+              "names": {
+                "en": "Neckline Binding",
+                "hi": "गले की बाइंडिंग पट्टी",
+                "te": "మెడ अంచు పట్టీ"
+              },
+              "role": "supporting",
+              "width": 6,
+              "height": 37.8,
+              "cutWidth": 6,
+              "cutHeight": 37.8,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": false
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 6,
+                "finishedHeightCm": 37.8,
+                "finishedAreaCm2": 227,
+                "cutWidthCm": 6,
+                "cutHeightCm": 37.8,
+                "seamPath": "M 0,0 L 0,378.38 L 60,378.38 L 60,0 L 0,0 z",
+                "saPath": "M 0,0 L 0,378.38 L 60,378.38 L 60,0 L 0,0 z"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Aaron",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            }
+          ],
+          "patchwork": [
+            {
+              "id": "bodice_front",
+              "name": "Front Bodice",
+              "names": {
+                "en": "Front Bodice",
+                "hi": "सामने का हिस्सा (बॉडी)",
+                "te": "ముందు భాగం (బాడీస్)"
+              },
+              "role": "base",
+              "width": 32.8,
+              "height": 40.2,
+              "cutWidth": 34.8,
+              "cutHeight": 42.7,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": true,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": true,
+                "finishedWidthCm": 32.8,
+                "finishedHeightCm": 40.2,
+                "halfFinishedWidthCm": 16.4,
+                "finishedAreaCm2": 1034,
+                "cutWidthCm": 34.8,
+                "cutHeightCm": 42.7,
+                "seamPath": "M 0,69 L 0,407 L 164.16,407 C 164.16,267.97 159.38,165.94 159.38,165.94 C 110.52,165.94 80.53,88.31 99.39,10.69 L 75.41,4.86 C 59.82,69 59.82,69 0,69 z",
+                "saPath": "M 0,407 L 0,432 L 164.16,432 L 174.16,407 C 174.16,275 169.47,167.95 169.38,165.94 L 159.38,165.94"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Aaron",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "bodice_back",
+              "name": "Back Bodice",
+              "names": {
+                "en": "Back Bodice",
+                "hi": "पीछे का हिस्सा (बॉडी)",
+                "te": "వెనుక భాగం (బాడీస్)"
+              },
+              "role": "base",
+              "width": 32.8,
+              "height": 40.2,
+              "cutWidth": 34.8,
+              "cutHeight": 42.7,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": true,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": true
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": true,
+                "finishedWidthCm": 32.8,
+                "finishedHeightCm": 40.2,
+                "halfFinishedWidthCm": 16.4,
+                "finishedAreaCm2": 1089.8,
+                "cutWidthCm": 34.8,
+                "cutHeightCm": 42.7,
+                "seamPath": "M 0,28 L 0,407 L 164.16,407 C 164.16,267.97 159.38,165.94 159.38,165.94 C 110.52,165.94 80.53,88.31 99.39,10.69 L 75.41,4.86 L 75.41,4.86 C 69.78,28 0,28 0,28 z",
+                "saPath": "M 0,407 L 0,432 L 164.16,432 L 174.16,407 C 174.16,275 169.47,167.95 169.38,165.94 L 159.38,165.94"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Aaron",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "arm_binding",
+              "name": "Armhole Binding",
+              "names": {
+                "en": "Armhole Binding",
+                "hi": "आस्तीन की बाइंडिंग पट्टी",
+                "te": "చేతుల చంక భాగం పట్టీలు"
+              },
+              "role": "supporting",
+              "width": 6,
+              "height": 35.5,
+              "cutWidth": 6,
+              "cutHeight": 35.5,
+              "qty": 2,
+              "cutQty": 2,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": false
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 6,
+                "finishedHeightCm": 35.5,
+                "finishedAreaCm2": 212.9,
+                "cutWidthCm": 6,
+                "cutHeightCm": 35.5,
+                "seamPath": "M 0,0 L 0,354.86 L 60,354.86 L 60,0 L 0,0 z",
+                "saPath": "M 0,0 L 0,354.86 L 60,354.86 L 60,0 L 0,0 z"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Aaron",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            },
+            {
+              "id": "neck_binding",
+              "name": "Neckline Binding",
+              "names": {
+                "en": "Neckline Binding",
+                "hi": "गले की बाइंडिंग पट्टी",
+                "te": "మెడ अంచు పట్టీ"
+              },
+              "role": "supporting",
+              "width": 6,
+              "height": 37.8,
+              "cutWidth": 6,
+              "cutHeight": 37.8,
+              "qty": 1,
+              "cutQty": 1,
+              "optional": false,
+              "accentOnly": false,
+              "fabricSource": "scrap",
+              "scrapEligible": true,
+              "cutOnFold": false,
+              "seamAllowanceCm": {
+                "defaultCm": 1
+              },
+              "grainLine": {
+                "orientation": "vertical",
+                "angleDegrees": 90,
+                "strict": false
+              },
+              "geometry": {
+                "shapeType": "curved",
+                "cutOnFold": false,
+                "finishedWidthCm": 6,
+                "finishedHeightCm": 37.8,
+                "finishedAreaCm2": 227,
+                "cutWidthCm": 6,
+                "cutHeightCm": 37.8,
+                "seamPath": "M 0,0 L 0,378.38 L 60,378.38 L 60,0 L 0,0 z",
+                "saPath": "M 0,0 L 0,378.38 L 60,378.38 L 60,0 L 0,0 z"
+              },
+              "provenance": {
+                "patternLibrary": "FreeSewing",
+                "design": "Aaron",
+                "version": "4.10.2",
+                "pinned": true,
+                "generatedWithoutHandTyping": true
+              },
+              "mapping3D": null
+            }
+          ]
+        },
+        "zones": [
+          {
+            "id": "bodice_front",
+            "name": "Front Bodice",
+            "names": {
+              "en": "Front Bodice",
+              "hi": "सामने का हिस्सा (बॉडी)",
+              "te": "ముందు భాగం (బాడీస్)"
+            },
+            "role": "base",
+            "width": 32.8,
+            "height": 40.2,
+            "cutWidth": 34.8,
+            "cutHeight": 42.7,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "plain_base",
+            "scrapEligible": false,
+            "cutOnFold": true,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": true,
+              "finishedWidthCm": 32.8,
+              "finishedHeightCm": 40.2,
+              "halfFinishedWidthCm": 16.4,
+              "finishedAreaCm2": 1034,
+              "cutWidthCm": 34.8,
+              "cutHeightCm": 42.7,
+              "seamPath": "M 0,69 L 0,407 L 164.16,407 C 164.16,267.97 159.38,165.94 159.38,165.94 C 110.52,165.94 80.53,88.31 99.39,10.69 L 75.41,4.86 C 59.82,69 59.82,69 0,69 z",
+              "saPath": "M 0,407 L 0,432 L 164.16,432 L 174.16,407 C 174.16,275 169.47,167.95 169.38,165.94 L 159.38,165.94"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Aaron",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "bodice_back",
+            "name": "Back Bodice",
+            "names": {
+              "en": "Back Bodice",
+              "hi": "पीछे का हिस्सा (बॉडी)",
+              "te": "వెనుక భాగం (బాడీస్)"
+            },
+            "role": "base",
+            "width": 32.8,
+            "height": 40.2,
+            "cutWidth": 34.8,
+            "cutHeight": 42.7,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "plain_base",
+            "scrapEligible": false,
+            "cutOnFold": true,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": true,
+              "finishedWidthCm": 32.8,
+              "finishedHeightCm": 40.2,
+              "halfFinishedWidthCm": 16.4,
+              "finishedAreaCm2": 1089.8,
+              "cutWidthCm": 34.8,
+              "cutHeightCm": 42.7,
+              "seamPath": "M 0,28 L 0,407 L 164.16,407 C 164.16,267.97 159.38,165.94 159.38,165.94 C 110.52,165.94 80.53,88.31 99.39,10.69 L 75.41,4.86 L 75.41,4.86 C 69.78,28 0,28 0,28 z",
+              "saPath": "M 0,407 L 0,432 L 164.16,432 L 174.16,407 C 174.16,275 169.47,167.95 169.38,165.94 L 159.38,165.94"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Aaron",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "arm_binding",
+            "name": "Armhole Binding",
+            "names": {
+              "en": "Armhole Binding",
+              "hi": "आस्तीन की बाइंडिंग पट्टी",
+              "te": "చేతుల చంక భాగం పట్టీలు"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 35.5,
+            "cutWidth": 6,
+            "cutHeight": 35.5,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": false
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 35.5,
+              "finishedAreaCm2": 212.9,
+              "cutWidthCm": 6,
+              "cutHeightCm": 35.5,
+              "seamPath": "M 0,0 L 0,354.86 L 60,354.86 L 60,0 L 0,0 z",
+              "saPath": "M 0,0 L 0,354.86 L 60,354.86 L 60,0 L 0,0 z"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Aaron",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "neck_binding",
+            "name": "Neckline Binding",
+            "names": {
+              "en": "Neckline Binding",
+              "hi": "गले की बाइंडिंग पट्टी",
+              "te": "మెడ अంచు పట్టీ"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 37.8,
+            "cutWidth": 6,
+            "cutHeight": 37.8,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": false
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 37.8,
+              "finishedAreaCm2": 227,
+              "cutWidthCm": 6,
+              "cutHeightCm": 37.8,
+              "seamPath": "M 0,0 L 0,378.38 L 60,378.38 L 60,0 L 0,0 z",
+              "saPath": "M 0,0 L 0,378.38 L 60,378.38 L 60,0 L 0,0 z"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Aaron",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "bodice_front",
+            "name": "Front Bodice",
+            "names": {
+              "en": "Front Bodice",
+              "hi": "सामने का हिस्सा (बॉडी)",
+              "te": "ముందు భాగం (బాడీస్)"
+            },
+            "role": "base",
+            "width": 32.8,
+            "height": 40.2,
+            "cutWidth": 34.8,
+            "cutHeight": 42.7,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "plain_base",
+            "scrapEligible": false,
+            "cutOnFold": true,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": true,
+              "finishedWidthCm": 32.8,
+              "finishedHeightCm": 40.2,
+              "halfFinishedWidthCm": 16.4,
+              "finishedAreaCm2": 1034,
+              "cutWidthCm": 34.8,
+              "cutHeightCm": 42.7,
+              "seamPath": "M 0,69 L 0,407 L 164.16,407 C 164.16,267.97 159.38,165.94 159.38,165.94 C 110.52,165.94 80.53,88.31 99.39,10.69 L 75.41,4.86 C 59.82,69 59.82,69 0,69 z",
+              "saPath": "M 0,407 L 0,432 L 164.16,432 L 174.16,407 C 174.16,275 169.47,167.95 169.38,165.94 L 159.38,165.94"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Aaron",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "bodice_back",
+            "name": "Back Bodice",
+            "names": {
+              "en": "Back Bodice",
+              "hi": "पीछे का हिस्सा (बॉडी)",
+              "te": "వెనుక భాగం (బాడీస్)"
+            },
+            "role": "base",
+            "width": 32.8,
+            "height": 40.2,
+            "cutWidth": 34.8,
+            "cutHeight": 42.7,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "plain_base",
+            "scrapEligible": false,
+            "cutOnFold": true,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": true
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": true,
+              "finishedWidthCm": 32.8,
+              "finishedHeightCm": 40.2,
+              "halfFinishedWidthCm": 16.4,
+              "finishedAreaCm2": 1089.8,
+              "cutWidthCm": 34.8,
+              "cutHeightCm": 42.7,
+              "seamPath": "M 0,28 L 0,407 L 164.16,407 C 164.16,267.97 159.38,165.94 159.38,165.94 C 110.52,165.94 80.53,88.31 99.39,10.69 L 75.41,4.86 L 75.41,4.86 C 69.78,28 0,28 0,28 z",
+              "saPath": "M 0,407 L 0,432 L 164.16,432 L 174.16,407 C 174.16,275 169.47,167.95 169.38,165.94 L 159.38,165.94"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Aaron",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "arm_binding",
+            "name": "Armhole Binding",
+            "names": {
+              "en": "Armhole Binding",
+              "hi": "आस्तीन की बाइंडिंग पट्टी",
+              "te": "చేతుల చంక భాగం పట్టీలు"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 35.5,
+            "cutWidth": 6,
+            "cutHeight": 35.5,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": false
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 35.5,
+              "finishedAreaCm2": 212.9,
+              "cutWidthCm": 6,
+              "cutHeightCm": 35.5,
+              "seamPath": "M 0,0 L 0,354.86 L 60,354.86 L 60,0 L 0,0 z",
+              "saPath": "M 0,0 L 0,354.86 L 60,354.86 L 60,0 L 0,0 z"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Aaron",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          },
+          {
+            "id": "neck_binding",
+            "name": "Neckline Binding",
+            "names": {
+              "en": "Neckline Binding",
+              "hi": "गले की बाइंडिंग पट्टी",
+              "te": "మెడ अంచు పట్టీ"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 37.8,
+            "cutWidth": 6,
+            "cutHeight": 37.8,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "vertical",
+              "angleDegrees": 90,
+              "strict": false
+            },
+            "geometry": {
+              "shapeType": "curved",
+              "cutOnFold": false,
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 37.8,
+              "finishedAreaCm2": 227,
+              "cutWidthCm": 6,
+              "cutHeightCm": 37.8,
+              "seamPath": "M 0,0 L 0,378.38 L 60,378.38 L 60,0 L 0,0 z",
+              "saPath": "M 0,0 L 0,378.38 L 60,378.38 L 60,0 L 0,0 z"
+            },
+            "provenance": {
+              "patternLibrary": "FreeSewing",
+              "design": "Aaron",
+              "version": "4.10.2",
+              "pinned": true,
+              "generatedWithoutHandTyping": true
+            },
+            "mapping3D": null
+          }
+        ]
+      }
+    }
   }
 };
+
+// Backward compatibility: provide non-enumerable patchwork alias if product is single-mode hybrid
+for (const prod of Object.values(CUSTOM_PRODUCT_TEMPLATES)) {
+  for (const sz of Object.values(prod.sizes || {})) {
+    if (sz.variants && sz.variants.hybrid && !sz.variants.patchwork) {
+      Object.defineProperty(sz.variants, 'patchwork', {
+        enumerable: false,
+        configurable: true,
+        get() { return this.hybrid; },
+      });
+    }
+  }
+}

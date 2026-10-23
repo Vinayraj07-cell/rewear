@@ -1,0 +1,111 @@
+{
+  "id": "sandy_skirt",
+  "names": {
+    "en": "Circle Skirt",
+    "hi": "गोल घाघरा",
+    "te": "గుండ్రని లంగా"
+  },
+  "category": "garments",
+  "construction": "skirt",
+  "patternLibrary": {
+    "design": "sandy",
+    "version": "4.10.2"
+  },
+  "silhouette": {
+    "type": "skirt",
+    "shadow": true,
+    "shading": true
+  },
+  "description": "Classic circular skirt with 16 wedge gores engineered for remnant fabric piecing and a smooth waistband. Pattern geometry by FreeSewing 4.10.2 (MIT licence).",
+  "variants": {
+    "hybrid": {
+      "name": "Hybrid (Plain Waistband + Patchwork Gores)",
+      "description": "Waistband cut from solid fabric for smooth waist comfort; skirt gores pieced from upcycled scraps.",
+      "isDefault": true
+    }
+  },
+  "materials": [
+    {
+      "name": "Cotton or linen fabric scraps",
+      "qty": "Approx 40x60 cm total remnant area",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "Solid waist fabric",
+      "qty": "60x10 cm plain cotton strip",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "Waistband elastic (2 cm width)",
+      "qty": "50-60 cm",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "All-purpose sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    }
+  ],
+  "sizes": {
+    "waist54": {
+      "label": "Child Waist 54 cm (~3–4 Years)",
+      "names": {
+        "en": "Waist 54 cm (~3–4 Years)",
+        "hi": "कमर 54 सेमी (~3-4 वर्ष)",
+        "te": "నడుము 54 సెం.మీ (~3-4 సం.)"
+      },
+      "verified": false,
+      "source": "typical estimate, unverified, needs a tailor",
+      "sources": {
+        "waist": "typical estimate, unverified, needs a tailor",
+        "waistToFloor": "typical estimate, unverified, needs a tailor",
+        "waistToHips": "typical estimate, unverified, needs a tailor",
+        "hips": "typical estimate, unverified, needs a tailor",
+        "skirtLength": "typical estimate, unverified, needs a tailor"
+      }
+    },
+    "waist56": {
+      "label": "Child Waist 56 cm (~5–6 Years)",
+      "names": {
+        "en": "Waist 56 cm (~5–6 Years)",
+        "hi": "कमर 56 सेमी (~5-6 वर्ष)",
+        "te": "నడుము 56 సెం.మీ (~5-6 సం.)"
+      },
+      "verified": false,
+      "source": "typical estimate, unverified, needs a tailor",
+      "sources": {
+        "waist": "typical estimate, unverified, needs a tailor",
+        "waistToFloor": "typical estimate, unverified, needs a tailor",
+        "waistToHips": "typical estimate, unverified, needs a tailor",
+        "hips": "typical estimate, unverified, needs a tailor",
+        "skirtLength": "typical estimate, unverified, needs a tailor"
+      }
+    }
+  },
+  "pieces": [
+    {
+      "id": "skirt_gore",
+      "names": {
+        "en": "Skirt Wedge Gore",
+        "hi": "स्कर्ट का कलीदार टुकड़ा",
+        "te": "లంగా చీలిక భాగం"
+      },
+      "role": "base",
+      "fabricSource": "scrap"
+    },
+    {
+      "id": "waistband",
+      "names": {
+        "en": "Waistband",
+        "hi": "कमरबंद",
+        "te": "నడుము పట్టీ"
+      },
+      "role": "base",
+      "fabricSource": "plain"
+    }
+  ]
+}

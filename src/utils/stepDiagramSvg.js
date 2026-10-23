@@ -12,6 +12,106 @@ export function getStepSvgString(type, stepNumber = 1, context = {}) {
 
   switch (type) {
     // ==========================================
+    // SKIRT & CIRCLE SKIRT DIAGRAMS
+    // ==========================================
+    case 'skirt_join_gores':
+      body = `
+        <path d="M 35 60 L 48 20 L 60 20 L 52 60 Z" fill="#FED7AA" stroke="#C2410C" stroke-width="1" />
+        <path d="M 52 60 L 60 20 L 72 20 L 69 60 Z" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" />
+        <path d="M 69 60 L 72 20 L 84 20 L 86 60 Z" fill="#FED7AA" stroke="#C2410C" stroke-width="1" />
+        <line x1="52" y1="60" x2="60" y2="20" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="3,2" />
+        <line x1="69" y1="60" x2="72" y2="20" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="3,2" />
+        <text x="60" y="70" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#EF4444" font-weight="bold" text-anchor="middle">Join 8 Gores in Pairs (1.0 cm seam)</text>
+      `;
+      break;
+
+    case 'skirt_attach_plain_waistband':
+      body = `
+        <path d="M 28 42 Q 60 36 92 42 L 98 62 Q 60 54 22 62 Z" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" />
+        <rect x="25" y="24" width="70" height="12" fill="#E2E8F0" stroke="#475569" stroke-width="1.2" rx="1" />
+        <line x1="25" y1="36" x2="95" y2="36" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="3,2" />
+        <text x="60" y="20" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#475569" font-weight="bold" text-anchor="middle">Plain Solid Waistband Loop</text>
+        <text x="60" y="72" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#EF4444" font-weight="bold" text-anchor="middle">Stitch Waist Seam 1.0 cm</text>
+      `;
+      break;
+
+    case 'skirt_elastic_casing':
+      body = `
+        <rect x="24" y="22" width="72" height="16" fill="#F1F5F9" stroke="#475569" stroke-width="1.2" rx="1" />
+        <line x1="24" y1="38" x2="80" y2="38" stroke="#047857" stroke-width="1.5" stroke-dasharray="3,2" />
+        <line x1="24" y1="30" x2="96" y2="30" stroke="#3B82F6" stroke-width="2" />
+        <circle cx="82" cy="30" r="3" fill="#047857" />
+        <text x="60" y="52" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#047857" font-weight="bold" text-anchor="middle">Thread 2 cm Elastic through Casing</text>
+        <text x="60" y="62" font-family="Helvetica, Arial, sans-serif" font-size="4.5" fill="#64748B" text-anchor="middle">Leave 2.5 cm opening, secure &amp; close</text>
+      `;
+      break;
+
+    case 'skirt_hem':
+      body = `
+        <path d="M 20 40 Q 60 30 100 40 L 98 52 Q 60 42 22 52 Z" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" />
+        <path d="M 22 50 Q 60 40 98 50" fill="none" stroke="#047857" stroke-width="1.5" stroke-dasharray="2.5,2" />
+        <text x="60" y="64" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#047857" font-weight="bold" text-anchor="middle">Double-Fold Hem (0.5 + 0.5 cm)</text>
+      `;
+      break;
+
+    // ==========================================
+    // TANK TOP DIAGRAMS
+    // ==========================================
+    case 'tank_shoulder_seams':
+      body = `
+        <path d="M 30 65 L 30 45 Q 35 44 40 40 L 46 22 L 56 22 L 54 34 Q 60 36 66 34 L 64 22 L 74 22 L 80 40 Q 85 44 90 45 L 90 65 Z" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" />
+        <line x1="46" y1="22" x2="56" y2="22" stroke="#EF4444" stroke-width="2" stroke-dasharray="2,2" />
+        <line x1="64" y1="22" x2="74" y2="22" stroke="#EF4444" stroke-width="2" stroke-dasharray="2,2" />
+        <text x="60" y="16" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#EF4444" font-weight="bold" text-anchor="middle">Stitch Shoulders 1.0 cm</text>
+        <text x="60" y="73" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#1E3A8A" text-anchor="middle">Front &amp; Back Bodices Right Sides Facing</text>
+      `;
+      break;
+
+    case 'tank_neck_armhole_binding':
+      body = `
+        <path d="M 35 60 L 35 44 Q 40 42 45 38 L 50 24 L 56 24 L 55 33 Q 60 35 65 33 L 64 24 L 70 24 L 75 38 Q 80 42 85 44 L 85 60 Z" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" />
+        <path d="M 55 33 Q 60 35 65 33" fill="none" stroke="#F59E0B" stroke-width="2.5" />
+        <path d="M 45 38 Q 42 43 35 44" fill="none" stroke="#F59E0B" stroke-width="2.5" />
+        <path d="M 75 38 Q 78 43 85 44" fill="none" stroke="#F59E0B" stroke-width="2.5" />
+        <text x="60" y="18" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#D97706" font-weight="bold" text-anchor="middle">Bind Neckline &amp; Armholes</text>
+        <text x="60" y="70" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#64748B" text-anchor="middle">Fold binding strips in half &amp; topstitch</text>
+      `;
+      break;
+
+    case 'tank_side_seams':
+      body = `
+        <path d="M 32 62 L 32 44 Q 38 42 44 38 L 50 25 L 70 25 L 76 38 Q 82 42 88 44 L 88 62 Z" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" />
+        <line x1="32" y1="44" x2="32" y2="62" stroke="#EF4444" stroke-width="1.8" stroke-dasharray="3,2" />
+        <line x1="88" y1="44" x2="88" y2="62" stroke="#EF4444" stroke-width="1.8" stroke-dasharray="3,2" />
+        <text x="60" y="71" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#EF4444" font-weight="bold" text-anchor="middle">Stitch Side Seams (Underarm to Hem)</text>
+      `;
+      break;
+
+    case 'tank_hem':
+      body = `
+        <path d="M 30 25 L 30 55 L 90 55 L 90 25 Z" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" />
+        <rect x="30" y="47" width="60" height="8" fill="#BFDBFE" stroke="#2563EB" stroke-width="0.8" />
+        <line x1="30" y1="49" x2="90" y2="49" stroke="#047857" stroke-width="1.2" stroke-dasharray="2,2" />
+        <line x1="30" y1="52" x2="90" y2="52" stroke="#047857" stroke-width="1.2" stroke-dasharray="2,2" />
+        <text x="60" y="65" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#047857" font-weight="bold" text-anchor="middle">Turn up 2 cm &amp; Stretch Hem (Twin Needle)</text>
+      `;
+      break;
+
+    // ==========================================
+    // RAGLAN TEE DIAGRAMS
+    // ==========================================
+    case 'tee_raglan_seams':
+      body = `
+        <path d="M 40 60 L 40 38 L 48 24 L 72 24 L 80 38 L 80 60 Z" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="1" />
+        <path d="M 22 45 L 40 38 L 48 24 L 32 30 Z" fill="#FED7AA" stroke="#C2410C" stroke-width="1" />
+        <path d="M 98 45 L 80 38 L 72 24 L 88 30 Z" fill="#FED7AA" stroke="#C2410C" stroke-width="1" />
+        <line x1="40" y1="38" x2="48" y2="24" stroke="#EF4444" stroke-width="1.8" stroke-dasharray="2,2" />
+        <line x1="80" y1="38" x2="72" y2="24" stroke="#EF4444" stroke-width="1.8" stroke-dasharray="2,2" />
+        <text x="60" y="71" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#EF4444" font-weight="bold" text-anchor="middle">Stitch Raglan Sleeve Seams (1.0 cm)</text>
+      `;
+      break;
+
+    // ==========================================
     // POUCH DIAGRAMS
     // ==========================================
     case 'pouch_piece_patches':
