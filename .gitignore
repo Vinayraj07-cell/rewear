@@ -29,3 +29,8 @@ dist-ssr
 
 # Spikes and scratch directories
 scratch/
+
+# Test outputs and verification artifacts
+test_output.txt
+tailor_blueprint_*.pdf
+public/skirt_ui_no_toggle_360px.png
