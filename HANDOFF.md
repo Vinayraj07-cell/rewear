@@ -119,6 +119,8 @@ Running `npm test` executes 16 test suites without failures. Baseline passed cou
    Noto Sans Devanagari and Noto Sans Telugu `.ttf` font files may remain unreferenced in the asset directory.
 10. **`src/App.jsx` Reverted**:
     Temporary URL query-parameter routing helpers used for automated screenshots were reverted to maintain base integrity. Automated direct deep-linking into screens is not present in the current production code.
+11. **Generic Rectangle Product Blueprint PDFs & Gradle Toolchain**:
+    Generic PDFs for the 10 rectangle products are unreviewed: possible double seam allowance, no regression test, 17 pages for kids_frock and table_runner. Gradle forces Java 17 for Capacitor 8 plugins as a workaround.
 
 ---
 
