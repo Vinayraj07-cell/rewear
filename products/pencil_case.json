@@ -1,0 +1,180 @@
+{
+  "id": "pencil_case",
+  "names": {
+    "en": "Zippered Pencil Case",
+    "hi": "पेंसिल पाउच",
+    "te": "పెన్సిల్ పౌచ్"
+  },
+  "category": "accessories",
+  "construction": "pouch",
+  "description": "Elongated zippered stationery and pen pouch with reinforced tab ends pieced from durable scraps.",
+  "materials": [
+    {
+      "name": "Durable cotton canvas or denim scraps",
+      "qty": "Approx 25x30 cm total area",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "Nylon coil zipper (#3 or #5)",
+      "qty": "20 - 25 cm",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "Medium fusible fleece or interfacing",
+      "qty": "Matching case dimensions",
+      "optional": true,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "Heavy-duty topstitching thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (Slim Sleeve 20 × 6 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": { "widthCm": 20, "heightCm": 6 },
+      "pieces": [
+        {
+          "id": "case_front",
+          "names": { "en": "Pencil Case Front", "hi": "केस का अगला हिस्सा", "te": "కేసు ముందు భాగం" },
+          "role": "base",
+          "width": 20,
+          "height": 6,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "case_back",
+          "names": { "en": "Pencil Case Back", "hi": "केस का पिछला हिस्सा", "te": "కేసు వెనుక భాగం" },
+          "role": "base",
+          "width": 20,
+          "height": 6,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "zipper_tab_start",
+          "names": { "en": "Zipper Top Tab", "hi": "ज़िप्पर का ऊपरी टैब", "te": "జిప్పర్ పై ట్యాబ్" },
+          "role": "accent",
+          "width": 4,
+          "height": 3,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "zipper_tab_end",
+          "names": { "en": "Zipper Bottom Tab", "hi": "ज़िप्पर का निचला टैब", "te": "జిప్పర్ కింది ట్యాబ్" },
+          "role": "accent",
+          "width": 4,
+          "height": 3,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (Standard 21 × 9 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": { "widthCm": 21, "heightCm": 9 },
+      "pieces": [
+        {
+          "id": "case_front",
+          "names": { "en": "Pencil Case Front", "hi": "केस का अगला हिस्सा", "te": "కేసు ముందు భాగం" },
+          "role": "base",
+          "width": 21,
+          "height": 9,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "case_back",
+          "names": { "en": "Pencil Case Back", "hi": "केस का पिछला हिस्सा", "te": "కేసు వెనుక భాగం" },
+          "role": "base",
+          "width": 21,
+          "height": 9,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "zipper_tab_start",
+          "names": { "en": "Zipper Top Tab", "hi": "ज़िप्पर का ऊपरी टैब", "te": "జిప్పర్ పై ట్యాబ్" },
+          "role": "accent",
+          "width": 4,
+          "height": 3,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "zipper_tab_end",
+          "names": { "en": "Zipper Bottom Tab", "hi": "ज़िप्पर का निचला टैब", "te": "జిప్పర్ కింది ట్యాబ్" },
+          "role": "accent",
+          "width": 4,
+          "height": 3,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (Wide Art Marker 22 × 12 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": { "widthCm": 22, "heightCm": 12 },
+      "pieces": [
+        {
+          "id": "case_front",
+          "names": { "en": "Pencil Case Front", "hi": "केस का अगला हिस्सा", "te": "కేసు ముందు భాగం" },
+          "role": "base",
+          "width": 22,
+          "height": 12,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "case_back",
+          "names": { "en": "Pencil Case Back", "hi": "केस का पिछला हिस्सा", "te": "కేసు వెనుక భాగం" },
+          "role": "base",
+          "width": 22,
+          "height": 12,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "zipper_tab_start",
+          "names": { "en": "Zipper Top Tab", "hi": "ज़िप्पर का ऊपरी टैब", "te": "జిప్పర్ పై ట్యాబ్" },
+          "role": "accent",
+          "width": 4,
+          "height": 3,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "zipper_tab_end",
+          "names": { "en": "Zipper Bottom Tab", "hi": "ज़िप्पर का निचला टैब", "te": "జిప్పర్ కింది ట్యాబ్" },
+          "role": "accent",
+          "width": 4,
+          "height": 3,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

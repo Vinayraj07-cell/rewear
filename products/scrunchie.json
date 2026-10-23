@@ -1,0 +1,99 @@
+{
+  "id": "scrunchie",
+  "names": {
+    "en": "Fabric Scrunchie",
+    "hi": "कपड़े की स्क्रंची",
+    "te": "బట్టల స్క్రంచీ"
+  },
+  "category": "accessories",
+  "construction": "casing",
+  "description": "Gentle hair scrunchie stitched from long cotton, silk, or satin offcuts with elastic inner core.",
+  "materials": [
+    {
+      "name": "Lightweight fabric scraps (cotton, silk, georgette, satin)",
+      "qty": "Approx 10x50 cm flat area",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "Braided elastic (6 mm / 1/4 inch)",
+      "qty": "18 - 22 cm",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "Safety pin for threading elastic",
+      "qty": "1 unit",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "Fine sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (Slim 8 × 40 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": { "widthCm": 8, "heightCm": 40 },
+      "pieces": [
+        {
+          "id": "scrunchie_strip",
+          "names": { "en": "Scrunchie Ruffled Strip", "hi": "स्क्रंची की मुख्य पट्टी", "te": "స్క్రంచీ కుచ్చుల పట్టీ" },
+          "role": "base",
+          "width": 8,
+          "height": 40,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (Classic 10 × 50 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": { "widthCm": 10, "heightCm": 50 },
+      "pieces": [
+        {
+          "id": "scrunchie_strip",
+          "names": { "en": "Scrunchie Ruffled Strip", "hi": "स्क्रंची की मुख्य पट्टी", "te": "స్క్రంచీ కుచ్చుల పట్టీ" },
+          "role": "base",
+          "width": 10,
+          "height": 50,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (Fluffy 14 × 60 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": { "widthCm": 14, "heightCm": 60 },
+      "pieces": [
+        {
+          "id": "scrunchie_strip",
+          "names": { "en": "Scrunchie Ruffled Strip", "hi": "स्क्रंची की मुख्य पट्टी", "te": "స్క్రంచీ కుచ్చుల పట్టీ" },
+          "role": "base",
+          "width": 14,
+          "height": 60,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

@@ -55,7 +55,7 @@ console.log('--- 1. Live Product Registry Validation ---');
 const registryReport = validateRegistry(PRODUCT_TEMPLATES);
 assert(registryReport.valid, 'All products in PRODUCT_TEMPLATES pass validateRegistry()');
 assert(registryReport.totalErrors === 0, `Total registry validation errors: ${registryReport.totalErrors} (expected 0)`);
-assert(registryReport.oneLineSummaries.length === 5, `Produced exactly 5 summary lines (one per product)`);
+assert(registryReport.oneLineSummaries.length === Object.keys(PRODUCT_TEMPLATES).length, `Produced exactly ${Object.keys(PRODUCT_TEMPLATES).length} summary lines (one per product)`);
 
 for (const prodId of ['tote_bag', 'pouch', 'cushion_cover', 'kids_frock', 'child_top']) {
   const res = validateProductSpec(PRODUCT_TEMPLATES[prodId]);

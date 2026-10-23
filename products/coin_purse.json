@@ -1,0 +1,153 @@
+{
+  "id": "coin_purse",
+  "names": {
+    "en": "Coin Purse",
+    "hi": "छोटा सिक्का बटुआ",
+    "te": "చిల్లర పైసల పర్స్"
+  },
+  "category": "accessories",
+  "construction": "pouch",
+  "description": "Pocket-sized zippered coin and change pouch with a keyring loop tab made from sturdy fabric offcuts.",
+  "materials": [
+    {
+      "name": "Sturdy cotton, denim, or linen scraps",
+      "qty": "Approx 15x15 cm total area",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "Closed-bottom nylon coil zipper (#3)",
+      "qty": "10 - 14 cm",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "Split metal keyring (20-25 mm)",
+      "qty": "1 unit",
+      "optional": true,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "Sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (10 × 8 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": { "widthCm": 10, "heightCm": 8 },
+      "pieces": [
+        {
+          "id": "purse_front",
+          "names": { "en": "Coin Purse Front", "hi": "बटुए का अगला हिस्सा", "te": "పర్స్ ముందు భాగం" },
+          "role": "base",
+          "width": 10,
+          "height": 8,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "purse_back",
+          "names": { "en": "Coin Purse Back", "hi": "बटुए का पिछला हिस्सा", "te": "పర్స్ వెనుక భాగం" },
+          "role": "base",
+          "width": 10,
+          "height": 8,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "key_tab",
+          "names": { "en": "Keyring Pull Tab", "hi": "चाबी का छल्ला टैब", "te": "కీరింగ్ లాగే ట్యాబ్" },
+          "role": "accent",
+          "width": 3,
+          "height": 6,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (12 × 9 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": { "widthCm": 12, "heightCm": 9 },
+      "pieces": [
+        {
+          "id": "purse_front",
+          "names": { "en": "Coin Purse Front", "hi": "बटुए का अगला हिस्सा", "te": "పర్స్ ముందు భాగం" },
+          "role": "base",
+          "width": 12,
+          "height": 9,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "purse_back",
+          "names": { "en": "Coin Purse Back", "hi": "बटुए का पिछला हिस्सा", "te": "పర్స్ వెనుక భాగం" },
+          "role": "base",
+          "width": 12,
+          "height": 9,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "key_tab",
+          "names": { "en": "Keyring Pull Tab", "hi": "चाबी का छल्ला टैब", "te": "కీరింగ్ లాగే ట్యాబ్" },
+          "role": "accent",
+          "width": 3,
+          "height": 6,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (14 × 10 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": { "widthCm": 14, "heightCm": 10 },
+      "pieces": [
+        {
+          "id": "purse_front",
+          "names": { "en": "Coin Purse Front", "hi": "बटुए का अगला हिस्सा", "te": "పర్స్ ముందు భాగం" },
+          "role": "base",
+          "width": 14,
+          "height": 10,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "purse_back",
+          "names": { "en": "Coin Purse Back", "hi": "बटुए का पिछला हिस्सा", "te": "పర్స్ వెనుక భాగం" },
+          "role": "base",
+          "width": 14,
+          "height": 10,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "key_tab",
+          "names": { "en": "Keyring Pull Tab", "hi": "चाबी का छल्ला टैब", "te": "కీరింగ్ లాగే ట్యాబ్" },
+          "role": "accent",
+          "width": 3,
+          "height": 6,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

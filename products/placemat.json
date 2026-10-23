@@ -1,0 +1,126 @@
+{
+  "id": "placemat",
+  "names": {
+    "en": "Dining Placemat",
+    "hi": "डाइनिंग प्लेसमैट",
+    "te": "భోజన పళ్ళెం మ్యాట్"
+  },
+  "category": "home",
+  "construction": "flat",
+  "description": "Double-sided quilted dining placemat stitched from colorful patchwork cotton or canvas scraps.",
+  "materials": [
+    {
+      "name": "Cotton canvas or denim scraps",
+      "qty": "Approx 35x45 cm total area",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "Plain cotton backing fabric or fleece batting",
+      "qty": "Matching finished size",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "Bias binding tape (12 mm / 1/2 inch)",
+      "qty": "1.2 - 1.8 meters",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "Heavy-duty topstitching thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (Tea/Snack Mat 30 × 22 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": { "widthCm": 30, "heightCm": 22 },
+      "pieces": [
+        {
+          "id": "placemat_front",
+          "names": { "en": "Placemat Front Surface", "hi": "प्लेसमैट का ऊपरी भाग", "te": "మ్యాట్ పై భాగం" },
+          "role": "base",
+          "width": 30,
+          "height": 22,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "placemat_back",
+          "names": { "en": "Placemat Back Lining", "hi": "प्लेसमैट का अस्तर", "te": "మ్యాట్ వెనుక భాగం" },
+          "role": "supporting",
+          "width": 30,
+          "height": 22,
+          "qty": 1,
+          "fabricSource": "either"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (Standard Dinner 40 × 30 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": { "widthCm": 40, "heightCm": 30 },
+      "pieces": [
+        {
+          "id": "placemat_front",
+          "names": { "en": "Placemat Front Surface", "hi": "प्लेसमैट का ऊपरी भाग", "te": "మ్యాట్ పై భాగం" },
+          "role": "base",
+          "width": 40,
+          "height": 30,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "placemat_back",
+          "names": { "en": "Placemat Back Lining", "hi": "प्लेसमैट का अस्तर", "te": "మ్యాట్ వెనుక భాగం" },
+          "role": "supporting",
+          "width": 40,
+          "height": 30,
+          "qty": 1,
+          "fabricSource": "either"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (Charger Dinner 45 × 35 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": { "widthCm": 45, "heightCm": 35 },
+      "pieces": [
+        {
+          "id": "placemat_front",
+          "names": { "en": "Placemat Front Surface", "hi": "प्लेसमैट का ऊपरी भाग", "te": "మ్యాట్ పై భాగం" },
+          "role": "base",
+          "width": 45,
+          "height": 35,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "placemat_back",
+          "names": { "en": "Placemat Back Lining", "hi": "प्लेसमैट का अस्तर", "te": "మ్యాట్ వెనుక భాగం" },
+          "role": "supporting",
+          "width": 45,
+          "height": 35,
+          "qty": 1,
+          "fabricSource": "either"
+        }
+      ]
+    }
+  }
+}

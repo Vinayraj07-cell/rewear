@@ -351,10 +351,17 @@ function extractTranslations(rawConfig, spec) {
   if (teProdName) extracted.te.productNames[id] = teProdName;
 
   // Sizes
+  const STANDARD_SIZES = {
+    small: { en: 'Small', hi: 'छोटा', te: 'చిన్నది' },
+    medium: { en: 'Medium', hi: 'मध्यम', te: 'మధ్యస్థం' },
+    large: { en: 'Large', hi: 'बड़ा', te: 'పెద్దది' },
+  };
+
   for (const [sizeKey, sizeData] of Object.entries(sizes)) {
-    const sEn = sizeData.names?.en || sizeData.label;
-    const sHi = sizeData.names?.hi;
-    const sTe = sizeData.names?.te;
+    const std = STANDARD_SIZES[sizeKey.toLowerCase()];
+    const sEn = std ? std.en : (sizeData.names?.en || sizeData.label);
+    const sHi = std ? std.hi : sizeData.names?.hi;
+    const sTe = std ? std.te : sizeData.names?.te;
 
     if (sEn) extracted.en.sizeNames[sizeKey] = sEn;
     if (sHi) extracted.hi.sizeNames[sizeKey] = sHi;

@@ -1,0 +1,153 @@
+{
+  "id": "drawstring_bag",
+  "names": {
+    "en": "Drawstring Bag",
+    "hi": "डोरी वाला थैला",
+    "te": "తాడుతో బిగించే సంచీ"
+  },
+  "category": "bags",
+  "construction": "casing",
+  "description": "Versatile drawstring storage pouch made from pieced fabric scraps with a channeled top cord.",
+  "materials": [
+    {
+      "name": "Cotton or linen fabric scraps",
+      "qty": "Approx 35x40 cm total area",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "Cotton drawstring cord (4-5 mm)",
+      "qty": "1.2 - 1.8 meters",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "Safety pin or cord threader",
+      "qty": "1 unit",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    },
+    {
+      "name": "All-purpose sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical default, to be verified by a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (15 × 20 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": { "widthCm": 15, "heightCm": 20 },
+      "pieces": [
+        {
+          "id": "drawstring_front",
+          "names": { "en": "Front Body Panel", "hi": "आगे का मुख्य भाग", "te": "ముందు ప్రధాన భాగం" },
+          "role": "base",
+          "width": 15,
+          "height": 17,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "drawstring_back",
+          "names": { "en": "Back Body Panel", "hi": "पीछे का मुख्य भाग", "te": "వెనుక ప్రధాన భాగం" },
+          "role": "base",
+          "width": 15,
+          "height": 17,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "casing_channel",
+          "names": { "en": "Drawstring Casing Channel", "hi": "डोरी की केसिंग पट्टी", "te": "తాడు పట్టే మార్గం" },
+          "role": "supporting",
+          "width": 15,
+          "height": 6,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (20 × 26 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": { "widthCm": 20, "heightCm": 26 },
+      "pieces": [
+        {
+          "id": "drawstring_front",
+          "names": { "en": "Front Body Panel", "hi": "आगे का मुख्य भाग", "te": "ముందు ప్రధాన భాగం" },
+          "role": "base",
+          "width": 20,
+          "height": 22,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "drawstring_back",
+          "names": { "en": "Back Body Panel", "hi": "पीछे का मुख्य भाग", "te": "వెనుక ప్రధాన భాగం" },
+          "role": "base",
+          "width": 20,
+          "height": 22,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "casing_channel",
+          "names": { "en": "Drawstring Casing Channel", "hi": "डोरी की केसिंग पट्टी", "te": "తాడు పట్టే మార్గం" },
+          "role": "supporting",
+          "width": 20,
+          "height": 8,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (26 × 34 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": { "widthCm": 26, "heightCm": 34 },
+      "pieces": [
+        {
+          "id": "drawstring_front",
+          "names": { "en": "Front Body Panel", "hi": "आगे का मुख्य भाग", "te": "ముందు ప్రధాన భాగం" },
+          "role": "base",
+          "width": 26,
+          "height": 30,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "drawstring_back",
+          "names": { "en": "Back Body Panel", "hi": "पीछे का मुख्य भाग", "te": "వెనుక ప్రధాన భాగం" },
+          "role": "base",
+          "width": 26,
+          "height": 30,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "casing_channel",
+          "names": { "en": "Drawstring Casing Channel", "hi": "डोरी की केसिंग पट्टी", "te": "తాడు పట్టే మార్గం" },
+          "role": "supporting",
+          "width": 26,
+          "height": 8,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}
