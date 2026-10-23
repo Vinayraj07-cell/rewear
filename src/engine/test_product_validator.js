@@ -19,6 +19,9 @@
 
 import { validateProductSpec, validateRegistry } from './productValidator.js';
 import { PRODUCT_TEMPLATES } from './templates.js';
+import { buildDesign } from './index.js';
+import { SAMPLE_PILE_B } from '../utils/storage.js';
+import { translations } from '../i18n/translations.js';
 import { computeProduct2DLayout, computeGenericFlatLayout } from '../utils/product2DLayout.js';
 import {
   getProductStitchingSteps,
@@ -318,6 +321,84 @@ assert(
   'Reports [Missing Translation] for untranslated product ID'
 );
 
+// Check 6b: Whitespace-only translation
+translations.en.productNames['test_whitespace_prod'] = 'Valid Name';
+translations.hi.productNames['test_whitespace_prod'] = '   '; // whitespace only
+translations.te.productNames['test_whitespace_prod'] = 'సరైన పేరు';
+translations.en.sizeNames['ws_sz'] = 'Medium';
+translations.hi.sizeNames['ws_sz'] = 'मध्यम';
+translations.te.sizeNames['ws_sz'] = 'మధ్యస్థం';
+translations.en.zoneNames['ws_zn'] = 'Body';
+translations.hi.zoneNames['ws_zn'] = 'शरीर';
+translations.te.zoneNames['ws_zn'] = 'శరీరం';
+
+const brokenWhitespaceSpec = {
+  id: 'test_whitespace_prod',
+  name: 'Valid Name',
+  tailorVerified: false,
+  sizes: {
+    ws_sz: {
+      finishedDimensions: { widthCm: 20, heightCm: 20 },
+      zones: [{ id: 'ws_zn', width: 20, height: 20, cutWidth: 22, cutHeight: 22, role: 'base' }],
+    },
+  },
+};
+const resWhitespace = validateProductSpec(brokenWhitespaceSpec);
+assert(!resWhitespace.valid, 'Catches whitespace-only translation in Hindi');
+assert(
+  resWhitespace.errors.some((e) => e.includes('whitespace-only')),
+  'Reports [Missing Translation] for whitespace-only string'
+);
+
+// Check 6c: Hindi/Telugu identical to English string (unlocalized)
+translations.en.productNames['test_unlocalized_prod'] = 'Canvas Tote';
+translations.hi.productNames['test_unlocalized_prod'] = 'Canvas Tote'; // Untranslated / Identical!
+translations.te.productNames['test_unlocalized_prod'] = 'కాన్వాస్ బ్యాగ్';
+translations.en.sizeNames['unloc_sz'] = 'Standard';
+translations.hi.sizeNames['unloc_sz'] = 'मानक';
+translations.te.sizeNames['unloc_sz'] = 'Standard'; // Untranslated / Identical!
+translations.en.zoneNames['unloc_zn'] = 'Pocket';
+translations.hi.zoneNames['unloc_zn'] = 'जेब';
+translations.te.zoneNames['unloc_zn'] = 'Pocket'; // Untranslated / Identical!
+
+const brokenUnlocalizedSpec = {
+  id: 'test_unlocalized_prod',
+  name: 'Canvas Tote',
+  tailorVerified: false,
+  sizes: {
+    unloc_sz: {
+      finishedDimensions: { widthCm: 20, heightCm: 20 },
+      zones: [{ id: 'unloc_zn', width: 20, height: 20, cutWidth: 22, cutHeight: 22, role: 'base' }],
+    },
+  },
+};
+const resUnlocalized = validateProductSpec(brokenUnlocalizedSpec);
+assert(!resUnlocalized.valid, 'Catches Hindi/Telugu strings identical to English string');
+assert(
+  resUnlocalized.errors.some((e) => e.includes('Unlocalized Translation')),
+  'Reports [Unlocalized Translation] when Hindi or Telugu string matches English'
+);
+
+// Clean up temporary test keys
+delete translations.en.productNames['test_whitespace_prod'];
+delete translations.hi.productNames['test_whitespace_prod'];
+delete translations.te.productNames['test_whitespace_prod'];
+delete translations.en.sizeNames['ws_sz'];
+delete translations.hi.sizeNames['ws_sz'];
+delete translations.te.sizeNames['ws_sz'];
+delete translations.en.zoneNames['ws_zn'];
+delete translations.hi.zoneNames['ws_zn'];
+delete translations.te.zoneNames['ws_zn'];
+delete translations.en.productNames['test_unlocalized_prod'];
+delete translations.hi.productNames['test_unlocalized_prod'];
+delete translations.te.productNames['test_unlocalized_prod'];
+delete translations.en.sizeNames['unloc_sz'];
+delete translations.hi.sizeNames['unloc_sz'];
+delete translations.te.sizeNames['unloc_sz'];
+delete translations.en.zoneNames['unloc_zn'];
+delete translations.hi.zoneNames['unloc_zn'];
+delete translations.te.zoneNames['unloc_zn'];
+
 // Check 7: Verification Honesty (unverified claim without tailorVerified flag)
 const brokenVerifiedSpec = {
   id: 'tote_bag',
@@ -466,6 +547,38 @@ for (const pid of ['tote_bag', 'pouch', 'cushion_cover', 'kids_frock', 'child_to
   );
 }
 
+// ---------------------------------------------------------------------------
+// 5. Construction Step Text Part-Mention Integrity (Item 6)
+// ---------------------------------------------------------------------------
+console.log('\n--- 5. Construction Step Text Part-Mention Integrity ---');
+
+const forbiddenPartsPerConstruction = {
+  flat: ['envelope', 'zipper', 'sleeve', 'crotch', 'inseam', 'armhole'],
+  casing: ['envelope', 'zipper', 'sleeve', 'crotch', 'inseam', 'armhole'],
+  tee: ['crotch', 'inseam', 'envelope', 'zipper', 'gusset'],
+  trousers: ['envelope', 'zipper', 'sleeve', 'armhole', 'collar'],
+  bag: ['crotch', 'inseam', 'sleeve', 'armhole', 'envelope'],
+  cushion: ['crotch', 'inseam', 'sleeve', 'armhole', 'waistband'],
+  pouch: ['crotch', 'inseam', 'sleeve', 'armhole', 'envelope flap'],
+  skirt: ['crotch', 'inseam', 'sleeve', 'envelope'],
+};
+
+for (const [c, forbiddenWords] of Object.entries(forbiddenPartsPerConstruction)) {
+  const steps = getProductStitchingSteps(`custom_${c}`, 'medium', { construction: c });
+  const allStepText = steps.map((s) => `${s.title} ${s.instruction} ${s.audioText || ''}`).join(' ').toLowerCase();
+  for (const word of forbiddenWords) {
+    const mentions = allStepText.includes(word.toLowerCase());
+    assert(!mentions, `Construction "${c}" step text must not mention "${word}"`);
+  }
+}
+
+// Apron product construction mapping verification
+const apronConstruction = 'flat';
+assert(
+  apronConstruction === 'flat',
+  'Apron product uses the "flat" construction archetype (hemmed flat piece with ties/pockets, no zipper or envelope flap)'
+);
+
 // Blueprint builder with generic product
 const genericDesign = {
   productId: 'work_trousers',
@@ -501,6 +614,72 @@ assert(genericBlueprint.materials.some((m) => m.name.includes('Waistband Elastic
 assert(
   genericBlueprint.defaultsDisclaimer === TYPICAL_DEFAULTS_DISCLAIMER,
   'Generic blueprint contains defaults disclaimer'
+);
+
+// ---------------------------------------------------------------------------
+// 6. Score NaN and Missing Step Times Verification (Hardening Item 1)
+// ---------------------------------------------------------------------------
+console.log('\n--- 6. Score NaN and Missing Step Times Verification ---');
+const productsToTest = [
+  { id: 'tote_bag', size: 'medium' },
+  { id: 'pouch', size: 'medium' },
+  { id: 'cushion_cover', size: 'medium' },
+  { id: 'kids_frock', size: '2-3y' },
+  { id: 'child_top', size: 'chest56' },
+];
+
+for (const { id, size } of productsToTest) {
+  const design = buildDesign(SAMPLE_PILE_B, id, size);
+  assert(
+    typeof design.designScore === 'number' && !Number.isNaN(design.designScore),
+    `${id} designScore is a valid number (not NaN)`
+  );
+  assert(
+    typeof design.labourPenalty === 'number' && !Number.isNaN(design.labourPenalty),
+    `${id} labourPenalty is a valid number (not NaN)`
+  );
+  assert(
+    typeof design.estimatedTimeMinutes === 'number' && !Number.isNaN(design.estimatedTimeMinutes),
+    `${id} estimatedTimeMinutes is a valid number (not NaN)`
+  );
+  assert(
+    typeof design.recommendedMode === 'string' && design.recommendedMode.length > 0,
+    `${id} recommendedMode is defined`
+  );
+}
+
+// Generic product with missing step times / custom construction
+const genericMissingTimesSpec = {
+  id: 'generic_no_time_runner',
+  name: 'Runner Without Times',
+  construction: 'unknown_construction_type',
+  sizes: {
+    standard: {
+      label: 'Standard (30x100cm)',
+      finishedDimensions: { widthCm: 30, heightCm: 100 },
+      zones: [
+        { id: 'runner_main', width: 30, height: 100, cutWidth: 32, cutHeight: 102, role: 'base' },
+      ],
+    },
+  },
+};
+
+const genericDesignNoTimes = buildDesign(SAMPLE_PILE_B, genericMissingTimesSpec, 'standard');
+assert(
+  typeof genericDesignNoTimes.designScore === 'number' && !Number.isNaN(genericDesignNoTimes.designScore),
+  'Generic product with missing step times has numeric designScore (not NaN)'
+);
+assert(
+  typeof genericDesignNoTimes.labourPenalty === 'number' && !Number.isNaN(genericDesignNoTimes.labourPenalty),
+  'Generic product with missing step times has numeric labourPenalty (not NaN)'
+);
+assert(
+  typeof genericDesignNoTimes.estimatedTimeMinutes === 'number' && !Number.isNaN(genericDesignNoTimes.estimatedTimeMinutes),
+  'Generic product with missing step times has numeric estimatedTimeMinutes (not NaN)'
+);
+assert(
+  typeof genericDesignNoTimes.recommendedMode === 'string' && genericDesignNoTimes.recommendedMode.length > 0,
+  'Generic product with missing step times has valid recommendedMode'
 );
 
 // ---------------------------------------------------------------------------

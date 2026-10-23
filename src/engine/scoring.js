@@ -26,6 +26,7 @@
 
 import { CONFIG } from './config.js';
 import { evaluateColorPair } from './color.js';
+import { PRODUCT_TEMPLATES } from './templates.js';
 
 /**
  * Computes aesthetic score for 60-30-10 balance and colour harmony.
@@ -142,14 +143,17 @@ export function computeLabourPenalty(productId, totalExtraSeams, estimatedTimeMi
   let penalty = 0;
 
   // 1. Seam count penalty
-  const excessSeams = Math.max(0, (totalExtraSeams || 0) - cfg.SEAM_THRESHOLD);
+  const numSeams = Number(totalExtraSeams);
+  const excessSeams = Math.max(0, (Number.isNaN(numSeams) ? 0 : numSeams) - cfg.SEAM_THRESHOLD);
   penalty += excessSeams * cfg.POINTS_PER_EXCESS_SEAM;
 
   // 2. Sewing time penalty
-  const excessMins = Math.max(0, (estimatedTimeMinutes || 0) - cfg.TIME_THRESHOLD_MINUTES);
+  const numTime = Number(estimatedTimeMinutes);
+  const excessMins = Math.max(0, (Number.isNaN(numTime) ? 0 : numTime) - cfg.TIME_THRESHOLD_MINUTES);
   penalty += (excessMins / 10) * cfg.POINTS_PER_10_MINS_EXCESS;
 
-  return Math.min(cfg.MAX_LABOUR_PENALTY, Math.round(penalty));
+  const finalPenalty = Math.min(cfg.MAX_LABOUR_PENALTY, Math.round(penalty));
+  return Number.isNaN(finalPenalty) ? 0 : Math.max(0, finalPenalty);
 }
 
 /**
@@ -181,20 +185,31 @@ export function calculateDesignScore(fitResult) {
   // Deduct labour penalty for apparel garments (exempt for 4 rectangle products)
   const estTime = fitResult.estimatedTimeMinutes || calculateEstimatedTime(fitResult.productId, fitResult.totalExtraSeams || 0, false);
   const labourPenalty = computeLabourPenalty(fitResult.productId, fitResult.totalExtraSeams || 0, estTime);
-  adjustedScore -= labourPenalty;
+  adjustedScore -= (Number.isNaN(labourPenalty) ? 0 : labourPenalty);
 
-  return Math.round(Math.max(15, Math.min(99, adjustedScore)));
+  const finalScore = Math.round(Math.max(15, Math.min(99, adjustedScore)));
+  return Number.isNaN(finalScore) ? 15 : finalScore;
 }
 
 /**
  * Calculates estimated sewing time in minutes.
  */
 export function calculateEstimatedTime(productId, totalExtraSeams, hasFraying) {
-  const baseMinutes = CONFIG.BASE_SEWING_MINUTES[productId] || 45;
-  const piecingMinutes = (totalExtraSeams || 0) * CONFIG.MINUTES_PER_EXTRA_SEAM;
+  const prod = typeof productId === 'object' && productId !== null
+    ? productId
+    : PRODUCT_TEMPLATES?.[productId];
+  const prodId = typeof productId === 'object' && productId !== null
+    ? productId.id
+    : productId;
+  const baseMinutes = (prodId && CONFIG.BASE_SEWING_MINUTES[prodId]) ||
+                      (prod?.construction ? CONFIG.BASE_SEWING_MINUTES[prod.construction] : null) ||
+                      45;
+  const numSeams = Number(totalExtraSeams);
+  const piecingMinutes = (Number.isNaN(numSeams) ? 0 : numSeams) * CONFIG.MINUTES_PER_EXTRA_SEAM;
   const frayingMinutes = hasFraying ? CONFIG.MINUTES_FOR_FRAYING_FINISH : 0;
 
-  return Math.round(baseMinutes + piecingMinutes + frayingMinutes);
+  const finalTime = Math.round(baseMinutes + piecingMinutes + frayingMinutes);
+  return Number.isNaN(finalTime) ? 45 : finalTime;
 }
 
 /**

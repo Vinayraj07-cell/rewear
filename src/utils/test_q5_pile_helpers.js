@@ -22,6 +22,8 @@ import {
   serializePile,
   deserializePile,
   FABRIC_DEFAULTS,
+  countPiecesTooSmallAfterMargin,
+  formatFrayedTooSmallWarning,
 } from './pileHelpers.js';
 
 console.log('====================================================');
@@ -166,6 +168,45 @@ assert.deepStrictEqual(deserializePile(null, fallback), fallback, 'Null JSON ret
 assert.deepStrictEqual(deserializePile('invalid-json{{{', fallback), fallback, 'Corrupt JSON returns fallback');
 assert.deepStrictEqual(deserializePile('{"not":"array"}', fallback), fallback, 'Non-array returns fallback');
 console.log('  ✅ PASS: Serialization and resilient deserialization verified');
+
+// 7. Frayed Margin Too Small Pieces Warning
+console.log('\n--- 7. Testing Frayed Margin Too-Small Pieces Counting & Formatting ---');
+const frayedPile = [
+  { id: 'p1', width: 6, height: 6, quantity: 2 },   // margin 0.5 -> 5.0 (usable), margin 1.0 -> 4.0 (too small)
+  { id: 'p2', width: 5.5, height: 8, quantity: 1 }, // margin 0.5 -> 4.5 (too small), margin 1.0 -> 3.5 (too small)
+  { id: 'p3', width: 14, height: 14, quantity: 5 }, // margin 0.5 -> 13.0, margin 1.0 -> 12.0 (never too small)
+];
+
+assert.strictEqual(countPiecesTooSmallAfterMargin(frayedPile, 0), 0, 'Margin 0 reports 0 pieces too small');
+assert.strictEqual(countPiecesTooSmallAfterMargin(frayedPile, 0.5), 1, 'Margin 0.5 reports 1 piece too small (p2)');
+assert.strictEqual(countPiecesTooSmallAfterMargin(frayedPile, 1.0), 3, 'Margin 1.0 reports 3 pieces too small (2 of p1 + 1 of p2)');
+
+// Warning formatting in en, hi, te
+assert.strictEqual(
+  formatFrayedTooSmallWarning(1, 'en'),
+  '1 piece is too small once the frayed edge is removed'
+);
+assert.strictEqual(
+  formatFrayedTooSmallWarning(3, 'en'),
+  '3 pieces are too small once the frayed edge is removed'
+);
+assert(
+  formatFrayedTooSmallWarning(1, 'hi').includes('1 टुकड़ा बहुत छोटा है'),
+  'Hindi singular warning text matches'
+);
+assert(
+  formatFrayedTooSmallWarning(3, 'hi').includes('3 टुकड़े बहुत छोटे हैं'),
+  'Hindi plural warning text matches'
+);
+assert(
+  formatFrayedTooSmallWarning(1, 'te').includes('1 ముక్క చాలా చిన్నది'),
+  'Telugu singular warning text matches'
+);
+assert(
+  formatFrayedTooSmallWarning(3, 'te').includes('3 ముక్కలు చాలా చిన్నవిగా మారాయి'),
+  'Telugu plural warning text matches'
+);
+console.log('  ✅ PASS: Frayed margin counting and localized warnings verified in en/hi/te');
 
 console.log('\n====================================================');
 console.log('🏁 ALL Q5 PILE HELPERS TESTS PASSED (100%)');

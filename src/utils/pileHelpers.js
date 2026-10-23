@@ -408,3 +408,48 @@ export function deserializePile(jsonString, fallback = []) {
     return fallback;
   }
 }
+
+/**
+ * Counts pieces in the pile that become smaller than the minimum usable floor
+ * (CONFIG.MIN_PIECE_HARD_FLOOR_CM, default 5.0 cm) once the frayed edge safety margin is removed.
+ *
+ * @param {Array} pile - Array of scrap piece objects
+ * @param {number} scrapSafetyMarginCm - Margin per edge in cm (0, 0.5, 1.0)
+ * @param {number} hardFloor - Minimum dimension threshold (default 5.0 cm)
+ * @returns {number} Total count of pieces (accounting for quantity) turned too small
+ */
+export function countPiecesTooSmallAfterMargin(pile, scrapSafetyMarginCm, hardFloor = 5.0) {
+  if (!pile || !Array.isArray(pile) || !scrapSafetyMarginCm || scrapSafetyMarginCm <= 0) return 0;
+  let count = 0;
+  for (const piece of pile) {
+    const rawW = Number(piece.isIrregular && piece.usableWidth ? piece.usableWidth : piece.width) || 0;
+    const rawH = Number(piece.isIrregular && piece.usableHeight ? piece.usableHeight : piece.height) || 0;
+    const qty = Number(piece.quantity) || 1;
+    const usableW = Math.max(0, rawW - 2 * scrapSafetyMarginCm);
+    const usableH = Math.max(0, rawH - 2 * scrapSafetyMarginCm);
+    if (usableW < hardFloor || usableH < hardFloor) {
+      count += qty;
+    }
+  }
+  return count;
+}
+
+/**
+ * Returns the localized warning string for pieces turned too small by frayed margin.
+ */
+export function formatFrayedTooSmallWarning(count, lang = 'en', translationsObj = null) {
+  if (!count || count <= 0) return '';
+  const t = translationsObj?.[lang] || null;
+  if (count === 1) {
+    if (t?.frayedPieceTooSmallWarningSingular) return t.frayedPieceTooSmallWarningSingular;
+    if (lang === 'hi') return 'किनारे हटा दिए जाने के बाद 1 टुकड़ा बहुत छोटा है';
+    if (lang === 'te') return 'అంచులు తీసివేసిన తర్వాత 1 ముక్క చాలా చిన్నది';
+    return '1 piece is too small once the frayed edge is removed';
+  }
+  if (t?.frayedPiecesTooSmallWarning) {
+    return t.frayedPiecesTooSmallWarning.replace('{count}', count);
+  }
+  if (lang === 'hi') return `किनारे हटा दिए जाने के बाद ${count} टुकड़े बहुत छोटे हैं`;
+  if (lang === 'te') return `అంచులు తీసివేసిన తర్వాత ${count} ముక్కలు చాలా చిన్నవిగా మారాయి`;
+  return `${count} pieces are too small once the frayed edge is removed`;
+}

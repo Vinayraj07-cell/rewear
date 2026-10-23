@@ -108,15 +108,18 @@ export default function DesignViewScreen({
 
   // Compute recommended mode from scores so recommendation and score never disagree
   const recommendedMode = useMemo(() => {
-    if (design.productId === 'child_top' && pile && pile.length > 0) {
+    const prod = PRODUCT_TEMPLATES[design.productId] || design.spec;
+    const sizeObj = prod?.sizes?.[design.sizeKey];
+    const hasHybrid = (sizeObj?.variants?.hybrid && sizeObj?.variants?.patchwork) || (prod?.variants?.hybrid && prod?.variants?.patchwork);
+    if (hasHybrid && pile && pile.length > 0) {
       const seamAllowanceCm = design.seamAllowanceCm || 1.0;
-      const fitH = fitPileToProduct(pile, 'child_top', design.sizeKey, seamAllowanceCm, { variant: 'hybrid' });
-      const fitP = fitPileToProduct(pile, 'child_top', design.sizeKey, seamAllowanceCm, { variant: 'patchwork' });
+      const fitH = fitPileToProduct(pile, design.productId, design.sizeKey, seamAllowanceCm, { variant: 'hybrid' });
+      const fitP = fitPileToProduct(pile, design.productId, design.sizeKey, seamAllowanceCm, { variant: 'patchwork' });
       const scoreH = calculateDesignScore(fitH);
       const scoreP = calculateDesignScore(fitP);
       return scoreH >= scoreP ? 'hybrid' : 'patchwork';
     }
-    return design.recommendedVariant || design.variant || 'hybrid';
+    return design.recommendedMode || design.recommendedVariant || design.variant || 'plain';
   }, [design, pile]);
 
   // Available patterns as defined in requirement 2

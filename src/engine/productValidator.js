@@ -391,6 +391,27 @@ function checkHybridRules(pieces, productId, sizeKey) {
 function checkTranslations(productId, spec, pieceIds = new Set()) {
   const errors = [];
   const requiredLanguages = ['en', 'hi', 'te'];
+  const ALLOWED_IDENTICAL_NAMES = new Set(['PDF', 'cm', 'in', '2D', '3D', 'AI']);
+
+  const enProductNames = translations.en?.productNames || {};
+  const enSizeNames = translations.en?.sizeNames || {};
+  const enZoneNames = translations.en?.zoneNames || {};
+
+  function validateString(str, fieldName, lang, enEquivalent) {
+    if (typeof str !== 'string' || str.trim().length === 0) {
+      errors.push(`[Missing Translation] ${fieldName} is missing, empty, or whitespace-only in translations.${lang}`);
+      return false;
+    }
+    const trimmed = str.trim();
+    if ((lang === 'hi' || lang === 'te') && enEquivalent && typeof enEquivalent === 'string') {
+      const enTrimmed = enEquivalent.trim();
+      if (!ALLOWED_IDENTICAL_NAMES.has(enTrimmed) && trimmed.toLowerCase() === enTrimmed.toLowerCase()) {
+        errors.push(`[Unlocalized Translation] ${fieldName} in "${lang}" is identical to English ("${enTrimmed}")`);
+        return false;
+      }
+    }
+    return true;
+  }
 
   for (const lang of requiredLanguages) {
     const t = translations[lang];
@@ -400,28 +421,23 @@ function checkTranslations(productId, spec, pieceIds = new Set()) {
     }
 
     // 1. Product name
-    const hasName = Boolean(t.productNames?.[productId]);
-    if (!hasName) {
-      errors.push(`[Missing Translation] Product "${productId}" is missing from translations.${lang}.productNames`);
-    }
+    const prodName = t.productNames?.[productId];
+    validateString(prodName, `Product "${productId}"`, lang, enProductNames[productId]);
 
     // 2. Sizes
     if (spec.sizes) {
       for (const sizeKey of Object.keys(spec.sizes)) {
-        const hasSizeName = Boolean(t.sizeNames?.[sizeKey]);
-        if (!hasSizeName) {
-          errors.push(`[Missing Translation] Size "${sizeKey}" of product "${productId}" is missing from translations.${lang}.sizeNames`);
-        }
+        const sizeName = t.sizeNames?.[sizeKey];
+        validateString(sizeName, `Size "${sizeKey}" of product "${productId}"`, lang, enSizeNames[sizeKey]);
       }
     }
 
     // 3. Piece / Zone names
     for (const pieceId of pieceIds) {
       const baseId = pieceId.replace(/_\d+$/, '');
-      const hasZoneName = Boolean(t.zoneNames?.[pieceId] || t.zoneNames?.[baseId]);
-      if (!hasZoneName) {
-        errors.push(`[Missing Translation] Piece "${pieceId}" of product "${productId}" is missing from translations.${lang}.zoneNames`);
-      }
+      const zoneName = t.zoneNames?.[pieceId] || t.zoneNames?.[baseId];
+      const enZoneName = enZoneNames[pieceId] || enZoneNames[baseId];
+      validateString(zoneName, `Piece "${pieceId}" of product "${productId}"`, lang, enZoneName);
     }
   }
 

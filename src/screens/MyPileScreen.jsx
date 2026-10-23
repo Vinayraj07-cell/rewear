@@ -29,8 +29,10 @@ import {
   SAMPLE_PILES, 
   validateQuantity, 
   validateDimensions, 
-  createScrapItem 
+  createScrapItem,
+  countPiecesTooSmallAfterMargin,
 } from '../utils/pileHelpers';
+import { clearAiPreviewDataAndResetLimit } from '../utils/aiPreviewService';
 
 export default function MyPileScreen({ 
   pieces, 
@@ -68,6 +70,11 @@ export default function MyPileScreen({
   const totalSqCm = activePieces.reduce((acc, p) => acc + calculateArea(p).sqCm, 0);
   const totalPiecesCount = activePieces.reduce((acc, p) => acc + (p.quantity || 1), 0);
   const totalSqInches = Math.round(totalSqCm / 6.4516);
+
+  // Pieces turned too small when frayed margin is active
+  const tooSmallCount = scrapSafetyMarginCm > 0
+    ? countPiecesTooSmallAfterMargin(activePieces, scrapSafetyMarginCm)
+    : 0;
 
   // Group pieces
   const groups = {};
@@ -717,6 +724,23 @@ export default function MyPileScreen({
                 {t.frayedScrapsSafetyAllowanceLabel || 'This is a safety allowance, not a measurement.'}
               </span>
             </div>
+
+            {/* Warning banner when pieces become too small once frayed edge is removed */}
+            {tooSmallCount > 0 && (
+              <div
+                data-testid="frayed-too-small-warning"
+                className="bg-amber-100/90 border border-amber-300 text-amber-950 rounded-xl p-2.5 flex items-center gap-2 text-xs font-semibold"
+              >
+                <AlertTriangle className="w-4 h-4 text-amber-700 flex-shrink-0" />
+                <span>
+                  {tooSmallCount === 1
+                    ? (t.frayedPieceTooSmallWarningSingular || '1 piece is too small once the frayed edge is removed')
+                    : (t.frayedPiecesTooSmallWarning
+                        ? t.frayedPiecesTooSmallWarning.replace('{count}', tooSmallCount)
+                        : `${tooSmallCount} pieces are too small once the frayed edge is removed`)}
+                </span>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -918,6 +942,22 @@ export default function MyPileScreen({
         >
           <PlusCircle className="w-4 h-4" />
           <span>{t.addNewPieceBtn}</span>
+        </button>
+      </div>
+
+      {/* Live Demo Reset / Clear Cache UI */}
+      <div className="pt-2 pb-1 text-center">
+        <button
+          type="button"
+          data-testid="clear-ai-cache-btn"
+          onClick={() => {
+            clearAiPreviewDataAndResetLimit();
+            setLastAddedMsg(t.cacheClearedSuccessMsg || '✓ Cache cleared & daily limits reset');
+            setTimeout(() => setLastAddedMsg(null), 3000);
+          }}
+          className="text-[11px] text-stone-600 hover:text-stone-800 underline underline-offset-2 transition py-1 px-2 rounded cursor-pointer"
+        >
+          {t.clearCacheBtn || 'Clear Cache'}
         </button>
       </div>
 

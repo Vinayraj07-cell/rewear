@@ -102,6 +102,10 @@ export const rateLimitTracker = {
     return this.getRemaining() <= 0;
   },
 
+  reset() {
+    this.resetForTesting();
+  },
+
   resetForTesting() {
     try {
       const storage = getStorage();
@@ -112,6 +116,7 @@ export const rateLimitTracker = {
 
 /**
  * LocalStorage cache for AI preview images by design hash.
+ * Includes automatic quota error recovery (evicts oldest cached entries or clears AI cache on QuotaExceededError).
  */
 export const aiPreviewCache = {
   get(designHash) {
@@ -125,39 +130,162 @@ export const aiPreviewCache = {
   },
 
   set(designHash, data) {
+    const storage = getStorage();
+    const key = `rewear_ai_cache_${designHash}`;
+    const value = JSON.stringify(data);
+
+    try {
+      storage.setItem(key, value);
+      this.recordKey(key);
+    } catch (err) {
+      const isQuotaError =
+        err &&
+        (err.name === 'QuotaExceededError' ||
+          err.name === 'NS_ERROR_DOM_QUOTA_REACHED' ||
+          err.code === 22 ||
+          err.code === 1014 ||
+          (err.message && err.message.toLowerCase().includes('quota')));
+
+      if (isQuotaError) {
+        // Step 1: Evict oldest half of cached AI preview images and retry
+        try {
+          this.clearOldest();
+          storage.setItem(key, value);
+          this.recordKey(key);
+          return;
+        } catch {
+          // Step 2: If still full, clear the entire AI preview cache and retry
+          try {
+            this.clearAll();
+            storage.setItem(key, value);
+            this.recordKey(key);
+            return;
+          } catch (retryErr) {
+            console.warn('Unable to cache AI preview even after clearing AI cache:', retryErr);
+          }
+        }
+      } else {
+        console.warn('aiPreviewCache setItem failed:', err);
+      }
+    }
+  },
+
+  recordKey(key) {
     try {
       const storage = getStorage();
-      storage.setItem(`rewear_ai_cache_${designHash}`, JSON.stringify(data));
+      let order = [];
+      try {
+        order = JSON.parse(storage.getItem('rewear_ai_cache_order') || '[]');
+      } catch {
+        order = [];
+      }
+      order = order.filter((k) => k !== key);
+      order.push(key);
+      storage.setItem('rewear_ai_cache_order', JSON.stringify(order));
     } catch {}
   },
 
   delete(designHash) {
     try {
       const storage = getStorage();
-      storage.removeItem(`rewear_ai_cache_${designHash}`);
+      const key = `rewear_ai_cache_${designHash}`;
+      storage.removeItem(key);
+      let order = [];
+      try {
+        order = JSON.parse(storage.getItem('rewear_ai_cache_order') || '[]');
+        order = order.filter((k) => k !== key);
+        storage.setItem('rewear_ai_cache_order', JSON.stringify(order));
+      } catch {}
+    } catch {}
+  },
+
+  getAllCacheKeys() {
+    try {
+      const storage = getStorage();
+      const keys = [];
+      if (typeof storage.keys === 'function') {
+        storage.keys().forEach((k) => {
+          if (k.startsWith('rewear_ai_cache_')) keys.push(k);
+        });
+      } else if (typeof storage === 'object' && storage !== null) {
+        const len = storage.length || 0;
+        for (let i = 0; i < len; i++) {
+          const k = typeof storage.key === 'function' ? storage.key(i) : null;
+          if (k && k.startsWith('rewear_ai_cache_')) keys.push(k);
+        }
+        if (keys.length === 0) {
+          Object.keys(storage).forEach((k) => {
+            if (k.startsWith('rewear_ai_cache_')) keys.push(k);
+          });
+        }
+      }
+      return keys;
+    } catch {
+      return [];
+    }
+  },
+
+  clearOldest() {
+    try {
+      const storage = getStorage();
+      let order = [];
+      try {
+        order = JSON.parse(storage.getItem('rewear_ai_cache_order') || '[]');
+      } catch {
+        order = [];
+      }
+      const allKeys = this.getAllCacheKeys().filter((k) => k !== 'rewear_ai_cache_order');
+
+      const keysToRemove = [];
+      if (order.length > 0) {
+        const removeCount = Math.max(1, Math.ceil(order.length / 2));
+        keysToRemove.push(...order.slice(0, removeCount));
+        order = order.slice(removeCount);
+        try {
+          storage.setItem('rewear_ai_cache_order', JSON.stringify(order));
+        } catch {}
+      } else if (allKeys.length > 0) {
+        const removeCount = Math.max(1, Math.ceil(allKeys.length / 2));
+        keysToRemove.push(...allKeys.slice(0, removeCount));
+      }
+
+      keysToRemove.forEach((k) => {
+        try {
+          storage.removeItem(k);
+        } catch {}
+      });
+    } catch {
+      this.clearAll();
+    }
+  },
+
+  clearAll() {
+    try {
+      const storage = getStorage();
+      const keys = this.getAllCacheKeys();
+      keys.forEach((k) => {
+        try {
+          storage.removeItem(k);
+        } catch {}
+      });
+      storage.removeItem('rewear_ai_cache_order');
     } catch {}
   },
 
   clearForTesting() {
-    try {
-      const storage = getStorage();
-      if (typeof storage.keys === 'function') {
-        storage.keys().forEach((k) => {
-          if (k.startsWith('rewear_ai_cache_')) {
-            storage.removeItem(k);
-          }
-        });
-      } else {
-        const keys = Object.keys(storage);
-        keys.forEach((k) => {
-          if (k.startsWith('rewear_ai_cache_')) {
-            storage.removeItem(k);
-          }
-        });
-      }
-    } catch {}
+    this.clearAll();
   },
 };
+
+/**
+ * Resets both AI preview cache and per-device daily rate limit counter.
+ * Useful for live demo resets and user cache clearing.
+ */
+export function clearAiPreviewDataAndResetLimit() {
+  aiPreviewCache.clearAll();
+  rateLimitTracker.reset();
+  return true;
+}
 
 /**
  * Builds a verbal description of the design layout directly from engine data.

@@ -31,7 +31,7 @@
 import { CONFIG } from './config.js';
 import { PRODUCT_TEMPLATES } from './templates.js';
 import { fitPileToProduct } from './fitting.js';
-import { calculateDesignScore, calculateEstimatedTime, rankSuggestions } from './scoring.js';
+import { calculateDesignScore, calculateEstimatedTime, computeLabourPenalty, rankSuggestions } from './scoring.js';
 import { checkPanelFabricCompatibility } from './fabricCompatibility.js';
 
 // Re-export submodules for standalone testing and modular access
@@ -225,7 +225,9 @@ export function suggestProducts(pile, options = {}) {
  * Generates an exact blueprint layout and cutting plan for a chosen product, size, and pattern style.
  */
 export function buildDesign(pile, productId, sizeKey, style = 'patchwork', options = {}) {
-  const product = PRODUCT_TEMPLATES[productId];
+  const product = (typeof productId === 'object' && productId !== null)
+    ? productId
+    : (PRODUCT_TEMPLATES[productId] || options?.spec);
   if (!product) {
     return {
       success: false,
@@ -233,11 +235,12 @@ export function buildDesign(pile, productId, sizeKey, style = 'patchwork', optio
     };
   }
 
-  const size = product.sizes[sizeKey];
+  const effectiveProductId = product.id || (typeof productId === 'string' ? productId : 'unknown');
+  const size = product.sizes ? product.sizes[sizeKey] : null;
   if (!size) {
     return {
       success: false,
-      error: `Invalid size key: ${sizeKey} for product ${productId}`,
+      error: `Invalid size key: ${sizeKey} for product ${effectiveProductId}`,
     };
   }
 
@@ -245,11 +248,11 @@ export function buildDesign(pile, productId, sizeKey, style = 'patchwork', optio
   let chosenVariant = options.variant;
   if (!chosenVariant && product.variants && Object.keys(product.variants).length > 1) {
     const vKeys = Object.keys(product.variants);
-    let bestFit = fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm, { ...options, variant: vKeys[0] });
+    let bestFit = fitPileToProduct(pile, product, sizeKey, seamAllowanceCm, { ...options, variant: vKeys[0] });
     let bestScore = calculateDesignScore(bestFit);
     chosenVariant = vKeys[0];
     for (let i = 1; i < vKeys.length; i++) {
-      const candFit = fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm, { ...options, variant: vKeys[i] });
+      const candFit = fitPileToProduct(pile, product, sizeKey, seamAllowanceCm, { ...options, variant: vKeys[i] });
       if (candFit.fits) {
         const candScore = calculateDesignScore(candFit);
         if (!bestFit.fits || candScore > bestScore) {
@@ -261,26 +264,29 @@ export function buildDesign(pile, productId, sizeKey, style = 'patchwork', optio
     }
   }
 
-  const fitResult = fitPileToProduct(pile, productId, sizeKey, seamAllowanceCm, {
+  const fitResult = fitPileToProduct(pile, product, sizeKey, seamAllowanceCm, {
     ...options,
     variant: chosenVariant || options.variant,
   });
 
   const hasFraying = pile.some((p) => p.frays !== false);
   const designScore = calculateDesignScore(fitResult);
-  const estimatedTimeMinutes = calculateEstimatedTime(productId, fitResult.totalExtraSeams, hasFraying);
+  const estimatedTimeMinutes = calculateEstimatedTime(effectiveProductId, fitResult.totalExtraSeams, hasFraying);
+  const labourPenalty = computeLabourPenalty(effectiveProductId, fitResult.totalExtraSeams || 0, estimatedTimeMinutes);
 
   return {
     success: true,
-    productId,
+    productId: effectiveProductId,
     productName: product.name,
     sizeKey,
-    sizeLabel: size.label,
+    sizeLabel: size.label || sizeKey,
     style,
     variant: fitResult.variant || chosenVariant || 'plain',
     recommendedVariant: chosenVariant || fitResult.variant || 'plain',
+    recommendedMode: chosenVariant || fitResult.variant || 'plain',
     fits: fitResult.fits,
     designScore,
+    labourPenalty,
     estimatedTimeMinutes,
     seamAllowanceCm,
     scrapsCount: fitResult.placements.reduce((sum, p) => sum + (p.scraps ? p.scraps.length : 0), 0),

@@ -10,6 +10,7 @@ import {
   requestAiPhotoPreview,
   buildCleanReferenceSvg,
   buildVerbalLayoutPrompt,
+  clearAiPreviewDataAndResetLimit,
 } from './aiPreviewService.js';
 import { AI_CONFIG } from '../config/aiConfig.js';
 import { fitPileToProduct, calculateDesignScore } from '../engine/index.js';
@@ -286,6 +287,43 @@ test('AI Photo Preview never alters fitting, scores, or blueprint data', () => {
   assert.strictEqual(scoreBefore, scoreAfter);
   assert.strictEqual(fitBefore.fabricUsedInSeamsCm2, fitAfter.fabricUsedInSeamsCm2);
   assert.strictEqual(fitBefore.totalExtraSeams, fitAfter.totalExtraSeams);
+});
+
+// 9. QuotaExceededError Recovery
+test('aiPreviewCache recovers gracefully from QuotaExceededError without throwing', () => {
+  resetStores();
+  aiPreviewCache.set('hash_q1', { ok: true, imageUrl: '/img1.jpg' });
+  aiPreviewCache.set('hash_q2', { ok: true, imageUrl: '/img2.jpg' });
+  assert.ok(aiPreviewCache.get('hash_q1'));
+  assert.ok(aiPreviewCache.get('hash_q2'));
+
+  let quotaTriggered = false;
+  const originalClearOldest = aiPreviewCache.clearOldest.bind(aiPreviewCache);
+  aiPreviewCache.clearOldest = function () {
+    quotaTriggered = true;
+    return originalClearOldest();
+  };
+
+  assert.doesNotThrow(() => {
+    aiPreviewCache.set('hash_q3', { ok: true, imageUrl: '/img3.jpg' });
+  }, 'Must never throw on QuotaExceededError');
+
+  aiPreviewCache.clearOldest = originalClearOldest;
+});
+
+// 10. Clear Cache & Reset Daily Limit UI Helper
+test('clearAiPreviewDataAndResetLimit resets both AI preview cache and daily limit counter', () => {
+  resetStores();
+  aiPreviewCache.set('hash_demo', { ok: true, imageUrl: '/img_demo.jpg' });
+  rateLimitTracker.increment();
+  rateLimitTracker.increment();
+  assert.strictEqual(rateLimitTracker.getRemaining(), 8);
+  assert.ok(aiPreviewCache.get('hash_demo'));
+
+  const result = clearAiPreviewDataAndResetLimit();
+  assert.strictEqual(result, true);
+  assert.strictEqual(rateLimitTracker.getRemaining(), 10, 'Daily limit reset to 10');
+  assert.strictEqual(aiPreviewCache.get('hash_demo'), null, 'AI preview cache is cleared');
 });
 
 console.log(`\nAll ${passCount} AI Photo Preview tests passed successfully!`);

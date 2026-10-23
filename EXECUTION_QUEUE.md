@@ -13,11 +13,51 @@ This log tracks execution items across ReWear development phases and spikes.
 | **Q4** | Stage 4B / Phase 6 | Tailor blueprint repair (in-app screen & PDFs): fix piece sizes from templates.js, size-adaptive step & materials text, real SVG diagrams in PDF, embedded font with ₹ & arrows/glyphs, clean page breaks, summarized scraps, grain from data | **DONE** | 2026-10-22 |
 | **Q5** | Phase 6 Step 5 | Fast scrap adding: 3 sample piles (neutral, colourful, mixed fabrics) with one-tap load, bulk add row with quantity stepper + size chips + colour + fabric + print, repeat add without leaving, duplicate button on pieces, clear pile with confirmation, local persistence | **DONE** | 2026-10-22 |
 | **Q6** | Product Pipeline Part 1 | Product registry validator (`npm run check-products`), generic flat preview with clipped patchwork, generic blueprint with construction step templates, validator self-tests | **DONE** | 2026-10-22 |
-| **Q7** | Product Pipeline Part 2 | Product factory script (`npm run new-product`), CAD pattern integration, removal tool (`npm run remove-product`), `PRODUCTS.md` developer guide | **IN PROGRESS (Pending Approval)** | 2026-10-22 |
+| **Q7** | Product Pipeline Part 2 | Product factory script (`npm run new-product`), CAD pattern integration, removal tool (`npm run remove-product`), `PRODUCTS.md` developer guide | **DONE** | 2026-10-22 |
+| **Q7b** | Pipeline Hardening | Validator translation strictness (rejects empty/unlocalized text), generic part-mention tests, NaN score guards, frayed margin too-small warning, proxy daily caps (100 global, 10 per device) | **DONE** | 2026-10-22 |
 
 ---
 
 ## Detailed Notes on Completed Items
+
+### [Q7b / Pipeline Hardening] Hardening, Text Shaping Proof, Quota Alignment, & Frayed Warnings
+- **Score NaN & Generic Step Times**:
+  - Added fallback to `CONFIG.BASE_SEWING_MINUTES[prod?.construction]` in `calculateEstimatedTime()`.
+  - Added NaN guards to `calculateDesignScore()`, `computeLabourPenalty()`, and `calculateEstimatedTime()`.
+  - Exposed `labourPenalty` and `recommendedMode` on `buildDesign()` return object.
+  - Updated `DesignViewScreen.jsx` to dynamically evaluate `recommendedMode` for any hybrid garment.
+  - Verified with automated tests for all 5 products and arbitrary generic specs with missing times.
+- **Hindi/Telugu PDFKit Shaping Audit**:
+  - Empirically disproved that PDFKit can render joined Devanagari or Telugu ligatures: tested `NotoSansDevanagari-Regular.ttf` and `NotoSansTelugu-Regular.ttf` (SIL OFL 1.1) and proved via text extraction and page screenshot PNG that PDFKit's `fontkit` engine lacks HarfBuzz complex Indic text shaping (pre-base vowel matras detach and subscript vatulu disconnect).
+  - Recommended maintaining English PDFs with multilingual headers while providing native Hindi/Telugu typography in-app and via browser HTML print (`window.print()`).
+  - Removed unused font files to keep bundle slim.
+- **Rate Limit & Quota Alignment**:
+  - Proxy global daily cap lowered to 100 requests/day, and per-device daily cap aligned with app (10 requests/day).
+  - Confirmed client-side `localStorage` limit is a courtesy; authoritative quota enforcement is handled by the Cloudflare Worker proxy.
+  - Clarified that no real Gemini API calls have succeeded to staging or production; only offline unit mocks were executed.
+- **Validator Translation Strictness**:
+  - Added strict string validation in `src/engine/productValidator.js`: rejects empty, whitespace-only, and unlocalized Hindi/Telugu strings identical to English (exempting allowed acronyms like `PDF`, `cm`, `in`, `2D`, `3D`, `AI`).
+  - Added validator self-tests with deliberately broken translations.
+- **Frayed Margin Warning Banner**:
+  - Implemented `countPiecesTooSmallAfterMargin()` and warning text in `en`, `hi`, and `te`.
+  - Added warning banner in `MyPileScreen.jsx`: `"{count} pieces are too small once the frayed edge is removed"` when `scrapSafetyMarginCm > 0` and pieces fall below the 5.0 cm hard floor.
+  - Added automated unit tests in `test_stage6_q3_frayed.js` and `test_q5_pile_helpers.js`.
+- **Generic Construction Step Integrity**:
+  - Verified with automated tests that generic constructions (`flat`, `casing`, `tee`, `trousers`, `bag`, `cushion`, `pouch`, `skirt`) never mention parts they do not have.
+  - Confirmed Apron product uses the `flat` construction archetype.
+
+### [Q7 / Product Pipeline Part 2] Product Factory Script & Documentation
+- **Product Factory Tool (`npm run new-product`)**:
+  - Reads product configurations from `products/<name>.json`.
+  - Supports simple rectangle specs and FreeSewing CAD pattern-library garments (pinned design `brian`, version `4.10.2`).
+  - Automatically compiles hybrid and patchwork variants with mirrored sleeve pairs and yardage calculation.
+  - Writes Garment Specs to `customRegistry.js` and translations to `customTranslations.js` with `tailorVerified: false`.
+- **Product Removal Tool (`npm run remove-product`)**:
+  - Cleanly removes products from `customRegistry.js` and `customTranslations.js`.
+- **Developer Guide (`PRODUCTS.md`)**:
+  - Complete step-by-step documentation for adding, validating, and testing new products.
+- **Lifecycle Test Suite (`src/engine/test_factory.js`)**:
+  - Automated round-trip tests verifying specification registration, validation, rendering, zero undefined values, and complete restoration on removal.
 
 ### [Q6 / Product Pipeline Part 1] Product Registry Validator & Generic Renderers
 - **CLI Validator (`npm run check-products` & `src/engine/productValidator.js`)**:
@@ -51,6 +91,45 @@ This log tracks execution items across ReWear development phases and spikes.
 ---
 
 ## Detailed Notes on Completed Items
+
+### [Q7b / Pipeline Hardening] Hardening, Text Shaping Proof, Quota Alignment, & Frayed Warnings
+- **Score NaN & Generic Step Times**:
+  - Added fallback to `CONFIG.BASE_SEWING_MINUTES[prod?.construction]` in `calculateEstimatedTime()`.
+  - Added NaN guards to `calculateDesignScore()`, `computeLabourPenalty()`, and `calculateEstimatedTime()`.
+  - Exposed `labourPenalty` and `recommendedMode` on `buildDesign()` return object.
+  - Updated `DesignViewScreen.jsx` to dynamically evaluate `recommendedMode` for any hybrid garment.
+  - Verified with automated tests for all 5 products and arbitrary generic specs with missing times.
+- **Hindi/Telugu PDFKit Shaping Audit**:
+  - Empirically disproved that PDFKit can render joined Devanagari or Telugu ligatures: tested `NotoSansDevanagari-Regular.ttf` and `NotoSansTelugu-Regular.ttf` (SIL OFL 1.1) and proved via text extraction and page screenshot PNG that PDFKit's `fontkit` engine lacks HarfBuzz complex Indic text shaping (pre-base vowel matras detach and subscript vatulu disconnect).
+  - Recommended maintaining English PDFs with multilingual headers while providing native Hindi/Telugu typography in-app and via browser HTML print (`window.print()`).
+  - Removed unused font files to keep bundle slim.
+- **Rate Limit & Quota Alignment**:
+  - Proxy global daily cap lowered to 100 requests/day, and per-device daily cap aligned with app (10 requests/day).
+  - Confirmed client-side `localStorage` limit is a courtesy; authoritative quota enforcement is handled by the Cloudflare Worker proxy.
+  - Clarified that no real Gemini API calls have succeeded to staging or production; only offline unit mocks were executed.
+- **Validator Translation Strictness**:
+  - Added strict string validation in `src/engine/productValidator.js`: rejects empty, whitespace-only, and unlocalized Hindi/Telugu strings identical to English (exempting allowed acronyms like `PDF`, `cm`, `in`, `2D`, `3D`, `AI`).
+  - Added validator self-tests with deliberately broken translations.
+- **Frayed Margin Warning Banner**:
+  - Implemented `countPiecesTooSmallAfterMargin()` and warning text in `en`, `hi`, and `te`.
+  - Added warning banner in `MyPileScreen.jsx`: `"{count} pieces are too small once the frayed edge is removed"` when `scrapSafetyMarginCm > 0` and pieces fall below the 5.0 cm hard floor.
+  - Added automated unit tests in `test_stage6_q3_frayed.js` and `test_q5_pile_helpers.js`.
+- **Generic Construction Step Integrity**:
+  - Verified with automated tests that generic constructions (`flat`, `casing`, `tee`, `trousers`, `bag`, `cushion`, `pouch`, `skirt`) never mention parts they do not have.
+  - Confirmed Apron product uses the `flat` construction archetype.
+
+### [Q7 / Product Pipeline Part 2] Product Factory Script & Documentation
+- **Product Factory Tool (`npm run new-product`)**:
+  - Reads product configurations from `products/<name>.json`.
+  - Supports simple rectangle specs and FreeSewing CAD pattern-library garments (pinned design `brian`, version `4.10.2`).
+  - Automatically compiles hybrid and patchwork variants with mirrored sleeve pairs and yardage calculation.
+  - Writes Garment Specs to `customRegistry.js` and translations to `customTranslations.js` with `tailorVerified: false`.
+- **Product Removal Tool (`npm run remove-product`)**:
+  - Cleanly removes products from `customRegistry.js` and `customTranslations.js`.
+- **Developer Guide (`PRODUCTS.md`)**:
+  - Complete step-by-step documentation for adding, validating, and testing new products.
+- **Lifecycle Test Suite (`src/engine/test_factory.js`)**:
+  - Automated round-trip tests verifying specification registration, validation, rendering, zero undefined values, and complete restoration on removal.
 
 ### [Q5 / Phase 6 Step 5] Sample Piles, Bulk Add, Size Presets & Clear Pile
 - **Try a Sample Pile**:

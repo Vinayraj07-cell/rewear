@@ -14,6 +14,8 @@ import { CONFIG } from './config.js';
 import { fitPileToProduct, cutScrap } from './fitting.js';
 import { buildDesign, suggestProducts, checkFeasibility, calculateDesignScore } from './index.js';
 import { assignZoningRoles, enrichPiece, getPieceArea } from './zoning.js';
+import { countPiecesTooSmallAfterMargin } from '../utils/pileHelpers.js';
+import { translations } from '../i18n/translations.js';
 
 let passedTests = 0;
 function test(name, fn) {
@@ -340,6 +342,34 @@ test('checkFeasibility respects scrapSafetyMarginCm', () => {
     scrapSafetyMarginCm: 1.0,
   });
   assert.strictEqual(typeof result10.isFeasible, 'boolean', 'Returns valid boolean feasibility at margin 1.0');
+});
+
+// --- 7. Frayed Margin Too-Small Warning Count & Translations (Suspicion 5) ---
+console.log('\n--- 7. Frayed Margin Too-Small Warning Count & Translations ---');
+
+test('countPiecesTooSmallAfterMargin accurately counts pieces turned too small', () => {
+  const mixedPile = [
+    { id: 'm1', width: 6, height: 6, quantity: 2 },   // margin 0.5 -> 5.0 (>= 5), margin 1.0 -> 4.0 (< 5)
+    { id: 'm2', width: 5.5, height: 10, quantity: 1 }, // margin 0.5 -> 4.5 (< 5), margin 1.0 -> 3.5 (< 5)
+    { id: 'm3', width: 14, height: 14, quantity: 4 }, // never too small
+  ];
+
+  assert.strictEqual(countPiecesTooSmallAfterMargin(mixedPile, 0), 0, 'Margin 0 -> 0 pieces too small');
+  assert.strictEqual(countPiecesTooSmallAfterMargin(mixedPile, 0.5), 1, 'Margin 0.5 -> 1 piece too small (m2)');
+  assert.strictEqual(countPiecesTooSmallAfterMargin(mixedPile, 1.0), 3, 'Margin 1.0 -> 3 pieces too small (2 of m1 + 1 of m2)');
+});
+
+test('frayed too small warning strings exist in en, hi, and te', () => {
+  for (const lang of ['en', 'hi', 'te']) {
+    const t = translations[lang];
+    assert(t.frayedPiecesTooSmallWarning, `frayedPiecesTooSmallWarning exists in ${lang}`);
+    assert(t.frayedPieceTooSmallWarningSingular, `frayedPieceTooSmallWarningSingular exists in ${lang}`);
+
+    const count = 3;
+    const pluralStr = t.frayedPiecesTooSmallWarning.replace('{count}', count);
+    assert(pluralStr.includes('3'), `Plural text in ${lang} includes count`);
+    assert(t.frayedPieceTooSmallWarningSingular.includes('1'), `Singular text in ${lang} includes 1`);
+  }
 });
 
 console.log('\n====================================================');
