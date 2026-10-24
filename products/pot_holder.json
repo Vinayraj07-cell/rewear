@@ -1,0 +1,202 @@
+{
+  "id": "pot_holder",
+  "names": {
+    "en": "Quilted Pot Holder",
+    "hi": "रसोई पॉट होल्डर",
+    "te": "వంట పాత్రల హోల్డర్"
+  },
+  "category": "home",
+  "construction": "flat",
+  "description": "Heat-resistant quilted square pot holder with corner hanging loop for safe kitchen handling.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "100% cotton or canvas scraps",
+      "qty": "Approx 25x45 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Insulated thermal batting",
+      "qty": "Matching square dimensions",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Cotton bias binding tape",
+      "qty": "90 - 110 cm",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Cotton sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (18 × 18 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 18,
+        "heightCm": 18
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "pot_front",
+          "names": {
+            "en": "Pot Holder Front",
+            "hi": "पॉट होल्डर का अगला भाग",
+            "te": "పాట్ హోల్డర్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 18,
+          "height": 18,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "pot_back",
+          "names": {
+            "en": "Pot Holder Back",
+            "hi": "पॉट होल्डर का पिछला भाग",
+            "te": "పాట్ హోల్డర్ వెనుక భాగం"
+          },
+          "role": "supporting",
+          "width": 18,
+          "height": 18,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "pot_loop",
+          "names": {
+            "en": "Corner Hanging Loop",
+            "hi": "कोने का हैंगिंग लूप",
+            "te": "మూల వేలాడే లూప్"
+          },
+          "role": "accent",
+          "width": 3,
+          "height": 10,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (20 × 20 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 20,
+        "heightCm": 20
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "pot_front",
+          "names": {
+            "en": "Pot Holder Front",
+            "hi": "पॉट होल्डर का अगला भाग",
+            "te": "పాట్ హోల్డర్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 20,
+          "height": 20,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "pot_back",
+          "names": {
+            "en": "Pot Holder Back",
+            "hi": "पॉट होल्डर का पिछला भाग",
+            "te": "పాట్ హోల్డర్ వెనుక భాగం"
+          },
+          "role": "supporting",
+          "width": 20,
+          "height": 20,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "pot_loop",
+          "names": {
+            "en": "Corner Hanging Loop",
+            "hi": "कोने का हैंगिंग लूप",
+            "te": "మూల వేలాడే లూప్"
+          },
+          "role": "accent",
+          "width": 3,
+          "height": 12,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (24 × 24 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 24,
+        "heightCm": 24
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "pot_front",
+          "names": {
+            "en": "Pot Holder Front",
+            "hi": "पॉट होल्डर का अगला भाग",
+            "te": "పాట్ హోల్డర్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 24,
+          "height": 24,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "pot_back",
+          "names": {
+            "en": "Pot Holder Back",
+            "hi": "पॉट होल्डर का पिछला भाग",
+            "te": "పాట్ హోల్డర్ వెనుక భాగం"
+          },
+          "role": "supporting",
+          "width": 24,
+          "height": 24,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "pot_loop",
+          "names": {
+            "en": "Corner Hanging Loop",
+            "hi": "कोने का हैंगिंग लूप",
+            "te": "మూల వేలాడే లూప్"
+          },
+          "role": "accent",
+          "width": 3,
+          "height": 14,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "id": "napkin_set",
+  "names": {
+    "en": "Cloth Napkin Set",
+    "hi": "कपड़े के नैपकिन सेट",
+    "te": "క్లాత్ నాప్‌కిన్ సెట్"
+  },
+  "category": "home",
+  "construction": "flat",
+  "description": "Reusable zero-waste dining table cloth napkins finished with mitered hems from linen or cotton scraps.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "Pure cotton or soft linen remnants",
+      "qty": "Approx 45x90 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Fine cotton sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (Set of 2: 30 × 30 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 30,
+        "heightCm": 30
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "napkin_one",
+          "names": {
+            "en": "Cloth Napkin #1",
+            "hi": "कपड़े का नैपकिन १",
+            "te": "క్లాత్ నాప్‌కిన్ 1"
+          },
+          "role": "base",
+          "width": 30,
+          "height": 30,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "napkin_two",
+          "names": {
+            "en": "Cloth Napkin #2",
+            "hi": "कपड़े का नैपकिन २",
+            "te": "క్లాత్ నాప్‌కిన్ 2"
+          },
+          "role": "base",
+          "width": 30,
+          "height": 30,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (Set of 2: 40 × 40 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 40,
+        "heightCm": 40
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "napkin_one",
+          "names": {
+            "en": "Cloth Napkin #1",
+            "hi": "कपड़े का नैपकिन १",
+            "te": "క్లాత్ నాప్‌కిన్ 1"
+          },
+          "role": "base",
+          "width": 40,
+          "height": 40,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "napkin_two",
+          "names": {
+            "en": "Cloth Napkin #2",
+            "hi": "कपड़े का नैपकिन २",
+            "te": "క్లాత్ నాప్‌కిన్ 2"
+          },
+          "role": "base",
+          "width": 40,
+          "height": 40,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (Set of 2: 45 × 45 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 45,
+        "heightCm": 45
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "napkin_one",
+          "names": {
+            "en": "Cloth Napkin #1",
+            "hi": "कपड़े का नैपकिन १",
+            "te": "క్లాత్ నాప్‌కిన్ 1"
+          },
+          "role": "base",
+          "width": 45,
+          "height": 45,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "napkin_two",
+          "names": {
+            "en": "Cloth Napkin #2",
+            "hi": "कपड़े का नैपकिन २",
+            "te": "క్లాత్ నాప్‌కిన్ 2"
+          },
+          "role": "base",
+          "width": 45,
+          "height": 45,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

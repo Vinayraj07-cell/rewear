@@ -1,0 +1,202 @@
+{
+  "id": "oven_mitt",
+  "names": {
+    "en": "Quilted Oven Mitt",
+    "hi": "ओवन मिट दस्ताना",
+    "te": "ఓవెన్ చేతి తొడుగు"
+  },
+  "category": "home",
+  "construction": "flat",
+  "description": "Thermal insulated oven glove with wrist cuff made from heat-safe quilted patchwork layers.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "Heavy cotton or denim scraps",
+      "qty": "Approx 40x40 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Insulated thermal fleece batting",
+      "qty": "Matching mitt dimensions",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Soft cotton lining fabric",
+      "qty": "Matching mitt dimensions",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Cotton sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (16 × 26 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 16,
+        "heightCm": 26
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "mitt_front",
+          "names": {
+            "en": "Oven Mitt Front",
+            "hi": "ओवन मिट का अगला भाग",
+            "te": "ఓవెన్ మిట్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 16,
+          "height": 26,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "mitt_back",
+          "names": {
+            "en": "Oven Mitt Back",
+            "hi": "ओवन मिट का पिछला भाग",
+            "te": "ఓవెన్ మిట్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 16,
+          "height": 26,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "mitt_cuff",
+          "names": {
+            "en": "Wrist Cuff Trim",
+            "hi": "कलाई का कफ",
+            "te": "మణికట్టు కఫ్"
+          },
+          "role": "accent",
+          "width": 5,
+          "height": 16,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (18 × 30 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 18,
+        "heightCm": 30
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "mitt_front",
+          "names": {
+            "en": "Oven Mitt Front",
+            "hi": "ओवन मिट का अगला भाग",
+            "te": "ఓవెన్ మిట్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 18,
+          "height": 30,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "mitt_back",
+          "names": {
+            "en": "Oven Mitt Back",
+            "hi": "ओवन मिट का पिछला भाग",
+            "te": "ఓవెన్ మిట్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 18,
+          "height": 30,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "mitt_cuff",
+          "names": {
+            "en": "Wrist Cuff Trim",
+            "hi": "कलाई का कफ",
+            "te": "మణికట్టు కఫ్"
+          },
+          "role": "accent",
+          "width": 6,
+          "height": 18,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (20 × 34 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 20,
+        "heightCm": 34
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "mitt_front",
+          "names": {
+            "en": "Oven Mitt Front",
+            "hi": "ओवन मिट का अगला भाग",
+            "te": "ఓవెన్ మిట్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 20,
+          "height": 34,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "mitt_back",
+          "names": {
+            "en": "Oven Mitt Back",
+            "hi": "ओवन मिट का पिछला भाग",
+            "te": "ఓవెన్ మిట్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 20,
+          "height": 34,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "mitt_cuff",
+          "names": {
+            "en": "Wrist Cuff Trim",
+            "hi": "कलाई का कफ",
+            "te": "మణికట్టు కఫ్"
+          },
+          "role": "accent",
+          "width": 6,
+          "height": 20,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

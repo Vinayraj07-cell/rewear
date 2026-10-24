@@ -1,0 +1,202 @@
+{
+  "id": "passport_holder",
+  "names": {
+    "en": "Passport & Travel Wallet",
+    "hi": "पासपोर्ट यात्रा कवर",
+    "te": "పాస్‌పోర్ట్ ట్రావెల్ కవర్"
+  },
+  "category": "bags",
+  "construction": "pouch",
+  "description": "Slim bifold travel wallet with dedicated slots for passport, boarding pass, and travel cards.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "Linen, cotton, or denim remnants",
+      "qty": "Approx 25x30 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Medium-weight fusible interfacing",
+      "qty": "Matching exterior dimensions",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Elastic band or closure strap",
+      "qty": "15 cm",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "All-purpose sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (14 × 20 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 14,
+        "heightCm": 20
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "pass_cover",
+          "names": {
+            "en": "Passport Wallet Exterior",
+            "hi": "वॉलेट का बाहरी कवर",
+            "te": "వాలెట్ బయటి భాగం"
+          },
+          "role": "base",
+          "width": 14,
+          "height": 20,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "pass_lining",
+          "names": {
+            "en": "Passport Wallet Interior",
+            "hi": "वॉलेट का भीतरी अस्तर",
+            "te": "వాలెట్ లోపలి భాగం"
+          },
+          "role": "supporting",
+          "width": 14,
+          "height": 20,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "pass_pocket",
+          "names": {
+            "en": "Interior Document Sleeve",
+            "hi": "भीतरी दस्तावेज़ स्लीव",
+            "te": "లోపలి డాక్యుమెంట్ స్లీవ్"
+          },
+          "role": "accent",
+          "width": 14,
+          "height": 8,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (16 × 22 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 16,
+        "heightCm": 22
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "pass_cover",
+          "names": {
+            "en": "Passport Wallet Exterior",
+            "hi": "वॉलेट का बाहरी कवर",
+            "te": "వాలెట్ బయటి భాగం"
+          },
+          "role": "base",
+          "width": 16,
+          "height": 22,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "pass_lining",
+          "names": {
+            "en": "Passport Wallet Interior",
+            "hi": "वॉलेट का भीतरी अस्तर",
+            "te": "వాలెట్ లోపలి భాగం"
+          },
+          "role": "supporting",
+          "width": 16,
+          "height": 22,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "pass_pocket",
+          "names": {
+            "en": "Interior Document Sleeve",
+            "hi": "भीतरी दस्तावेज़ स्लीव",
+            "te": "లోపలి డాక్యుమెంట్ స్లీవ్"
+          },
+          "role": "accent",
+          "width": 16,
+          "height": 9,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (18 × 24 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 18,
+        "heightCm": 24
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "pass_cover",
+          "names": {
+            "en": "Passport Wallet Exterior",
+            "hi": "वॉलेट का बाहरी कवर",
+            "te": "వాలెట్ బయటి భాగం"
+          },
+          "role": "base",
+          "width": 18,
+          "height": 24,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "pass_lining",
+          "names": {
+            "en": "Passport Wallet Interior",
+            "hi": "वॉलेट का भीतरी अस्तर",
+            "te": "వాలెట్ లోపలి భాగం"
+          },
+          "role": "supporting",
+          "width": 18,
+          "height": 24,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "pass_pocket",
+          "names": {
+            "en": "Interior Document Sleeve",
+            "hi": "भीतरी दस्तावेज़ स्लीव",
+            "te": "లోపలి డాక్యుమెంట్ స్లీవ్"
+          },
+          "role": "accent",
+          "width": 18,
+          "height": 10,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,235 @@
+{
+  "id": "phone_pouch",
+  "names": {
+    "en": "Crossbody Phone Pouch",
+    "hi": "मोबाइल फोन पाउच",
+    "te": "మొబైల్ ఫోన్ పౌచ్"
+  },
+  "category": "bags",
+  "construction": "pouch",
+  "description": "Hands-free vertical pouch with card pocket and neck strap for smartphones.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "Sturdy cotton or denim scraps",
+      "qty": "Approx 25x30 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Magnetic snap fastener",
+      "qty": "1 set",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "All-purpose sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (11 × 18 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 11,
+        "heightCm": 18
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "phone_front",
+          "names": {
+            "en": "Phone Pouch Front",
+            "hi": "फोन पाउच का अगला हिस्सा",
+            "te": "ఫోన్ పౌచ్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 11,
+          "height": 18,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "phone_back",
+          "names": {
+            "en": "Phone Pouch Back",
+            "hi": "फोन पाउच का पिछला हिस्सा",
+            "te": "ఫోన్ పౌచ్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 11,
+          "height": 18,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "phone_pocket",
+          "names": {
+            "en": "Exterior Card Pocket",
+            "hi": "बाहरी कार्ड जेब",
+            "te": "బయటి కార్డు జేబు"
+          },
+          "role": "accent",
+          "width": 11,
+          "height": 10,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "phone_strap",
+          "names": {
+            "en": "Neck/Shoulder Strap",
+            "hi": "गले या कंधे का पट्टा",
+            "te": "మెడ లేదా భుజం పట్టీ"
+          },
+          "role": "supporting",
+          "width": 4,
+          "height": 100,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (12 × 20 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 12,
+        "heightCm": 20
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "phone_front",
+          "names": {
+            "en": "Phone Pouch Front",
+            "hi": "फोन पाउच का अगला हिस्सा",
+            "te": "ఫోన్ పౌచ్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 12,
+          "height": 20,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "phone_back",
+          "names": {
+            "en": "Phone Pouch Back",
+            "hi": "फोन पाउच का पिछला हिस्सा",
+            "te": "ఫోన్ పౌచ్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 12,
+          "height": 20,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "phone_pocket",
+          "names": {
+            "en": "Exterior Card Pocket",
+            "hi": "बाहरी कार्ड जेब",
+            "te": "బయటి కార్డు జేబు"
+          },
+          "role": "accent",
+          "width": 12,
+          "height": 11,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "phone_strap",
+          "names": {
+            "en": "Neck/Shoulder Strap",
+            "hi": "गले या कंधे का पट्टा",
+            "te": "మెడ లేదా భుజం పట్టీ"
+          },
+          "role": "supporting",
+          "width": 4,
+          "height": 110,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (14 × 22 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 14,
+        "heightCm": 22
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "phone_front",
+          "names": {
+            "en": "Phone Pouch Front",
+            "hi": "फोन पाउच का अगला हिस्सा",
+            "te": "ఫోన్ పౌచ్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 14,
+          "height": 22,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "phone_back",
+          "names": {
+            "en": "Phone Pouch Back",
+            "hi": "फोन पाउच का पिछला हिस्सा",
+            "te": "ఫోన్ పౌచ్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 14,
+          "height": 22,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "phone_pocket",
+          "names": {
+            "en": "Exterior Card Pocket",
+            "hi": "बाहरी कार्ड जेब",
+            "te": "బయటి కార్డు జేబు"
+          },
+          "role": "accent",
+          "width": 14,
+          "height": 12,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "phone_strap",
+          "names": {
+            "en": "Neck/Shoulder Strap",
+            "hi": "गले या कंधे का पट्टा",
+            "te": "మెడ లేదా భుజం పట్టీ"
+          },
+          "role": "supporting",
+          "width": 4,
+          "height": 120,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

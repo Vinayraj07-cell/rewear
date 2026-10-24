@@ -1,0 +1,202 @@
+{
+  "id": "laptop_sleeve",
+  "names": {
+    "en": "Padded Laptop Sleeve",
+    "hi": "पैडेड लैपटॉप स्लीव",
+    "te": "ప్యాడెడ్ ల్యాప్‌టాప్ స్లీవ్"
+  },
+  "category": "bags",
+  "construction": "pouch",
+  "description": "Protective padded sleeve for laptops and tablets made from quilted fabric patchwork.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "Quilted canvas, denim, or cotton scraps",
+      "qty": "Approx 50x80 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Fleece padding or protective foam batting",
+      "qty": "Matching body dimensions",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Heavy-duty nylon coil zipper",
+      "qty": "35 - 45 cm",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "All-purpose sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (13\" Sleeve 32 × 23 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 32,
+        "heightCm": 23
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "sleeve_front",
+          "names": {
+            "en": "Laptop Sleeve Front",
+            "hi": "लैपटॉप स्लीव का अगला हिस्सा",
+            "te": "ల్యాప్‌టాప్ స్లీవ్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 32,
+          "height": 23,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "sleeve_back",
+          "names": {
+            "en": "Laptop Sleeve Back",
+            "hi": "लैपटॉप स्लीव का पिछला हिस्सा",
+            "te": "ల్యాప్‌టాప్ స్లీవ్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 32,
+          "height": 23,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "zipper_flap",
+          "names": {
+            "en": "Zipper Guard Flap",
+            "hi": "ज़िप गार्ड फ्लैप",
+            "te": "జిప్పర్ గార్డ్ ఫ్లాప్"
+          },
+          "role": "accent",
+          "width": 5,
+          "height": 32,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (14-15\" Sleeve 36 × 26 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 36,
+        "heightCm": 26
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "sleeve_front",
+          "names": {
+            "en": "Laptop Sleeve Front",
+            "hi": "लैपटॉप स्लीव का अगला हिस्सा",
+            "te": "ల్యాప్‌టాప్ స్లీవ్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 36,
+          "height": 26,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "sleeve_back",
+          "names": {
+            "en": "Laptop Sleeve Back",
+            "hi": "लैपटॉप स्लीव का पिछला हिस्सा",
+            "te": "ల్యాప్‌టాప్ స్లీవ్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 36,
+          "height": 26,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "zipper_flap",
+          "names": {
+            "en": "Zipper Guard Flap",
+            "hi": "ज़िप गार्ड फ्लैप",
+            "te": "జిప్పర్ గార్డ్ ఫ్లాప్"
+          },
+          "role": "accent",
+          "width": 5,
+          "height": 36,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (15-16\" Sleeve 40 × 29 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 40,
+        "heightCm": 29
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "sleeve_front",
+          "names": {
+            "en": "Laptop Sleeve Front",
+            "hi": "लैपटॉप स्लीव का अगला हिस्सा",
+            "te": "ల్యాప్‌టాప్ స్లీవ్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 40,
+          "height": 29,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "sleeve_back",
+          "names": {
+            "en": "Laptop Sleeve Back",
+            "hi": "लैपटॉप स्लीव का पिछला हिस्सा",
+            "te": "ల్యాప్‌టాప్ స్లీవ్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 40,
+          "height": 29,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "zipper_flap",
+          "names": {
+            "en": "Zipper Guard Flap",
+            "hi": "ज़िप गार्ड फ्लैप",
+            "te": "జిప్పర్ గార్డ్ ఫ్లాప్"
+          },
+          "role": "accent",
+          "width": 6,
+          "height": 40,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

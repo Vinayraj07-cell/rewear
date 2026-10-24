@@ -1,0 +1,202 @@
+{
+  "id": "tea_cosy",
+  "names": {
+    "en": "Dome Tea Cosy",
+    "hi": "टी कोज़ी कवर",
+    "te": "టీ కోజీ కవర్"
+  },
+  "category": "home",
+  "construction": "cushion",
+  "description": "Insulated dome cover to keep tea pots warm, stitched from colorful patchwork and thermal batting.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "Cotton or linen patchwork scraps",
+      "qty": "Approx 40x60 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Thermal insulating fleece batting",
+      "qty": "Matching dome dimensions",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Soft cotton interior lining",
+      "qty": "Matching dome dimensions",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Cotton sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (2-Cup Pot 26 × 20 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 26,
+        "heightCm": 20
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "cosy_front",
+          "names": {
+            "en": "Tea Cosy Front Dome",
+            "hi": "टी कोज़ी का अगला भाग",
+            "te": "టీ కోజీ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 26,
+          "height": 20,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "cosy_back",
+          "names": {
+            "en": "Tea Cosy Back Dome",
+            "hi": "टी कोज़ी का पिछला भाग",
+            "te": "టీ కోజీ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 26,
+          "height": 20,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "cosy_tab",
+          "names": {
+            "en": "Tea Cosy Top Loop",
+            "hi": "ऊपरी खींचने वाला लूप",
+            "te": "పైకి లాగే లూప్"
+          },
+          "role": "accent",
+          "width": 3,
+          "height": 8,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (4-6 Cup Pot 32 × 25 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 32,
+        "heightCm": 25
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "cosy_front",
+          "names": {
+            "en": "Tea Cosy Front Dome",
+            "hi": "टी कोज़ी का अगला भाग",
+            "te": "టీ కోజీ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 32,
+          "height": 25,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "cosy_back",
+          "names": {
+            "en": "Tea Cosy Back Dome",
+            "hi": "टी कोज़ी का पिछला भाग",
+            "te": "టీ కోజీ వెనుక भागం"
+          },
+          "role": "base",
+          "width": 32,
+          "height": 25,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "cosy_tab",
+          "names": {
+            "en": "Tea Cosy Top Loop",
+            "hi": "ऊपरी खींचने वाला लूप",
+            "te": "పైకి లాగే లూప్"
+          },
+          "role": "accent",
+          "width": 3,
+          "height": 10,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (8-Cup Pot 36 × 28 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 36,
+        "heightCm": 28
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "cosy_front",
+          "names": {
+            "en": "Tea Cosy Front Dome",
+            "hi": "टी कोज़ी का अगला भाग",
+            "te": "టీ కోజీ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 36,
+          "height": 28,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "cosy_back",
+          "names": {
+            "en": "Tea Cosy Back Dome",
+            "hi": "टी कोज़ी का पिछला भाग",
+            "te": "టీ కోజీ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 36,
+          "height": 28,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "cosy_tab",
+          "names": {
+            "en": "Tea Cosy Top Loop",
+            "hi": "ऊपरी खींचने वाला लूप",
+            "te": "పైకి లాగే లూప్"
+          },
+          "role": "accent",
+          "width": 3,
+          "height": 12,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

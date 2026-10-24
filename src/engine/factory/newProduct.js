@@ -495,6 +495,19 @@ async function main() {
  */
 
 export const CUSTOM_PRODUCT_TEMPLATES = ${JSON.stringify(updatedCustomTemplates, null, 2)};
+
+// Backward compatibility: provide non-enumerable patchwork alias if product is single-mode hybrid
+for (const prod of Object.values(CUSTOM_PRODUCT_TEMPLATES)) {
+  for (const sz of Object.values(prod.sizes || {})) {
+    if (sz.variants && sz.variants.hybrid && !sz.variants.patchwork) {
+      Object.defineProperty(sz.variants, 'patchwork', {
+        enumerable: false,
+        configurable: true,
+        get() { return this.hybrid; },
+      });
+    }
+  }
+}
 `;
   fs.writeFileSync(customRegistryPath, registryCode, 'utf-8');
   console.log(`💾 Saved Garment Spec to: src/engine/customRegistry.js`);

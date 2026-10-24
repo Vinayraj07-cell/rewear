@@ -1,0 +1,235 @@
+{
+  "id": "coaster_set",
+  "names": {
+    "en": "Fabric Coaster Set",
+    "hi": "कपड़े का कोस्टर सेट",
+    "te": "ఫాబ్రిక్ కోస్టర్ సెట్"
+  },
+  "category": "home",
+  "construction": "flat",
+  "description": "Set of absorbent drink coasters stitched from cheerful fabric scraps with interior batting.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "Absorbent cotton, linen, or denim scraps",
+      "qty": "Approx 25x25 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Cotton batting or thick felt insert",
+      "qty": "Matching square dimensions",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "All-purpose sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (Set of 4: 10 × 10 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 10,
+        "heightCm": 10
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "coaster_one",
+          "names": {
+            "en": "Coaster Square #1",
+            "hi": "कोस्टर १",
+            "te": "కోస్టర్ 1"
+          },
+          "role": "base",
+          "width": 10,
+          "height": 10,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "coaster_two",
+          "names": {
+            "en": "Coaster Square #2",
+            "hi": "कोस्टर २",
+            "te": "కోస్టర్ 2"
+          },
+          "role": "base",
+          "width": 10,
+          "height": 10,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "coaster_three",
+          "names": {
+            "en": "Coaster Square #3",
+            "hi": "कोस्टर ३",
+            "te": "కోస్టర్ 3"
+          },
+          "role": "base",
+          "width": 10,
+          "height": 10,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "coaster_four",
+          "names": {
+            "en": "Coaster Square #4",
+            "hi": "कोस्टर ४",
+            "te": "కోస్టర్ 4"
+          },
+          "role": "base",
+          "width": 10,
+          "height": 10,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (Set of 4: 12 × 12 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 12,
+        "heightCm": 12
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "coaster_one",
+          "names": {
+            "en": "Coaster Square #1",
+            "hi": "कोस्टर १",
+            "te": "కోస్టర్ 1"
+          },
+          "role": "base",
+          "width": 12,
+          "height": 12,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "coaster_two",
+          "names": {
+            "en": "Coaster Square #2",
+            "hi": "कोस्टर २",
+            "te": "కోస్టర్ 2"
+          },
+          "role": "base",
+          "width": 12,
+          "height": 12,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "coaster_three",
+          "names": {
+            "en": "Coaster Square #3",
+            "hi": "कोस्टर ३",
+            "te": "కోస్టర్ 3"
+          },
+          "role": "base",
+          "width": 12,
+          "height": 12,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "coaster_four",
+          "names": {
+            "en": "Coaster Square #4",
+            "hi": "कोस्टर ४",
+            "te": "కోస్టర్ 4"
+          },
+          "role": "base",
+          "width": 12,
+          "height": 12,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (Set of 4: 15 × 15 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 15,
+        "heightCm": 15
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "coaster_one",
+          "names": {
+            "en": "Coaster Square #1",
+            "hi": "कोस्टर १",
+            "te": "కోస్టర్ 1"
+          },
+          "role": "base",
+          "width": 15,
+          "height": 15,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "coaster_two",
+          "names": {
+            "en": "Coaster Square #2",
+            "hi": "कोस्टर २",
+            "te": "కోస్టర్ 2"
+          },
+          "role": "base",
+          "width": 15,
+          "height": 15,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "coaster_three",
+          "names": {
+            "en": "Coaster Square #3",
+            "hi": "कोस्टर ३",
+            "te": "కోస్టర్ 3"
+          },
+          "role": "base",
+          "width": 15,
+          "height": 15,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "coaster_four",
+          "names": {
+            "en": "Coaster Square #4",
+            "hi": "कोस्टर ४",
+            "te": "కోస్టర్ 4"
+          },
+          "role": "base",
+          "width": 15,
+          "height": 15,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}
