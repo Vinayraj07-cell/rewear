@@ -20,6 +20,7 @@ import TailorBlueprintScreen from './screens/TailorBlueprintScreen';
 import FirstLaunchScreen from './screens/FirstLaunchScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import { loadProfile } from './utils/profileStorage';
+import { App as CapacitorApp } from '@capacitor/app';
 const Product3DViewer = lazy(() => import('./components/Product3DViewer'));
 import ErrorBoundary from './components/ErrorBoundary';
 
@@ -66,7 +67,88 @@ export default function App() {
   }, []);
 
   // 4. Navigation Tab ('home', 'add', 'pile', 'tips', 'guides')
-  const [activeTab, setActiveTab] = useState('home');
+  const [activeTab, setActiveTabRaw] = useState('home');
+  const [tabHistory, setTabHistory] = useState(['home']);
+
+  const setActiveTab = (newTab, options = {}) => {
+    setActiveTabRaw(newTab);
+    if (options.replace) {
+      setTabHistory((prev) => [...prev.slice(0, -1), newTab]);
+    } else {
+      setTabHistory((prev) => (prev[prev.length - 1] === newTab ? prev : [...prev, newTab]));
+    }
+  };
+
+  const handleNativeBack = () => {
+    if (helpInfo) {
+      setHelpInfo(null);
+      return;
+    }
+    if (showDeleteModal) {
+      setShowDeleteModal(false);
+      setPieceToDelete(null);
+      return;
+    }
+    if (showWalkthrough) {
+      setShowWalkthrough(false);
+      return;
+    }
+    if (showInstallModal) {
+      setShowInstallModal(false);
+      return;
+    }
+    if (showLangModal) {
+      setShowLangModal(false);
+      return;
+    }
+
+    if (activeTab === 'home') {
+      try {
+        CapacitorApp.exitApp();
+      } catch (e) {}
+      return;
+    }
+
+    if (tabHistory.length > 1) {
+      const nextHistory = tabHistory.slice(0, -1);
+      const prevTab = nextHistory[nextHistory.length - 1];
+      setTabHistory(nextHistory);
+      setActiveTabRaw(prevTab);
+    } else {
+      if (['customize', 'size_choice', 'feasibility', 'tailor_blueprint', '3d_spike'].includes(activeTab)) {
+        setActiveTabRaw('design_view');
+      } else if (activeTab === 'design_view') {
+        setActiveTabRaw('what_can_i_make');
+      } else {
+        setActiveTabRaw('home');
+      }
+      setTabHistory(['home']);
+    }
+  };
+
+  useEffect(() => {
+    let removeHandle = null;
+    try {
+      CapacitorApp.addListener('backButton', () => {
+        handleNativeBack();
+      }).then((handle) => {
+        removeHandle = handle;
+      }).catch(() => {});
+    } catch (e) {}
+
+    const handlePopState = (e) => {
+      e.preventDefault();
+      handleNativeBack();
+    };
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      if (removeHandle && typeof removeHandle.remove === 'function') {
+        removeHandle.remove();
+      }
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [activeTab, tabHistory, helpInfo, showDeleteModal, showWalkthrough, showInstallModal, showLangModal]);
 
   // 5. Fabric Pieces State with Undo/Redo history
   const [pieces, setPieces] = useState(() => {
@@ -231,6 +313,7 @@ export default function App() {
     window.__bulkAdd = handleBulkAdd;
     window.__buildDesign = buildDesign;
     window.__setScrapSafetyMargin = setScrapSafetyMarginCm;
+    window.__handleBack = handleNativeBack;
     window.__setScreen = (tab, designData) => {
       if (designData) setSelectedDesign(designData);
       setActiveTab(tab);
