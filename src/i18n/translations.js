@@ -73,6 +73,13 @@ export const translations = {
     feature6Title: "My Fabric Stock",
     feature6Desc: "Browse and manage all leftover scraps saved in your phone.",
     feature6Badge: "Inventory",
+    feature1BadgeActive: "Stage 2 Studio",
+    installAppTitle: "Install App on Phone",
+    installAppSubtitle: "Scan QR code, tap Install or download APK to run standalone!",
+    installAppBadge: "PWA / APK",
+    tourBtn: "Tour (?)",
+    trySampleTitle: "Want to test right now?",
+    trySampleSub: "Load sample tailor scraps with 1 tap.",
 
     // Add Pieces Screen
     addPieceTitle: "Add Leftover Fabric",
@@ -189,6 +196,11 @@ export const translations = {
     emptySuggestionsTitle: "No designs match yet",
     emptySuggestionsDesc: "Add a few more scraps or include excluded pieces to see what you can make.",
     calculatingSuggestions: "Tailor engine is calculating best designs...",
+    studioHeader: "ReWear Tailor Studio • Stage 2",
+    noFitsTitle: "No product currently fits 100% of panels with these filters.",
+    noFitsDesc: "See the \"Almost\" section below for items that need only a few more scraps!",
+    hybridLabel: "Hybrid",
+    fullPatchworkLabel: "Full Patchwork",
 
     // Stage 2: Design View
     designViewTitle: "Design Blueprint",
@@ -506,6 +518,13 @@ export const translations = {
     feature6Title: "నా ఫాబ్రిక్ నిల్వ",
     feature6Desc: "మీ దగ్గర ఉన్న అన్ని మిగులు బట్టల వివరాలను ఒకేచోట ఉంచండి.",
     feature6Badge: "స్టాక్",
+    feature1BadgeActive: "స్టేజ్ 2 స్టూడియో",
+    installAppTitle: "ఫోనులో ఏప్ 인్‌స్టాల్ చేయండి",
+    installAppSubtitle: "క్యూఆర్ కోడ్ స్కాన్ చేయండి, ఇన్స్టాల్ లేదా APK డౌన్లోడ్ చేయండి!",
+    installAppBadge: "PWA / APK",
+    tourBtn: "పర్యటన (?)",
+    trySampleTitle: "ఇప్పుడు పరీక్షించాలనుకుంటున్నారు?",
+    trySampleSub: "ఒక తాకponge సిద్ధమైనట تخصస� mindre తయారు చేయండి.",
 
     // Add Pieces Screen
     addPieceTitle: "బట్ట ముక్కను నమోదు చేయండి",
