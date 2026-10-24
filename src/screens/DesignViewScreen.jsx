@@ -17,7 +17,8 @@ import {
   Box,
   Camera,
   Download,
-  Loader2
+  Loader2,
+  Share2
 } from 'lucide-react';
 import FabricNumbersCard from '../components/FabricNumbersCard';
 import ProductVisual from '../components/ProductVisual';
@@ -25,6 +26,7 @@ import Product2DPreview from '../components/Product2DPreview';
 import InspirationStrip from '../components/InspirationStrip';
 import AiPhotoPreviewModal from '../components/AiPhotoPreviewModal';
 import { computeProduct2DLayout } from '../utils/product2DLayout';
+import { shareDesignSummary } from '../utils/shareDesignService.js';
 import { soundManager } from '../utils/audio';
 import { COLOR_SWATCHES } from '../i18n/translations';
 import { 
@@ -39,6 +41,35 @@ import {
   calculateEstimatedTime, 
   PRODUCT_TEMPLATES 
 } from '../engine/index.js';
+
+
+// Price suggestion helper for customer sharing
+function getPriceSuggestion(productId, sizeKey) {
+  let basePrice = 120;
+  if (productId === 'pouch') {
+    if (sizeKey === 'small') basePrice = 100;
+    else if (sizeKey === 'medium') basePrice = 150;
+    else basePrice = 220;
+  } else if (productId === 'tote_bag') {
+    if (sizeKey === 'small') basePrice = 250;
+    else if (sizeKey === 'medium') basePrice = 380;
+    else basePrice = 520;
+  } else if (productId === 'cushion_cover') {
+    if (sizeKey === 'small') basePrice = 180;
+    else if (sizeKey === 'medium') basePrice = 280;
+    else basePrice = 380;
+  } else if (productId === 'kids_frock') {
+    if (sizeKey === 'infant') basePrice = 280;
+    else if (sizeKey === 'toddler') basePrice = 360;
+    else basePrice = 480;
+  } else if (productId === 'child_top') {
+    if (sizeKey === 'chest56') basePrice = 320;
+    else basePrice = 380;
+  }
+  const low = Math.round(basePrice * 0.9);
+  const high = Math.round(basePrice * 1.3);
+  return `₹${low} – ₹${high}`;
+}
 
 export default function DesignViewScreen({
   design,
@@ -61,6 +92,31 @@ export default function DesignViewScreen({
   const [showAiModal, setShowAiModal] = useState(false);
   const [isOnline, setIsOnline] = useState(typeof navigator !== 'undefined' ? (navigator.onLine ?? true) : true);
   const [isExportingPdf, setIsExportingPdf] = useState(false);
+  const [isSharing, setIsSharing] = useState(false);
+  const [shareMsg, setShareMsg] = useState(null);
+
+  const handleShareWithCustomer = async () => {
+    setIsSharing(true);
+    setShareMsg(null);
+    try {
+      const res = await shareDesignSummary({
+        productName: productName,
+        sizeLabel: sizeLabel,
+        priceText: getPriceSuggestion(activeDesign.productId || activeDesign.product?.id, activeDesign.sizeKey || activeDesign.size || 'small'),
+        scraps: pile,
+      });
+      if (res.method === 'native_share') {
+        setShareMsg('✓ Design card shared with customer!');
+      } else if (res.method === 'browser_download') {
+        setShareMsg('✓ Design card downloaded!');
+      }
+    } catch (e) {
+      setShareMsg(`Share error: ${e?.message || 'Failed to share'}`);
+    } finally {
+      setIsSharing(false);
+    }
+  };
+
   const [pdfExportMsg, setPdfExportMsg] = useState(null);
   const [pdfExportErr, setPdfExportErr] = useState(null);
 
@@ -733,6 +789,28 @@ export default function DesignViewScreen({
             <span className="truncate">{isExportingPdf ? 'Exporting...' : 'Download PDF'}</span>
           </button>
         </div>
+
+        {/* Task A9: Share Design with Customer via WhatsApp */}
+        <button
+          type="button"
+          onClick={handleShareWithCustomer}
+          disabled={isSharing}
+          className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-2xl shadow-md flex items-center justify-center gap-2 transition cursor-pointer"
+          title="Share Design Summary with Customer via WhatsApp"
+        >
+          {isSharing ? (
+            <Loader2 className="w-4 h-4 animate-spin text-white" />
+          ) : (
+            <Share2 className="w-4 h-4 text-white" />
+          )}
+          <span>{isSharing ? 'Preparing card...' : 'Share Design with Customer (WhatsApp)'}</span>
+        </button>
+        {shareMsg && (
+          <p className="text-center text-xs font-semibold text-emerald-800 bg-emerald-50 border border-emerald-300 py-1.5 px-3 rounded-xl animate-fade-in">
+            {shareMsg}
+          </p>
+        )}
+
 
         {['tote_bag', 'cushion_cover', 'pouch'].includes(design.productId || design.product?.id) && (
           <button
