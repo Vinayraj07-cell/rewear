@@ -1,0 +1,157 @@
+{
+  "id": "girls_dress",
+  "names": {
+    "en": "Girls A-Line Frock",
+    "hi": "लड़कियों की फ्रॉक",
+    "te": "అమ్మాయిల ఫ్రాక్"
+  },
+  "category": "garments",
+  "construction": "flat",
+  "description": "Comfortable everyday flared dress with fitted bodice and flowing gathered skirt panels.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "Cotton print scraps",
+      "qty": "Approx 50x80 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Elastic or back buttons",
+      "qty": "2 units",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Matching sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Child 3–4 Yrs (Chest 54 cm, Length 55 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 32,
+        "heightCm": 55
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "dress_bodice",
+          "names": {
+            "en": "Dress Bodice",
+            "hi": "फ्रॉक चोली",
+            "te": "ఫ్రాక్ బాడీస్"
+          },
+          "role": "base",
+          "width": 32,
+          "height": 20,
+          "qty": 2,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "dress_skirt",
+          "names": {
+            "en": "Dress Gathered Skirt",
+            "hi": "फ्रॉक घेर",
+            "te": "ఫ్రాక్ గేరు"
+          },
+          "role": "supporting",
+          "width": 48,
+          "height": 35,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Child 5–6 Yrs (Chest 58 cm, Length 65 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 35,
+        "heightCm": 65
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "dress_bodice",
+          "names": {
+            "en": "Dress Bodice",
+            "hi": "फ्रॉक चोली",
+            "te": "ఫ్రాక్ బాడీస్"
+          },
+          "role": "base",
+          "width": 35,
+          "height": 24,
+          "qty": 2,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "dress_skirt",
+          "names": {
+            "en": "Dress Gathered Skirt",
+            "hi": "फ्रॉक घेर",
+            "te": "ఫ్రాక్ గేరు"
+          },
+          "role": "supporting",
+          "width": 54,
+          "height": 41,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Child 7–8 Yrs (Chest 64 cm, Length 75 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 38,
+        "heightCm": 75
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "dress_bodice",
+          "names": {
+            "en": "Dress Bodice",
+            "hi": "फ्रॉक चोली",
+            "te": "ఫ్రాక్ బాడీస్"
+          },
+          "role": "base",
+          "width": 38,
+          "height": 28,
+          "qty": 2,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "dress_skirt",
+          "names": {
+            "en": "Dress Gathered Skirt",
+            "hi": "फ्रॉक घेर",
+            "te": "ఫ్రాక్ గేరు"
+          },
+          "role": "supporting",
+          "width": 60,
+          "height": 47,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

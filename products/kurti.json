@@ -1,0 +1,190 @@
+{
+  "id": "kurti",
+  "names": {
+    "en": "Tailored Patchwork Kurti",
+    "hi": "पैचवर्क कुर्ती",
+    "te": "ప్యాచ్‌వర్క్ కుర్తీ"
+  },
+  "category": "garments",
+  "construction": "tee",
+  "description": "Traditional longline tunic top constructed with front and back body panels and contrast side slit binding.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "Cotton, rayon, or linen scraps",
+      "qty": "Approx 60x100 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Matching sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (Chest 86 cm, Length 80 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 43,
+        "heightCm": 80
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "kurti_front",
+          "names": {
+            "en": "Kurti Front Panel",
+            "hi": "कुर्ती सामने का भाग",
+            "te": "కుర్తీ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 43,
+          "height": 80,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "kurti_back",
+          "names": {
+            "en": "Kurti Back Panel",
+            "hi": "कुर्ती पीछे का भाग",
+            "te": "కుర్తీ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 43,
+          "height": 80,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "kurti_slit_trim",
+          "names": {
+            "en": "Side Slit Binding",
+            "hi": "साइड कट पट्टी",
+            "te": "సైడ్ స్లిట్ పట్టీ"
+          },
+          "role": "supporting",
+          "width": 6,
+          "height": 40,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (Chest 94 cm, Length 85 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 47,
+        "heightCm": 85
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "kurti_front",
+          "names": {
+            "en": "Kurti Front Panel",
+            "hi": "कुर्ती सामने का भाग",
+            "te": "కుర్తీ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 47,
+          "height": 85,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "kurti_back",
+          "names": {
+            "en": "Kurti Back Panel",
+            "hi": "कुर्ती पीछे का भाग",
+            "te": "కుర్తీ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 47,
+          "height": 85,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "kurti_slit_trim",
+          "names": {
+            "en": "Side Slit Binding",
+            "hi": "साइड कट पट्टी",
+            "te": "సైడ్ స్లిట్ పట్టీ"
+          },
+          "role": "supporting",
+          "width": 6,
+          "height": 45,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (Chest 102 cm, Length 90 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 51,
+        "heightCm": 90
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "kurti_front",
+          "names": {
+            "en": "Kurti Front Panel",
+            "hi": "कुर्ती सामने का भाग",
+            "te": "కుర్తీ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 51,
+          "height": 90,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "kurti_back",
+          "names": {
+            "en": "Kurti Back Panel",
+            "hi": "कुर्ती पीछे का भाग",
+            "te": "కుర్తీ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 51,
+          "height": 90,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "kurti_slit_trim",
+          "names": {
+            "en": "Side Slit Binding",
+            "hi": "साइड कट पट्टी",
+            "te": "సైడ్ స్లిట్ పట్టీ"
+          },
+          "role": "supporting",
+          "width": 6,
+          "height": 50,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

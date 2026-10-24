@@ -32,7 +32,9 @@ export const CUSTOM_TRANSLATIONS = {
       "tool_roll": "Roll-Up Tool Organizer",
       "glasses_case": "Padded Spectacle Case",
       "fabric_basket": "Fabric Storage Basket",
-      "laundry_bag": "Drawstring Laundry Bag"
+      "laundry_bag": "Drawstring Laundry Bag",
+      "kurti": "Tailored Patchwork Kurti",
+      "girls_dress": "Girls A-Line Frock"
     },
     "sizeNames": {
       "small": "Small",
@@ -149,7 +151,12 @@ export const CUSTOM_TRANSLATIONS = {
       "laundry_front": "Laundry Bag Front",
       "laundry_back": "Laundry Bag Back",
       "laundry_casing": "Drawstring Channel Casing",
-      "laundry_strap": "Drawcord Closure Cord"
+      "laundry_strap": "Drawcord Closure Cord",
+      "kurti_front": "Kurti Front Panel",
+      "kurti_back": "Kurti Back Panel",
+      "kurti_slit_trim": "Side Slit Binding",
+      "dress_bodice": "Dress Bodice",
+      "dress_skirt": "Dress Gathered Skirt"
     }
   },
   "hi": {
@@ -181,7 +188,9 @@ export const CUSTOM_TRANSLATIONS = {
       "tool_roll": "रोल-अप टूल आयोजक",
       "glasses_case": "पैडेड चश्मा पाउच",
       "fabric_basket": "फैब्रिक स्टोरेज बास्केट",
-      "laundry_bag": "कपड़े धोने का बैग"
+      "laundry_bag": "कपड़े धोने का बैग",
+      "kurti": "पैचवर्क कुर्ती",
+      "girls_dress": "लड़कियों की फ्रॉक"
     },
     "sizeNames": {
       "small": "छोटा",
@@ -298,7 +307,12 @@ export const CUSTOM_TRANSLATIONS = {
       "laundry_front": "लॉन्ड्री बैग का अगला हिस्सा",
       "laundry_back": "लॉन्ड्री बैग का पिछला हिस्सा",
       "laundry_casing": "डोरी चैनल केसिंग",
-      "laundry_strap": "खींचने वाली डोरी"
+      "laundry_strap": "खींचने वाली डोरी",
+      "kurti_front": "कुर्ती सामने का भाग",
+      "kurti_back": "कुर्ती पीछे का भाग",
+      "kurti_slit_trim": "साइड कट पट्टी",
+      "dress_bodice": "फ्रॉक चोली",
+      "dress_skirt": "फ्रॉक घेर"
     }
   },
   "te": {
@@ -330,7 +344,9 @@ export const CUSTOM_TRANSLATIONS = {
       "tool_roll": "రోల్-అప్ టూల్ ఆర్గనైజర్",
       "glasses_case": "ప్యాడెడ్ కళ్ళద్దాల కవర్",
       "fabric_basket": "ఫాబ్రిక్ నిల్వ బాస్కెట్",
-      "laundry_bag": "లాండ్రీ నిల్వ బ్యాగ్"
+      "laundry_bag": "లాండ్రీ నిల్వ బ్యాగ్",
+      "kurti": "ప్యాచ్‌వర్క్ కుర్తీ",
+      "girls_dress": "అమ్మాయిల ఫ్రాక్"
     },
     "sizeNames": {
       "small": "చిన్నది",
@@ -447,7 +463,12 @@ export const CUSTOM_TRANSLATIONS = {
       "laundry_front": "లాండ్రీ బ్యాగ్ ముందు భాగం",
       "laundry_back": "లాండ్రీ బ్యాగ్ వెనుక భాగం",
       "laundry_casing": "డ్రాస్ట్రింగ్ ఛానల్ కేసింగ్",
-      "laundry_strap": "లాగే డ్రాకార్డ్ త్రాడు"
+      "laundry_strap": "లాగే డ్రాకార్డ్ త్రాడు",
+      "kurti_front": "కుర్తీ ముందు భాగం",
+      "kurti_back": "కుర్తీ వెనుక భాగం",
+      "kurti_slit_trim": "సైడ్ స్లిట్ పట్టీ",
+      "dress_bodice": "ఫ్రాక్ బాడీస్",
+      "dress_skirt": "ఫ్రాక్ గేరు"
     }
   }
 };

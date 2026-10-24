@@ -31317,6 +31317,1382 @@ export const CUSTOM_PRODUCT_TEMPLATES = {
         ]
       }
     }
+  },
+  "kurti": {
+    "schemaVersion": "1.0.0",
+    "id": "kurti",
+    "name": "Tailored Patchwork Kurti",
+    "names": {
+      "en": "Tailored Patchwork Kurti",
+      "hi": "पैचवर्क कुर्ती",
+      "te": "ప్యాచ్‌వర్క్ కుర్తీ"
+    },
+    "category": "garments",
+    "construction": "tee",
+    "silhouette": null,
+    "description": "Traditional longline tunic top constructed with front and back body panels and contrast side slit binding.",
+    "defaultVariant": "plain",
+    "tailorVerified": false,
+    "disclaimer": "All pattern measurements are rectangle-based approximations for scrap cutting and must be verified by a professional tailor before final cutting.",
+    "materials": [
+      {
+        "name": "Cotton, rayon, or linen scraps",
+        "qty": "Approx 60x100 cm total area",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Matching sewing thread",
+        "qty": "1 spool",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      }
+    ],
+    "timeEstimateFormula": null,
+    "stitchingSteps": [],
+    "sizes": {
+      "small": {
+        "label": "Small (Chest 86 cm, Length 80 cm)",
+        "names": {
+          "en": "Small",
+          "hi": "छोटा",
+          "te": "చిన్నది"
+        },
+        "finishedWidthCm": 43,
+        "finishedHeightCm": 80,
+        "finishedDimensions": {
+          "widthCm": 43,
+          "heightCm": 80
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "kurti_front",
+            "name": "Kurti Front Panel",
+            "names": {
+              "en": "Kurti Front Panel",
+              "hi": "कुर्ती सामने का भाग",
+              "te": "కుర్తీ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 43,
+            "height": 80,
+            "cutWidth": 45,
+            "cutHeight": 82,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 43,
+              "finishedHeightCm": 80,
+              "finishedAreaCm2": 3440,
+              "cutWidthCm": 45,
+              "cutHeightCm": 82
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "kurti_back",
+            "name": "Kurti Back Panel",
+            "names": {
+              "en": "Kurti Back Panel",
+              "hi": "कुर्ती पीछे का भाग",
+              "te": "కుర్తీ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 43,
+            "height": 80,
+            "cutWidth": 45,
+            "cutHeight": 82,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 43,
+              "finishedHeightCm": 80,
+              "finishedAreaCm2": 3440,
+              "cutWidthCm": 45,
+              "cutHeightCm": 82
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "kurti_slit_trim",
+            "name": "Side Slit Binding",
+            "names": {
+              "en": "Side Slit Binding",
+              "hi": "साइड कट पट्टी",
+              "te": "సైడ్ స్లిట్ పట్టీ"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 40,
+            "cutWidth": 8,
+            "cutHeight": 42,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 40,
+              "finishedAreaCm2": 240,
+              "cutWidthCm": 8,
+              "cutHeightCm": 42
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "kurti_front",
+            "name": "Kurti Front Panel",
+            "names": {
+              "en": "Kurti Front Panel",
+              "hi": "कुर्ती सामने का भाग",
+              "te": "కుర్తీ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 43,
+            "height": 80,
+            "cutWidth": 45,
+            "cutHeight": 82,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 43,
+              "finishedHeightCm": 80,
+              "finishedAreaCm2": 3440,
+              "cutWidthCm": 45,
+              "cutHeightCm": 82
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "kurti_back",
+            "name": "Kurti Back Panel",
+            "names": {
+              "en": "Kurti Back Panel",
+              "hi": "कुर्ती पीछे का भाग",
+              "te": "కుర్తీ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 43,
+            "height": 80,
+            "cutWidth": 45,
+            "cutHeight": 82,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 43,
+              "finishedHeightCm": 80,
+              "finishedAreaCm2": 3440,
+              "cutWidthCm": 45,
+              "cutHeightCm": 82
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "kurti_slit_trim",
+            "name": "Side Slit Binding",
+            "names": {
+              "en": "Side Slit Binding",
+              "hi": "साइड कट पट्टी",
+              "te": "సైడ్ స్లిట్ పట్టీ"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 40,
+            "cutWidth": 8,
+            "cutHeight": 42,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 40,
+              "finishedAreaCm2": 240,
+              "cutWidthCm": 8,
+              "cutHeightCm": 42
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "medium": {
+        "label": "Medium (Chest 94 cm, Length 85 cm)",
+        "names": {
+          "en": "Medium",
+          "hi": "मध्यम",
+          "te": "మధ్యస్థం"
+        },
+        "finishedWidthCm": 47,
+        "finishedHeightCm": 85,
+        "finishedDimensions": {
+          "widthCm": 47,
+          "heightCm": 85
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "kurti_front",
+            "name": "Kurti Front Panel",
+            "names": {
+              "en": "Kurti Front Panel",
+              "hi": "कुर्ती सामने का भाग",
+              "te": "కుర్తీ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 47,
+            "height": 85,
+            "cutWidth": 49,
+            "cutHeight": 87,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 47,
+              "finishedHeightCm": 85,
+              "finishedAreaCm2": 3995,
+              "cutWidthCm": 49,
+              "cutHeightCm": 87
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "kurti_back",
+            "name": "Kurti Back Panel",
+            "names": {
+              "en": "Kurti Back Panel",
+              "hi": "कुर्ती पीछे का भाग",
+              "te": "కుర్తీ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 47,
+            "height": 85,
+            "cutWidth": 49,
+            "cutHeight": 87,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 47,
+              "finishedHeightCm": 85,
+              "finishedAreaCm2": 3995,
+              "cutWidthCm": 49,
+              "cutHeightCm": 87
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "kurti_slit_trim",
+            "name": "Side Slit Binding",
+            "names": {
+              "en": "Side Slit Binding",
+              "hi": "साइड कट पट्टी",
+              "te": "సైడ్ స్లిట్ పట్టీ"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 45,
+            "cutWidth": 8,
+            "cutHeight": 47,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 45,
+              "finishedAreaCm2": 270,
+              "cutWidthCm": 8,
+              "cutHeightCm": 47
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "kurti_front",
+            "name": "Kurti Front Panel",
+            "names": {
+              "en": "Kurti Front Panel",
+              "hi": "कुर्ती सामने का भाग",
+              "te": "కుర్తీ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 47,
+            "height": 85,
+            "cutWidth": 49,
+            "cutHeight": 87,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 47,
+              "finishedHeightCm": 85,
+              "finishedAreaCm2": 3995,
+              "cutWidthCm": 49,
+              "cutHeightCm": 87
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "kurti_back",
+            "name": "Kurti Back Panel",
+            "names": {
+              "en": "Kurti Back Panel",
+              "hi": "कुर्ती पीछे का भाग",
+              "te": "కుర్తీ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 47,
+            "height": 85,
+            "cutWidth": 49,
+            "cutHeight": 87,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 47,
+              "finishedHeightCm": 85,
+              "finishedAreaCm2": 3995,
+              "cutWidthCm": 49,
+              "cutHeightCm": 87
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "kurti_slit_trim",
+            "name": "Side Slit Binding",
+            "names": {
+              "en": "Side Slit Binding",
+              "hi": "साइड कट पट्टी",
+              "te": "సైడ్ స్లిట్ పట్టీ"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 45,
+            "cutWidth": 8,
+            "cutHeight": 47,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 45,
+              "finishedAreaCm2": 270,
+              "cutWidthCm": 8,
+              "cutHeightCm": 47
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "large": {
+        "label": "Large (Chest 102 cm, Length 90 cm)",
+        "names": {
+          "en": "Large",
+          "hi": "बड़ा",
+          "te": "పెద్దది"
+        },
+        "finishedWidthCm": 51,
+        "finishedHeightCm": 90,
+        "finishedDimensions": {
+          "widthCm": 51,
+          "heightCm": 90
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "kurti_front",
+            "name": "Kurti Front Panel",
+            "names": {
+              "en": "Kurti Front Panel",
+              "hi": "कुर्ती सामने का भाग",
+              "te": "కుర్తీ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 51,
+            "height": 90,
+            "cutWidth": 53,
+            "cutHeight": 92,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 51,
+              "finishedHeightCm": 90,
+              "finishedAreaCm2": 4590,
+              "cutWidthCm": 53,
+              "cutHeightCm": 92
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "kurti_back",
+            "name": "Kurti Back Panel",
+            "names": {
+              "en": "Kurti Back Panel",
+              "hi": "कुर्ती पीछे का भाग",
+              "te": "కుర్తీ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 51,
+            "height": 90,
+            "cutWidth": 53,
+            "cutHeight": 92,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 51,
+              "finishedHeightCm": 90,
+              "finishedAreaCm2": 4590,
+              "cutWidthCm": 53,
+              "cutHeightCm": 92
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "kurti_slit_trim",
+            "name": "Side Slit Binding",
+            "names": {
+              "en": "Side Slit Binding",
+              "hi": "साइड कट पट्टी",
+              "te": "సైడ్ స్లిట్ పట్టీ"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 50,
+            "cutWidth": 8,
+            "cutHeight": 52,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 50,
+              "finishedAreaCm2": 300,
+              "cutWidthCm": 8,
+              "cutHeightCm": 52
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "kurti_front",
+            "name": "Kurti Front Panel",
+            "names": {
+              "en": "Kurti Front Panel",
+              "hi": "कुर्ती सामने का भाग",
+              "te": "కుర్తీ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 51,
+            "height": 90,
+            "cutWidth": 53,
+            "cutHeight": 92,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 51,
+              "finishedHeightCm": 90,
+              "finishedAreaCm2": 4590,
+              "cutWidthCm": 53,
+              "cutHeightCm": 92
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "kurti_back",
+            "name": "Kurti Back Panel",
+            "names": {
+              "en": "Kurti Back Panel",
+              "hi": "कुर्ती पीछे का भाग",
+              "te": "కుర్తీ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 51,
+            "height": 90,
+            "cutWidth": 53,
+            "cutHeight": 92,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 51,
+              "finishedHeightCm": 90,
+              "finishedAreaCm2": 4590,
+              "cutWidthCm": 53,
+              "cutHeightCm": 92
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "kurti_slit_trim",
+            "name": "Side Slit Binding",
+            "names": {
+              "en": "Side Slit Binding",
+              "hi": "साइड कट पट्टी",
+              "te": "సైడ్ స్లిట్ పట్టీ"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 50,
+            "cutWidth": 8,
+            "cutHeight": 52,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 50,
+              "finishedAreaCm2": 300,
+              "cutWidthCm": 8,
+              "cutHeightCm": 52
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      }
+    }
+  },
+  "girls_dress": {
+    "schemaVersion": "1.0.0",
+    "id": "girls_dress",
+    "name": "Girls A-Line Frock",
+    "names": {
+      "en": "Girls A-Line Frock",
+      "hi": "लड़कियों की फ्रॉक",
+      "te": "అమ్మాయిల ఫ్రాక్"
+    },
+    "category": "garments",
+    "construction": "flat",
+    "silhouette": null,
+    "description": "Comfortable everyday flared dress with fitted bodice and flowing gathered skirt panels.",
+    "defaultVariant": "plain",
+    "tailorVerified": false,
+    "disclaimer": "All pattern measurements are rectangle-based approximations for scrap cutting and must be verified by a professional tailor before final cutting.",
+    "materials": [
+      {
+        "name": "Cotton print scraps",
+        "qty": "Approx 50x80 cm total area",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Elastic or back buttons",
+        "qty": "2 units",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Matching sewing thread",
+        "qty": "1 spool",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      }
+    ],
+    "timeEstimateFormula": null,
+    "stitchingSteps": [],
+    "sizes": {
+      "small": {
+        "label": "Child 3–4 Yrs (Chest 54 cm, Length 55 cm)",
+        "names": {
+          "en": "Small",
+          "hi": "छोटा",
+          "te": "చిన్నది"
+        },
+        "finishedWidthCm": 32,
+        "finishedHeightCm": 55,
+        "finishedDimensions": {
+          "widthCm": 32,
+          "heightCm": 55
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "dress_bodice",
+            "name": "Dress Bodice",
+            "names": {
+              "en": "Dress Bodice",
+              "hi": "फ्रॉक चोली",
+              "te": "ఫ్రాక్ బాడీస్"
+            },
+            "role": "base",
+            "width": 32,
+            "height": 20,
+            "cutWidth": 34,
+            "cutHeight": 22,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 32,
+              "finishedHeightCm": 20,
+              "finishedAreaCm2": 640,
+              "cutWidthCm": 34,
+              "cutHeightCm": 22
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "dress_skirt",
+            "name": "Dress Gathered Skirt",
+            "names": {
+              "en": "Dress Gathered Skirt",
+              "hi": "फ्रॉक घेर",
+              "te": "ఫ్రాక్ గేరు"
+            },
+            "role": "supporting",
+            "width": 48,
+            "height": 35,
+            "cutWidth": 50,
+            "cutHeight": 37,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 48,
+              "finishedHeightCm": 35,
+              "finishedAreaCm2": 1680,
+              "cutWidthCm": 50,
+              "cutHeightCm": 37
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "dress_bodice",
+            "name": "Dress Bodice",
+            "names": {
+              "en": "Dress Bodice",
+              "hi": "फ्रॉक चोली",
+              "te": "ఫ్రాక్ బాడీస్"
+            },
+            "role": "base",
+            "width": 32,
+            "height": 20,
+            "cutWidth": 34,
+            "cutHeight": 22,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 32,
+              "finishedHeightCm": 20,
+              "finishedAreaCm2": 640,
+              "cutWidthCm": 34,
+              "cutHeightCm": 22
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "dress_skirt",
+            "name": "Dress Gathered Skirt",
+            "names": {
+              "en": "Dress Gathered Skirt",
+              "hi": "फ्रॉक घेर",
+              "te": "ఫ్రాక్ గేరు"
+            },
+            "role": "supporting",
+            "width": 48,
+            "height": 35,
+            "cutWidth": 50,
+            "cutHeight": 37,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 48,
+              "finishedHeightCm": 35,
+              "finishedAreaCm2": 1680,
+              "cutWidthCm": 50,
+              "cutHeightCm": 37
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "medium": {
+        "label": "Child 5–6 Yrs (Chest 58 cm, Length 65 cm)",
+        "names": {
+          "en": "Medium",
+          "hi": "मध्यम",
+          "te": "మధ్యస్థం"
+        },
+        "finishedWidthCm": 35,
+        "finishedHeightCm": 65,
+        "finishedDimensions": {
+          "widthCm": 35,
+          "heightCm": 65
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "dress_bodice",
+            "name": "Dress Bodice",
+            "names": {
+              "en": "Dress Bodice",
+              "hi": "फ्रॉक चोली",
+              "te": "ఫ్రాక్ బాడీస్"
+            },
+            "role": "base",
+            "width": 35,
+            "height": 24,
+            "cutWidth": 37,
+            "cutHeight": 26,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 35,
+              "finishedHeightCm": 24,
+              "finishedAreaCm2": 840,
+              "cutWidthCm": 37,
+              "cutHeightCm": 26
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "dress_skirt",
+            "name": "Dress Gathered Skirt",
+            "names": {
+              "en": "Dress Gathered Skirt",
+              "hi": "फ्रॉक घेर",
+              "te": "ఫ్రాక్ గేరు"
+            },
+            "role": "supporting",
+            "width": 54,
+            "height": 41,
+            "cutWidth": 56,
+            "cutHeight": 43,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 54,
+              "finishedHeightCm": 41,
+              "finishedAreaCm2": 2214,
+              "cutWidthCm": 56,
+              "cutHeightCm": 43
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "dress_bodice",
+            "name": "Dress Bodice",
+            "names": {
+              "en": "Dress Bodice",
+              "hi": "फ्रॉक चोली",
+              "te": "ఫ్రాక్ బాడీస్"
+            },
+            "role": "base",
+            "width": 35,
+            "height": 24,
+            "cutWidth": 37,
+            "cutHeight": 26,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 35,
+              "finishedHeightCm": 24,
+              "finishedAreaCm2": 840,
+              "cutWidthCm": 37,
+              "cutHeightCm": 26
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "dress_skirt",
+            "name": "Dress Gathered Skirt",
+            "names": {
+              "en": "Dress Gathered Skirt",
+              "hi": "फ्रॉक घेर",
+              "te": "ఫ్రాక్ గేరు"
+            },
+            "role": "supporting",
+            "width": 54,
+            "height": 41,
+            "cutWidth": 56,
+            "cutHeight": 43,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 54,
+              "finishedHeightCm": 41,
+              "finishedAreaCm2": 2214,
+              "cutWidthCm": 56,
+              "cutHeightCm": 43
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "large": {
+        "label": "Child 7–8 Yrs (Chest 64 cm, Length 75 cm)",
+        "names": {
+          "en": "Large",
+          "hi": "बड़ा",
+          "te": "పెద్దది"
+        },
+        "finishedWidthCm": 38,
+        "finishedHeightCm": 75,
+        "finishedDimensions": {
+          "widthCm": 38,
+          "heightCm": 75
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "dress_bodice",
+            "name": "Dress Bodice",
+            "names": {
+              "en": "Dress Bodice",
+              "hi": "फ्रॉक चोली",
+              "te": "ఫ్రాక్ బాడీస్"
+            },
+            "role": "base",
+            "width": 38,
+            "height": 28,
+            "cutWidth": 40,
+            "cutHeight": 30,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 38,
+              "finishedHeightCm": 28,
+              "finishedAreaCm2": 1064,
+              "cutWidthCm": 40,
+              "cutHeightCm": 30
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "dress_skirt",
+            "name": "Dress Gathered Skirt",
+            "names": {
+              "en": "Dress Gathered Skirt",
+              "hi": "फ्रॉक घेर",
+              "te": "ఫ్రాక్ గేరు"
+            },
+            "role": "supporting",
+            "width": 60,
+            "height": 47,
+            "cutWidth": 62,
+            "cutHeight": 49,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 60,
+              "finishedHeightCm": 47,
+              "finishedAreaCm2": 2820,
+              "cutWidthCm": 62,
+              "cutHeightCm": 49
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "dress_bodice",
+            "name": "Dress Bodice",
+            "names": {
+              "en": "Dress Bodice",
+              "hi": "फ्रॉक चोली",
+              "te": "ఫ్రాక్ బాడీస్"
+            },
+            "role": "base",
+            "width": 38,
+            "height": 28,
+            "cutWidth": 40,
+            "cutHeight": 30,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 38,
+              "finishedHeightCm": 28,
+              "finishedAreaCm2": 1064,
+              "cutWidthCm": 40,
+              "cutHeightCm": 30
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "dress_skirt",
+            "name": "Dress Gathered Skirt",
+            "names": {
+              "en": "Dress Gathered Skirt",
+              "hi": "फ्रॉक घेर",
+              "te": "ఫ్రాక్ గేరు"
+            },
+            "role": "supporting",
+            "width": 60,
+            "height": 47,
+            "cutWidth": 62,
+            "cutHeight": 49,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 60,
+              "finishedHeightCm": 47,
+              "finishedAreaCm2": 2820,
+              "cutWidthCm": 62,
+              "cutHeightCm": 49
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      }
+    }
   }
 };
 

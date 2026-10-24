@@ -687,10 +687,10 @@ assert(
 // ---------------------------------------------------------------------------
 console.log('\n--- 7. Category Tabs Coverage Verification ---');
 
-const CATEGORY_TABS = ['bags', 'home', 'kids'];
+const CATEGORY_TABS = ['bags', 'home', 'kids', 'garments'];
 const registeredProductIds = Object.keys(PRODUCT_TEMPLATES);
 
-// 1. Every registered product must have a category matching one of the 3 tabs
+// 1. Every registered product must have a category matching one of the tabs
 registeredProductIds.forEach((prodId) => {
   const prod = PRODUCT_TEMPLATES[prodId];
   const hasCategory = Boolean(prod.category);
@@ -715,6 +715,7 @@ registeredProductIds.forEach((prodId) => {
 const bagsProducts = registeredProductIds.filter((id) => PRODUCT_TEMPLATES[id].category === 'bags');
 const homeProducts = registeredProductIds.filter((id) => PRODUCT_TEMPLATES[id].category === 'home');
 const kidsProducts = registeredProductIds.filter((id) => PRODUCT_TEMPLATES[id].category === 'kids');
+const garmentsProducts = registeredProductIds.filter((id) => PRODUCT_TEMPLATES[id].category === 'garments');
 
 assert(
   bagsProducts.includes('drawstring_bag') &&
@@ -732,6 +733,11 @@ assert(
 assert(
   kidsProducts.includes('sandy_skirt') && kidsProducts.includes('aaron_tank'),
   'Kids tab includes custom products (sandy_skirt, aaron_tank)'
+);
+
+assert(
+  garmentsProducts.includes('kurti') && garmentsProducts.includes('girls_dress'),
+  'Garments tab includes custom products (kurti, girls_dress)'
 );
 
 // ---------------------------------------------------------------------------

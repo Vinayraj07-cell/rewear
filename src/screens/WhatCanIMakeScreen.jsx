@@ -217,12 +217,13 @@ export default function WhatCanIMakeScreen({
           <span className="text-[10px] font-bold uppercase tracking-wider text-stone-500 block mb-1.5">
             {t.filterCategoryTitle || 'Category'}
           </span>
-          <div className="grid grid-cols-4 gap-1.5 text-xs">
+          <div className="grid grid-cols-5 gap-1.5 text-xs">
             {[
               { id: 'all', label: t.tabAll },
               { id: 'bags', label: t.tabBags },
               { id: 'home', label: t.tabHome },
               { id: 'kids', label: t.tabKids },
+              { id: 'garments', label: t.tabGarments || 'Clothes' },
             ].map((tab) => (
               <button
                 key={tab.id}

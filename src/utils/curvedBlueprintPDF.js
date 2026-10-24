@@ -26,6 +26,7 @@ import TimesBold from 'pdfkit/standard-fonts/TimesBold';
 import SymbolFont from 'pdfkit/standard-fonts/Symbol';
 import ZapfDingbats from 'pdfkit/standard-fonts/ZapfDingbats';
 import { buildDesign } from '../engine/index.js';
+import { PRODUCT_TEMPLATES } from '../engine/templates.js';
 import { computeProduct2DLayout } from './product2DLayout.js';
 import {
   buildTailorBlueprint,
@@ -944,7 +945,30 @@ export function getRectangularGarmentPieceList(productId, sizeKey, pile = null) 
   const activePile = pile && pile.length > 0 ? pile : SAMPLE_TEST_PILE;
   const design = buildDesign(activePile, productId, sizeKey);
   const bp = buildTailorBlueprint(design);
-  const rawPieces = bp.pieces || [];
+  const rawPieces = (bp.pieces && bp.pieces.length > 0) ? [...bp.pieces] : [];
+  if (rawPieces.length === 0) {
+    const tmpl = PRODUCT_TEMPLATES[productId];
+    const sizeSpec = tmpl?.sizes?.[sizeKey] || Object.values(tmpl?.sizes || {})[0];
+    const zones = sizeSpec?.zones || sizeSpec?.pieces || [];
+    for (let i = 0; i < zones.length; i++) {
+      const z = zones[i];
+      const saCm = typeof z.seamAllowanceCm === 'object' ? (z.seamAllowanceCm.defaultCm || 1.0) : (z.seamAllowanceCm || 1.0);
+      const finishedW = Number((z.finishedWidth || z.width || 20).toFixed(1));
+      const finishedH = Number((z.finishedHeight || z.height || 20).toFixed(1));
+      const cutW = Number((z.cutWidth || (finishedW + 2 * saCm)).toFixed(1));
+      const cutH = Number((z.cutHeight || (finishedH + 2 * saCm)).toFixed(1));
+      rawPieces.push({
+        zoneId: z.id,
+        name: z.name || z.id,
+        pieceNumber: i + 1,
+        cutWidth: cutW,
+        cutHeight: cutH,
+        finishedWidth: finishedW,
+        finishedHeight: finishedH,
+        seamAllowanceCm: saCm,
+      });
+    }
+  }
 
   const grouped = new Map();
   for (const pc of rawPieces) {
