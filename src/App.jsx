@@ -312,8 +312,8 @@ export default function App() {
     screenTitle = 'Tailor Blueprint';
     speakText = `Tailor Blueprint. ${selectedDesign ? selectedDesign.productName : ''}. Measurements to be verified by a tailor.`;
   } else if (activeTab === '3d_spike') {
-    screenTitle = '3D Preview (Spike)';
-    speakText = '3D Texture Mapped Preview Spike. Generic cushion model. Measurements to be verified by a tailor.';
+    screenTitle = '3D Look';
+    speakText = '3D Look. Illustrative preview, not exact fit.';
   }
 
   // Open context help

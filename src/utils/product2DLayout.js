@@ -2583,10 +2583,15 @@ export function drawDesignToCanvas(canvas, design, view = 'front') {
   let vbW = 50;
   let vbH = 50;
   if (layout.viewBox) {
-    const parts = layout.viewBox.split(' ').map(Number);
-    if (parts.length === 4 && parts[2] > 0 && parts[3] > 0) {
-      vbW = parts[2];
-      vbH = parts[3];
+    if (typeof layout.viewBox === 'string') {
+      const parts = layout.viewBox.split(' ').map(Number);
+      if (parts.length === 4 && parts[2] > 0 && parts[3] > 0) {
+        vbW = parts[2];
+        vbH = parts[3];
+      }
+    } else if (typeof layout.viewBox === 'object') {
+      vbW = layout.viewBox.width || 50;
+      vbH = layout.viewBox.height || 50;
     }
   }
 

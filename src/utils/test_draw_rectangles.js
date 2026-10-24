@@ -6,7 +6,7 @@
 // 3. Valid rectangle coordinates for 3D texture mapping (tote_bag, cushion_cover, pouch)
 
 import assert from 'node:assert';
-import { getProductDrawRectangles } from './product2DLayout.js';
+import { getProductDrawRectangles, drawDesignToCanvas } from './product2DLayout.js';
 
 let passedCount = 0;
 function pass(msg) {
@@ -145,6 +145,35 @@ assert.deepStrictEqual(getProductDrawRectangles(null), []);
 assert.deepStrictEqual(getProductDrawRectangles({}), []);
 assert.deepStrictEqual(getProductDrawRectangles({ productId: 'unknown_item' }), []);
 pass('Null or invalid designs safely return empty array without exceptions');
+
+// 6. drawDesignToCanvas execution (verifies viewBox string/object handling on canvas)
+console.log('\n--- 6. drawDesignToCanvas Canvas Context Execution ---');
+const createMockCanvas = () => ({
+  width: 512,
+  height: 512,
+  getContext: () => ({
+    fillStyle: '',
+    strokeStyle: '',
+    lineWidth: 1,
+    clearRect: () => {},
+    fillRect: () => {},
+    strokeRect: () => {},
+    beginPath: () => {},
+    moveTo: () => {},
+    lineTo: () => {},
+    stroke: () => {},
+    setLineDash: () => {},
+    createLinearGradient: () => ({ addColorStop: () => {} }),
+  }),
+});
+
+for (const d of [designToteA, designCushion, designPouch]) {
+  const cFront = createMockCanvas();
+  assert.doesNotThrow(() => drawDesignToCanvas(cFront, d, 'front'), `drawDesignToCanvas front threw on ${d.productId}`);
+  const cBack = createMockCanvas();
+  assert.doesNotThrow(() => drawDesignToCanvas(cBack, d, 'back'), `drawDesignToCanvas back threw on ${d.productId}`);
+}
+pass('drawDesignToCanvas executes cleanly for front & back on tote, cushion, and pouch');
 
 console.log('\n====================================================');
 console.log(`🎉 ALL ${passedCount} DRAW RECTANGLES TESTS PASSED PERFECTLY!`);
