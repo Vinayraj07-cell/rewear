@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  Layers, 
-  Sparkles, 
+Sparkles, 
   AlertTriangle, 
   CheckCircle2, 
   Trash2, 
@@ -9,31 +8,25 @@ import {
   Edit3, 
   PlusCircle, 
   EyeOff, 
-  Eye, 
-  Check, 
+Check, 
   ArrowRight,
   ShieldAlert,
-  Sliders,
-  Volume2,
+Volume2,
   Scissors,
   Plus,
   Minus,
-  RefreshCw,
-  X,
+X,
   Camera,
-  Upload,
-  Loader2
+Loader2
 } from 'lucide-react';
 import { COLOR_SWATCHES, FABRIC_TYPES } from '../i18n/translations';
 import { calculateArea } from '../utils/storage';
 import { soundManager } from '../utils/audio';
 import { 
   SIZE_PRESETS, 
-  SAMPLE_PILES, 
-  validateQuantity, 
+validateQuantity, 
   validateDimensions, 
-  createScrapItem,
-  countPiecesTooSmallAfterMargin,
+countPiecesTooSmallAfterMargin,
 } from '../utils/pileHelpers';
 import { clearAiPreviewDataAndResetLimit } from '../utils/aiPreviewService';
 import { getAiProductSuggestion } from '../utils/aiSuggestionService';
@@ -900,9 +893,7 @@ export default function MyPileScreen({
             <div className="space-y-2">
               {groupPieces.map((piece) => {
                 const colorObj = COLOR_SWATCHES.find((c) => c.id === piece.color) || COLOR_SWATCHES[0];
-                const areaInfo = calculateArea(piece);
-
-                return (
+return (
                   <div
                     key={piece.id}
                     className={`bg-white rounded-2xl p-3.5 border transition-all shadow-xs flex items-center justify-between ${
@@ -1168,7 +1159,7 @@ export default function MyPileScreen({
                   <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100/70 px-2 py-0.5 rounded-md inline-block">
                     Tailor Recommendation
                   </span>
-                  <p className="text-xs text-stone-800 leading-relaxed font-medium">
+                  <p className="text-xs text-stone-800 leading-relaxed font-medium break-words overflow-hidden">
                     {visionSuggestion.suggestion}
                   </p>
                 </div>
@@ -1246,7 +1237,7 @@ export default function MyPileScreen({
                   {aiSuggestion.productName}
                 </span>
               </div>
-              <p className="text-xs text-stone-700 leading-snug">
+              <p className="text-xs text-stone-700 leading-snug break-words overflow-hidden">
                 {aiSuggestion.reason}
               </p>
             </div>

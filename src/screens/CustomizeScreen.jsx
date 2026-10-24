@@ -18,7 +18,7 @@ import {
   Move,
   ArrowLeftRight
 } from 'lucide-react';
-import { fitPileToProduct, checkFeasibility, buildDesign } from '../engine/index';
+import { fitPileToProduct, buildDesign } from '../engine/index';
 import { soundManager } from '../utils/audio';
 import { COLOR_SWATCHES } from '../i18n/translations';
 import { getZoneDimensions, getTranslatedZoneName } from '../utils/zoneHelper.js';

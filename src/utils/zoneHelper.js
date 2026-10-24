@@ -5,7 +5,7 @@
  * and translations for products, sizes, and pattern zones across English, Telugu, and Hindi.
  */
 
-import { PRODUCT_TEMPLATES, getProductRequirements } from '../engine/templates.js';
+import { PRODUCT_TEMPLATES } from '../engine/templates.js';
 import { translations } from '../i18n/translations.js';
 
 /**
@@ -31,7 +31,7 @@ export function getZoneDimensions(productId, sizeKey, zoneId, placement = {}, va
         height = match.height;
       }
     }
-  } catch (e) {
+  } catch {
     // Fallback to placement
   }
 

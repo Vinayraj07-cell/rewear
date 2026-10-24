@@ -11,11 +11,19 @@ export default function FabricNumbersCard({
   t,
   compact = false,
 }) {
+  // Safe numeric casting to prevent any NaN rendering
+  const safeUsedInSeams = Math.round(Number(fabricUsedInSeamsCm2) || 0);
+  const safeTooSmallArea = Math.round(Number(fabricTooSmallToReuseCm2) || 0);
+  const safeFrayedLoss = Math.round(Number(fabricLostToFrayedEdgesCm2) || 0);
+  const safeLeftoversCount = Number(reusableLeftoversCount) || 0;
+  const safeTotalArea = Number(totalAreaCm2) || 0;
+
   // Compute percentage of fabric too small to reuse (if total area is available)
-  let tooSmallPercent = wastePercentage;
-  if (totalAreaCm2 > 0 && fabricTooSmallToReuseCm2 > 0) {
-    tooSmallPercent = Math.round((fabricTooSmallToReuseCm2 / totalAreaCm2) * 100);
+  let tooSmallPercent = Number(wastePercentage) || 0;
+  if (safeTotalArea > 0 && safeTooSmallArea > 0) {
+    tooSmallPercent = Math.round((safeTooSmallArea / safeTotalArea) * 100);
   }
+  if (isNaN(tooSmallPercent)) tooSmallPercent = 0;
 
   const hasFrayedLoss = fabricLostToFrayedEdgesCm2 > 0;
 
@@ -35,7 +43,7 @@ export default function FabricNumbersCard({
             {t.fabricUsedInSeams || 'Fabric used in seams'}:
           </span>
           <span className="text-base font-black text-amber-700 mt-1 block">
-            {Math.round(fabricUsedInSeamsCm2)} cm²
+            {safeUsedInSeams} cm²
           </span>
         </div>
 
@@ -45,7 +53,7 @@ export default function FabricNumbersCard({
             {t.fabricTooSmallToReuse || 'Fabric too small to reuse'}:
           </span>
           <span className="text-base font-black text-stone-700 mt-1 block">
-            {tooSmallPercent}% <span className="text-xs font-normal text-stone-400">({Math.round(fabricTooSmallToReuseCm2)} cm²)</span>
+            {tooSmallPercent}% <span className="text-xs font-normal text-stone-400">({safeTooSmallArea} cm²)</span>
           </span>
         </div>
 
@@ -56,7 +64,7 @@ export default function FabricNumbersCard({
               {t.lostToFrayedEdges || 'Lost to frayed edges'}:
             </span>
             <span className="text-base font-black text-rose-700 mt-1 block">
-              {Math.round(fabricLostToFrayedEdgesCm2)} cm²
+              {safeFrayedLoss} cm²
             </span>
           </div>
         )}
@@ -67,7 +75,7 @@ export default function FabricNumbersCard({
             {t.leftoversKeptForNextTime || 'Leftover pieces kept for next time'}:
           </span>
           <span className="text-base font-black text-emerald-700 mt-1 block">
-            {reusableLeftoversCount} {t.piecesCountLabel || 'pieces'}
+            {safeLeftoversCount} {t.piecesCountLabel || 'pieces'}
           </span>
         </div>
       </div>

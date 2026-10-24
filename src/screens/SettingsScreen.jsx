@@ -13,9 +13,7 @@ import {
   User, 
   Store, 
   Phone, 
-  Languages, 
-  Sparkles,
-  X 
+  Languages 
 } from 'lucide-react';
 import { 
   loadProfile, 
@@ -31,7 +29,6 @@ export default function SettingsScreen({
   onBack,
   lang = 'en',
   setLang,
-  t = {},
 }) {
   const [profile, setProfileState] = useState(() => currentProfile || loadProfile() || {
     name: '',

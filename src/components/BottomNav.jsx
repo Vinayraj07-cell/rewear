@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, PlusCircle, Layers, Sparkles, BookOpen, Scissors } from 'lucide-react';
+import { Home, PlusCircle, Layers, BookOpen, Scissors } from 'lucide-react';
 
 export default function BottomNav({ activeTab, setActiveTab, t, pileCount }) {
   const tabs = [

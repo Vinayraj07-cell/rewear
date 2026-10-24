@@ -45,7 +45,6 @@ export default function WalkthroughModal({ isOpen, onClose, t, lang }) {
   if (!isOpen) return null;
 
   const current = steps[step];
-  const Icon = current.icon;
 
   const handleSpeak = () => {
     soundManager.speak(`${current.title}. ${current.desc}`, lang);

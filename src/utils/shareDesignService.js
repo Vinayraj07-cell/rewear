@@ -55,12 +55,14 @@ export function renderDesignCardCanvas({
 
   ctx.fillStyle = '#a7f3d0';
   ctx.font = '18px sans-serif';
-  ctx.fillText(shopName, 520, 110);
+  const safeShopName = shopName.length > 22 ? shopName.slice(0, 20) + "…" : shopName;
+  ctx.fillText(safeShopName, 520, 110);
 
   // Product Name & Size
   ctx.fillStyle = '#1c1917';
   ctx.font = 'bold 44px sans-serif';
-  ctx.fillText(productName, 60, 210);
+  const safeProductName = productName.length > 24 ? productName.slice(0, 22) + "…" : productName;
+  ctx.fillText(safeProductName, 60, 210);
 
   ctx.fillStyle = '#059669';
   ctx.font = 'bold 24px sans-serif';

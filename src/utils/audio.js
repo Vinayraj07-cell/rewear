@@ -122,7 +122,7 @@ export class SoundManager {
         const AudioCtx = window.AudioContext || window.webkitAudioContext;
         if (AudioCtx) {
           const ctx = new AudioCtx();
-          ctx.resume().then(() => ctx.close());
+          ctx.resume().then(() => ctx.close()).catch(() => {});
         }
       } catch {
         // Ignore

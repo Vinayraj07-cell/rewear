@@ -44,7 +44,7 @@ export default function InstallModal({
   if (!isOpen) return null;
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(mobileUrl);
+    if (navigator.clipboard?.writeText) { navigator.clipboard.writeText(mobileUrl).catch(() => {}); }
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };

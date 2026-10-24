@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Sparkles, Scissors, Flame, CheckCircle, Volume2 } from 'lucide-react';
+import { Volume2 } from 'lucide-react';
 import { soundManager } from '../utils/audio';
 
 export default function StitchingGuidesScreen({ t, lang }) {

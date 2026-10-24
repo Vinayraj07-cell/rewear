@@ -69,8 +69,26 @@ export default function InspirationStrip({ design, lang = 'en', t = {} }) {
     });
   }, [manifest, productId, scrapColours]);
 
+    
+  
   if (!inspirationItems || inspirationItems.length === 0) {
-    return null;
+    const emptyNotice = {
+      en: 'Gallery samples are loading or currently offline. You can still design and cut your product using the 2D plan above!',
+      hi: 'गैलरी के नमूने लोड हो रहे हैं या ऑफ़लाइन हैं। आप ऊपर दिए गए 2D प्लान से अपना उत्पाद बना सकते हैं!',
+      te: 'గ్యాలరీ నమూనాలు లోడ్ అవుతున్నాయి లేదా ఆఫ్‌లైన్‌లో ఉన్నాయి. పైన ఉన్న 2D ప్లాన్‌తో మీ ఉత్పత్తిని రూపొందించవచ్చు!',
+    }[lang] || 'Gallery samples are loading or currently offline. You can still design and cut your product using the 2D plan above!';
+
+    return (
+      <div className="bg-stone-50/80 rounded-3xl p-4 border border-dashed border-stone-200 text-center space-y-1.5 shadow-2xs">
+        <div className="flex items-center justify-center gap-1.5 text-stone-600 text-xs font-bold uppercase tracking-wider">
+          <Sparkles className="w-4 h-4 text-amber-500" />
+          <span>{sectionTitle}</span>
+        </div>
+        <p className="text-[11px] text-stone-500 max-w-xs mx-auto leading-relaxed">
+          {emptyNotice}
+        </p>
+      </div>
+    );
   }
 
   const sectionTitle = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, Volume2, Globe } from 'lucide-react';
+import { Check, Volume2 } from 'lucide-react';
 import { soundManager } from '../utils/audio';
 
 export default function LanguageScreen({ currentLang, onSelectLang, onContinue, t }) {

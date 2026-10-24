@@ -6,8 +6,7 @@ import {
   VolumeX, 
   Layers, 
   Palette, 
-  Sliders, 
-  CheckCircle2, 
+CheckCircle2, 
   Maximize2, 
   Scissors, 
   Sparkles,
@@ -21,7 +20,6 @@ import {
   Share2
 } from 'lucide-react';
 import FabricNumbersCard from '../components/FabricNumbersCard';
-import ProductVisual from '../components/ProductVisual';
 import Product2DPreview from '../components/Product2DPreview';
 import InspirationStrip from '../components/InspirationStrip';
 import AiPhotoPreviewModal from '../components/AiPhotoPreviewModal';
@@ -136,8 +134,7 @@ export default function DesignViewScreen({
     if (design.productId === 'child_top' && pile && pile.length > 0) {
       const seamAllowanceCm = design.seamAllowanceCm || 1.0;
       const fitResult = fitPileToProduct(pile, 'child_top', design.sizeKey, seamAllowanceCm, { variant: variantToggle });
-      const template = PRODUCT_TEMPLATES.child_top;
-      const hasFraying = pile.some((p) => p.frays !== false);
+const hasFraying = pile.some((p) => p.frays !== false);
       const designScore = calculateDesignScore(fitResult);
       const estimatedTimeMinutes = calculateEstimatedTime('child_top', fitResult.totalExtraSeams, hasFraying);
       const scrapsCount = fitResult.placements.reduce((sum, p) => sum + (p.scraps ? p.scraps.length : 0), 0);
@@ -565,7 +562,7 @@ export default function DesignViewScreen({
         </div>
 
         <div className="space-y-3">
-          {design.placements?.map((placement, index) => {
+          {design.placements?.map((placement) => {
             const isPieced = placement.patchCount > 1;
             const currentPattern = perPartPatterns[placement.zoneId] || globalPattern;
             const dims = getZoneDimensions(design.productId, design.sizeKey, placement.zoneId, placement, design.variant);

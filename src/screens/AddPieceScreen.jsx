@@ -5,13 +5,8 @@ import {
   Plus, 
   Minus, 
   Check, 
-  Sparkles, 
   AlertCircle, 
-  Copy, 
-  ArrowRight,
-  Maximize2,
-  SlidersHorizontal,
-  Info
+  Maximize2 
 } from 'lucide-react';
 import { COLOR_SWATCHES, FABRIC_TYPES } from '../i18n/translations';
 
@@ -42,7 +37,6 @@ export default function AddPieceScreen({
   const usableHeight = isIrregular ? Math.round(height * 0.82) : height;
   const rawArea = width * height * quantity;
   const usableArea = usableWidth * usableHeight * quantity;
-  const wasteTrim = isIrregular ? rawArea - usableArea : 0;
 
   const currentColorObj = COLOR_SWATCHES.find((c) => c.id === color) || COLOR_SWATCHES[0];
   const currentFabricObj = FABRIC_TYPES.find((f) => f.id === fabricType) || FABRIC_TYPES[0];
