@@ -2529,6 +2529,287 @@ function computeChildTopLayout(design, sizeTemplate, placements, view) {
  * - Two identical design calls return identical rectangles.
  * - Two different design calls return different rectangles.
  */
+
+export function computeSandySkirtLayout(design, sizeTemplate, placements = [], view = 'front') {
+  const isHybrid = (design.variant || 'hybrid') !== 'patchwork';
+  const width = 340;
+  const height = 260;
+  const viewBox = `0 0 ${width} ${height}`;
+
+  const wbX = 100;
+  const wbY = 24;
+  const wbW = 140;
+  const wbH = 22;
+  const wbPath = `M ${wbX} ${wbY + 6} Q ${wbX + wbW / 2} ${wbY} ${wbX + wbW} ${wbY + 6} L ${wbX + wbW} ${wbY + wbH} Q ${wbX + wbW / 2} ${wbY + wbH - 6} ${wbX} ${wbY + wbH} Z`;
+
+  const skirtTopL = { x: wbX + 2, y: wbY + wbH };
+  const skirtTopR = { x: wbX + wbW - 2, y: wbY + wbH };
+  const skirtHemL = { x: 30, y: height - 25 };
+  const skirtHemR = { x: width - 30, y: height - 25 };
+  const skirtCenterBottomY = height - 12;
+
+  const skirtPath = `M ${skirtTopL.x} ${skirtTopL.y} Q ${wbX + wbW / 2} ${wbY + wbH - 4} ${skirtTopR.x} ${skirtTopR.y} C ${skirtTopR.x + 35} ${skirtTopR.y + 70} ${skirtHemR.x + 10} ${skirtHemR.y - 40} ${skirtHemR.x} ${skirtHemR.y} Q ${width / 2} ${skirtCenterBottomY} ${skirtHemL.x} ${skirtHemL.y} C ${skirtHemL.x - 10} ${skirtHemL.y - 40} ${skirtTopL.x - 35} ${skirtTopL.y + 70} ${skirtTopL.x} ${skirtTopL.y} Z`;
+
+  const wbPlacement = findPlacement(placements, 'waistband') || findPlacement(placements, 'waistband_strip') || placements[0];
+  const wbColor = design.plainBase?.color || wbPlacement?.color || 'beige';
+  const wbHex = getHexForColor(wbColor, '#D6C0A4');
+
+  const gorePlacements = placements.filter((p) => (p.zoneId || '').includes('gore'));
+  const bodyPlacement = gorePlacements.length > 0 ? gorePlacements[0] : placements[0];
+  const bodyColor = bodyPlacement?.color || 'navy';
+  const bodyHex = getHexForColor(bodyColor, '#1E3A8A');
+
+  const panels = [];
+
+  panels.push({
+    id: 'waistband',
+    zoneId: 'waistband',
+    zoneName: 'Curved Waistband',
+    role: 'supporting',
+    fabricSource: isHybrid ? 'plain_base' : 'scrap',
+    isPlaced: Boolean(wbPlacement),
+    shapeType: 'curved',
+    cutOnFold: true,
+    canvasClipPathD: wbPath,
+    x: wbX,
+    y: wbY,
+    canvasX: wbX,
+    canvasY: wbY,
+    width: wbW,
+    height: wbH,
+    patches: [
+      {
+        index: 0,
+        relX: 0,
+        relY: 0,
+        canvasX: wbX,
+        canvasY: wbY,
+        width: wbW,
+        height: wbH,
+        color: wbColor,
+        colorHex: wbHex,
+        scrapId: isHybrid ? 'plain_waistband' : (wbPlacement?.scraps?.[0]?.scrapId || 'wb_scrap'),
+      },
+    ],
+    seams: [],
+  });
+
+  const bodyW = width - 60;
+  const bodyH = height - (wbY + wbH) - 10;
+  const bodyX = 30;
+  const bodyY = wbY + wbH;
+
+  const goreScraps = gorePlacements.flatMap((p) => p.scraps || []);
+  const patches = [];
+  const seams = [];
+
+  if (goreScraps.length > 0) {
+    const goreWidth = bodyW / Math.min(goreScraps.length, 8);
+    for (let i = 0; i < Math.min(goreScraps.length, 8); i++) {
+      const sc = goreScraps[i];
+      const sHex = sc.colorHex || getHexForColor(sc.color);
+      patches.push({
+        index: i,
+        relX: i * goreWidth,
+        relY: 0,
+        canvasX: bodyX + i * goreWidth,
+        canvasY: bodyY,
+        width: goreWidth,
+        height: bodyH,
+        color: sc.color || bodyColor,
+        colorHex: sHex,
+        scrapId: sc.scrapId || `gore_${i + 1}`,
+      });
+      if (i > 0) {
+        seams.push({
+          canvasX1: bodyX + i * goreWidth,
+          canvasY1: bodyY,
+          canvasX2: bodyX + i * goreWidth,
+          canvasY2: bodyY + bodyH,
+        });
+      }
+    }
+  } else {
+    patches.push({
+      index: 0,
+      relX: 0,
+      relY: 0,
+      canvasX: bodyX,
+      canvasY: bodyY,
+      width: bodyW,
+      height: bodyH,
+      color: bodyColor,
+      colorHex: bodyHex,
+      scrapId: 'skirt_body_single',
+    });
+  }
+
+  panels.push({
+    id: 'skirt_body',
+    zoneId: 'skirt_gores',
+    zoneName: 'Curved Flared Skirt Gores',
+    role: 'base',
+    fabricSource: 'scrap',
+    isPlaced: Boolean(bodyPlacement),
+    shapeType: 'curved',
+    cutOnFold: false,
+    canvasClipPathD: skirtPath,
+    x: bodyX,
+    y: bodyY,
+    canvasX: bodyX,
+    canvasY: bodyY,
+    width: bodyW,
+    height: bodyH,
+    patches,
+    seams,
+  });
+
+  return {
+    viewBox,
+    width,
+    height,
+    panels,
+    decorations: [
+      {
+        type: 'soft_shadow',
+        cx: width / 2,
+        cy: height - 12,
+        rx: 130,
+        ry: 12,
+        opacity: 0.18,
+      },
+    ],
+  };
+}
+
+export function computeAaronTankLayout(design, sizeTemplate, placements = [], view = 'front') {
+  const isHybrid = (design.variant || 'hybrid') !== 'patchwork';
+  const isFront = view === 'front';
+
+  const width = 280;
+  const height = 340;
+  const viewBox = `0 0 ${width} ${height}`;
+
+  const topY = 28;
+  const centerX = width / 2;
+  const neckDepth = isFront ? 75 : 45;
+  const strapInnerW = 26;
+  const strapOuterW = 54;
+  const armholeDepthY = 145;
+  const hemY = height - 32;
+  const chestHalfW = 82;
+  const hemHalfW = 76;
+
+  const tankBodicePath = `M ${centerX - strapInnerW} ${topY} Q ${centerX} ${topY + neckDepth} ${centerX + strapInnerW} ${topY} L ${centerX + strapOuterW} ${topY + 4} Q ${centerX + 62} ${topY + 70} ${centerX + chestHalfW} ${armholeDepthY} L ${centerX + hemHalfW} ${hemY} Q ${centerX} ${hemY + 8} ${centerX - hemHalfW} ${hemY} L ${centerX - chestHalfW} ${armholeDepthY} Q ${centerX - 62} ${topY + 70} ${centerX - strapOuterW} ${topY + 4} Z`;
+
+  const bodiceZoneId = isFront ? 'bodice_front' : 'bodice_back';
+  const bodicePlacement = findPlacement(placements, bodiceZoneId) || placements[0];
+  const plainColor = design.plainBase?.color || bodicePlacement?.color || 'navy';
+  const plainHex = getHexForColor(plainColor, '#1E3A8A');
+
+  const panels = [];
+  const bodiceX = centerX - chestHalfW;
+  const bodiceY = topY;
+  const bodiceW = chestHalfW * 2;
+  const bodiceH = hemY - topY + 8;
+
+  const patches = [];
+  const seams = [];
+
+  if (isHybrid) {
+    patches.push({
+      index: 0,
+      relX: 0,
+      relY: 0,
+      canvasX: bodiceX,
+      canvasY: bodiceY,
+      width: bodiceW,
+      height: bodiceH,
+      color: plainColor,
+      colorHex: plainHex,
+      scrapId: 'plain_tank_bodice',
+    });
+  } else {
+    const scraps = bodicePlacement?.scraps || [];
+    if (scraps.length > 0) {
+      const sliceH = bodiceH / Math.min(scraps.length, 5);
+      for (let i = 0; i < Math.min(scraps.length, 5); i++) {
+        const sc = scraps[i];
+        patches.push({
+          index: i,
+          relX: 0,
+          relY: i * sliceH,
+          canvasX: bodiceX,
+          canvasY: bodiceY + i * sliceH,
+          width: bodiceW,
+          height: sliceH,
+          color: sc.color || plainColor,
+          colorHex: sc.colorHex || getHexForColor(sc.color),
+          scrapId: sc.scrapId || `tank_patch_${i}`,
+        });
+        if (i > 0) {
+          seams.push({
+            canvasX1: bodiceX,
+            canvasY1: bodiceY + i * sliceH,
+            canvasX2: bodiceX + bodiceW,
+            canvasY2: bodiceY + i * sliceH,
+          });
+        }
+      }
+    } else {
+      patches.push({
+        index: 0,
+        relX: 0,
+        relY: 0,
+        canvasX: bodiceX,
+        canvasY: bodiceY,
+        width: bodiceW,
+        height: bodiceH,
+        color: plainColor,
+        colorHex: plainHex,
+        scrapId: 'tank_bodice_single',
+      });
+    }
+  }
+
+  panels.push({
+    id: bodiceZoneId,
+    zoneId: bodiceZoneId,
+    zoneName: isFront ? 'Front Tank Bodice' : 'Back Tank Bodice',
+    role: 'base',
+    fabricSource: isHybrid ? 'plain_base' : 'scrap',
+    isPlaced: Boolean(bodicePlacement),
+    shapeType: 'curved',
+    cutOnFold: true,
+    canvasClipPathD: tankBodicePath,
+    x: bodiceX,
+    y: bodiceY,
+    canvasX: bodiceX,
+    canvasY: bodiceY,
+    width: bodiceW,
+    height: bodiceH,
+    patches,
+    seams,
+  });
+
+  return {
+    viewBox,
+    width,
+    height,
+    panels,
+    decorations: [
+      {
+        type: 'soft_shadow',
+        cx: centerX,
+        cy: hemY + 14,
+        rx: hemHalfW + 10,
+        ry: 10,
+        opacity: 0.2,
+      },
+    ],
+  };
+}
+
 export function getProductDrawRectangles(design, view = 'front') {
   if (!design || !design.productId) return [];
   const layout = computeProduct2DLayout(design, view);
