@@ -153,3 +153,13 @@ ACCEPTANCE: raw outputs; wiring snippet in the merge notes.
 
 ## AMENDMENTS (Vinay adds notes here; latest wins)
 - (none yet)
+
+
+AMENDMENTS
+- (Sat night) New ORDER: C0, C6, C5, C1, C2, C7, then C3 and C4 only if time. C8 is CANCELLED unless
+  Vinay re-enables it.
+- Never run destructive git commands: git reset, git checkout ., git restore ., git clean, git stash
+  drop, git push. Never discard uncommitted work.
+- Read long files in line ranges, never replace a whole file, and re-read the changed lines after
+  every edit. If a file is over 400 lines, say so before editing it.
+- If a task fails the same check twice, stop and report.

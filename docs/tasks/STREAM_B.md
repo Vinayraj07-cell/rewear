@@ -184,3 +184,12 @@ docs/streamB_polish_checklist.md.
 
 ## AMENDMENTS (Vinay adds notes here; latest wins)
 - (none yet)
+
+AMENDMENTS
+- (Sat night) New ORDER: B0, B1, B2, B4, B3a, B3c. B3b, B3d, B3e, B3f and B5 are CANCELLED unless Vinay
+  re-enables them.
+- Never run destructive git commands: git reset, git checkout ., git restore ., git clean, git stash
+  drop, git push. Never discard uncommitted work.
+- Read long files in line ranges, never replace a whole file, and re-read the changed lines after
+  every edit. If a file is over 400 lines, say so before editing it.
+- If a task fails the same check twice, stop and report.
