@@ -15,11 +15,14 @@ import {
   Edit3,
   FileText,
   Box,
-  Camera
+  Camera,
+  Download,
+  Loader2
 } from 'lucide-react';
 import FabricNumbersCard from '../components/FabricNumbersCard';
 import ProductVisual from '../components/ProductVisual';
 import Product2DPreview from '../components/Product2DPreview';
+import InspirationStrip from '../components/InspirationStrip';
 import AiPhotoPreviewModal from '../components/AiPhotoPreviewModal';
 import { computeProduct2DLayout } from '../utils/product2DLayout';
 import { soundManager } from '../utils/audio';
@@ -57,6 +60,9 @@ export default function DesignViewScreen({
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [showAiModal, setShowAiModal] = useState(false);
   const [isOnline, setIsOnline] = useState(typeof navigator !== 'undefined' ? (navigator.onLine ?? true) : true);
+  const [isExportingPdf, setIsExportingPdf] = useState(false);
+  const [pdfExportMsg, setPdfExportMsg] = useState(null);
+  const [pdfExportErr, setPdfExportErr] = useState(null);
 
   React.useEffect(() => {
     const handleOnline = () => setIsOnline(true);
@@ -145,6 +151,37 @@ export default function DesignViewScreen({
     const text = `${design.productName}, ${design.sizeLabel}. ${zonesCount} panels arranged. ${t.designViewSub}`;
     soundManager.speak(text, lang);
     setIsSpeaking(true);
+  };
+
+
+  const handleExportPdfDirect = async () => {
+    try {
+      setIsExportingPdf(true);
+      setPdfExportErr(null);
+      setPdfExportMsg(null);
+
+      const { exportTailorBlueprintPdf } = await import('../utils/pdfExportService.js');
+      const prodId = activeDesign.productId || activeDesign.product?.id;
+      const sizeKey = activeDesign.sizeKey || activeDesign.size || 'small';
+      const pileScraps = activeDesign.pile || pile;
+
+      const result = await exportTailorBlueprintPdf({
+        productId: prodId,
+        sizeKey,
+        pile: pileScraps,
+        productName,
+      });
+
+      if (result.method === 'browser_download') {
+        setPdfExportMsg(`✓ Blueprint PDF downloaded: ${result.fileName}`);
+      } else if (result.method === 'native_share') {
+        setPdfExportMsg(`✓ Blueprint ready (${result.totalPages} pages) — saved & shared.`);
+      }
+    } catch (err) {
+      setPdfExportErr(`Export failed: ${err?.message || 'Unable to generate PDF'}`);
+    } finally {
+      setIsExportingPdf(false);
+    }
   };
 
   const handleUpdateZonePattern = (zoneId, patternId) => {
@@ -353,6 +390,13 @@ export default function DesignViewScreen({
         lang={lang}
         selectedZoneId={selectedZoneId}
         onSelectZone={setSelectedZoneId}
+      />
+
+      {/* Stage 6: Inspiration Gallery Strip */}
+      <InspirationStrip
+        design={effectiveDesign}
+        lang={lang}
+        t={t}
       />
 
       {/* Colour Roles & Harmony Legend */}
@@ -648,14 +692,47 @@ export default function DesignViewScreen({
           )}
         </button>
 
-        <button
-          type="button"
-          onClick={onOpenTailorBlueprint}
-          className="w-full py-3.5 bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs rounded-2xl shadow-md flex items-center justify-center gap-2 transition"
-        >
-          <FileText className="w-4 h-4" />
-          <span>Tailor Blueprint & Stitching Guide (PDF)</span>
-        </button>
+        {/* Direct PDF Feedback */}
+        {pdfExportMsg && (
+          <div className="p-3 bg-emerald-100 border border-emerald-300 text-emerald-950 rounded-2xl text-xs flex items-center justify-between shadow-2xs">
+            <span className="font-semibold">{pdfExportMsg}</span>
+            <button type="button" onClick={() => setPdfExportMsg(null)} className="text-emerald-800 text-xs font-bold px-1">✕</button>
+          </div>
+        )}
+        {pdfExportErr && (
+          <div className="p-3 bg-red-100 border border-red-300 text-red-950 rounded-2xl text-xs flex items-center justify-between shadow-2xs">
+            <span className="font-semibold">{pdfExportErr}</span>
+            <button type="button" onClick={() => setPdfExportErr(null)} className="text-red-800 text-xs font-bold px-1">✕</button>
+          </div>
+        )}
+
+        {/* Blueprint & PDF Export Actions */}
+        <div className="grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            onClick={onOpenTailorBlueprint}
+            className="py-3.5 px-3 bg-amber-400 hover:bg-amber-300 text-stone-950 font-black text-xs rounded-2xl shadow-md flex items-center justify-center gap-1.5 transition cursor-pointer"
+            title="View Blueprint on Screen"
+          >
+            <FileText className="w-4 h-4 shrink-0" />
+            <span className="truncate">View Blueprint</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={handleExportPdfDirect}
+            disabled={isExportingPdf}
+            className="py-3.5 px-3 bg-stone-900 hover:bg-stone-800 text-white font-black text-xs rounded-2xl shadow-md flex items-center justify-center gap-1.5 transition disabled:opacity-50 cursor-pointer"
+            title="Download Tailor Blueprint PDF"
+          >
+            {isExportingPdf ? (
+              <Loader2 className="w-4 h-4 shrink-0 animate-spin text-amber-300" />
+            ) : (
+              <Download className="w-4 h-4 shrink-0 text-amber-300" />
+            )}
+            <span className="truncate">{isExportingPdf ? 'Exporting...' : 'Download PDF'}</span>
+          </button>
+        </div>
 
         {['tote_bag', 'cushion_cover', 'pouch'].includes(design.productId || design.product?.id) && (
           <button

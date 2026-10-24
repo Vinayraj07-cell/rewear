@@ -164,7 +164,7 @@ export default function TailorBlueprintScreen({
             {isExporting ? (
               <span className="w-3.5 h-3.5 border-2 border-stone-950 border-t-transparent rounded-full animate-spin" />
             ) : (
-              <Printer className="w-3.5 h-3.5" />
+              <Download className="w-3.5 h-3.5" />
             )}
             <span>PDF</span>
           </button>
@@ -506,7 +506,7 @@ export default function TailorBlueprintScreen({
           ) : (
             <>
               <Download className="w-4 h-4" />
-              <span>Export Tailor Blueprint as PDF</span>
+              <span>Download Tailor Blueprint (PDF)</span>
             </>
           )}
         </button>

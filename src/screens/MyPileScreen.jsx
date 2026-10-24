@@ -33,6 +33,7 @@ import {
   countPiecesTooSmallAfterMargin,
 } from '../utils/pileHelpers';
 import { clearAiPreviewDataAndResetLimit } from '../utils/aiPreviewService';
+import { getAiProductSuggestion } from '../utils/aiSuggestionService';
 
 export default function MyPileScreen({ 
   pieces, 
@@ -52,6 +53,7 @@ export default function MyPileScreen({
 }) {
   const [groupBy, setGroupBy] = useState('color'); // 'color' or 'fabric'
   const [showClearModal, setShowClearModal] = useState(false);
+  const [aiSuggestion, setAiSuggestion] = useState(null);
   const [lastAddedMsg, setLastAddedMsg] = useState(null);
 
   // Bulk add state
@@ -178,17 +180,28 @@ export default function MyPileScreen({
             <p className="text-xs text-emerald-100 mt-1 leading-snug">
               {t.whatCanIMakeSub}
             </p>
-            {onWhatCanIMake && (
+            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {onWhatCanIMake && (
+                <button
+                  type="button"
+                  onClick={onWhatCanIMake}
+                  className="w-full py-2.5 px-4 bg-amber-400 hover:bg-amber-300 text-stone-950 font-black text-xs rounded-2xl shadow-sm flex items-center justify-center gap-2 transition cursor-pointer"
+                >
+                  <Sparkles className="w-4 h-4 text-stone-900" />
+                  <span>{t.whatCanIMakeTitle} ({activePieces.length} scraps)</span>
+                  <ArrowRight className="w-4 h-4 text-stone-900" />
+                </button>
+              )}
               <button
                 type="button"
-                onClick={onWhatCanIMake}
-                className="mt-3 w-full py-2.5 px-4 bg-amber-400 hover:bg-amber-300 text-stone-950 font-black text-xs rounded-xl shadow-sm flex items-center justify-center gap-2 transition"
+                onClick={() => setAiSuggestion(getAiProductSuggestion(pieces, lang))}
+                className="w-full py-2.5 px-4 bg-emerald-700/90 hover:bg-emerald-600 text-white font-extrabold text-xs rounded-2xl shadow-sm flex items-center justify-center gap-2 border border-emerald-500/50 transition cursor-pointer"
+                title="Get AI Product Suggestion"
               >
-                <Sparkles className="w-4 h-4 text-stone-900" />
-                <span>{t.whatCanIMakeTitle} ({activePieces.length} scraps)</span>
-                <ArrowRight className="w-4 h-4 text-stone-900" />
+                <Sparkles className="w-4 h-4 text-amber-300" />
+                <span>AI Suggestion</span>
               </button>
-            )}
+            </div>
           </div>
         </div>
       </div>
@@ -1006,6 +1019,76 @@ export default function MyPileScreen({
           </div>
         </div>
       )}
+
+      {/* AI Suggestion Modal (Task A11 lite) */}
+      {aiSuggestion && (
+        <div className="fixed inset-0 bg-stone-950/70 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-in fade-in">
+          <div className="bg-white rounded-3xl max-w-sm w-full p-5 shadow-2xl border border-stone-200 space-y-3.5">
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-amber-400 text-stone-950 flex items-center justify-center font-bold text-base shadow-xs">
+                  ✨
+                </div>
+                <div>
+                  <h3 className="text-sm font-black text-stone-900">
+                    AI Product Suggestion
+                  </h3>
+                  <span className="text-[10px] bg-amber-100 text-amber-900 font-extrabold px-2 py-0.5 rounded-full border border-amber-300 inline-block mt-0.5">
+                    {aiSuggestion.label}
+                  </span>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setAiSuggestion(null)}
+                className="p-1.5 text-stone-400 hover:text-stone-700 rounded-full transition"
+                title="Close"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200/80 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-stone-500 font-semibold">Suggested Item:</span>
+                <span className="text-xs font-black text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                  {aiSuggestion.productName}
+                </span>
+              </div>
+              <p className="text-xs text-stone-700 leading-snug">
+                {aiSuggestion.reason}
+              </p>
+            </div>
+
+            <div className="p-2.5 bg-amber-50/80 rounded-2xl border border-amber-200 text-[11px] text-amber-900 leading-tight">
+              <span className="font-bold block mb-0.5">⚠️ Tailor Verification Rule</span>
+              {aiSuggestion.recommendation}
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 pt-1">
+              <button
+                type="button"
+                onClick={() => {
+                  setAiSuggestion(null);
+                  if (onWhatCanIMake) onWhatCanIMake();
+                }}
+                className="py-2.5 px-3 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl font-bold text-xs shadow-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
+              >
+                <span>Make Product</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setAiSuggestion(null)}
+                className="py-2.5 px-3 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-2xl font-bold text-xs transition cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

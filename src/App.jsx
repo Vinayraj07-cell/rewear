@@ -484,7 +484,8 @@ export default function App() {
                   item.style || 'patchwork',
                   { variant: item.variant || 'plain', scrapSafetyMarginCm }
                 );
-                setSelectedDesign(fullDesign.success ? fullDesign : item);
+                if (fullDesign.success) fullDesign.pile = activePile;
+                setSelectedDesign(fullDesign.success ? fullDesign : { ...item, pile: activePile });
                 setActiveTab('design_view');
               }}
               onCheckFeasibility={(item) => {
@@ -496,7 +497,8 @@ export default function App() {
                   item.style || 'patchwork',
                   { variant: item.variant || 'plain', scrapSafetyMarginCm }
                 );
-                setSelectedDesign(fullDesign.success ? fullDesign : item);
+                if (fullDesign.success) fullDesign.pile = activePile;
+                setSelectedDesign(fullDesign.success ? fullDesign : { ...item, pile: activePile });
                 setActiveTab('feasibility');
               }}
               onAddMorePieces={() => setActiveTab('add')}
@@ -552,6 +554,7 @@ export default function App() {
               initialDesign={selectedDesign}
               pile={pieces.filter((p) => p.included)}
               onSave={(updated) => {
+                if (updated.success) updated.pile = activePile;
                 setSelectedDesign(updated);
                 setActiveTab('design_view');
               }}
@@ -577,6 +580,7 @@ export default function App() {
                   selectedDesign.style || 'patchwork',
                   { variant: selectedDesign.variant || 'plain', scrapSafetyMarginCm }
                 );
+                if (updated.success) updated.pile = activePile;
                 setSelectedDesign(updated);
                 setActiveTab('design_view');
               }}
@@ -601,6 +605,7 @@ export default function App() {
                   selectedDesign.style || 'patchwork',
                   { variant: 'plain', scrapSafetyMarginCm }
                 );
+                if (updated.success) updated.pile = activePile;
                 setSelectedDesign(updated);
                 setActiveTab('design_view');
               }}
@@ -613,7 +618,8 @@ export default function App() {
                   alt.style || 'patchwork',
                   { variant: alt.variant || 'plain', scrapSafetyMarginCm }
                 );
-                setSelectedDesign(fullDesign.success ? fullDesign : alt);
+                if (fullDesign.success) fullDesign.pile = activePile;
+                setSelectedDesign(fullDesign.success ? fullDesign : { ...alt, pile: activePile });
                 setActiveTab('design_view');
               }}
               onPickAnotherProduct={() => setActiveTab('what_can_i_make')}
