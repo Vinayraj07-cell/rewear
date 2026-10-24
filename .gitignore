@@ -26,6 +26,17 @@ dist-ssr
 *.sln
 *.sw?
 *.apk
+*.keystore
+*.jks
+
+# Android build outputs & local tooling
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/capacitor-cordova-android-plugins/
+.gradle/
+
 
 # Spikes and scratch directories
 scratch/
