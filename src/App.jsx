@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Header from './components/Header';
 import BottomNav from './components/BottomNav';
 import WalkthroughModal from './components/WalkthroughModal';
@@ -17,7 +17,7 @@ import CustomizeScreen from './screens/CustomizeScreen';
 import SizeChoiceScreen from './screens/SizeChoiceScreen';
 import FeasibilityScreen from './screens/FeasibilityScreen';
 import TailorBlueprintScreen from './screens/TailorBlueprintScreen';
-import Product3DViewer from './components/Product3DViewer';
+const Product3DViewer = lazy(() => import('./components/Product3DViewer'));
 import ErrorBoundary from './components/ErrorBoundary';
 
 import { translations } from './i18n/translations';
@@ -523,10 +523,19 @@ export default function App() {
           )}
 
           {activeTab === '3d_spike' && (
-            <Product3DViewer
-              onBack={() => setActiveTab(selectedDesign ? 'design_view' : 'home')}
-              initialModel={selectedDesign?.productId === 'cushion_cover' ? 'cushion' : (selectedDesign?.productId === 'pouch' ? 'pouch' : 'cushion')}
-            />
+            <Suspense
+              fallback={
+                <div className="flex flex-col items-center justify-center min-h-[360px] text-stone-400 gap-3">
+                  <div className="w-8 h-8 border-3 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+                  <p className="text-xs font-semibold">Loading 3D Look...</p>
+                </div>
+              }
+            >
+              <Product3DViewer
+                design={selectedDesign}
+                onBack={() => setActiveTab(selectedDesign ? 'design_view' : 'home')}
+              />
+            </Suspense>
           )}
 
           {activeTab === 'tailor_blueprint' && selectedDesign && (

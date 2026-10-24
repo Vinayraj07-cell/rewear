@@ -1,627 +1,489 @@
-import React, { useEffect, useRef, useState } from 'react';
-import '@google/model-viewer';
+// src/components/Product3DViewer.jsx
+// Stage 6 / Q12d: Real-Design 3D Look for Finished Garments (Tote Bag, Cushion Cover, Pouch)
+// 1. Procedural 3D geometries (no external .glb download required)
+// 2. Texture generated from user's REAL design (exact placements, colours, prints, seams) via product2DLayout.js
+// 3. Mobile optimized: MeshLambertMaterial, DPR capped at min(dpr, 1.5), antialias off on mobile
+// 4. Touch interaction: touch-action: none prevents scrolling page while rotating
+// 5. Automatic fallback to 2D preview if WebGL is missing or FPS < 20 for 2 consecutive seconds
+// 6. Persistent label: "Illustrative preview, not exact fit"
+
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { ArrowLeft, RotateCw, AlertTriangle, Eye, Layers } from 'lucide-react';
+import { drawDesignToCanvas, getProductDrawRectangles } from '../utils/product2DLayout.js';
+import Product2DPreview from './Product2DPreview.jsx';
 
-// Real patchwork colorways from Pile B (10 Navy, 10 Beige, 10 Grey)
-const CUSHION_PALETTES = [
-  {
-    name: 'Pile B Balanced (Navy Base, Beige Accent, Grey Support)',
-    frontPatches: [
-      '#1B2A4A', '#D4C4A8', '#1B2A4A',
-      '#7A8288', '#1B2A4A', '#7A8288',
-      '#D4C4A8', '#7A8288', '#1B2A4A'
-    ],
-    backUpper: '#1B2A4A',
-    backLower: '#D4C4A8',
-    piping: '#7A8288'
-  },
-  {
-    name: 'Pile B Diagonal Colorblock',
-    frontPatches: [
-      '#D4C4A8', '#7A8288', '#1B2A4A',
-      '#7A8288', '#1B2A4A', '#D4C4A8',
-      '#1B2A4A', '#D4C4A8', '#7A8288'
-    ],
-    backUpper: '#7A8288',
-    backLower: '#1B2A4A',
-    piping: '#D4C4A8'
-  },
-  {
-    name: 'Pile B High-Contrast Navy & Beige',
-    frontPatches: [
-      '#1B2A4A', '#D4C4A8', '#1B2A4A',
-      '#D4C4A8', '#7A8288', '#D4C4A8',
-      '#1B2A4A', '#D4C4A8', '#1B2A4A'
-    ],
-    backUpper: '#1B2A4A',
-    backLower: '#1B2A4A',
-    piping: '#1B2A4A'
+function isWebGLAvailable() {
+  if (typeof window === 'undefined') return false;
+  try {
+    const canvas = document.createElement('canvas');
+    return Boolean(
+      window.WebGLRenderingContext &&
+      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
+    );
+  } catch {
+    return false;
   }
-];
+}
 
-export default function Product3DViewer({ onBack, initialModel = 'cushion' }) {
-  const [engine, setEngine] = useState('three'); // Default Three.js (high performance)
-  const [modelType, setModelType] = useState(initialModel); // 'cushion' | 'pouch' | 'top'
-  const [paletteIndex, setPaletteIndex] = useState(0);
-  const [fps, setFps] = useState('--');
-  const [loadTime, setLoadTime] = useState('--');
-  const [showCanvas, setShowCanvas] = useState(false);
+/**
+ * Creates procedural 3D meshes for the supported products.
+ * Returns { group, frontMaterial, backMaterial, sideMaterial }
+ */
+function createProductMesh(productId) {
+  const group = new THREE.Group();
+
+  // Create base Lambert materials with neutral fallbacks
+  const frontMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
+  const backMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
+  const sideMaterial = new THREE.MeshLambertMaterial({ color: 0x94a3b8 });
+  const trimMaterial = new THREE.MeshLambertMaterial({ color: 0x64748b });
+
+  if (productId === 'cushion_cover') {
+    // -------------------------------------------------------------
+    // Plumped Pillow Geometry (40 cm × 40 cm × 12 cm)
+    // -------------------------------------------------------------
+    const w = 0.40;
+    const h = 0.40;
+    const d = 0.12;
+    const geom = new THREE.BoxGeometry(w, h, d, 24, 24, 8);
+
+    // Bulge center vertices along Z to simulate an inflated soft pillow
+    const pos = geom.attributes.position;
+    for (let i = 0; i < pos.count; i++) {
+      const vx = pos.getX(i);
+      const vy = pos.getY(i);
+      const vz = pos.getZ(i);
+
+      const normX = (vx / (w / 2));
+      const normY = (vy / (h / 2));
+      const factor = Math.max(0, 1 - (normX * normX * 0.7 + normY * normY * 0.7));
+
+      if (vz > 0.001) {
+        pos.setZ(i, vz + factor * 0.04);
+      } else if (vz < -0.001) {
+        pos.setZ(i, vz - factor * 0.04);
+      }
+    }
+    geom.computeVertexNormals();
+
+    // Box faces: [right, left, top, bottom, front (+Z), back (-Z)]
+    const materials = [
+      sideMaterial,
+      sideMaterial,
+      sideMaterial,
+      sideMaterial,
+      frontMaterial,
+      backMaterial,
+    ];
+
+    const pillowMesh = new THREE.Mesh(geom, materials);
+    pillowMesh.castShadow = false;
+    pillowMesh.receiveShadow = false;
+    group.add(pillowMesh);
+
+  } else if (productId === 'tote_bag') {
+    // -------------------------------------------------------------
+    // Tote Bag Body (36 cm × 40 cm × 8 cm) + Twin Tubular Handles
+    // -------------------------------------------------------------
+    const w = 0.36;
+    const h = 0.40;
+    const d = 0.08;
+    const bodyGeom = new THREE.BoxGeometry(w, h, d, 16, 16, 4);
+
+    // Slight soft expansion at base
+    const pos = bodyGeom.attributes.position;
+    for (let i = 0; i < pos.count; i++) {
+      const vy = pos.getY(i);
+      const vz = pos.getZ(i);
+      if (vy < 0) {
+        const expand = (-vy / (h / 2)) * 0.015;
+        pos.setZ(i, vz > 0 ? vz + expand : vz - expand);
+      }
+    }
+    bodyGeom.computeVertexNormals();
+
+    const materials = [
+      sideMaterial,
+      sideMaterial,
+      trimMaterial, // top open rim
+      sideMaterial, // bottom gusset
+      frontMaterial, // front face (+Z)
+      backMaterial,  // back face (-Z)
+    ];
+
+    const bodyMesh = new THREE.Mesh(bodyGeom, materials);
+    group.add(bodyMesh);
+
+    // Tubular shoulder carry handles (front & back)
+    const handleW = 0.16;
+    const handleH = 0.22;
+    const handleY = h / 2;
+
+    const createHandleCurve = (zOffset) => {
+      const curve = new THREE.CubicBezierCurve3(
+        new THREE.Vector3(-handleW / 2, handleY - 0.02, zOffset),
+        new THREE.Vector3(-handleW / 2, handleY + handleH, zOffset * 1.5),
+        new THREE.Vector3(handleW / 2, handleY + handleH, zOffset * 1.5),
+        new THREE.Vector3(handleW / 2, handleY - 0.02, zOffset)
+      );
+      const handleGeom = new THREE.TubeGeometry(curve, 20, 0.009, 8, false);
+      return new THREE.Mesh(handleGeom, trimMaterial);
+    };
+
+    group.add(createHandleCurve(d / 2 + 0.005));
+    group.add(createHandleCurve(-d / 2 - 0.005));
+
+  } else if (productId === 'pouch') {
+    // -------------------------------------------------------------
+    // Zippered Utility Pouch (22 cm × 14 cm × 5 cm)
+    // -------------------------------------------------------------
+    const w = 0.22;
+    const h = 0.14;
+    const d = 0.05;
+    const pouchGeom = new THREE.BoxGeometry(w, h, d, 16, 16, 4);
+
+    // Taper upward to simulate zippered top wedge
+    const pos = pouchGeom.attributes.position;
+    for (let i = 0; i < pos.count; i++) {
+      const vy = pos.getY(i);
+      const vz = pos.getZ(i);
+      if (vy > 0) {
+        const pinch = (vy / (h / 2)) * 0.018;
+        pos.setZ(i, vz > 0 ? Math.max(0.002, vz - pinch) : Math.min(-0.002, vz + pinch));
+      }
+    }
+    pouchGeom.computeVertexNormals();
+
+    const materials = [
+      sideMaterial,
+      sideMaterial,
+      trimMaterial, // top zipper teeth strip
+      sideMaterial, // bottom
+      frontMaterial, // front face
+      backMaterial,  // back face
+    ];
+
+    const pouchMesh = new THREE.Mesh(pouchGeom, materials);
+    group.add(pouchMesh);
+
+    // Subtle zipper pull tab on left
+    const tabGeom = new THREE.BoxGeometry(0.018, 0.03, 0.006);
+    const tabMesh = new THREE.Mesh(tabGeom, trimMaterial);
+    tabMesh.position.set(-w / 2 - 0.008, h / 2 - 0.025, 0);
+    group.add(tabMesh);
+  }
+
+  return { group, frontMaterial, backMaterial, sideMaterial, trimMaterial };
+}
+
+export default function Product3DViewer({ design, onBack }) {
+  const [hasWebGL, setHasWebGL] = useState(true);
+  const [fallbackMessage, setFallbackMessage] = useState(null);
+  const [fps, setFps] = useState(60);
   const [autoRotate, setAutoRotate] = useState(true);
 
-  const canvasRef = useRef(null);
-  const mvRef = useRef(null);
-  const threeMountRef = useRef(null);
+  const containerRef = useRef(null);
+  const frontCanvasRef = useRef(null);
+  const backCanvasRef = useRef(null);
 
-  const threeState = useRef({
+  const threeRef = useRef({
     scene: null,
     camera: null,
     renderer: null,
     controls: null,
-    mesh: null,
-    texture: null,
-    animId: null
+    animId: null,
+    frontTexture: null,
+    backTexture: null,
+    materials: null,
   });
 
-  const palette = CUSHION_PALETTES[paletteIndex % CUSHION_PALETTES.length];
+  const productId = design?.productId || design?.product?.id || 'tote_bag';
+  const productName = design?.productName || design?.product?.name || 'Handmade Garment';
 
-  // Draw 2D patchwork layout onto 512x512 hidden texture canvas
-  const drawTexture = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const w = canvas.width;
-    const h = canvas.height;
-
-    ctx.clearRect(0, 0, w, h);
-
-    if (modelType === 'cushion') {
-      // Background neutral cloth
-      ctx.fillStyle = '#E2E8F0';
-      ctx.fillRect(0, 0, w, h);
-
-      // ---------------------------------------------------------
-      // 1. FRONT PATCHWORK PANEL: UV [0.0, 0.0] to [0.5, 1.0]
-      // Pixel bounds: x: 0 to 256, y: 0 to 512
-      // Real ReWear 3x3 Patchwork Grid (9 patches, 8 seam lines)
-      // ---------------------------------------------------------
-      const frontW = 256;
-      const frontH = 512;
-      const cols = 3;
-      const rows = 3;
-      const cellW = frontW / cols;
-      const cellH = frontH / rows;
-
-      // Draw 9 patches
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          const idx = r * cols + c;
-          const patchColor = palette.frontPatches[idx % palette.frontPatches.length];
-          const px = c * cellW;
-          const py = r * cellH;
-
-          ctx.fillStyle = patchColor;
-          ctx.fillRect(px, py, cellW, cellH);
-
-          // Subtle internal tonal shading
-          const grad = ctx.createLinearGradient(px, py, px + cellW, py + cellH);
-          grad.addColorStop(0, 'rgba(255, 255, 255, 0.08)');
-          grad.addColorStop(1, 'rgba(0, 0, 0, 0.10)');
-          ctx.fillStyle = grad;
-          ctx.fillRect(px, py, cellW, cellH);
-
-          // Patch ID watermark
-          ctx.save();
-          ctx.font = 'bold 13px monospace';
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText(`P${idx + 1}`, px + cellW / 2, py + cellH / 2);
-          ctx.restore();
-        }
-      }
-
-      // Vertical seam lines between patch columns
-      for (let c = 1; c < cols; c++) {
-        drawSeamLine(ctx, c * cellW, 0, c * cellW, frontH);
-      }
-      // Horizontal seam lines between patch rows
-      for (let r = 1; r < rows; r++) {
-        drawSeamLine(ctx, 0, r * cellH, frontW, r * cellH);
-      }
-      // Outer perimeter border seam
-      drawSeamLine(ctx, 2, 2, frontW - 2, 2);
-      drawSeamLine(ctx, frontW - 2, 2, frontW - 2, frontH - 2);
-      drawSeamLine(ctx, frontW - 2, frontH - 2, 2, frontH - 2);
-      drawSeamLine(ctx, 2, frontH - 2, 2, 2);
-
-      drawZoneLabel(ctx, 'FRONT: 3x3 PATCHWORK', frontW / 2, 28, 14);
-
-      // ---------------------------------------------------------
-      // 2. BACK ENVELOPE OPENING: UV [0.5, 0.0] to [1.0, 1.0]
-      // Pixel bounds: x: 256 to 512, y: 0 to 512
-      // Upper flap: 40×27 cm (y: 0 to 280)
-      // Lower flap: 40×20 cm (y: 240 to 512) -> overlap zone
-      // ---------------------------------------------------------
-      const backX = 256;
-      const backW = 256;
-
-      // Lower envelope flap base (underneath)
-      ctx.fillStyle = palette.backLower;
-      ctx.fillRect(backX, 240, backW, 272);
-
-      // Upper envelope flap (on top, overlapping)
-      ctx.fillStyle = palette.backUpper;
-      ctx.fillRect(backX, 0, backW, 280);
-
-      // Envelope flap shadow on lower panel
-      const shadowGrad = ctx.createLinearGradient(backX, 280, backX, 298);
-      shadowGrad.addColorStop(0, 'rgba(0, 0, 0, 0.45)');
-      shadowGrad.addColorStop(1, 'rgba(0, 0, 0, 0.0)');
-      ctx.fillStyle = shadowGrad;
-      ctx.fillRect(backX, 280, backW, 18);
-
-      // Hem stitch on upper overlap edge
-      drawSeamLine(ctx, backX, 278, backX + backW, 278);
-
-      // Back outer perimeter seams
-      drawSeamLine(ctx, backX + 2, 2, backX + backW - 2, 2);
-      drawSeamLine(ctx, backX + backW - 2, 2, backX + backW - 2, 510);
-      drawSeamLine(ctx, backX + backW - 2, 510, backX + 2, 510);
-      drawSeamLine(ctx, backX + 2, 510, backX + 2, 2);
-
-      drawZoneLabel(ctx, 'BACK: ENVELOPE OVERLAP', backX + backW / 2, 28, 14);
-      drawZoneLabel(ctx, 'Upper Flap (2/3)', backX + backW / 2, 140, 12);
-      drawZoneLabel(ctx, 'Lower Flap (1/2)', backX + backW / 2, 390, 12);
-
-    } else if (modelType === 'pouch') {
-      // Zippered Utility Pouch texture (512x512)
-      ctx.fillStyle = palette.frontPatches[0];
-      ctx.fillRect(0, 0, 512, 102);
-      drawSeamLine(ctx, 256, 0, 256, 102);
-      drawZoneLabel(ctx, 'UPPER ZIPPER BAND', 256, 50, 14);
-
-      ctx.fillStyle = palette.frontPatches[1];
-      ctx.fillRect(0, 102, 256, 205);
-      ctx.fillStyle = palette.frontPatches[2];
-      ctx.fillRect(256, 102, 256, 205);
-      drawSeamLine(ctx, 256, 102, 256, 307);
-      drawZoneLabel(ctx, 'FRONT PANEL', 256, 205, 14);
-
-      ctx.fillStyle = palette.backUpper;
-      ctx.fillRect(0, 307, 512, 205);
-      drawSeamLine(ctx, 256, 307, 256, 512);
-      drawZoneLabel(ctx, 'BACK PANEL', 256, 410, 14);
-    } else {
-      // Child Bodice Top (512x512)
-      ctx.fillStyle = palette.frontPatches[0];
-      ctx.fillRect(25, 25, 220, 460);
-      drawZoneLabel(ctx, 'FRONT BODICE', 135, 256, 14);
-
-      ctx.fillStyle = palette.backUpper;
-      ctx.fillRect(265, 25, 220, 460);
-      drawZoneLabel(ctx, 'BACK BODICE', 375, 256, 14);
-    }
-
-    // Overlay subtle cotton fabric weave across entire canvas
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
-    for (let y = 0; y < 512; y += 4) ctx.fillRect(0, y, 512, 1.5);
-    for (let x = 0; x < 512; x += 4) ctx.fillRect(x, 0, 1.5, 512);
-  };
-
-  const drawSeamLine = (ctx, x1, y1, x2, y2) => {
-    // Structural shadow line
-    ctx.strokeStyle = 'rgba(0, 0, 0, 0.45)';
-    ctx.lineWidth = 3.5;
-    ctx.setLineDash([]);
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
-
-    // Topstitching thread line
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
-    ctx.lineWidth = 1.8;
-    ctx.setLineDash([6, 6]);
-    const dx = (y2 - y1 !== 0) ? 5 : 0;
-    const dy = (x2 - x1 !== 0) ? 5 : 0;
-    ctx.beginPath();
-    ctx.moveTo(x1 + dx, y1 + dy);
-    ctx.lineTo(x2 + dx, y2 + dy);
-    ctx.stroke();
-    ctx.setLineDash([]);
-  };
-
-  const drawZoneLabel = (ctx, text, x, y, size = 18) => {
-    ctx.save();
-    ctx.font = `bold ${size}px sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    const textW = ctx.measureText(text).width;
-    ctx.fillStyle = 'rgba(0,0,0,0.55)';
-    ctx.fillRect(x - textW / 2 - 10, y - size / 2 - 5, textW + 20, size + 10);
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillText(text, x, y);
-    ctx.restore();
-  };
-
-  // -------------------------------------------------------------
-  // GOOGLE <model-viewer> Texture Application
-  // -------------------------------------------------------------
-  const applyTextureToMV = async () => {
-    const mv = mvRef.current;
-    if (!mv || !mv.model) return;
-    const t0 = performance.now();
-    try {
-      const dataUrl = canvasRef.current.toDataURL('image/jpeg', 0.9);
-      const texture = await mv.createTexture(dataUrl);
-      const materials = mv.model.materials;
-      if (materials && materials.length > 0) {
-        for (const mat of materials) {
-          if (mat.pbrMetallicRoughness) {
-            if (mat.pbrMetallicRoughness.setBaseColorFactor) {
-              mat.pbrMetallicRoughness.setBaseColorFactor([1, 1, 1, 1]);
-            }
-            if (mat.pbrMetallicRoughness.baseColorTexture) {
-              mat.pbrMetallicRoughness.baseColorTexture.setTexture(texture);
-            }
-          }
-        }
-      }
-      setLoadTime(Math.round(performance.now() - t0) + ' ms');
-    } catch (e) {
-      console.warn('model-viewer texture error:', e);
-    }
-  };
-
-  // Redraw canvas texture when dependencies change
+  // 1. Initial WebGL check
   useEffect(() => {
-    drawTexture();
-    if (engine === 'model-viewer') {
-      applyTextureToMV();
-    } else if (threeState.current.texture) {
-      const t0 = performance.now();
-      threeState.current.texture.needsUpdate = true;
-      setLoadTime(Math.round(performance.now() - t0) + ' ms');
+    if (!isWebGLAvailable()) {
+      setHasWebGL(false);
+      setFallbackMessage('3D preview requires WebGL support on your device. Showing 2D preview.');
     }
-  }, [paletteIndex, modelType, engine]);
+  }, []);
 
-  // Hook model-viewer load event
+  // 2. Extract primary color for sides/trim from real design rectangles
+  const primaryColorHex = useMemo(() => {
+    const rects = getProductDrawRectangles(design, 'front');
+    return rects[0]?.colorHex || '#1E3A8A';
+  }, [design]);
+
+  // 3. Render real design to offscreen canvases
   useEffect(() => {
-    const mv = mvRef.current;
-    if (!mv) return;
-    const handleLoad = () => applyTextureToMV();
-    mv.addEventListener('load', handleLoad);
-    return () => mv.removeEventListener('load', handleLoad);
-  }, [modelType]);
+    if (!hasWebGL || fallbackMessage) return;
 
-  // Measure FPS for model-viewer
-  useEffect(() => {
-    if (engine !== 'model-viewer') return;
-    let frames = 0;
-    let lastTime = performance.now();
-    let animId;
-
-    const loop = () => {
-      frames++;
-      const now = performance.now();
-      if (now - lastTime >= 1000) {
-        setFps(Math.round((frames * 1000) / (now - lastTime)));
-        frames = 0;
-        lastTime = now;
+    if (frontCanvasRef.current) {
+      drawDesignToCanvas(frontCanvasRef.current, design, 'front');
+      if (threeRef.current.frontTexture) {
+        threeRef.current.frontTexture.needsUpdate = true;
       }
-      animId = requestAnimationFrame(loop);
-    };
-    animId = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(animId);
-  }, [engine]);
-
-  // -------------------------------------------------------------
-  // THREE.JS Engine Setup & Lifecycle
-  // -------------------------------------------------------------
-  useEffect(() => {
-    if (engine !== 'three') {
-      if (threeState.current.animId) {
-        cancelAnimationFrame(threeState.current.animId);
-        threeState.current.animId = null;
-      }
-      return;
     }
+    if (backCanvasRef.current) {
+      drawDesignToCanvas(backCanvasRef.current, design, 'back');
+      if (threeRef.current.backTexture) {
+        threeRef.current.backTexture.needsUpdate = true;
+      }
+    }
+  }, [design, hasWebGL, fallbackMessage]);
 
-    const container = threeMountRef.current;
+  // 4. Initialize Three.js Engine with Mobile Constraints
+  useEffect(() => {
+    if (!hasWebGL || fallbackMessage) return;
+    const container = containerRef.current;
     if (!container) return;
 
     const width = container.clientWidth || 360;
-    const height = container.clientHeight || 360;
+    const height = container.clientHeight || 420;
 
+    // Detect mobile browser / WebView
+    const isMobile =
+      typeof navigator !== 'undefined' &&
+      /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+
+    // Scene
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xF8FAFC);
 
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.05, 10);
-    camera.position.set(0, 0.05, 0.55);
+    // Camera
+    const camera = new THREE.PerspectiveCamera(40, width / height, 0.05, 10);
+    const dist = productId === 'pouch' ? 0.45 : (productId === 'cushion_cover' ? 0.65 : 0.75);
+    camera.position.set(0, 0.02, dist);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    // Renderer (DPR capped at 1.5, antialias off on mobile)
+    const dpr = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1;
+    const renderer = new THREE.WebGLRenderer({
+      antialias: !isMobile,
+      alpha: true,
+      powerPreference: 'high-performance',
+    });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.1;
+    renderer.setPixelRatio(Math.min(dpr, 1.5));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
 
     container.innerHTML = '';
     container.appendChild(renderer.domElement);
 
+    // Controls (Orbit with clamped pitch & touch support)
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
+    controls.dampingFactor = 0.08;
     controls.autoRotate = autoRotate;
-    controls.autoRotateSpeed = 2.5;
+    controls.autoRotateSpeed = 1.0; // slow gentle rotation
+    controls.minDistance = 0.25;
+    controls.maxDistance = 1.5;
+    controls.maxPolarAngle = Math.PI * 0.85;
+    controls.minPolarAngle = Math.PI * 0.15;
 
-    // Lighting
-    const amb = new THREE.AmbientLight(0xffffff, 1.4);
-    scene.add(amb);
-    const dir1 = new THREE.DirectionalLight(0xffffff, 1.6);
-    dir1.position.set(2, 4, 3);
-    scene.add(dir1);
-    const dir2 = new THREE.DirectionalLight(0xdbeafe, 0.8);
-    dir2.position.set(-2, -1, -3);
-    scene.add(dir2);
+    // Lighting (soft ambient + two directional rim lights)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+    scene.add(ambientLight);
 
-    threeState.current.scene = scene;
-    threeState.current.camera = camera;
-    threeState.current.renderer = renderer;
-    threeState.current.controls = controls;
+    const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.4);
+    dirLight1.position.set(2, 4, 3);
+    scene.add(dirLight1);
 
-    // Model selection
-    const glbUrl = modelType === 'cushion'
-      ? './plain_cushion.glb'
-      : (modelType === 'pouch' ? './plain_pouch.glb' : './plain_top.glb');
+    const dirLight2 = new THREE.DirectionalLight(0xe2e8f0, 0.7);
+    dirLight2.position.set(-2, -1, -3);
+    scene.add(dirLight2);
 
-    const t0 = performance.now();
-    const loader = new GLTFLoader();
-    loader.load(glbUrl, (gltf) => {
-      const mesh = gltf.scene;
-      const texture = new THREE.CanvasTexture(canvasRef.current);
-      texture.flipY = false;
-      texture.colorSpace = THREE.SRGBColorSpace;
+    // Generate Canvas Textures
+    const frontTex = new THREE.CanvasTexture(frontCanvasRef.current);
+    frontTex.colorSpace = THREE.SRGBColorSpace;
+    frontTex.generateMipmaps = false;
+    frontTex.minFilter = THREE.LinearFilter;
 
-      mesh.traverse((c) => {
-        if (c.isMesh && c.material) {
-          c.material.color.setRGB(1, 1, 1);
-          c.material.map = texture;
-          c.material.roughness = 0.82;
-          c.material.metalness = 0.0;
-          c.material.needsUpdate = true;
-        }
-      });
+    const backTex = new THREE.CanvasTexture(backCanvasRef.current);
+    backTex.colorSpace = THREE.SRGBColorSpace;
+    backTex.generateMipmaps = false;
+    backTex.minFilter = THREE.LinearFilter;
 
-      scene.add(mesh);
-      threeState.current.mesh = mesh;
-      threeState.current.texture = texture;
-      setLoadTime(Math.round(performance.now() - t0) + ' ms');
-    });
+    // Build Product Mesh
+    const meshPack = createProductMesh(productId);
+    meshPack.frontMaterial.map = frontTex;
+    meshPack.frontMaterial.needsUpdate = true;
+    meshPack.backMaterial.map = backTex;
+    meshPack.backMaterial.needsUpdate = true;
+    meshPack.sideMaterial.color = new THREE.Color(primaryColorHex);
+    meshPack.trimMaterial.color = new THREE.Color(primaryColorHex);
 
+    scene.add(meshPack.group);
+
+    threeRef.current = {
+      scene,
+      camera,
+      renderer,
+      controls,
+      animId: null,
+      frontTexture: frontTex,
+      backTexture: backTex,
+      materials: meshPack,
+    };
+
+    // -----------------------------------------------------------
+    // Demand-Driven Render Loop & FPS Monitor
+    // -----------------------------------------------------------
     let frameCount = 0;
-    let lastFps = performance.now();
+    let lastFpsTime = performance.now();
+    let lowFpsSeconds = 0;
 
     const animate = () => {
-      threeState.current.animId = requestAnimationFrame(animate);
+      threeRef.current.animId = requestAnimationFrame(animate);
+
       controls.autoRotate = autoRotate;
       controls.update();
       renderer.render(scene, camera);
 
       frameCount++;
       const now = performance.now();
-      if (now - lastFps >= 1000) {
-        setFps(Math.round((frameCount * 1000) / (now - lastFps)));
+      const elapsed = now - lastFpsTime;
+
+      if (elapsed >= 1000) {
+        const currentFps = Math.round((frameCount * 1000) / elapsed);
+        setFps(currentFps);
+        console.info(`[3D-FPS] ${currentFps}`);
+
+        // Automated fallback check: under 20 FPS for 2 consecutive seconds
+        if (currentFps < 20) {
+          lowFpsSeconds++;
+          if (lowFpsSeconds >= 2) {
+            console.warn('[ReWear 3D] Low frame rate detected (<20 FPS). Falling back to 2D.');
+            setFallbackMessage('3D switched to 2D preview for smooth performance on your device.');
+          }
+        } else {
+          lowFpsSeconds = 0;
+        }
+
         frameCount = 0;
-        lastFps = now;
+        lastFpsTime = now;
       }
     };
-    threeState.current.animId = requestAnimationFrame(animate);
+
+    threeRef.current.animId = requestAnimationFrame(animate);
+
+    // Handle container resize
+    const handleResize = () => {
+      if (!container || !camera || !renderer) return;
+      const nw = container.clientWidth || 360;
+      const nh = container.clientHeight || 420;
+      camera.aspect = nw / nh;
+      camera.updateProjectionMatrix();
+      renderer.setSize(nw, nh);
+    };
+
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      if (threeState.current.animId) cancelAnimationFrame(threeState.current.animId);
+      window.removeEventListener('resize', handleResize);
+      if (threeRef.current.animId) {
+        cancelAnimationFrame(threeRef.current.animId);
+      }
+      controls.dispose();
       renderer.dispose();
     };
-  }, [engine, modelType, autoRotate]);
+  }, [hasWebGL, fallbackMessage, productId, primaryColorHex, autoRotate]);
 
-  return (
-    <div className="flex flex-col min-h-screen bg-slate-900 text-slate-100 font-sans pb-12">
-      {/* Hidden 2D Texture Canvas (512x512) */}
-      <canvas
-        ref={canvasRef}
-        width={512}
-        height={512}
-        className={showCanvas ? 'block border-2 border-amber-400 my-2 mx-auto max-w-[280px]' : 'hidden'}
-      />
-
-      {/* Top Header */}
-      <div className="bg-slate-800 border-b border-slate-700 px-4 py-3 flex items-center justify-between sticky top-0 z-30 shadow">
-        <div className="flex items-center gap-2">
+  // If fallen back or WebGL is missing, display 2D layout with short notification
+  if (!hasWebGL || fallbackMessage) {
+    return (
+      <div className="space-y-4 pb-24 text-stone-900">
+        <div className="bg-amber-50 border-2 border-amber-300 text-amber-900 rounded-2xl p-3 flex items-center justify-between gap-3 text-xs shadow-xs">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+            <span className="font-bold">{fallbackMessage || '3D preview unavailable. Showing 2D preview.'}</span>
+          </div>
           {onBack && (
             <button
+              type="button"
               onClick={onBack}
-              className="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-xs text-slate-200"
+              className="px-3 py-1.5 bg-amber-200 hover:bg-amber-300 rounded-xl text-xs font-bold text-amber-950 transition"
             >
-              ← Back
+              Back
             </button>
           )}
-          <span className="font-bold text-sm tracking-wide text-white">ReWear 3D Spike</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-900/60 text-emerald-400 border border-emerald-700">
+
+        {/* Flat 2D Vector Preview */}
+        <div className="bg-white rounded-3xl border border-stone-200 p-4 shadow-sm">
+          <Product2DPreview design={design} />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col min-h-screen bg-stone-900 text-stone-100 font-sans pb-16">
+      {/* Offscreen 512×512 Texture Canvases */}
+      <canvas ref={frontCanvasRef} width={512} height={512} className="hidden" />
+      <canvas ref={backCanvasRef} width={512} height={512} className="hidden" />
+
+      {/* Top Navigation Bar */}
+      <div className="bg-stone-800/90 backdrop-blur-md border-b border-stone-700/80 px-4 py-3 flex items-center justify-between sticky top-0 z-30 shadow-sm">
+        <div className="flex items-center gap-2.5">
+          {onBack && (
+            <button
+              type="button"
+              onClick={onBack}
+              className="p-2 rounded-xl bg-stone-700/80 hover:bg-stone-600 text-white transition active:scale-95"
+              title="Back"
+            >
+              <ArrowLeft className="w-4 h-4" />
+            </button>
+          )}
+          <div>
+            <h1 className="text-sm font-black text-white tracking-tight">{productName}</h1>
+            <p className="text-[10px] text-stone-400 font-semibold">3D Look &amp; Texture Map</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          {/* FPS Badge */}
+          <span className="px-2 py-0.5 rounded-lg text-[10px] font-mono font-bold bg-emerald-950/80 text-emerald-400 border border-emerald-500/40">
             {fps} FPS
           </span>
-          <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-blue-900/60 text-blue-300 border border-blue-700">
-            {loadTime}
-          </span>
-        </div>
-      </div>
 
-      {/* Mandatory Disclaimer */}
-      <div className="bg-amber-950/70 border-b border-amber-800/60 px-4 py-1.5 text-center text-[11px] text-amber-200 font-medium">
-        ⚠️ Measurements & fit to be verified by a tailor
-      </div>
-
-      {/* Main 3D Viewport Area */}
-      <div className="relative w-full h-[360px] bg-slate-950 overflow-hidden flex items-center justify-center">
-        {engine === 'model-viewer' ? (
-          <model-viewer
-            ref={mvRef}
-            src={modelType === 'cushion' ? './plain_cushion.glb' : (modelType === 'pouch' ? './plain_pouch.glb' : './plain_top.glb')}
-            camera-controls
-            auto-rotate={autoRotate ? '' : null}
-            rotation-per-second="30deg"
-            shadow-intensity="1.2"
-            exposure="1.0"
-            style={{ width: '100%', height: '100%', backgroundColor: '#0F172A' }}
-          />
-        ) : (
-          <div ref={threeMountRef} className="w-full h-full" />
-        )}
-
-        {/* Viewport Floating Overlays */}
-        <div className="absolute top-2 left-2 flex flex-col gap-1 z-10">
-          <span className="px-2 py-0.5 rounded text-[10px] bg-slate-800/80 backdrop-blur text-slate-300 border border-slate-700 font-mono">
-            Engine: <b className="text-white">{engine}</b>
-          </span>
-          <span className="px-2 py-0.5 rounded text-[10px] bg-slate-800/80 backdrop-blur text-slate-300 border border-slate-700 font-mono">
-            Model: <b className="text-white">{modelType} (CC0)</b>
-          </span>
-        </div>
-
-        <div className="absolute bottom-2 right-2 flex items-center gap-1.5 z-10">
+          {/* Auto-rotate Toggle */}
           <button
+            type="button"
             onClick={() => setAutoRotate(!autoRotate)}
-            className={`px-2 py-1 rounded text-[10px] font-semibold border ${
-              autoRotate ? 'bg-indigo-600 border-indigo-400 text-white' : 'bg-slate-800 border-slate-600 text-slate-300'
+            className={`p-2 rounded-xl border text-xs font-bold transition flex items-center gap-1 ${
+              autoRotate
+                ? 'bg-indigo-600 border-indigo-400 text-white'
+                : 'bg-stone-800 border-stone-700 text-stone-300'
             }`}
+            title="Toggle Slow Auto-Rotation"
           >
-            {autoRotate ? '⏸ Auto-Rotate' : '▶ Auto-Rotate'}
+            <RotateCw className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
 
-      {/* Control Panel */}
-      <div className="p-4 space-y-4 max-w-md mx-auto w-full">
-        {/* Engine Toggle */}
-        <div>
-          <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
-            1. 3D Engine Evaluation
-          </label>
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              onClick={() => setEngine('three')}
-              className={`p-2.5 rounded-lg border text-left transition ${
-                engine === 'three'
-                  ? 'bg-blue-600/30 border-blue-500 text-white shadow-sm'
-                  : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-600'
-              }`}
-            >
-              <div className="font-bold text-xs">Three.js Engine</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">CanvasTexture direct GPU upload (360 ms)</div>
-            </button>
-            <button
-              onClick={() => setEngine('model-viewer')}
-              className={`p-2.5 rounded-lg border text-left transition ${
-                engine === 'model-viewer'
-                  ? 'bg-blue-600/30 border-blue-500 text-white shadow-sm'
-                  : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-600'
-              }`}
-            >
-              <div className="font-bold text-xs">&lt;model-viewer&gt;</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">Google Web Component (520 ms)</div>
-            </button>
-          </div>
+      {/* Persistent Disclaimer Label */}
+      <div className="py-2 px-4 flex justify-center">
+        <div className="text-[11px] font-bold text-amber-200 bg-amber-950/70 border border-amber-500/50 px-3.5 py-1 rounded-full shadow-xs text-center flex items-center gap-1.5">
+          <Eye className="w-3 h-3 text-amber-400 shrink-0" />
+          <span>Illustrative preview, not exact fit</span>
         </div>
+      </div>
 
-        {/* Model Shell Selection */}
-        <div>
-          <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
-            2. Product 3D Shell (CC0 1.0 Universal)
-          </label>
-          <div className="grid grid-cols-3 gap-2">
-            <button
-              onClick={() => setModelType('cushion')}
-              className={`py-2 px-2 rounded border text-center text-xs font-medium transition ${
-                modelType === 'cushion'
-                  ? 'bg-emerald-600 border-emerald-400 text-white'
-                  : 'bg-slate-800 border-slate-700 text-slate-300'
-              }`}
-            >
-              🛋️ Cushion
-            </button>
-            <button
-              onClick={() => setModelType('pouch')}
-              className={`py-2 px-2 rounded border text-center text-xs font-medium transition ${
-                modelType === 'pouch'
-                  ? 'bg-emerald-600 border-emerald-400 text-white'
-                  : 'bg-slate-800 border-slate-700 text-slate-300'
-              }`}
-            >
-              👝 Pouch
-            </button>
-            <button
-              onClick={() => setModelType('top')}
-              className={`py-2 px-2 rounded border text-center text-xs font-medium transition ${
-                modelType === 'top'
-                  ? 'bg-emerald-600 border-emerald-400 text-white'
-                  : 'bg-slate-800 border-slate-700 text-slate-300'
-              }`}
-            >
-              👗 Bodice
-            </button>
-          </div>
-        </div>
+      {/* 3D WebGL Canvas Container with touch-action: none */}
+      <div className="flex-1 flex flex-col items-center justify-center p-2">
+        <div
+          ref={containerRef}
+          style={{ touchAction: 'none' }}
+          className="w-full max-w-md h-[420px] rounded-3xl overflow-hidden shadow-2xl border-2 border-stone-700/60 bg-gradient-to-b from-stone-100 to-stone-200 touch-none cursor-grab active:cursor-grabbing relative"
+        />
 
-        {/* Pile B Colorway Switcher */}
-        <div>
-          <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
-            3. Dynamic Patchwork Texture (Pile B Scraps)
-          </label>
-          <div className="space-y-1.5">
-            {CUSHION_PALETTES.map((pal, idx) => (
-              <button
-                key={idx}
-                onClick={() => setPaletteIndex(idx)}
-                className={`w-full py-2 px-3 rounded-lg border text-left text-xs transition flex items-center justify-between ${
-                  paletteIndex === idx
-                    ? 'bg-slate-700 border-amber-400 text-white'
-                    : 'bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-700/50'
-                }`}
-              >
-                <span className="font-medium truncate pr-2">{pal.name}</span>
-                <div className="flex gap-1 shrink-0">
-                  {pal.frontPatches.slice(0, 3).map((c, i) => (
-                    <span key={i} className="w-3.5 h-3.5 rounded-full border border-slate-600" style={{ backgroundColor: c }} />
-                  ))}
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Hidden Canvas Inspector Toggle */}
-        <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
-          <span className="text-xs text-slate-400">Hidden 2D Texture Map (512×512)</span>
-          <button
-            onClick={() => setShowCanvas(!showCanvas)}
-            className="text-xs text-blue-400 hover:underline"
-          >
-            {showCanvas ? 'Hide Texture Canvas' : 'Inspect Texture Canvas'}
-          </button>
-        </div>
-
-        {/* Technical Benchmark Summary Card */}
-        <div className="bg-slate-800/60 rounded-lg p-3 border border-slate-700 text-[11px] space-y-1 text-slate-300">
-          <div className="font-bold text-slate-200 text-xs flex justify-between">
-            <span>Spike Metrics:</span>
-            <span className="text-emerald-400 font-mono">{fps} FPS | {loadTime}</span>
-          </div>
-          <div>• Shell: <code>plain_cushion.glb</code> (3.97 KB, CC0 1.0 Universal)</div>
-          <div>• Mapping: 3x3 patchwork front ($U: 0 \to 0.5$) &amp; envelope back ($U: 0.5 \to 1.0$)</div>
-          <div>• In-App Environment: Android Capacitor WebKit / Chromium WebGL</div>
-        </div>
+        <p className="text-[11px] text-stone-400 mt-3 text-center">
+          Touch and drag to rotate • Pinch to zoom in/out
+        </p>
       </div>
     </div>
   );

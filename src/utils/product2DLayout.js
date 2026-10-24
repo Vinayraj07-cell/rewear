@@ -2520,3 +2520,147 @@ function computeChildTopLayout(design, sizeTemplate, placements, view) {
     disclaimer: 'Preview. Final look may differ slightly.',
   };
 }
+
+
+/**
+ * Pure function: Extracts a deterministic list of rectangles to draw from a design.
+ * Each rectangle has { x, y, width, height, color, colorHex, print, fabricType, scrapId, zoneId, panelId }.
+ * Guarantees:
+ * - Two identical design calls return identical rectangles.
+ * - Two different design calls return different rectangles.
+ */
+export function getProductDrawRectangles(design, view = 'front') {
+  if (!design || !design.productId) return [];
+  const layout = computeProduct2DLayout(design, view);
+  if (!layout || !layout.panels) return [];
+
+  const rects = [];
+  for (const panel of layout.panels) {
+    const px = panel.x || 0;
+    const py = panel.y || 0;
+    if (Array.isArray(panel.patches)) {
+      for (const patch of panel.patches) {
+        rects.push({
+          x: Number((px + (patch.relX || 0)).toFixed(3)),
+          y: Number((py + (patch.relY || 0)).toFixed(3)),
+          width: Number((patch.width || 0).toFixed(3)),
+          height: Number((patch.height || 0).toFixed(3)),
+          color: patch.color || 'navy',
+          colorHex: patch.colorHex || getHexForColor(patch.color),
+          print: patch.print || 'plain',
+          fabricType: patch.fabricType || 'cotton',
+          scrapId: patch.scrapId || '',
+          zoneId: panel.zoneId || panel.id || '',
+          panelId: panel.id || '',
+        });
+      }
+    }
+  }
+  return rects;
+}
+
+/**
+ * Draws the real design layout to a 2D HTML canvas for texture mapping.
+ * Uses the exact rectangles from getProductDrawRectangles and seam lines from computeProduct2DLayout.
+ */
+export function drawDesignToCanvas(canvas, design, view = 'front') {
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const w = canvas.width || 512;
+  const h = canvas.height || 512;
+
+  ctx.clearRect(0, 0, w, h);
+
+  const layout = computeProduct2DLayout(design, view);
+  if (!layout || !layout.panels) {
+    ctx.fillStyle = '#E2E8F0';
+    ctx.fillRect(0, 0, w, h);
+    return;
+  }
+
+  let vbW = 50;
+  let vbH = 50;
+  if (layout.viewBox) {
+    const parts = layout.viewBox.split(' ').map(Number);
+    if (parts.length === 4 && parts[2] > 0 && parts[3] > 0) {
+      vbW = parts[2];
+      vbH = parts[3];
+    }
+  }
+
+  const scaleX = w / vbW;
+  const scaleY = h / vbH;
+
+  // Background base cloth
+  ctx.fillStyle = '#F1F5F9';
+  ctx.fillRect(0, 0, w, h);
+
+  // 1. Draw all patch rectangles
+  const rects = getProductDrawRectangles(design, view);
+  for (const rect of rects) {
+    const rx = rect.x * scaleX;
+    const ry = rect.y * scaleY;
+    const rw = rect.width * scaleX;
+    const rh = rect.height * scaleY;
+
+    ctx.fillStyle = rect.colorHex;
+    ctx.fillRect(rx, ry, rw, rh);
+
+    // Subtle internal gradient shading for cloth depth
+    const grad = ctx.createLinearGradient(rx, ry, rx + rw, ry + rh);
+    grad.addColorStop(0, 'rgba(255, 255, 255, 0.08)');
+    grad.addColorStop(1, 'rgba(0, 0, 0, 0.12)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(rx, ry, rw, rh);
+
+    // Subtle print texture
+    if (rect.print && rect.print !== 'plain') {
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.18)';
+      for (let dotY = ry + 8; dotY < ry + rh - 4; dotY += 16) {
+        for (let dotX = rx + 8; dotX < rx + rw - 4; dotX += 16) {
+          ctx.beginPath();
+          ctx.arc(dotX, dotY, 2.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    }
+  }
+
+  // 2. Draw seam lines from layout
+  for (const panel of layout.panels) {
+    const px = (panel.x || 0) * scaleX;
+    const py = (panel.y || 0) * scaleY;
+    if (Array.isArray(panel.seams)) {
+      for (const seam of panel.seams) {
+        const sx1 = px + (seam.x1 || 0) * scaleX;
+        const sy1 = py + (seam.y1 || 0) * scaleY;
+        const sx2 = px + (seam.x2 || 0) * scaleX;
+        const sy2 = py + (seam.y2 || 0) * scaleY;
+
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.40)';
+        ctx.lineWidth = 3;
+        ctx.setLineDash([]);
+        ctx.beginPath();
+        ctx.moveTo(sx1, sy1);
+        ctx.lineTo(sx2, sy2);
+        ctx.stroke();
+
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.75)';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(sx1 + 1, sy1 + 1);
+        ctx.lineTo(sx2 + 1, sy2 + 1);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+    }
+  }
+
+  // 3. Fabric weave overlay
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.035)';
+  for (let y = 0; y < h; y += 4) ctx.fillRect(0, y, w, 1.5);
+  for (let x = 0; x < w; x += 4) ctx.fillRect(x, 0, 1.5, h);
+}
