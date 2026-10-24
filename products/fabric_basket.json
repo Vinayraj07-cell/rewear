@@ -1,0 +1,235 @@
+{
+  "id": "fabric_basket",
+  "names": {
+    "en": "Fabric Storage Basket",
+    "hi": "फैब्रिक स्टोरेज बास्केट",
+    "te": "ఫాబ్రిక్ నిల్వ బాస్కెట్"
+  },
+  "category": "home",
+  "construction": "bag",
+  "description": "Collapsible structured square fabric storage basket with side carry tabs, suitable for desktop or wardrobe organization.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "Sturdy canvas, twill, or denim scraps",
+      "qty": "Approx 40x50 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Heavy cotton lining or fusible interfacing",
+      "qty": "Matching body dimensions",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (16 × 16 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 16,
+        "heightCm": 16
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "basket_front",
+          "names": {
+            "en": "Storage Basket Front",
+            "hi": "बास्केट का अगला हिस्सा",
+            "te": "బాస్కెట్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 16,
+          "height": 16,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "basket_back",
+          "names": {
+            "en": "Storage Basket Back",
+            "hi": "बास्केट का पिछला हिस्सा",
+            "te": "బాస్కెట్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 16,
+          "height": 16,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "basket_bottom",
+          "names": {
+            "en": "Storage Basket Base",
+            "hi": "बास्केट का तला",
+            "te": "బాస్కెట్ అడుగు భాగం"
+          },
+          "role": "supporting",
+          "width": 16,
+          "height": 16,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "basket_handles",
+          "names": {
+            "en": "Side Carry Tabs",
+            "hi": "साइड कैरी टैब",
+            "te": "సైడ్ క్యారీ ట్యాబ్‌లు"
+          },
+          "role": "accent",
+          "width": 4,
+          "height": 12,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (20 × 20 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 20,
+        "heightCm": 20
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "basket_front",
+          "names": {
+            "en": "Storage Basket Front",
+            "hi": "बास्केट का अगला हिस्सा",
+            "te": "బాస్కెట్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 20,
+          "height": 20,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "basket_back",
+          "names": {
+            "en": "Storage Basket Back",
+            "hi": "बास्केट का पिछला हिस्सा",
+            "te": "బాస్కెట్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 20,
+          "height": 20,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "basket_bottom",
+          "names": {
+            "en": "Storage Basket Base",
+            "hi": "बास्केट का तला",
+            "te": "బాస్కెట్ అడుగు భాగం"
+          },
+          "role": "supporting",
+          "width": 20,
+          "height": 20,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "basket_handles",
+          "names": {
+            "en": "Side Carry Tabs",
+            "hi": "साइड कैरी टैब",
+            "te": "సైడ్ క్యారీ ట్యాబ్‌లు"
+          },
+          "role": "accent",
+          "width": 4,
+          "height": 14,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (25 × 25 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 25,
+        "heightCm": 25
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "basket_front",
+          "names": {
+            "en": "Storage Basket Front",
+            "hi": "बास्केट का अगला हिस्सा",
+            "te": "బాస్కెట్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 25,
+          "height": 25,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "basket_back",
+          "names": {
+            "en": "Storage Basket Back",
+            "hi": "बास्केट का पिछला हिस्सा",
+            "te": "బాస్కెట్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 25,
+          "height": 25,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "basket_bottom",
+          "names": {
+            "en": "Storage Basket Base",
+            "hi": "बास्केट का तला",
+            "te": "బాస్కెట్ అడుగు భాగం"
+          },
+          "role": "supporting",
+          "width": 25,
+          "height": 25,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "basket_handles",
+          "names": {
+            "en": "Side Carry Tabs",
+            "hi": "साइड कैरी टैब",
+            "te": "సైడ్ క్యారీ ట్యాబ్‌లు"
+          },
+          "role": "accent",
+          "width": 5,
+          "height": 16,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

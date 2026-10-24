@@ -1,0 +1,235 @@
+{
+  "id": "laundry_bag",
+  "names": {
+    "en": "Drawstring Laundry Bag",
+    "hi": "कपड़े धोने का बैग",
+    "te": "లాండ్రీ నిల్వ బ్యాగ్"
+  },
+  "category": "home",
+  "construction": "bag",
+  "description": "Spacious breathable drawstring laundry bag for washing delicates, sorting linens, or organizing travel laundry.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "Breathable cotton or mesh scraps",
+      "qty": "Approx 60x80 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Drawstring cotton cord",
+      "qty": "90 - 130 cm",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (35 × 45 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 35,
+        "heightCm": 45
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "laundry_front",
+          "names": {
+            "en": "Laundry Bag Front",
+            "hi": "लॉन्ड्री बैग का अगला हिस्सा",
+            "te": "లాండ్రీ బ్యాగ్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 35,
+          "height": 45,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "laundry_back",
+          "names": {
+            "en": "Laundry Bag Back",
+            "hi": "लॉन्ड्री बैग का पिछला हिस्सा",
+            "te": "లాండ్రీ బ్యాగ్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 35,
+          "height": 45,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "laundry_casing",
+          "names": {
+            "en": "Drawstring Channel Casing",
+            "hi": "डोरी चैनल केसिंग",
+            "te": "డ్రాస్ట్రింగ్ ఛానల్ కేసింగ్"
+          },
+          "role": "supporting",
+          "width": 6,
+          "height": 35,
+          "qty": 2,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "laundry_strap",
+          "names": {
+            "en": "Drawcord Closure Cord",
+            "hi": "खींचने वाली डोरी",
+            "te": "లాగే డ్రాకార్డ్ త్రాడు"
+          },
+          "role": "accent",
+          "width": 4,
+          "height": 60,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (45 × 60 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 45,
+        "heightCm": 60
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "laundry_front",
+          "names": {
+            "en": "Laundry Bag Front",
+            "hi": "लॉन्ड्री बैग का अगला हिस्सा",
+            "te": "లాండ్రీ బ్యాగ్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 45,
+          "height": 60,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "laundry_back",
+          "names": {
+            "en": "Laundry Bag Back",
+            "hi": "लॉन्ड्री बैग का पिछला हिस्सा",
+            "te": "లాండ్రీ బ్యాగ్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 45,
+          "height": 60,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "laundry_casing",
+          "names": {
+            "en": "Drawstring Channel Casing",
+            "hi": "डोरी चैनल केसिंग",
+            "te": "డ్రాస్ట్రింగ్ ఛానల్ కేసింగ్"
+          },
+          "role": "supporting",
+          "width": 6,
+          "height": 45,
+          "qty": 2,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "laundry_strap",
+          "names": {
+            "en": "Drawcord Closure Cord",
+            "hi": "खींचने वाली डोरी",
+            "te": "లాగే డ్రాకార్డ్ త్రాడు"
+          },
+          "role": "accent",
+          "width": 4,
+          "height": 70,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (55 × 75 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 55,
+        "heightCm": 75
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "laundry_front",
+          "names": {
+            "en": "Laundry Bag Front",
+            "hi": "लॉन्ड्री बैग का अगला हिस्सा",
+            "te": "లాండ్రీ బ్యాగ్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 55,
+          "height": 75,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "laundry_back",
+          "names": {
+            "en": "Laundry Bag Back",
+            "hi": "लॉन्ड्री बैग का पिछला हिस्सा",
+            "te": "లాండ్రీ బ్యాగ్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 55,
+          "height": 75,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "laundry_casing",
+          "names": {
+            "en": "Drawstring Channel Casing",
+            "hi": "डोरी चैनल केसिंग",
+            "te": "డ్రాస్ట్రింగ్ ఛానల్ కేసింగ్"
+          },
+          "role": "supporting",
+          "width": 8,
+          "height": 55,
+          "qty": 2,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "laundry_strap",
+          "names": {
+            "en": "Drawcord Closure Cord",
+            "hi": "खींचने वाली डोरी",
+            "te": "లాగే డ్రాకార్డ్ త్రాడు"
+          },
+          "role": "accent",
+          "width": 5,
+          "height": 80,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

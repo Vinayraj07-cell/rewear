@@ -22017,6 +22017,9306 @@ export const CUSTOM_PRODUCT_TEMPLATES = {
         ]
       }
     }
+  },
+  "tote_bag_mini": {
+    "schemaVersion": "1.0.0",
+    "id": "tote_bag_mini",
+    "name": "Mini Patchwork Tote",
+    "names": {
+      "en": "Mini Patchwork Tote",
+      "hi": "छोटा पैचवर्क टोट बैग",
+      "te": "చిన్న ప్యాచ్‌వర్క్ టోట్ బ్యాగ్"
+    },
+    "category": "bags",
+    "construction": "bag",
+    "silhouette": null,
+    "description": "Petite open-top tote bag with twin carry handles and an outer patch pocket, pieced from leftover scrap fabric.",
+    "defaultVariant": "plain",
+    "tailorVerified": false,
+    "disclaimer": "All pattern measurements are rectangle-based approximations for scrap cutting and must be verified by a professional tailor before final cutting.",
+    "materials": [
+      {
+        "name": "Cotton or linen fabric scraps",
+        "qty": "Approx 30x40 cm total area",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Lightweight cotton lining",
+        "qty": "Matching body dimensions",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Sewing thread",
+        "qty": "1 spool",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      }
+    ],
+    "timeEstimateFormula": null,
+    "stitchingSteps": [],
+    "sizes": {
+      "small": {
+        "label": "Small (20 × 22 cm)",
+        "names": {
+          "en": "Small",
+          "hi": "छोटा",
+          "te": "చిన్నది"
+        },
+        "finishedWidthCm": 20,
+        "finishedHeightCm": 22,
+        "finishedDimensions": {
+          "widthCm": 20,
+          "heightCm": 22
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "mini_front",
+            "name": "Mini Tote Front",
+            "names": {
+              "en": "Mini Tote Front",
+              "hi": "मिनी टोट का अगला हिस्सा",
+              "te": "మినీ టోట్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 20,
+            "height": 22,
+            "cutWidth": 22,
+            "cutHeight": 24,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 20,
+              "finishedHeightCm": 22,
+              "finishedAreaCm2": 440,
+              "cutWidthCm": 22,
+              "cutHeightCm": 24
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mini_back",
+            "name": "Mini Tote Back",
+            "names": {
+              "en": "Mini Tote Back",
+              "hi": "मिनी टोट का पिछला हिस्सा",
+              "te": "మినీ టోట్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 20,
+            "height": 22,
+            "cutWidth": 22,
+            "cutHeight": 24,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 20,
+              "finishedHeightCm": 22,
+              "finishedAreaCm2": 440,
+              "cutWidthCm": 22,
+              "cutHeightCm": 24
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mini_handles",
+            "name": "Mini Carry Handles",
+            "names": {
+              "en": "Mini Carry Handles",
+              "hi": "मिनी कैरी हैंडल",
+              "te": "మినీ క్యారీ హ్యాండిల్స్"
+            },
+            "role": "supporting",
+            "width": 5,
+            "height": 28,
+            "cutWidth": 7,
+            "cutHeight": 30,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 5,
+              "finishedHeightCm": 28,
+              "finishedAreaCm2": 140,
+              "cutWidthCm": 7,
+              "cutHeightCm": 30
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mini_pocket",
+            "name": "Mini Accent Pocket",
+            "names": {
+              "en": "Mini Accent Pocket",
+              "hi": "मिनी एक्सेंट पॉकेट",
+              "te": "మినీ యాక్సెంట్ పాకెట్"
+            },
+            "role": "accent",
+            "width": 10,
+            "height": 12,
+            "cutWidth": 12,
+            "cutHeight": 14,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 10,
+              "finishedHeightCm": 12,
+              "finishedAreaCm2": 120,
+              "cutWidthCm": 12,
+              "cutHeightCm": 14
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "mini_front",
+            "name": "Mini Tote Front",
+            "names": {
+              "en": "Mini Tote Front",
+              "hi": "मिनी टोट का अगला हिस्सा",
+              "te": "మినీ టోట్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 20,
+            "height": 22,
+            "cutWidth": 22,
+            "cutHeight": 24,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 20,
+              "finishedHeightCm": 22,
+              "finishedAreaCm2": 440,
+              "cutWidthCm": 22,
+              "cutHeightCm": 24
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mini_back",
+            "name": "Mini Tote Back",
+            "names": {
+              "en": "Mini Tote Back",
+              "hi": "मिनी टोट का पिछला हिस्सा",
+              "te": "మినీ టోట్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 20,
+            "height": 22,
+            "cutWidth": 22,
+            "cutHeight": 24,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 20,
+              "finishedHeightCm": 22,
+              "finishedAreaCm2": 440,
+              "cutWidthCm": 22,
+              "cutHeightCm": 24
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mini_handles",
+            "name": "Mini Carry Handles",
+            "names": {
+              "en": "Mini Carry Handles",
+              "hi": "मिनी कैरी हैंडल",
+              "te": "మినీ క్యారీ హ్యాండిల్స్"
+            },
+            "role": "supporting",
+            "width": 5,
+            "height": 28,
+            "cutWidth": 7,
+            "cutHeight": 30,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 5,
+              "finishedHeightCm": 28,
+              "finishedAreaCm2": 140,
+              "cutWidthCm": 7,
+              "cutHeightCm": 30
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mini_pocket",
+            "name": "Mini Accent Pocket",
+            "names": {
+              "en": "Mini Accent Pocket",
+              "hi": "मिनी एक्सेंट पॉकेट",
+              "te": "మినీ యాక్సెంట్ పాకెట్"
+            },
+            "role": "accent",
+            "width": 10,
+            "height": 12,
+            "cutWidth": 12,
+            "cutHeight": 14,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 10,
+              "finishedHeightCm": 12,
+              "finishedAreaCm2": 120,
+              "cutWidthCm": 12,
+              "cutHeightCm": 14
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "medium": {
+        "label": "Medium (24 × 26 cm)",
+        "names": {
+          "en": "Medium",
+          "hi": "मध्यम",
+          "te": "మధ్యస్థం"
+        },
+        "finishedWidthCm": 24,
+        "finishedHeightCm": 26,
+        "finishedDimensions": {
+          "widthCm": 24,
+          "heightCm": 26
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "mini_front",
+            "name": "Mini Tote Front",
+            "names": {
+              "en": "Mini Tote Front",
+              "hi": "मिनी टोट का अगला हिस्सा",
+              "te": "మినీ టోట్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 24,
+            "height": 26,
+            "cutWidth": 26,
+            "cutHeight": 28,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 24,
+              "finishedHeightCm": 26,
+              "finishedAreaCm2": 624,
+              "cutWidthCm": 26,
+              "cutHeightCm": 28
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mini_back",
+            "name": "Mini Tote Back",
+            "names": {
+              "en": "Mini Tote Back",
+              "hi": "मिनी टोट का पिछला हिस्सा",
+              "te": "మినీ టోట్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 24,
+            "height": 26,
+            "cutWidth": 26,
+            "cutHeight": 28,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 24,
+              "finishedHeightCm": 26,
+              "finishedAreaCm2": 624,
+              "cutWidthCm": 26,
+              "cutHeightCm": 28
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mini_handles",
+            "name": "Mini Carry Handles",
+            "names": {
+              "en": "Mini Carry Handles",
+              "hi": "मिनी कैरी हैंडल",
+              "te": "మినీ క్యారీ హ్యాండిల్స్"
+            },
+            "role": "supporting",
+            "width": 5,
+            "height": 32,
+            "cutWidth": 7,
+            "cutHeight": 34,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 5,
+              "finishedHeightCm": 32,
+              "finishedAreaCm2": 160,
+              "cutWidthCm": 7,
+              "cutHeightCm": 34
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mini_pocket",
+            "name": "Mini Accent Pocket",
+            "names": {
+              "en": "Mini Accent Pocket",
+              "hi": "मिनी एक्सेंट पॉकेट",
+              "te": "మినీ యాక్సెంట్ పాకెట్"
+            },
+            "role": "accent",
+            "width": 12,
+            "height": 14,
+            "cutWidth": 14,
+            "cutHeight": 16,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 12,
+              "finishedHeightCm": 14,
+              "finishedAreaCm2": 168,
+              "cutWidthCm": 14,
+              "cutHeightCm": 16
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "mini_front",
+            "name": "Mini Tote Front",
+            "names": {
+              "en": "Mini Tote Front",
+              "hi": "मिनी टोट का अगला हिस्सा",
+              "te": "మినీ టోట్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 24,
+            "height": 26,
+            "cutWidth": 26,
+            "cutHeight": 28,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 24,
+              "finishedHeightCm": 26,
+              "finishedAreaCm2": 624,
+              "cutWidthCm": 26,
+              "cutHeightCm": 28
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mini_back",
+            "name": "Mini Tote Back",
+            "names": {
+              "en": "Mini Tote Back",
+              "hi": "मिनी टोट का पिछला हिस्सा",
+              "te": "మినీ టోట్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 24,
+            "height": 26,
+            "cutWidth": 26,
+            "cutHeight": 28,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 24,
+              "finishedHeightCm": 26,
+              "finishedAreaCm2": 624,
+              "cutWidthCm": 26,
+              "cutHeightCm": 28
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mini_handles",
+            "name": "Mini Carry Handles",
+            "names": {
+              "en": "Mini Carry Handles",
+              "hi": "मिनी कैरी हैंडल",
+              "te": "మినీ క్యారీ హ్యాండిల్స్"
+            },
+            "role": "supporting",
+            "width": 5,
+            "height": 32,
+            "cutWidth": 7,
+            "cutHeight": 34,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 5,
+              "finishedHeightCm": 32,
+              "finishedAreaCm2": 160,
+              "cutWidthCm": 7,
+              "cutHeightCm": 34
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mini_pocket",
+            "name": "Mini Accent Pocket",
+            "names": {
+              "en": "Mini Accent Pocket",
+              "hi": "मिनी एक्सेंट पॉकेट",
+              "te": "మినీ యాక్సెంట్ పాకెట్"
+            },
+            "role": "accent",
+            "width": 12,
+            "height": 14,
+            "cutWidth": 14,
+            "cutHeight": 16,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 12,
+              "finishedHeightCm": 14,
+              "finishedAreaCm2": 168,
+              "cutWidthCm": 14,
+              "cutHeightCm": 16
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "large": {
+        "label": "Large (28 × 30 cm)",
+        "names": {
+          "en": "Large",
+          "hi": "बड़ा",
+          "te": "పెద్దది"
+        },
+        "finishedWidthCm": 28,
+        "finishedHeightCm": 30,
+        "finishedDimensions": {
+          "widthCm": 28,
+          "heightCm": 30
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "mini_front",
+            "name": "Mini Tote Front",
+            "names": {
+              "en": "Mini Tote Front",
+              "hi": "मिनी टोट का अगला हिस्सा",
+              "te": "మినీ టోట్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 28,
+            "height": 30,
+            "cutWidth": 30,
+            "cutHeight": 32,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 28,
+              "finishedHeightCm": 30,
+              "finishedAreaCm2": 840,
+              "cutWidthCm": 30,
+              "cutHeightCm": 32
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mini_back",
+            "name": "Mini Tote Back",
+            "names": {
+              "en": "Mini Tote Back",
+              "hi": "मिनी टोट का पिछला हिस्सा",
+              "te": "మినీ టోట్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 28,
+            "height": 30,
+            "cutWidth": 30,
+            "cutHeight": 32,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 28,
+              "finishedHeightCm": 30,
+              "finishedAreaCm2": 840,
+              "cutWidthCm": 30,
+              "cutHeightCm": 32
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mini_handles",
+            "name": "Mini Carry Handles",
+            "names": {
+              "en": "Mini Carry Handles",
+              "hi": "मिनी कैरी हैंडल",
+              "te": "మినీ క్యారీ హ్యాండిల్స్"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 36,
+            "cutWidth": 8,
+            "cutHeight": 38,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 36,
+              "finishedAreaCm2": 216,
+              "cutWidthCm": 8,
+              "cutHeightCm": 38
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mini_pocket",
+            "name": "Mini Accent Pocket",
+            "names": {
+              "en": "Mini Accent Pocket",
+              "hi": "मिनी एक्सेंट पॉकेट",
+              "te": "మినీ యాక్సెంట్ పాకెట్"
+            },
+            "role": "accent",
+            "width": 14,
+            "height": 16,
+            "cutWidth": 16,
+            "cutHeight": 18,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 14,
+              "finishedHeightCm": 16,
+              "finishedAreaCm2": 224,
+              "cutWidthCm": 16,
+              "cutHeightCm": 18
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "mini_front",
+            "name": "Mini Tote Front",
+            "names": {
+              "en": "Mini Tote Front",
+              "hi": "मिनी टोट का अगला हिस्सा",
+              "te": "మినీ టోట్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 28,
+            "height": 30,
+            "cutWidth": 30,
+            "cutHeight": 32,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 28,
+              "finishedHeightCm": 30,
+              "finishedAreaCm2": 840,
+              "cutWidthCm": 30,
+              "cutHeightCm": 32
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mini_back",
+            "name": "Mini Tote Back",
+            "names": {
+              "en": "Mini Tote Back",
+              "hi": "मिनी टोट का पिछला हिस्सा",
+              "te": "మినీ టోట్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 28,
+            "height": 30,
+            "cutWidth": 30,
+            "cutHeight": 32,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 28,
+              "finishedHeightCm": 30,
+              "finishedAreaCm2": 840,
+              "cutWidthCm": 30,
+              "cutHeightCm": 32
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mini_handles",
+            "name": "Mini Carry Handles",
+            "names": {
+              "en": "Mini Carry Handles",
+              "hi": "मिनी कैरी हैंडल",
+              "te": "మినీ క్యారీ హ్యాండిల్స్"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 36,
+            "cutWidth": 8,
+            "cutHeight": 38,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 36,
+              "finishedAreaCm2": 216,
+              "cutWidthCm": 8,
+              "cutHeightCm": 38
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mini_pocket",
+            "name": "Mini Accent Pocket",
+            "names": {
+              "en": "Mini Accent Pocket",
+              "hi": "मिनी एक्सेंट पॉकेट",
+              "te": "మినీ యాక్సెంట్ పాకెట్"
+            },
+            "role": "accent",
+            "width": 14,
+            "height": 16,
+            "cutWidth": 16,
+            "cutHeight": 18,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 14,
+              "finishedHeightCm": 16,
+              "finishedAreaCm2": 224,
+              "cutWidthCm": 16,
+              "cutHeightCm": 18
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      }
+    }
+  },
+  "drawstring_pouch": {
+    "schemaVersion": "1.0.0",
+    "id": "drawstring_pouch",
+    "name": "Drawstring Gift Pouch",
+    "names": {
+      "en": "Drawstring Gift Pouch",
+      "hi": "डोरी वाली पाउच",
+      "te": "డ్రాస్ట్రింగ్ పౌచ్"
+    },
+    "category": "bags",
+    "construction": "pouch",
+    "silhouette": null,
+    "description": "Soft gathered pouch with dual drawstring channel casing, perfect for jewellery, small accessories, or gift wrapping.",
+    "defaultVariant": "plain",
+    "tailorVerified": false,
+    "disclaimer": "All pattern measurements are rectangle-based approximations for scrap cutting and must be verified by a professional tailor before final cutting.",
+    "materials": [
+      {
+        "name": "Cotton or silk fabric scraps",
+        "qty": "Approx 25x35 cm total area",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Braided drawstring cord or ribbon",
+        "qty": "50 - 70 cm",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Sewing thread",
+        "qty": "1 spool",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      }
+    ],
+    "timeEstimateFormula": null,
+    "stitchingSteps": [],
+    "sizes": {
+      "small": {
+        "label": "Small (14 × 18 cm)",
+        "names": {
+          "en": "Small",
+          "hi": "छोटा",
+          "te": "చిన్నది"
+        },
+        "finishedWidthCm": 14,
+        "finishedHeightCm": 18,
+        "finishedDimensions": {
+          "widthCm": 14,
+          "heightCm": 18
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "drawstring_front",
+            "name": "Drawstring Front Body",
+            "names": {
+              "en": "Drawstring Front Body",
+              "hi": "डोरी पाउच का अगला हिस्सा",
+              "te": "డ్రాస్ట్రింగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 14,
+            "height": 18,
+            "cutWidth": 16,
+            "cutHeight": 20,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 14,
+              "finishedHeightCm": 18,
+              "finishedAreaCm2": 252,
+              "cutWidthCm": 16,
+              "cutHeightCm": 20
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "drawstring_back",
+            "name": "Drawstring Back Body",
+            "names": {
+              "en": "Drawstring Back Body",
+              "hi": "डोरी पाउच का पिछला हिस्सा",
+              "te": "డ్రాస్ట్రింగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 14,
+            "height": 18,
+            "cutWidth": 16,
+            "cutHeight": 20,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 14,
+              "finishedHeightCm": 18,
+              "finishedAreaCm2": 252,
+              "cutWidthCm": 16,
+              "cutHeightCm": 20
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "drawstring_casing",
+            "name": "Top Drawstring Casing",
+            "names": {
+              "en": "Top Drawstring Casing",
+              "hi": "ऊपरी डोरी केसिंग",
+              "te": "పై డ్రాస్ట్రింగ్ కేసింగ్"
+            },
+            "role": "supporting",
+            "width": 4,
+            "height": 14,
+            "cutWidth": 6,
+            "cutHeight": 16,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 14,
+              "finishedAreaCm2": 56,
+              "cutWidthCm": 6,
+              "cutHeightCm": 16
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "drawstring_front",
+            "name": "Drawstring Front Body",
+            "names": {
+              "en": "Drawstring Front Body",
+              "hi": "डोरी पाउच का अगला हिस्सा",
+              "te": "డ్రాస్ట్రింగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 14,
+            "height": 18,
+            "cutWidth": 16,
+            "cutHeight": 20,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 14,
+              "finishedHeightCm": 18,
+              "finishedAreaCm2": 252,
+              "cutWidthCm": 16,
+              "cutHeightCm": 20
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "drawstring_back",
+            "name": "Drawstring Back Body",
+            "names": {
+              "en": "Drawstring Back Body",
+              "hi": "डोरी पाउच का पिछला हिस्सा",
+              "te": "డ్రాస్ట్రింగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 14,
+            "height": 18,
+            "cutWidth": 16,
+            "cutHeight": 20,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 14,
+              "finishedHeightCm": 18,
+              "finishedAreaCm2": 252,
+              "cutWidthCm": 16,
+              "cutHeightCm": 20
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "drawstring_casing",
+            "name": "Top Drawstring Casing",
+            "names": {
+              "en": "Top Drawstring Casing",
+              "hi": "ऊपरी डोरी केसिंग",
+              "te": "పై డ్రాస్ట్రింగ్ కేసింగ్"
+            },
+            "role": "supporting",
+            "width": 4,
+            "height": 14,
+            "cutWidth": 6,
+            "cutHeight": 16,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 14,
+              "finishedAreaCm2": 56,
+              "cutWidthCm": 6,
+              "cutHeightCm": 16
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "medium": {
+        "label": "Medium (18 × 22 cm)",
+        "names": {
+          "en": "Medium",
+          "hi": "मध्यम",
+          "te": "మధ్యస్థం"
+        },
+        "finishedWidthCm": 18,
+        "finishedHeightCm": 22,
+        "finishedDimensions": {
+          "widthCm": 18,
+          "heightCm": 22
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "drawstring_front",
+            "name": "Drawstring Front Body",
+            "names": {
+              "en": "Drawstring Front Body",
+              "hi": "डोरी पाउच का अगला हिस्सा",
+              "te": "డ్రాస్ట్రింగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 18,
+            "height": 22,
+            "cutWidth": 20,
+            "cutHeight": 24,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 18,
+              "finishedHeightCm": 22,
+              "finishedAreaCm2": 396,
+              "cutWidthCm": 20,
+              "cutHeightCm": 24
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "drawstring_back",
+            "name": "Drawstring Back Body",
+            "names": {
+              "en": "Drawstring Back Body",
+              "hi": "डोरी पाउच का पिछला हिस्सा",
+              "te": "డ్రాస్ట్రింగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 18,
+            "height": 22,
+            "cutWidth": 20,
+            "cutHeight": 24,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 18,
+              "finishedHeightCm": 22,
+              "finishedAreaCm2": 396,
+              "cutWidthCm": 20,
+              "cutHeightCm": 24
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "drawstring_casing",
+            "name": "Top Drawstring Casing",
+            "names": {
+              "en": "Top Drawstring Casing",
+              "hi": "ऊपरी डोरी केसिंग",
+              "te": "పై డ్రాస్ట్రింగ్ కేసింగ్"
+            },
+            "role": "supporting",
+            "width": 4,
+            "height": 18,
+            "cutWidth": 6,
+            "cutHeight": 20,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 18,
+              "finishedAreaCm2": 72,
+              "cutWidthCm": 6,
+              "cutHeightCm": 20
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "drawstring_front",
+            "name": "Drawstring Front Body",
+            "names": {
+              "en": "Drawstring Front Body",
+              "hi": "डोरी पाउच का अगला हिस्सा",
+              "te": "డ్రాస్ట్రింగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 18,
+            "height": 22,
+            "cutWidth": 20,
+            "cutHeight": 24,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 18,
+              "finishedHeightCm": 22,
+              "finishedAreaCm2": 396,
+              "cutWidthCm": 20,
+              "cutHeightCm": 24
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "drawstring_back",
+            "name": "Drawstring Back Body",
+            "names": {
+              "en": "Drawstring Back Body",
+              "hi": "डोरी पाउच का पिछला हिस्सा",
+              "te": "డ్రాస్ట్రింగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 18,
+            "height": 22,
+            "cutWidth": 20,
+            "cutHeight": 24,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 18,
+              "finishedHeightCm": 22,
+              "finishedAreaCm2": 396,
+              "cutWidthCm": 20,
+              "cutHeightCm": 24
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "drawstring_casing",
+            "name": "Top Drawstring Casing",
+            "names": {
+              "en": "Top Drawstring Casing",
+              "hi": "ऊपरी डोरी केसिंग",
+              "te": "పై డ్రాస్ట్రింగ్ కేసింగ్"
+            },
+            "role": "supporting",
+            "width": 4,
+            "height": 18,
+            "cutWidth": 6,
+            "cutHeight": 20,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 18,
+              "finishedAreaCm2": 72,
+              "cutWidthCm": 6,
+              "cutHeightCm": 20
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "large": {
+        "label": "Large (22 × 28 cm)",
+        "names": {
+          "en": "Large",
+          "hi": "बड़ा",
+          "te": "పెద్దది"
+        },
+        "finishedWidthCm": 22,
+        "finishedHeightCm": 28,
+        "finishedDimensions": {
+          "widthCm": 22,
+          "heightCm": 28
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "drawstring_front",
+            "name": "Drawstring Front Body",
+            "names": {
+              "en": "Drawstring Front Body",
+              "hi": "डोरी पाउच का अगला हिस्सा",
+              "te": "డ్రాస్ట్రింగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 22,
+            "height": 28,
+            "cutWidth": 24,
+            "cutHeight": 30,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 22,
+              "finishedHeightCm": 28,
+              "finishedAreaCm2": 616,
+              "cutWidthCm": 24,
+              "cutHeightCm": 30
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "drawstring_back",
+            "name": "Drawstring Back Body",
+            "names": {
+              "en": "Drawstring Back Body",
+              "hi": "डोरी पाउच का पिछला हिस्सा",
+              "te": "డ్రాస్ట్రింగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 22,
+            "height": 28,
+            "cutWidth": 24,
+            "cutHeight": 30,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 22,
+              "finishedHeightCm": 28,
+              "finishedAreaCm2": 616,
+              "cutWidthCm": 24,
+              "cutHeightCm": 30
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "drawstring_casing",
+            "name": "Top Drawstring Casing",
+            "names": {
+              "en": "Top Drawstring Casing",
+              "hi": "ऊपरी डोरी केसिंग",
+              "te": "పై డ్రాస్ట్రింగ్ కేసింగ్"
+            },
+            "role": "supporting",
+            "width": 5,
+            "height": 22,
+            "cutWidth": 7,
+            "cutHeight": 24,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 5,
+              "finishedHeightCm": 22,
+              "finishedAreaCm2": 110,
+              "cutWidthCm": 7,
+              "cutHeightCm": 24
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "drawstring_front",
+            "name": "Drawstring Front Body",
+            "names": {
+              "en": "Drawstring Front Body",
+              "hi": "डोरी पाउच का अगला हिस्सा",
+              "te": "డ్రాస్ట్రింగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 22,
+            "height": 28,
+            "cutWidth": 24,
+            "cutHeight": 30,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 22,
+              "finishedHeightCm": 28,
+              "finishedAreaCm2": 616,
+              "cutWidthCm": 24,
+              "cutHeightCm": 30
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "drawstring_back",
+            "name": "Drawstring Back Body",
+            "names": {
+              "en": "Drawstring Back Body",
+              "hi": "डोरी पाउच का पिछला हिस्सा",
+              "te": "డ్రాస్ట్రింగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 22,
+            "height": 28,
+            "cutWidth": 24,
+            "cutHeight": 30,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 22,
+              "finishedHeightCm": 28,
+              "finishedAreaCm2": 616,
+              "cutWidthCm": 24,
+              "cutHeightCm": 30
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "drawstring_casing",
+            "name": "Top Drawstring Casing",
+            "names": {
+              "en": "Top Drawstring Casing",
+              "hi": "ऊपरी डोरी केसिंग",
+              "te": "పై డ్రాస్ట్రింగ్ కేసింగ్"
+            },
+            "role": "supporting",
+            "width": 5,
+            "height": 22,
+            "cutWidth": 7,
+            "cutHeight": 24,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 5,
+              "finishedHeightCm": 22,
+              "finishedAreaCm2": 110,
+              "cutWidthCm": 7,
+              "cutHeightCm": 24
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      }
+    }
+  },
+  "makeup_bag": {
+    "schemaVersion": "1.0.0",
+    "id": "makeup_bag",
+    "name": "Boxy Makeup Bag",
+    "names": {
+      "en": "Boxy Makeup Bag",
+      "hi": "बॉक्सी मेकअप बैग",
+      "te": "మేకప్ బ్యాగ్"
+    },
+    "category": "bags",
+    "construction": "pouch",
+    "silhouette": null,
+    "description": "Boxy cosmetic zipper bag with wide opening and side pull tabs, pieced from washable cotton scraps.",
+    "defaultVariant": "plain",
+    "tailorVerified": false,
+    "disclaimer": "All pattern measurements are rectangle-based approximations for scrap cutting and must be verified by a professional tailor before final cutting.",
+    "materials": [
+      {
+        "name": "Printed cotton or canvas scraps",
+        "qty": "Approx 30x40 cm total area",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Nylon zipper",
+        "qty": "20 - 30 cm",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Water-resistant lining fabric",
+        "qty": "Matching body dimensions",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Sewing thread",
+        "qty": "1 spool",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      }
+    ],
+    "timeEstimateFormula": null,
+    "stitchingSteps": [],
+    "sizes": {
+      "small": {
+        "label": "Small (18 × 12 cm)",
+        "names": {
+          "en": "Small",
+          "hi": "छोटा",
+          "te": "చిన్నది"
+        },
+        "finishedWidthCm": 18,
+        "finishedHeightCm": 12,
+        "finishedDimensions": {
+          "widthCm": 18,
+          "heightCm": 12
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "makeup_front",
+            "name": "Makeup Bag Front",
+            "names": {
+              "en": "Makeup Bag Front",
+              "hi": "मेकअप बैग का अगला हिस्सा",
+              "te": "మేకప్ బ్యాగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 18,
+            "height": 12,
+            "cutWidth": 20,
+            "cutHeight": 14,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 18,
+              "finishedHeightCm": 12,
+              "finishedAreaCm2": 216,
+              "cutWidthCm": 20,
+              "cutHeightCm": 14
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "makeup_back",
+            "name": "Makeup Bag Back",
+            "names": {
+              "en": "Makeup Bag Back",
+              "hi": "मेकअप बैग का पिछला हिस्सा",
+              "te": "మేకప్ బ్యాగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 18,
+            "height": 12,
+            "cutWidth": 20,
+            "cutHeight": 14,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 18,
+              "finishedHeightCm": 12,
+              "finishedAreaCm2": 216,
+              "cutWidthCm": 20,
+              "cutHeightCm": 14
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "makeup_base",
+            "name": "Makeup Bag Bottom Gusset",
+            "names": {
+              "en": "Makeup Bag Bottom Gusset",
+              "hi": "मेकअप बैग का निचला गसेट",
+              "te": "మేకప్ బ్యాగ్ అడుగు భాగం"
+            },
+            "role": "supporting",
+            "width": 18,
+            "height": 8,
+            "cutWidth": 20,
+            "cutHeight": 10,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 18,
+              "finishedHeightCm": 8,
+              "finishedAreaCm2": 144,
+              "cutWidthCm": 20,
+              "cutHeightCm": 10
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "makeup_tab",
+            "name": "Zipper Pull Tab",
+            "names": {
+              "en": "Zipper Pull Tab",
+              "hi": "ज़िप पुल टैब",
+              "te": "జిప్పర్ పుల్ ట్యాబ్"
+            },
+            "role": "accent",
+            "width": 4,
+            "height": 6,
+            "cutWidth": 6,
+            "cutHeight": 8,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 6,
+              "finishedAreaCm2": 24,
+              "cutWidthCm": 6,
+              "cutHeightCm": 8
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "makeup_front",
+            "name": "Makeup Bag Front",
+            "names": {
+              "en": "Makeup Bag Front",
+              "hi": "मेकअप बैग का अगला हिस्सा",
+              "te": "మేకప్ బ్యాగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 18,
+            "height": 12,
+            "cutWidth": 20,
+            "cutHeight": 14,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 18,
+              "finishedHeightCm": 12,
+              "finishedAreaCm2": 216,
+              "cutWidthCm": 20,
+              "cutHeightCm": 14
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "makeup_back",
+            "name": "Makeup Bag Back",
+            "names": {
+              "en": "Makeup Bag Back",
+              "hi": "मेकअप बैग का पिछला हिस्सा",
+              "te": "మేకప్ బ్యాగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 18,
+            "height": 12,
+            "cutWidth": 20,
+            "cutHeight": 14,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 18,
+              "finishedHeightCm": 12,
+              "finishedAreaCm2": 216,
+              "cutWidthCm": 20,
+              "cutHeightCm": 14
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "makeup_base",
+            "name": "Makeup Bag Bottom Gusset",
+            "names": {
+              "en": "Makeup Bag Bottom Gusset",
+              "hi": "मेकअप बैग का निचला गसेट",
+              "te": "మేకప్ బ్యాగ్ అడుగు భాగం"
+            },
+            "role": "supporting",
+            "width": 18,
+            "height": 8,
+            "cutWidth": 20,
+            "cutHeight": 10,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 18,
+              "finishedHeightCm": 8,
+              "finishedAreaCm2": 144,
+              "cutWidthCm": 20,
+              "cutHeightCm": 10
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "makeup_tab",
+            "name": "Zipper Pull Tab",
+            "names": {
+              "en": "Zipper Pull Tab",
+              "hi": "ज़िप पुल टैब",
+              "te": "జిప్పర్ పుల్ ట్యాబ్"
+            },
+            "role": "accent",
+            "width": 4,
+            "height": 6,
+            "cutWidth": 6,
+            "cutHeight": 8,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 6,
+              "finishedAreaCm2": 24,
+              "cutWidthCm": 6,
+              "cutHeightCm": 8
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "medium": {
+        "label": "Medium (22 × 15 cm)",
+        "names": {
+          "en": "Medium",
+          "hi": "मध्यम",
+          "te": "మధ్యస్థం"
+        },
+        "finishedWidthCm": 22,
+        "finishedHeightCm": 15,
+        "finishedDimensions": {
+          "widthCm": 22,
+          "heightCm": 15
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "makeup_front",
+            "name": "Makeup Bag Front",
+            "names": {
+              "en": "Makeup Bag Front",
+              "hi": "मेकअप बैग का अगला हिस्सा",
+              "te": "మేకప్ బ్యాగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 22,
+            "height": 15,
+            "cutWidth": 24,
+            "cutHeight": 17,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 22,
+              "finishedHeightCm": 15,
+              "finishedAreaCm2": 330,
+              "cutWidthCm": 24,
+              "cutHeightCm": 17
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "makeup_back",
+            "name": "Makeup Bag Back",
+            "names": {
+              "en": "Makeup Bag Back",
+              "hi": "मेकअप बैग का पिछला हिस्सा",
+              "te": "మేకప్ బ్యాగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 22,
+            "height": 15,
+            "cutWidth": 24,
+            "cutHeight": 17,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 22,
+              "finishedHeightCm": 15,
+              "finishedAreaCm2": 330,
+              "cutWidthCm": 24,
+              "cutHeightCm": 17
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "makeup_base",
+            "name": "Makeup Bag Bottom Gusset",
+            "names": {
+              "en": "Makeup Bag Bottom Gusset",
+              "hi": "मेकअप बैग का निचला गसेट",
+              "te": "మేకప్ బ్యాగ్ అడుగు భాగం"
+            },
+            "role": "supporting",
+            "width": 22,
+            "height": 10,
+            "cutWidth": 24,
+            "cutHeight": 12,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 22,
+              "finishedHeightCm": 10,
+              "finishedAreaCm2": 220,
+              "cutWidthCm": 24,
+              "cutHeightCm": 12
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "makeup_tab",
+            "name": "Zipper Pull Tab",
+            "names": {
+              "en": "Zipper Pull Tab",
+              "hi": "ज़िप पुल टैब",
+              "te": "జిప్పర్ పుల్ ట్యాబ్"
+            },
+            "role": "accent",
+            "width": 4,
+            "height": 7,
+            "cutWidth": 6,
+            "cutHeight": 9,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 7,
+              "finishedAreaCm2": 28,
+              "cutWidthCm": 6,
+              "cutHeightCm": 9
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "makeup_front",
+            "name": "Makeup Bag Front",
+            "names": {
+              "en": "Makeup Bag Front",
+              "hi": "मेकअप बैग का अगला हिस्सा",
+              "te": "మేకప్ బ్యాగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 22,
+            "height": 15,
+            "cutWidth": 24,
+            "cutHeight": 17,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 22,
+              "finishedHeightCm": 15,
+              "finishedAreaCm2": 330,
+              "cutWidthCm": 24,
+              "cutHeightCm": 17
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "makeup_back",
+            "name": "Makeup Bag Back",
+            "names": {
+              "en": "Makeup Bag Back",
+              "hi": "मेकअप बैग का पिछला हिस्सा",
+              "te": "మేకప్ బ్యాగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 22,
+            "height": 15,
+            "cutWidth": 24,
+            "cutHeight": 17,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 22,
+              "finishedHeightCm": 15,
+              "finishedAreaCm2": 330,
+              "cutWidthCm": 24,
+              "cutHeightCm": 17
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "makeup_base",
+            "name": "Makeup Bag Bottom Gusset",
+            "names": {
+              "en": "Makeup Bag Bottom Gusset",
+              "hi": "मेकअप बैग का निचला गसेट",
+              "te": "మేకప్ బ్యాగ్ అడుగు భాగం"
+            },
+            "role": "supporting",
+            "width": 22,
+            "height": 10,
+            "cutWidth": 24,
+            "cutHeight": 12,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 22,
+              "finishedHeightCm": 10,
+              "finishedAreaCm2": 220,
+              "cutWidthCm": 24,
+              "cutHeightCm": 12
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "makeup_tab",
+            "name": "Zipper Pull Tab",
+            "names": {
+              "en": "Zipper Pull Tab",
+              "hi": "ज़िप पुल टैब",
+              "te": "జిప్పర్ పుల్ ట్యాబ్"
+            },
+            "role": "accent",
+            "width": 4,
+            "height": 7,
+            "cutWidth": 6,
+            "cutHeight": 9,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 7,
+              "finishedAreaCm2": 28,
+              "cutWidthCm": 6,
+              "cutHeightCm": 9
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "large": {
+        "label": "Large (26 × 18 cm)",
+        "names": {
+          "en": "Large",
+          "hi": "बड़ा",
+          "te": "పెద్దది"
+        },
+        "finishedWidthCm": 26,
+        "finishedHeightCm": 18,
+        "finishedDimensions": {
+          "widthCm": 26,
+          "heightCm": 18
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "makeup_front",
+            "name": "Makeup Bag Front",
+            "names": {
+              "en": "Makeup Bag Front",
+              "hi": "मेकअप बैग का अगला हिस्सा",
+              "te": "మేకప్ బ్యాగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 26,
+            "height": 18,
+            "cutWidth": 28,
+            "cutHeight": 20,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 26,
+              "finishedHeightCm": 18,
+              "finishedAreaCm2": 468,
+              "cutWidthCm": 28,
+              "cutHeightCm": 20
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "makeup_back",
+            "name": "Makeup Bag Back",
+            "names": {
+              "en": "Makeup Bag Back",
+              "hi": "मेकअप बैग का पिछला हिस्सा",
+              "te": "మేకప్ బ్యాగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 26,
+            "height": 18,
+            "cutWidth": 28,
+            "cutHeight": 20,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 26,
+              "finishedHeightCm": 18,
+              "finishedAreaCm2": 468,
+              "cutWidthCm": 28,
+              "cutHeightCm": 20
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "makeup_base",
+            "name": "Makeup Bag Bottom Gusset",
+            "names": {
+              "en": "Makeup Bag Bottom Gusset",
+              "hi": "मेकअप बैग का निचला गसेट",
+              "te": "మేకప్ బ్యాగ్ అడుగు భాగం"
+            },
+            "role": "supporting",
+            "width": 26,
+            "height": 12,
+            "cutWidth": 28,
+            "cutHeight": 14,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 26,
+              "finishedHeightCm": 12,
+              "finishedAreaCm2": 312,
+              "cutWidthCm": 28,
+              "cutHeightCm": 14
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "makeup_tab",
+            "name": "Zipper Pull Tab",
+            "names": {
+              "en": "Zipper Pull Tab",
+              "hi": "ज़िप पुल टैब",
+              "te": "జిప్పర్ పుల్ ట్యాబ్"
+            },
+            "role": "accent",
+            "width": 5,
+            "height": 8,
+            "cutWidth": 7,
+            "cutHeight": 10,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 5,
+              "finishedHeightCm": 8,
+              "finishedAreaCm2": 40,
+              "cutWidthCm": 7,
+              "cutHeightCm": 10
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "makeup_front",
+            "name": "Makeup Bag Front",
+            "names": {
+              "en": "Makeup Bag Front",
+              "hi": "मेकअप बैग का अगला हिस्सा",
+              "te": "మేకప్ బ్యాగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 26,
+            "height": 18,
+            "cutWidth": 28,
+            "cutHeight": 20,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 26,
+              "finishedHeightCm": 18,
+              "finishedAreaCm2": 468,
+              "cutWidthCm": 28,
+              "cutHeightCm": 20
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "makeup_back",
+            "name": "Makeup Bag Back",
+            "names": {
+              "en": "Makeup Bag Back",
+              "hi": "मेकअप बैग का पिछला हिस्सा",
+              "te": "మేకప్ బ్యాగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 26,
+            "height": 18,
+            "cutWidth": 28,
+            "cutHeight": 20,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 26,
+              "finishedHeightCm": 18,
+              "finishedAreaCm2": 468,
+              "cutWidthCm": 28,
+              "cutHeightCm": 20
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "makeup_base",
+            "name": "Makeup Bag Bottom Gusset",
+            "names": {
+              "en": "Makeup Bag Bottom Gusset",
+              "hi": "मेकअप बैग का निचला गसेट",
+              "te": "మేకప్ బ్యాగ్ అడుగు భాగం"
+            },
+            "role": "supporting",
+            "width": 26,
+            "height": 12,
+            "cutWidth": 28,
+            "cutHeight": 14,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 26,
+              "finishedHeightCm": 12,
+              "finishedAreaCm2": 312,
+              "cutWidthCm": 28,
+              "cutHeightCm": 14
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "makeup_tab",
+            "name": "Zipper Pull Tab",
+            "names": {
+              "en": "Zipper Pull Tab",
+              "hi": "ज़िप पुल टैब",
+              "te": "జిప్పర్ పుల్ ట్యాబ్"
+            },
+            "role": "accent",
+            "width": 5,
+            "height": 8,
+            "cutWidth": 7,
+            "cutHeight": 10,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 5,
+              "finishedHeightCm": 8,
+              "finishedAreaCm2": 40,
+              "cutWidthCm": 7,
+              "cutHeightCm": 10
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      }
+    }
+  },
+  "table_mat": {
+    "schemaVersion": "1.0.0",
+    "id": "table_mat",
+    "name": "Quilted Dining Table Mat",
+    "names": {
+      "en": "Quilted Dining Table Mat",
+      "hi": "डाइनिंग टेबल मैट",
+      "te": "డైనింగ్ టేబుల్ మ్యాట్"
+    },
+    "category": "home",
+    "construction": "flat",
+    "silhouette": null,
+    "description": "Quilted fabric table mat with bound edges, pieced from heat-tolerant cotton scraps to protect tabletop surfaces.",
+    "defaultVariant": "plain",
+    "tailorVerified": false,
+    "disclaimer": "All pattern measurements are rectangle-based approximations for scrap cutting and must be verified by a professional tailor before final cutting.",
+    "materials": [
+      {
+        "name": "Cotton scraps for top piecing",
+        "qty": "Approx 40x50 cm total area",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Cotton backing fabric",
+        "qty": "Matching finished dimensions",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Thin cotton batting",
+        "qty": "Matching finished dimensions",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Sewing thread",
+        "qty": "1 spool",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      }
+    ],
+    "timeEstimateFormula": null,
+    "stitchingSteps": [],
+    "sizes": {
+      "small": {
+        "label": "Small (35 × 25 cm)",
+        "names": {
+          "en": "Small",
+          "hi": "छोटा",
+          "te": "చిన్నది"
+        },
+        "finishedWidthCm": 35,
+        "finishedHeightCm": 25,
+        "finishedDimensions": {
+          "widthCm": 35,
+          "heightCm": 25
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "mat_main",
+            "name": "Table Mat Top Face",
+            "names": {
+              "en": "Table Mat Top Face",
+              "hi": "टेबल मैट का ऊपरी हिस्सा",
+              "te": "టేబుల్ మ్యాట్ పై భాగం"
+            },
+            "role": "base",
+            "width": 35,
+            "height": 25,
+            "cutWidth": 37,
+            "cutHeight": 27,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 35,
+              "finishedHeightCm": 25,
+              "finishedAreaCm2": 875,
+              "cutWidthCm": 37,
+              "cutHeightCm": 27
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mat_backing",
+            "name": "Table Mat Back Lining",
+            "names": {
+              "en": "Table Mat Back Lining",
+              "hi": "टेबल मैट की निचली लाइनिंग",
+              "te": "టేబుల్ మ్యాట్ వెనుక లైనింగ్"
+            },
+            "role": "supporting",
+            "width": 35,
+            "height": 25,
+            "cutWidth": 37,
+            "cutHeight": 27,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 35,
+              "finishedHeightCm": 25,
+              "finishedAreaCm2": 875,
+              "cutWidthCm": 37,
+              "cutHeightCm": 27
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mat_border",
+            "name": "Table Mat Accent Border",
+            "names": {
+              "en": "Table Mat Accent Border",
+              "hi": "टेबल मैट एक्सेंट बॉर्डर",
+              "te": "టేబుల్ మ్యాట్ యాక్సెంట్ బార్డర్"
+            },
+            "role": "accent",
+            "width": 4,
+            "height": 35,
+            "cutWidth": 6,
+            "cutHeight": 37,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 35,
+              "finishedAreaCm2": 140,
+              "cutWidthCm": 6,
+              "cutHeightCm": 37
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "mat_main",
+            "name": "Table Mat Top Face",
+            "names": {
+              "en": "Table Mat Top Face",
+              "hi": "टेबल मैट का ऊपरी हिस्सा",
+              "te": "టేబుల్ మ్యాట్ పై భాగం"
+            },
+            "role": "base",
+            "width": 35,
+            "height": 25,
+            "cutWidth": 37,
+            "cutHeight": 27,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 35,
+              "finishedHeightCm": 25,
+              "finishedAreaCm2": 875,
+              "cutWidthCm": 37,
+              "cutHeightCm": 27
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mat_backing",
+            "name": "Table Mat Back Lining",
+            "names": {
+              "en": "Table Mat Back Lining",
+              "hi": "टेबल मैट की निचली लाइनिंग",
+              "te": "టేబుల్ మ్యాట్ వెనుక లైనింగ్"
+            },
+            "role": "supporting",
+            "width": 35,
+            "height": 25,
+            "cutWidth": 37,
+            "cutHeight": 27,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 35,
+              "finishedHeightCm": 25,
+              "finishedAreaCm2": 875,
+              "cutWidthCm": 37,
+              "cutHeightCm": 27
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mat_border",
+            "name": "Table Mat Accent Border",
+            "names": {
+              "en": "Table Mat Accent Border",
+              "hi": "टेबल मैट एक्सेंट बॉर्डर",
+              "te": "టేబుల్ మ్యాట్ యాక్సెంట్ బార్డర్"
+            },
+            "role": "accent",
+            "width": 4,
+            "height": 35,
+            "cutWidth": 6,
+            "cutHeight": 37,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 35,
+              "finishedAreaCm2": 140,
+              "cutWidthCm": 6,
+              "cutHeightCm": 37
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "medium": {
+        "label": "Medium (40 × 30 cm)",
+        "names": {
+          "en": "Medium",
+          "hi": "मध्यम",
+          "te": "మధ్యస్థం"
+        },
+        "finishedWidthCm": 40,
+        "finishedHeightCm": 30,
+        "finishedDimensions": {
+          "widthCm": 40,
+          "heightCm": 30
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "mat_main",
+            "name": "Table Mat Top Face",
+            "names": {
+              "en": "Table Mat Top Face",
+              "hi": "टेबल मैट का ऊपरी हिस्सा",
+              "te": "టేబుల్ మ్యాట్ పై భాగం"
+            },
+            "role": "base",
+            "width": 40,
+            "height": 30,
+            "cutWidth": 42,
+            "cutHeight": 32,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 40,
+              "finishedHeightCm": 30,
+              "finishedAreaCm2": 1200,
+              "cutWidthCm": 42,
+              "cutHeightCm": 32
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mat_backing",
+            "name": "Table Mat Back Lining",
+            "names": {
+              "en": "Table Mat Back Lining",
+              "hi": "टेबल मैट की निचली लाइनिंग",
+              "te": "టేబుల్ మ్యాట్ వెనుక లైనింగ్"
+            },
+            "role": "supporting",
+            "width": 40,
+            "height": 30,
+            "cutWidth": 42,
+            "cutHeight": 32,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 40,
+              "finishedHeightCm": 30,
+              "finishedAreaCm2": 1200,
+              "cutWidthCm": 42,
+              "cutHeightCm": 32
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mat_border",
+            "name": "Table Mat Accent Border",
+            "names": {
+              "en": "Table Mat Accent Border",
+              "hi": "टेबल मैट एक्सेंट बॉर्डर",
+              "te": "టేబుల్ మ్యాట్ యాక్సెంట్ బార్డర్"
+            },
+            "role": "accent",
+            "width": 4,
+            "height": 40,
+            "cutWidth": 6,
+            "cutHeight": 42,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 40,
+              "finishedAreaCm2": 160,
+              "cutWidthCm": 6,
+              "cutHeightCm": 42
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "mat_main",
+            "name": "Table Mat Top Face",
+            "names": {
+              "en": "Table Mat Top Face",
+              "hi": "टेबल मैट का ऊपरी हिस्सा",
+              "te": "టేబుల్ మ్యాట్ పై భాగం"
+            },
+            "role": "base",
+            "width": 40,
+            "height": 30,
+            "cutWidth": 42,
+            "cutHeight": 32,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 40,
+              "finishedHeightCm": 30,
+              "finishedAreaCm2": 1200,
+              "cutWidthCm": 42,
+              "cutHeightCm": 32
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mat_backing",
+            "name": "Table Mat Back Lining",
+            "names": {
+              "en": "Table Mat Back Lining",
+              "hi": "टेबल मैट की निचली लाइनिंग",
+              "te": "టేబుల్ మ్యాట్ వెనుక లైనింగ్"
+            },
+            "role": "supporting",
+            "width": 40,
+            "height": 30,
+            "cutWidth": 42,
+            "cutHeight": 32,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 40,
+              "finishedHeightCm": 30,
+              "finishedAreaCm2": 1200,
+              "cutWidthCm": 42,
+              "cutHeightCm": 32
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mat_border",
+            "name": "Table Mat Accent Border",
+            "names": {
+              "en": "Table Mat Accent Border",
+              "hi": "टेबल मैट एक्सेंट बॉर्डर",
+              "te": "టేబుల్ మ్యాట్ యాక్సెంట్ బార్డర్"
+            },
+            "role": "accent",
+            "width": 4,
+            "height": 40,
+            "cutWidth": 6,
+            "cutHeight": 42,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 40,
+              "finishedAreaCm2": 160,
+              "cutWidthCm": 6,
+              "cutHeightCm": 42
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "large": {
+        "label": "Large (45 × 35 cm)",
+        "names": {
+          "en": "Large",
+          "hi": "बड़ा",
+          "te": "పెద్దది"
+        },
+        "finishedWidthCm": 45,
+        "finishedHeightCm": 35,
+        "finishedDimensions": {
+          "widthCm": 45,
+          "heightCm": 35
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "mat_main",
+            "name": "Table Mat Top Face",
+            "names": {
+              "en": "Table Mat Top Face",
+              "hi": "टेबल मैट का ऊपरी हिस्सा",
+              "te": "టేబుల్ మ్యాట్ పై భాగం"
+            },
+            "role": "base",
+            "width": 45,
+            "height": 35,
+            "cutWidth": 47,
+            "cutHeight": 37,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 45,
+              "finishedHeightCm": 35,
+              "finishedAreaCm2": 1575,
+              "cutWidthCm": 47,
+              "cutHeightCm": 37
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mat_backing",
+            "name": "Table Mat Back Lining",
+            "names": {
+              "en": "Table Mat Back Lining",
+              "hi": "टेबल मैट की निचली लाइनिंग",
+              "te": "టేబుల్ మ్యాట్ వెనుక లైనింగ్"
+            },
+            "role": "supporting",
+            "width": 45,
+            "height": 35,
+            "cutWidth": 47,
+            "cutHeight": 37,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 45,
+              "finishedHeightCm": 35,
+              "finishedAreaCm2": 1575,
+              "cutWidthCm": 47,
+              "cutHeightCm": 37
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mat_border",
+            "name": "Table Mat Accent Border",
+            "names": {
+              "en": "Table Mat Accent Border",
+              "hi": "टेबल मैट एक्सेंट बॉर्डर",
+              "te": "టేబుల్ మ్యాట్ యాక్సెంట్ బార్డర్"
+            },
+            "role": "accent",
+            "width": 5,
+            "height": 45,
+            "cutWidth": 7,
+            "cutHeight": 47,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 5,
+              "finishedHeightCm": 45,
+              "finishedAreaCm2": 225,
+              "cutWidthCm": 7,
+              "cutHeightCm": 47
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "mat_main",
+            "name": "Table Mat Top Face",
+            "names": {
+              "en": "Table Mat Top Face",
+              "hi": "टेबल मैट का ऊपरी हिस्सा",
+              "te": "టేబుల్ మ్యాట్ పై భాగం"
+            },
+            "role": "base",
+            "width": 45,
+            "height": 35,
+            "cutWidth": 47,
+            "cutHeight": 37,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 45,
+              "finishedHeightCm": 35,
+              "finishedAreaCm2": 1575,
+              "cutWidthCm": 47,
+              "cutHeightCm": 37
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mat_backing",
+            "name": "Table Mat Back Lining",
+            "names": {
+              "en": "Table Mat Back Lining",
+              "hi": "टेबल मैट की निचली लाइनिंग",
+              "te": "టేబుల్ మ్యాట్ వెనుక లైనింగ్"
+            },
+            "role": "supporting",
+            "width": 45,
+            "height": 35,
+            "cutWidth": 47,
+            "cutHeight": 37,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 45,
+              "finishedHeightCm": 35,
+              "finishedAreaCm2": 1575,
+              "cutWidthCm": 47,
+              "cutHeightCm": 37
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "mat_border",
+            "name": "Table Mat Accent Border",
+            "names": {
+              "en": "Table Mat Accent Border",
+              "hi": "टेबल मैट एक्सेंट बॉर्डर",
+              "te": "టేబుల్ మ్యాట్ యాక్సెంట్ బార్డర్"
+            },
+            "role": "accent",
+            "width": 5,
+            "height": 45,
+            "cutWidth": 7,
+            "cutHeight": 47,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 5,
+              "finishedHeightCm": 45,
+              "finishedAreaCm2": 225,
+              "cutWidthCm": 7,
+              "cutHeightCm": 47
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      }
+    }
+  },
+  "cushion_cover_large": {
+    "schemaVersion": "1.0.0",
+    "id": "cushion_cover_large",
+    "name": "Large Floor Cushion Cover",
+    "names": {
+      "en": "Large Floor Cushion Cover",
+      "hi": "बड़ा फ्लोर कुशन कवर",
+      "te": "పెద్ద కుషన్ కవర్"
+    },
+    "category": "home",
+    "construction": "cushion",
+    "silhouette": null,
+    "description": "Generous floor or sofa cushion cover featuring envelope back overlap, requiring no zippers or metal hardware.",
+    "defaultVariant": "plain",
+    "tailorVerified": false,
+    "disclaimer": "All pattern measurements are rectangle-based approximations for scrap cutting and must be verified by a professional tailor before final cutting.",
+    "materials": [
+      {
+        "name": "Cotton canvas or linen scraps",
+        "qty": "Approx 70x80 cm total area",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Solid backing cotton",
+        "qty": "Matching envelope flap dimensions",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Sewing thread",
+        "qty": "1 spool",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      }
+    ],
+    "timeEstimateFormula": null,
+    "stitchingSteps": [],
+    "sizes": {
+      "small": {
+        "label": "Small (45 × 45 cm)",
+        "names": {
+          "en": "Small",
+          "hi": "छोटा",
+          "te": "చిన్నది"
+        },
+        "finishedWidthCm": 45,
+        "finishedHeightCm": 45,
+        "finishedDimensions": {
+          "widthCm": 45,
+          "heightCm": 45
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "cushion_lg_front",
+            "name": "Cushion Front Face",
+            "names": {
+              "en": "Cushion Front Face",
+              "hi": "कुशन का अगला हिस्सा",
+              "te": "కుషన్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 45,
+            "height": 45,
+            "cutWidth": 47,
+            "cutHeight": 47,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 45,
+              "finishedHeightCm": 45,
+              "finishedAreaCm2": 2025,
+              "cutWidthCm": 47,
+              "cutHeightCm": 47
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "cushion_lg_back_top",
+            "name": "Upper Envelope Flap",
+            "names": {
+              "en": "Upper Envelope Flap",
+              "hi": "ऊपरी लिफाफा फ्लैप",
+              "te": "పై ఎన్వలప్ ఫ్లాప్"
+            },
+            "role": "base",
+            "width": 45,
+            "height": 32,
+            "cutWidth": 47,
+            "cutHeight": 34,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 45,
+              "finishedHeightCm": 32,
+              "finishedAreaCm2": 1440,
+              "cutWidthCm": 47,
+              "cutHeightCm": 34
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "cushion_lg_back_bottom",
+            "name": "Lower Envelope Flap",
+            "names": {
+              "en": "Lower Envelope Flap",
+              "hi": "निचला लिफाफा फ्लैप",
+              "te": "కింది ఎన్వలప్ ఫ్లాప్"
+            },
+            "role": "base",
+            "width": 45,
+            "height": 25,
+            "cutWidth": 47,
+            "cutHeight": 27,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 45,
+              "finishedHeightCm": 25,
+              "finishedAreaCm2": 1125,
+              "cutWidthCm": 47,
+              "cutHeightCm": 27
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "cushion_lg_front",
+            "name": "Cushion Front Face",
+            "names": {
+              "en": "Cushion Front Face",
+              "hi": "कुशन का अगला हिस्सा",
+              "te": "కుషన్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 45,
+            "height": 45,
+            "cutWidth": 47,
+            "cutHeight": 47,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 45,
+              "finishedHeightCm": 45,
+              "finishedAreaCm2": 2025,
+              "cutWidthCm": 47,
+              "cutHeightCm": 47
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "cushion_lg_back_top",
+            "name": "Upper Envelope Flap",
+            "names": {
+              "en": "Upper Envelope Flap",
+              "hi": "ऊपरी लिफाफा फ्लैप",
+              "te": "పై ఎన్వలప్ ఫ్లాప్"
+            },
+            "role": "base",
+            "width": 45,
+            "height": 32,
+            "cutWidth": 47,
+            "cutHeight": 34,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 45,
+              "finishedHeightCm": 32,
+              "finishedAreaCm2": 1440,
+              "cutWidthCm": 47,
+              "cutHeightCm": 34
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "cushion_lg_back_bottom",
+            "name": "Lower Envelope Flap",
+            "names": {
+              "en": "Lower Envelope Flap",
+              "hi": "निचला लिफाफा फ्लैप",
+              "te": "కింది ఎన్వలప్ ఫ్లాప్"
+            },
+            "role": "base",
+            "width": 45,
+            "height": 25,
+            "cutWidth": 47,
+            "cutHeight": 27,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 45,
+              "finishedHeightCm": 25,
+              "finishedAreaCm2": 1125,
+              "cutWidthCm": 47,
+              "cutHeightCm": 27
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "medium": {
+        "label": "Medium (50 × 50 cm)",
+        "names": {
+          "en": "Medium",
+          "hi": "मध्यम",
+          "te": "మధ్యస్థం"
+        },
+        "finishedWidthCm": 50,
+        "finishedHeightCm": 50,
+        "finishedDimensions": {
+          "widthCm": 50,
+          "heightCm": 50
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "cushion_lg_front",
+            "name": "Cushion Front Face",
+            "names": {
+              "en": "Cushion Front Face",
+              "hi": "कुशन का अगला हिस्सा",
+              "te": "కుషన్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 50,
+            "height": 50,
+            "cutWidth": 52,
+            "cutHeight": 52,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 50,
+              "finishedHeightCm": 50,
+              "finishedAreaCm2": 2500,
+              "cutWidthCm": 52,
+              "cutHeightCm": 52
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "cushion_lg_back_top",
+            "name": "Upper Envelope Flap",
+            "names": {
+              "en": "Upper Envelope Flap",
+              "hi": "ऊपरी लिफाफा फ्लैप",
+              "te": "పై ఎన్వలప్ ఫ్లాప్"
+            },
+            "role": "base",
+            "width": 50,
+            "height": 36,
+            "cutWidth": 52,
+            "cutHeight": 38,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 50,
+              "finishedHeightCm": 36,
+              "finishedAreaCm2": 1800,
+              "cutWidthCm": 52,
+              "cutHeightCm": 38
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "cushion_lg_back_bottom",
+            "name": "Lower Envelope Flap",
+            "names": {
+              "en": "Lower Envelope Flap",
+              "hi": "निचला लिफाफा फ्लैप",
+              "te": "కింది ఎన్వలప్ ఫ్లాప్"
+            },
+            "role": "base",
+            "width": 50,
+            "height": 28,
+            "cutWidth": 52,
+            "cutHeight": 30,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 50,
+              "finishedHeightCm": 28,
+              "finishedAreaCm2": 1400,
+              "cutWidthCm": 52,
+              "cutHeightCm": 30
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "cushion_lg_front",
+            "name": "Cushion Front Face",
+            "names": {
+              "en": "Cushion Front Face",
+              "hi": "कुशन का अगला हिस्सा",
+              "te": "కుషన్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 50,
+            "height": 50,
+            "cutWidth": 52,
+            "cutHeight": 52,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 50,
+              "finishedHeightCm": 50,
+              "finishedAreaCm2": 2500,
+              "cutWidthCm": 52,
+              "cutHeightCm": 52
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "cushion_lg_back_top",
+            "name": "Upper Envelope Flap",
+            "names": {
+              "en": "Upper Envelope Flap",
+              "hi": "ऊपरी लिफाफा फ्लैप",
+              "te": "పై ఎన్వలప్ ఫ్లాప్"
+            },
+            "role": "base",
+            "width": 50,
+            "height": 36,
+            "cutWidth": 52,
+            "cutHeight": 38,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 50,
+              "finishedHeightCm": 36,
+              "finishedAreaCm2": 1800,
+              "cutWidthCm": 52,
+              "cutHeightCm": 38
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "cushion_lg_back_bottom",
+            "name": "Lower Envelope Flap",
+            "names": {
+              "en": "Lower Envelope Flap",
+              "hi": "निचला लिफाफा फ्लैप",
+              "te": "కింది ఎన్వలప్ ఫ్లాప్"
+            },
+            "role": "base",
+            "width": 50,
+            "height": 28,
+            "cutWidth": 52,
+            "cutHeight": 30,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 50,
+              "finishedHeightCm": 28,
+              "finishedAreaCm2": 1400,
+              "cutWidthCm": 52,
+              "cutHeightCm": 30
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "large": {
+        "label": "Large (60 × 60 cm)",
+        "names": {
+          "en": "Large",
+          "hi": "बड़ा",
+          "te": "పెద్దది"
+        },
+        "finishedWidthCm": 60,
+        "finishedHeightCm": 60,
+        "finishedDimensions": {
+          "widthCm": 60,
+          "heightCm": 60
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "cushion_lg_front",
+            "name": "Cushion Front Face",
+            "names": {
+              "en": "Cushion Front Face",
+              "hi": "कुशन का अगला हिस्सा",
+              "te": "కుషన్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 60,
+            "height": 60,
+            "cutWidth": 62,
+            "cutHeight": 62,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 60,
+              "finishedHeightCm": 60,
+              "finishedAreaCm2": 3600,
+              "cutWidthCm": 62,
+              "cutHeightCm": 62
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "cushion_lg_back_top",
+            "name": "Upper Envelope Flap",
+            "names": {
+              "en": "Upper Envelope Flap",
+              "hi": "ऊपरी लिफाफा फ्लैप",
+              "te": "పై ఎన్వలప్ ఫ్లాప్"
+            },
+            "role": "base",
+            "width": 60,
+            "height": 42,
+            "cutWidth": 62,
+            "cutHeight": 44,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 60,
+              "finishedHeightCm": 42,
+              "finishedAreaCm2": 2520,
+              "cutWidthCm": 62,
+              "cutHeightCm": 44
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "cushion_lg_back_bottom",
+            "name": "Lower Envelope Flap",
+            "names": {
+              "en": "Lower Envelope Flap",
+              "hi": "निचला लिफाफा फ्लैप",
+              "te": "కింది ఎన్వలప్ ఫ్లాప్"
+            },
+            "role": "base",
+            "width": 60,
+            "height": 32,
+            "cutWidth": 62,
+            "cutHeight": 34,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 60,
+              "finishedHeightCm": 32,
+              "finishedAreaCm2": 1920,
+              "cutWidthCm": 62,
+              "cutHeightCm": 34
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "cushion_lg_front",
+            "name": "Cushion Front Face",
+            "names": {
+              "en": "Cushion Front Face",
+              "hi": "कुशन का अगला हिस्सा",
+              "te": "కుషన్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 60,
+            "height": 60,
+            "cutWidth": 62,
+            "cutHeight": 62,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 60,
+              "finishedHeightCm": 60,
+              "finishedAreaCm2": 3600,
+              "cutWidthCm": 62,
+              "cutHeightCm": 62
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "cushion_lg_back_top",
+            "name": "Upper Envelope Flap",
+            "names": {
+              "en": "Upper Envelope Flap",
+              "hi": "ऊपरी लिफाफा फ्लैप",
+              "te": "పై ఎన్వలప్ ఫ్లాప్"
+            },
+            "role": "base",
+            "width": 60,
+            "height": 42,
+            "cutWidth": 62,
+            "cutHeight": 44,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 60,
+              "finishedHeightCm": 42,
+              "finishedAreaCm2": 2520,
+              "cutWidthCm": 62,
+              "cutHeightCm": 44
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "cushion_lg_back_bottom",
+            "name": "Lower Envelope Flap",
+            "names": {
+              "en": "Lower Envelope Flap",
+              "hi": "निचला लिफाफा फ्लैप",
+              "te": "కింది ఎన్వలప్ ఫ్లాప్"
+            },
+            "role": "base",
+            "width": 60,
+            "height": 32,
+            "cutWidth": 62,
+            "cutHeight": 34,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 60,
+              "finishedHeightCm": 32,
+              "finishedAreaCm2": 1920,
+              "cutWidthCm": 62,
+              "cutHeightCm": 34
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      }
+    }
+  },
+  "sling_bag": {
+    "schemaVersion": "1.0.0",
+    "id": "sling_bag",
+    "name": "Crossbody Sling Bag",
+    "names": {
+      "en": "Crossbody Sling Bag",
+      "hi": "क्रॉसबॉडी स्लिंग बैग",
+      "te": "క్రాస్‌బాడీ స్లింగ్ బ్యాగ్"
+    },
+    "category": "bags",
+    "construction": "bag",
+    "silhouette": null,
+    "description": "Everyday crossbody sling bag with protective front flap and long shoulder strap, pieced from sturdy fabric scraps.",
+    "defaultVariant": "plain",
+    "tailorVerified": false,
+    "disclaimer": "All pattern measurements are rectangle-based approximations for scrap cutting and must be verified by a professional tailor before final cutting.",
+    "materials": [
+      {
+        "name": "Heavy cotton, denim, or canvas scraps",
+        "qty": "Approx 50x60 cm total area",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Cotton lining fabric",
+        "qty": "Matching body dimensions",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Magnetic snap button or velcro",
+        "qty": "1 set",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Sewing thread",
+        "qty": "1 spool",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      }
+    ],
+    "timeEstimateFormula": null,
+    "stitchingSteps": [],
+    "sizes": {
+      "small": {
+        "label": "Small (20 × 24 cm)",
+        "names": {
+          "en": "Small",
+          "hi": "छोटा",
+          "te": "చిన్నది"
+        },
+        "finishedWidthCm": 20,
+        "finishedHeightCm": 24,
+        "finishedDimensions": {
+          "widthCm": 20,
+          "heightCm": 24
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "sling_front",
+            "name": "Sling Bag Front",
+            "names": {
+              "en": "Sling Bag Front",
+              "hi": "स्लिंग बैग का अगला हिस्सा",
+              "te": "స్లింగ్ బ్యాగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 20,
+            "height": 24,
+            "cutWidth": 22,
+            "cutHeight": 26,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 20,
+              "finishedHeightCm": 24,
+              "finishedAreaCm2": 480,
+              "cutWidthCm": 22,
+              "cutHeightCm": 26
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "sling_back",
+            "name": "Sling Bag Back",
+            "names": {
+              "en": "Sling Bag Back",
+              "hi": "स्लिंग बैग का पिछला हिस्सा",
+              "te": "స్లింగ్ బ్యాగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 20,
+            "height": 24,
+            "cutWidth": 22,
+            "cutHeight": 26,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 20,
+              "finishedHeightCm": 24,
+              "finishedAreaCm2": 480,
+              "cutWidthCm": 22,
+              "cutHeightCm": 26
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "sling_flap",
+            "name": "Sling Front Flap",
+            "names": {
+              "en": "Sling Front Flap",
+              "hi": "स्लिंग का अगला फ्लैप",
+              "te": "స్లింగ్ ముందు ఫ్లాప్"
+            },
+            "role": "supporting",
+            "width": 20,
+            "height": 16,
+            "cutWidth": 22,
+            "cutHeight": 18,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 20,
+              "finishedHeightCm": 16,
+              "finishedAreaCm2": 320,
+              "cutWidthCm": 22,
+              "cutHeightCm": 18
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "sling_strap",
+            "name": "Crossbody Shoulder Strap",
+            "names": {
+              "en": "Crossbody Shoulder Strap",
+              "hi": "क्रॉसबॉडी शोल्डर स्ट्रैप",
+              "te": "భుజం పట్టీ స్ట్రాప్"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 110,
+            "cutWidth": 8,
+            "cutHeight": 112,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 110,
+              "finishedAreaCm2": 660,
+              "cutWidthCm": 8,
+              "cutHeightCm": 112
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "sling_front",
+            "name": "Sling Bag Front",
+            "names": {
+              "en": "Sling Bag Front",
+              "hi": "स्लिंग बैग का अगला हिस्सा",
+              "te": "స్లింగ్ బ్యాగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 20,
+            "height": 24,
+            "cutWidth": 22,
+            "cutHeight": 26,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 20,
+              "finishedHeightCm": 24,
+              "finishedAreaCm2": 480,
+              "cutWidthCm": 22,
+              "cutHeightCm": 26
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "sling_back",
+            "name": "Sling Bag Back",
+            "names": {
+              "en": "Sling Bag Back",
+              "hi": "स्लिंग बैग का पिछला हिस्सा",
+              "te": "స్లింగ్ బ్యాగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 20,
+            "height": 24,
+            "cutWidth": 22,
+            "cutHeight": 26,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 20,
+              "finishedHeightCm": 24,
+              "finishedAreaCm2": 480,
+              "cutWidthCm": 22,
+              "cutHeightCm": 26
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "sling_flap",
+            "name": "Sling Front Flap",
+            "names": {
+              "en": "Sling Front Flap",
+              "hi": "स्लिंग का अगला फ्लैप",
+              "te": "స్లింగ్ ముందు ఫ్లాప్"
+            },
+            "role": "supporting",
+            "width": 20,
+            "height": 16,
+            "cutWidth": 22,
+            "cutHeight": 18,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 20,
+              "finishedHeightCm": 16,
+              "finishedAreaCm2": 320,
+              "cutWidthCm": 22,
+              "cutHeightCm": 18
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "sling_strap",
+            "name": "Crossbody Shoulder Strap",
+            "names": {
+              "en": "Crossbody Shoulder Strap",
+              "hi": "क्रॉसबॉडी शोल्डर स्ट्रैप",
+              "te": "భుజం పట్టీ స్ట్రాప్"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 110,
+            "cutWidth": 8,
+            "cutHeight": 112,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 110,
+              "finishedAreaCm2": 660,
+              "cutWidthCm": 8,
+              "cutHeightCm": 112
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "medium": {
+        "label": "Medium (24 × 28 cm)",
+        "names": {
+          "en": "Medium",
+          "hi": "मध्यम",
+          "te": "మధ్యస్థం"
+        },
+        "finishedWidthCm": 24,
+        "finishedHeightCm": 28,
+        "finishedDimensions": {
+          "widthCm": 24,
+          "heightCm": 28
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "sling_front",
+            "name": "Sling Bag Front",
+            "names": {
+              "en": "Sling Bag Front",
+              "hi": "स्लिंग बैग का अगला हिस्सा",
+              "te": "స్లింగ్ బ్యాగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 24,
+            "height": 28,
+            "cutWidth": 26,
+            "cutHeight": 30,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 24,
+              "finishedHeightCm": 28,
+              "finishedAreaCm2": 672,
+              "cutWidthCm": 26,
+              "cutHeightCm": 30
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "sling_back",
+            "name": "Sling Bag Back",
+            "names": {
+              "en": "Sling Bag Back",
+              "hi": "स्लिंग बैग का पिछला हिस्सा",
+              "te": "స్లింగ్ బ్యాగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 24,
+            "height": 28,
+            "cutWidth": 26,
+            "cutHeight": 30,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 24,
+              "finishedHeightCm": 28,
+              "finishedAreaCm2": 672,
+              "cutWidthCm": 26,
+              "cutHeightCm": 30
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "sling_flap",
+            "name": "Sling Front Flap",
+            "names": {
+              "en": "Sling Front Flap",
+              "hi": "स्लिंग का अगला फ्लैप",
+              "te": "స్లింగ్ ముందు ఫ్లాప్"
+            },
+            "role": "supporting",
+            "width": 24,
+            "height": 18,
+            "cutWidth": 26,
+            "cutHeight": 20,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 24,
+              "finishedHeightCm": 18,
+              "finishedAreaCm2": 432,
+              "cutWidthCm": 26,
+              "cutHeightCm": 20
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "sling_strap",
+            "name": "Crossbody Shoulder Strap",
+            "names": {
+              "en": "Crossbody Shoulder Strap",
+              "hi": "क्रॉसबॉडी शोल्डर स्ट्रैप",
+              "te": "భుజం పట్టీ స్ట్రాప్"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 120,
+            "cutWidth": 8,
+            "cutHeight": 122,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 120,
+              "finishedAreaCm2": 720,
+              "cutWidthCm": 8,
+              "cutHeightCm": 122
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "sling_front",
+            "name": "Sling Bag Front",
+            "names": {
+              "en": "Sling Bag Front",
+              "hi": "स्लिंग बैग का अगला हिस्सा",
+              "te": "స్లింగ్ బ్యాగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 24,
+            "height": 28,
+            "cutWidth": 26,
+            "cutHeight": 30,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 24,
+              "finishedHeightCm": 28,
+              "finishedAreaCm2": 672,
+              "cutWidthCm": 26,
+              "cutHeightCm": 30
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "sling_back",
+            "name": "Sling Bag Back",
+            "names": {
+              "en": "Sling Bag Back",
+              "hi": "स्लिंग बैग का पिछला हिस्सा",
+              "te": "స్లింగ్ బ్యాగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 24,
+            "height": 28,
+            "cutWidth": 26,
+            "cutHeight": 30,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 24,
+              "finishedHeightCm": 28,
+              "finishedAreaCm2": 672,
+              "cutWidthCm": 26,
+              "cutHeightCm": 30
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "sling_flap",
+            "name": "Sling Front Flap",
+            "names": {
+              "en": "Sling Front Flap",
+              "hi": "स्लिंग का अगला फ्लैप",
+              "te": "స్లింగ్ ముందు ఫ్లాప్"
+            },
+            "role": "supporting",
+            "width": 24,
+            "height": 18,
+            "cutWidth": 26,
+            "cutHeight": 20,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 24,
+              "finishedHeightCm": 18,
+              "finishedAreaCm2": 432,
+              "cutWidthCm": 26,
+              "cutHeightCm": 20
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "sling_strap",
+            "name": "Crossbody Shoulder Strap",
+            "names": {
+              "en": "Crossbody Shoulder Strap",
+              "hi": "क्रॉसबॉडी शोल्डर स्ट्रैप",
+              "te": "భుజం పట్టీ స్ట్రాప్"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 120,
+            "cutWidth": 8,
+            "cutHeight": 122,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 120,
+              "finishedAreaCm2": 720,
+              "cutWidthCm": 8,
+              "cutHeightCm": 122
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "large": {
+        "label": "Large (28 × 32 cm)",
+        "names": {
+          "en": "Large",
+          "hi": "बड़ा",
+          "te": "పెద్దది"
+        },
+        "finishedWidthCm": 28,
+        "finishedHeightCm": 32,
+        "finishedDimensions": {
+          "widthCm": 28,
+          "heightCm": 32
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "sling_front",
+            "name": "Sling Bag Front",
+            "names": {
+              "en": "Sling Bag Front",
+              "hi": "स्लिंग बैग का अगला हिस्सा",
+              "te": "స్లింగ్ బ్యాగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 28,
+            "height": 32,
+            "cutWidth": 30,
+            "cutHeight": 34,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 28,
+              "finishedHeightCm": 32,
+              "finishedAreaCm2": 896,
+              "cutWidthCm": 30,
+              "cutHeightCm": 34
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "sling_back",
+            "name": "Sling Bag Back",
+            "names": {
+              "en": "Sling Bag Back",
+              "hi": "स्लिंग बैग का पिछला हिस्सा",
+              "te": "స్లింగ్ బ్యాగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 28,
+            "height": 32,
+            "cutWidth": 30,
+            "cutHeight": 34,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 28,
+              "finishedHeightCm": 32,
+              "finishedAreaCm2": 896,
+              "cutWidthCm": 30,
+              "cutHeightCm": 34
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "sling_flap",
+            "name": "Sling Front Flap",
+            "names": {
+              "en": "Sling Front Flap",
+              "hi": "स्लिंग का अगला फ्लैप",
+              "te": "స్లింగ్ ముందు ఫ్లాప్"
+            },
+            "role": "supporting",
+            "width": 28,
+            "height": 20,
+            "cutWidth": 30,
+            "cutHeight": 22,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 28,
+              "finishedHeightCm": 20,
+              "finishedAreaCm2": 560,
+              "cutWidthCm": 30,
+              "cutHeightCm": 22
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "sling_strap",
+            "name": "Crossbody Shoulder Strap",
+            "names": {
+              "en": "Crossbody Shoulder Strap",
+              "hi": "क्रॉसबॉडी शोल्डर स्ट्रैप",
+              "te": "భుజం పట్టీ స్ట్రాప్"
+            },
+            "role": "supporting",
+            "width": 7,
+            "height": 130,
+            "cutWidth": 9,
+            "cutHeight": 132,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 7,
+              "finishedHeightCm": 130,
+              "finishedAreaCm2": 910,
+              "cutWidthCm": 9,
+              "cutHeightCm": 132
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "sling_front",
+            "name": "Sling Bag Front",
+            "names": {
+              "en": "Sling Bag Front",
+              "hi": "स्लिंग बैग का अगला हिस्सा",
+              "te": "స్లింగ్ బ్యాగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 28,
+            "height": 32,
+            "cutWidth": 30,
+            "cutHeight": 34,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 28,
+              "finishedHeightCm": 32,
+              "finishedAreaCm2": 896,
+              "cutWidthCm": 30,
+              "cutHeightCm": 34
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "sling_back",
+            "name": "Sling Bag Back",
+            "names": {
+              "en": "Sling Bag Back",
+              "hi": "स्लिंग बैग का पिछला हिस्सा",
+              "te": "స్లింగ్ బ్యాగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 28,
+            "height": 32,
+            "cutWidth": 30,
+            "cutHeight": 34,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 28,
+              "finishedHeightCm": 32,
+              "finishedAreaCm2": 896,
+              "cutWidthCm": 30,
+              "cutHeightCm": 34
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "sling_flap",
+            "name": "Sling Front Flap",
+            "names": {
+              "en": "Sling Front Flap",
+              "hi": "स्लिंग का अगला फ्लैप",
+              "te": "స్లింగ్ ముందు ఫ్లాప్"
+            },
+            "role": "supporting",
+            "width": 28,
+            "height": 20,
+            "cutWidth": 30,
+            "cutHeight": 22,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 28,
+              "finishedHeightCm": 20,
+              "finishedAreaCm2": 560,
+              "cutWidthCm": 30,
+              "cutHeightCm": 22
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "sling_strap",
+            "name": "Crossbody Shoulder Strap",
+            "names": {
+              "en": "Crossbody Shoulder Strap",
+              "hi": "क्रॉसबॉडी शोल्डर स्ट्रैप",
+              "te": "భుజం పట్టీ స్ట్రాప్"
+            },
+            "role": "supporting",
+            "width": 7,
+            "height": 130,
+            "cutWidth": 9,
+            "cutHeight": 132,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 7,
+              "finishedHeightCm": 130,
+              "finishedAreaCm2": 910,
+              "cutWidthCm": 9,
+              "cutHeightCm": 132
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      }
+    }
+  },
+  "tool_roll": {
+    "schemaVersion": "1.0.0",
+    "id": "tool_roll",
+    "name": "Roll-Up Tool Organizer",
+    "names": {
+      "en": "Roll-Up Tool Organizer",
+      "hi": "रोल-अप टूल आयोजक",
+      "te": "రోల్-అప్ టూల్ ఆర్గనైజర్"
+    },
+    "category": "home",
+    "construction": "flat",
+    "silhouette": null,
+    "description": "Roll-up organizer with partitioned slip pockets and wraparound tie cords for paintbrushes, crochet hooks, or sewing tools.",
+    "defaultVariant": "plain",
+    "tailorVerified": false,
+    "disclaimer": "All pattern measurements are rectangle-based approximations for scrap cutting and must be verified by a professional tailor before final cutting.",
+    "materials": [
+      {
+        "name": "Sturdy cotton drill or canvas scraps",
+        "qty": "Approx 40x50 cm total area",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Contrasting scrap fabric for pockets",
+        "qty": "Matching pocket strip dimensions",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Cotton twill tape or fabric tie ribbon",
+        "qty": "100 - 140 cm",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Sewing thread",
+        "qty": "1 spool",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      }
+    ],
+    "timeEstimateFormula": null,
+    "stitchingSteps": [],
+    "sizes": {
+      "small": {
+        "label": "Small (30 × 25 cm)",
+        "names": {
+          "en": "Small",
+          "hi": "छोटा",
+          "te": "చిన్నది"
+        },
+        "finishedWidthCm": 30,
+        "finishedHeightCm": 25,
+        "finishedDimensions": {
+          "widthCm": 30,
+          "heightCm": 25
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "tool_body",
+            "name": "Tool Roll Backing",
+            "names": {
+              "en": "Tool Roll Backing",
+              "hi": "टूल रोल का मुख्य भाग",
+              "te": "టూల్ రోల్ ప్రధాన భాగం"
+            },
+            "role": "base",
+            "width": 30,
+            "height": 25,
+            "cutWidth": 32,
+            "cutHeight": 27,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 30,
+              "finishedHeightCm": 25,
+              "finishedAreaCm2": 750,
+              "cutWidthCm": 32,
+              "cutHeightCm": 27
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "tool_pocket",
+            "name": "Partitioned Tool Pocket",
+            "names": {
+              "en": "Partitioned Tool Pocket",
+              "hi": "टूल पॉकेट पट्टी",
+              "te": "టూల్ పాకెట్ పట్టీ"
+            },
+            "role": "supporting",
+            "width": 30,
+            "height": 12,
+            "cutWidth": 32,
+            "cutHeight": 14,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 30,
+              "finishedHeightCm": 12,
+              "finishedAreaCm2": 360,
+              "cutWidthCm": 32,
+              "cutHeightCm": 14
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "tool_tie",
+            "name": "Wraparound Tie Straps",
+            "names": {
+              "en": "Wraparound Tie Straps",
+              "hi": "बांधने वाली पट्टियां",
+              "te": "కట్టే పట్టీలు"
+            },
+            "role": "accent",
+            "width": 3,
+            "height": 50,
+            "cutWidth": 5,
+            "cutHeight": 52,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 3,
+              "finishedHeightCm": 50,
+              "finishedAreaCm2": 150,
+              "cutWidthCm": 5,
+              "cutHeightCm": 52
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "tool_body",
+            "name": "Tool Roll Backing",
+            "names": {
+              "en": "Tool Roll Backing",
+              "hi": "टूल रोल का मुख्य भाग",
+              "te": "టూల్ రోల్ ప్రధాన భాగం"
+            },
+            "role": "base",
+            "width": 30,
+            "height": 25,
+            "cutWidth": 32,
+            "cutHeight": 27,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 30,
+              "finishedHeightCm": 25,
+              "finishedAreaCm2": 750,
+              "cutWidthCm": 32,
+              "cutHeightCm": 27
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "tool_pocket",
+            "name": "Partitioned Tool Pocket",
+            "names": {
+              "en": "Partitioned Tool Pocket",
+              "hi": "टूल पॉकेट पट्टी",
+              "te": "టూల్ పాకెట్ పట్టీ"
+            },
+            "role": "supporting",
+            "width": 30,
+            "height": 12,
+            "cutWidth": 32,
+            "cutHeight": 14,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 30,
+              "finishedHeightCm": 12,
+              "finishedAreaCm2": 360,
+              "cutWidthCm": 32,
+              "cutHeightCm": 14
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "tool_tie",
+            "name": "Wraparound Tie Straps",
+            "names": {
+              "en": "Wraparound Tie Straps",
+              "hi": "बांधने वाली पट्टियां",
+              "te": "కట్టే పట్టీలు"
+            },
+            "role": "accent",
+            "width": 3,
+            "height": 50,
+            "cutWidth": 5,
+            "cutHeight": 52,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 3,
+              "finishedHeightCm": 50,
+              "finishedAreaCm2": 150,
+              "cutWidthCm": 5,
+              "cutHeightCm": 52
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "medium": {
+        "label": "Medium (40 × 30 cm)",
+        "names": {
+          "en": "Medium",
+          "hi": "मध्यम",
+          "te": "మధ్యస్థం"
+        },
+        "finishedWidthCm": 40,
+        "finishedHeightCm": 30,
+        "finishedDimensions": {
+          "widthCm": 40,
+          "heightCm": 30
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "tool_body",
+            "name": "Tool Roll Backing",
+            "names": {
+              "en": "Tool Roll Backing",
+              "hi": "टूल रोल का मुख्य भाग",
+              "te": "టూల్ రోల్ ప్రధాన భాగం"
+            },
+            "role": "base",
+            "width": 40,
+            "height": 30,
+            "cutWidth": 42,
+            "cutHeight": 32,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 40,
+              "finishedHeightCm": 30,
+              "finishedAreaCm2": 1200,
+              "cutWidthCm": 42,
+              "cutHeightCm": 32
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "tool_pocket",
+            "name": "Partitioned Tool Pocket",
+            "names": {
+              "en": "Partitioned Tool Pocket",
+              "hi": "टूल पॉकेट पट्टी",
+              "te": "టూల్ పాకెట్ పట్టీ"
+            },
+            "role": "supporting",
+            "width": 40,
+            "height": 14,
+            "cutWidth": 42,
+            "cutHeight": 16,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 40,
+              "finishedHeightCm": 14,
+              "finishedAreaCm2": 560,
+              "cutWidthCm": 42,
+              "cutHeightCm": 16
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "tool_tie",
+            "name": "Wraparound Tie Straps",
+            "names": {
+              "en": "Wraparound Tie Straps",
+              "hi": "बांधने वाली पट्टियां",
+              "te": "కట్టే పట్టీలు"
+            },
+            "role": "accent",
+            "width": 3,
+            "height": 60,
+            "cutWidth": 5,
+            "cutHeight": 62,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 3,
+              "finishedHeightCm": 60,
+              "finishedAreaCm2": 180,
+              "cutWidthCm": 5,
+              "cutHeightCm": 62
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "tool_body",
+            "name": "Tool Roll Backing",
+            "names": {
+              "en": "Tool Roll Backing",
+              "hi": "टूल रोल का मुख्य भाग",
+              "te": "టూల్ రోల్ ప్రధాన భాగం"
+            },
+            "role": "base",
+            "width": 40,
+            "height": 30,
+            "cutWidth": 42,
+            "cutHeight": 32,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 40,
+              "finishedHeightCm": 30,
+              "finishedAreaCm2": 1200,
+              "cutWidthCm": 42,
+              "cutHeightCm": 32
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "tool_pocket",
+            "name": "Partitioned Tool Pocket",
+            "names": {
+              "en": "Partitioned Tool Pocket",
+              "hi": "टूल पॉकेट पट्टी",
+              "te": "టూల్ పాకెట్ పట్టీ"
+            },
+            "role": "supporting",
+            "width": 40,
+            "height": 14,
+            "cutWidth": 42,
+            "cutHeight": 16,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 40,
+              "finishedHeightCm": 14,
+              "finishedAreaCm2": 560,
+              "cutWidthCm": 42,
+              "cutHeightCm": 16
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "tool_tie",
+            "name": "Wraparound Tie Straps",
+            "names": {
+              "en": "Wraparound Tie Straps",
+              "hi": "बांधने वाली पट्टियां",
+              "te": "కట్టే పట్టీలు"
+            },
+            "role": "accent",
+            "width": 3,
+            "height": 60,
+            "cutWidth": 5,
+            "cutHeight": 62,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 3,
+              "finishedHeightCm": 60,
+              "finishedAreaCm2": 180,
+              "cutWidthCm": 5,
+              "cutHeightCm": 62
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "large": {
+        "label": "Large (50 × 35 cm)",
+        "names": {
+          "en": "Large",
+          "hi": "बड़ा",
+          "te": "పెద్దది"
+        },
+        "finishedWidthCm": 50,
+        "finishedHeightCm": 35,
+        "finishedDimensions": {
+          "widthCm": 50,
+          "heightCm": 35
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "tool_body",
+            "name": "Tool Roll Backing",
+            "names": {
+              "en": "Tool Roll Backing",
+              "hi": "टूल रोल का मुख्य भाग",
+              "te": "టూల్ రోల్ ప్రధాన భాగం"
+            },
+            "role": "base",
+            "width": 50,
+            "height": 35,
+            "cutWidth": 52,
+            "cutHeight": 37,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 50,
+              "finishedHeightCm": 35,
+              "finishedAreaCm2": 1750,
+              "cutWidthCm": 52,
+              "cutHeightCm": 37
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "tool_pocket",
+            "name": "Partitioned Tool Pocket",
+            "names": {
+              "en": "Partitioned Tool Pocket",
+              "hi": "टूल पॉकेट पट्टी",
+              "te": "టూల్ పాకెట్ పట్టీ"
+            },
+            "role": "supporting",
+            "width": 50,
+            "height": 16,
+            "cutWidth": 52,
+            "cutHeight": 18,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 50,
+              "finishedHeightCm": 16,
+              "finishedAreaCm2": 800,
+              "cutWidthCm": 52,
+              "cutHeightCm": 18
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "tool_tie",
+            "name": "Wraparound Tie Straps",
+            "names": {
+              "en": "Wraparound Tie Straps",
+              "hi": "बांधने वाली पट्टियां",
+              "te": "కట్టే పట్టీలు"
+            },
+            "role": "accent",
+            "width": 4,
+            "height": 70,
+            "cutWidth": 6,
+            "cutHeight": 72,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 70,
+              "finishedAreaCm2": 280,
+              "cutWidthCm": 6,
+              "cutHeightCm": 72
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "tool_body",
+            "name": "Tool Roll Backing",
+            "names": {
+              "en": "Tool Roll Backing",
+              "hi": "टूल रोल का मुख्य भाग",
+              "te": "టూల్ రోల్ ప్రధాన భాగం"
+            },
+            "role": "base",
+            "width": 50,
+            "height": 35,
+            "cutWidth": 52,
+            "cutHeight": 37,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 50,
+              "finishedHeightCm": 35,
+              "finishedAreaCm2": 1750,
+              "cutWidthCm": 52,
+              "cutHeightCm": 37
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "tool_pocket",
+            "name": "Partitioned Tool Pocket",
+            "names": {
+              "en": "Partitioned Tool Pocket",
+              "hi": "टूल पॉकेट पट्टी",
+              "te": "టూల్ పాకెట్ పట్టీ"
+            },
+            "role": "supporting",
+            "width": 50,
+            "height": 16,
+            "cutWidth": 52,
+            "cutHeight": 18,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 50,
+              "finishedHeightCm": 16,
+              "finishedAreaCm2": 800,
+              "cutWidthCm": 52,
+              "cutHeightCm": 18
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "tool_tie",
+            "name": "Wraparound Tie Straps",
+            "names": {
+              "en": "Wraparound Tie Straps",
+              "hi": "बांधने वाली पट्टियां",
+              "te": "కట్టే పట్టీలు"
+            },
+            "role": "accent",
+            "width": 4,
+            "height": 70,
+            "cutWidth": 6,
+            "cutHeight": 72,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 70,
+              "finishedAreaCm2": 280,
+              "cutWidthCm": 6,
+              "cutHeightCm": 72
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      }
+    }
+  },
+  "glasses_case": {
+    "schemaVersion": "1.0.0",
+    "id": "glasses_case",
+    "name": "Padded Spectacle Case",
+    "names": {
+      "en": "Padded Spectacle Case",
+      "hi": "पैडेड चश्मा पाउच",
+      "te": "ప్యాడెడ్ కళ్ళద్దాల కవర్"
+    },
+    "category": "bags",
+    "construction": "pouch",
+    "silhouette": null,
+    "description": "Padded slip pouch with soft interior to protect spectacles and sunglasses from scratches and impact.",
+    "defaultVariant": "plain",
+    "tailorVerified": false,
+    "disclaimer": "All pattern measurements are rectangle-based approximations for scrap cutting and must be verified by a professional tailor before final cutting.",
+    "materials": [
+      {
+        "name": "Printed cotton or corduroy scraps",
+        "qty": "Approx 20x25 cm total area",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Soft microfleece or flannel lining",
+        "qty": "Matching body dimensions",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Thin foam fleece batting",
+        "qty": "Matching body dimensions",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Sewing thread",
+        "qty": "1 spool",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      }
+    ],
+    "timeEstimateFormula": null,
+    "stitchingSteps": [],
+    "sizes": {
+      "small": {
+        "label": "Small (8 × 16 cm)",
+        "names": {
+          "en": "Small",
+          "hi": "छोटा",
+          "te": "చిన్నది"
+        },
+        "finishedWidthCm": 8,
+        "finishedHeightCm": 16,
+        "finishedDimensions": {
+          "widthCm": 8,
+          "heightCm": 16
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "glasses_front",
+            "name": "Glasses Case Front",
+            "names": {
+              "en": "Glasses Case Front",
+              "hi": "चश्मा केस का अगला भाग",
+              "te": "కళ్ళద్దాల కేస్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 8,
+            "height": 16,
+            "cutWidth": 10,
+            "cutHeight": 18,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 8,
+              "finishedHeightCm": 16,
+              "finishedAreaCm2": 128,
+              "cutWidthCm": 10,
+              "cutHeightCm": 18
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "glasses_back",
+            "name": "Glasses Case Back",
+            "names": {
+              "en": "Glasses Case Back",
+              "hi": "चश्मा केस का पिछला भाग",
+              "te": "కళ్ళద్దాల కేస్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 8,
+            "height": 16,
+            "cutWidth": 10,
+            "cutHeight": 18,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 8,
+              "finishedHeightCm": 16,
+              "finishedAreaCm2": 128,
+              "cutWidthCm": 10,
+              "cutHeightCm": 18
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "glasses_flap",
+            "name": "Top Closure Flap",
+            "names": {
+              "en": "Top Closure Flap",
+              "hi": "ऊपरी क्लोजर फ्लैप",
+              "te": "పై క్లోజర్ ఫ్లాప్"
+            },
+            "role": "accent",
+            "width": 8,
+            "height": 7,
+            "cutWidth": 10,
+            "cutHeight": 9,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 8,
+              "finishedHeightCm": 7,
+              "finishedAreaCm2": 56,
+              "cutWidthCm": 10,
+              "cutHeightCm": 9
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "glasses_front",
+            "name": "Glasses Case Front",
+            "names": {
+              "en": "Glasses Case Front",
+              "hi": "चश्मा केस का अगला भाग",
+              "te": "కళ్ళద్దాల కేస్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 8,
+            "height": 16,
+            "cutWidth": 10,
+            "cutHeight": 18,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 8,
+              "finishedHeightCm": 16,
+              "finishedAreaCm2": 128,
+              "cutWidthCm": 10,
+              "cutHeightCm": 18
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "glasses_back",
+            "name": "Glasses Case Back",
+            "names": {
+              "en": "Glasses Case Back",
+              "hi": "चश्मा केस का पिछला भाग",
+              "te": "కళ్ళద్దాల కేస్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 8,
+            "height": 16,
+            "cutWidth": 10,
+            "cutHeight": 18,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 8,
+              "finishedHeightCm": 16,
+              "finishedAreaCm2": 128,
+              "cutWidthCm": 10,
+              "cutHeightCm": 18
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "glasses_flap",
+            "name": "Top Closure Flap",
+            "names": {
+              "en": "Top Closure Flap",
+              "hi": "ऊपरी क्लोजर फ्लैप",
+              "te": "పై క్లోజర్ ఫ్లాప్"
+            },
+            "role": "accent",
+            "width": 8,
+            "height": 7,
+            "cutWidth": 10,
+            "cutHeight": 9,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 8,
+              "finishedHeightCm": 7,
+              "finishedAreaCm2": 56,
+              "cutWidthCm": 10,
+              "cutHeightCm": 9
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "medium": {
+        "label": "Medium (9 × 18 cm)",
+        "names": {
+          "en": "Medium",
+          "hi": "मध्यम",
+          "te": "మధ్యస్థం"
+        },
+        "finishedWidthCm": 9,
+        "finishedHeightCm": 18,
+        "finishedDimensions": {
+          "widthCm": 9,
+          "heightCm": 18
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "glasses_front",
+            "name": "Glasses Case Front",
+            "names": {
+              "en": "Glasses Case Front",
+              "hi": "चश्मा केस का अगला भाग",
+              "te": "కళ్ళద్దాల కేస్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 9,
+            "height": 18,
+            "cutWidth": 11,
+            "cutHeight": 20,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 9,
+              "finishedHeightCm": 18,
+              "finishedAreaCm2": 162,
+              "cutWidthCm": 11,
+              "cutHeightCm": 20
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "glasses_back",
+            "name": "Glasses Case Back",
+            "names": {
+              "en": "Glasses Case Back",
+              "hi": "चश्मा केस का पिछला भाग",
+              "te": "కళ్ళద్దాల కేస్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 9,
+            "height": 18,
+            "cutWidth": 11,
+            "cutHeight": 20,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 9,
+              "finishedHeightCm": 18,
+              "finishedAreaCm2": 162,
+              "cutWidthCm": 11,
+              "cutHeightCm": 20
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "glasses_flap",
+            "name": "Top Closure Flap",
+            "names": {
+              "en": "Top Closure Flap",
+              "hi": "ऊपरी क्लोजर फ्लैप",
+              "te": "పై క్లోజర్ ఫ్లాప్"
+            },
+            "role": "accent",
+            "width": 9,
+            "height": 8,
+            "cutWidth": 11,
+            "cutHeight": 10,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 9,
+              "finishedHeightCm": 8,
+              "finishedAreaCm2": 72,
+              "cutWidthCm": 11,
+              "cutHeightCm": 10
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "glasses_front",
+            "name": "Glasses Case Front",
+            "names": {
+              "en": "Glasses Case Front",
+              "hi": "चश्मा केस का अगला भाग",
+              "te": "కళ్ళద్దాల కేస్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 9,
+            "height": 18,
+            "cutWidth": 11,
+            "cutHeight": 20,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 9,
+              "finishedHeightCm": 18,
+              "finishedAreaCm2": 162,
+              "cutWidthCm": 11,
+              "cutHeightCm": 20
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "glasses_back",
+            "name": "Glasses Case Back",
+            "names": {
+              "en": "Glasses Case Back",
+              "hi": "चश्मा केस का पिछला भाग",
+              "te": "కళ్ళద్దాల కేస్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 9,
+            "height": 18,
+            "cutWidth": 11,
+            "cutHeight": 20,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 9,
+              "finishedHeightCm": 18,
+              "finishedAreaCm2": 162,
+              "cutWidthCm": 11,
+              "cutHeightCm": 20
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "glasses_flap",
+            "name": "Top Closure Flap",
+            "names": {
+              "en": "Top Closure Flap",
+              "hi": "ऊपरी क्लोजर फ्लैप",
+              "te": "పై క్లోజర్ ఫ్లాప్"
+            },
+            "role": "accent",
+            "width": 9,
+            "height": 8,
+            "cutWidth": 11,
+            "cutHeight": 10,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 9,
+              "finishedHeightCm": 8,
+              "finishedAreaCm2": 72,
+              "cutWidthCm": 11,
+              "cutHeightCm": 10
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "large": {
+        "label": "Large (10 × 20 cm)",
+        "names": {
+          "en": "Large",
+          "hi": "बड़ा",
+          "te": "పెద్దది"
+        },
+        "finishedWidthCm": 10,
+        "finishedHeightCm": 20,
+        "finishedDimensions": {
+          "widthCm": 10,
+          "heightCm": 20
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "glasses_front",
+            "name": "Glasses Case Front",
+            "names": {
+              "en": "Glasses Case Front",
+              "hi": "चश्मा केस का अगला भाग",
+              "te": "కళ్ళద్దాల కేస్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 10,
+            "height": 20,
+            "cutWidth": 12,
+            "cutHeight": 22,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 10,
+              "finishedHeightCm": 20,
+              "finishedAreaCm2": 200,
+              "cutWidthCm": 12,
+              "cutHeightCm": 22
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "glasses_back",
+            "name": "Glasses Case Back",
+            "names": {
+              "en": "Glasses Case Back",
+              "hi": "चश्मा केस का पिछला भाग",
+              "te": "కళ్ళద్దాల కేస్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 10,
+            "height": 20,
+            "cutWidth": 12,
+            "cutHeight": 22,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 10,
+              "finishedHeightCm": 20,
+              "finishedAreaCm2": 200,
+              "cutWidthCm": 12,
+              "cutHeightCm": 22
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "glasses_flap",
+            "name": "Top Closure Flap",
+            "names": {
+              "en": "Top Closure Flap",
+              "hi": "ऊपरी क्लोजर फ्लैप",
+              "te": "పై క్లోజర్ ఫ్లాప్"
+            },
+            "role": "accent",
+            "width": 10,
+            "height": 9,
+            "cutWidth": 12,
+            "cutHeight": 11,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 10,
+              "finishedHeightCm": 9,
+              "finishedAreaCm2": 90,
+              "cutWidthCm": 12,
+              "cutHeightCm": 11
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "glasses_front",
+            "name": "Glasses Case Front",
+            "names": {
+              "en": "Glasses Case Front",
+              "hi": "चश्मा केस का अगला भाग",
+              "te": "కళ్ళద్దాల కేస్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 10,
+            "height": 20,
+            "cutWidth": 12,
+            "cutHeight": 22,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 10,
+              "finishedHeightCm": 20,
+              "finishedAreaCm2": 200,
+              "cutWidthCm": 12,
+              "cutHeightCm": 22
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "glasses_back",
+            "name": "Glasses Case Back",
+            "names": {
+              "en": "Glasses Case Back",
+              "hi": "चश्मा केस का पिछला भाग",
+              "te": "కళ్ళద్దాల కేస్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 10,
+            "height": 20,
+            "cutWidth": 12,
+            "cutHeight": 22,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 10,
+              "finishedHeightCm": 20,
+              "finishedAreaCm2": 200,
+              "cutWidthCm": 12,
+              "cutHeightCm": 22
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "glasses_flap",
+            "name": "Top Closure Flap",
+            "names": {
+              "en": "Top Closure Flap",
+              "hi": "ऊपरी क्लोजर फ्लैप",
+              "te": "పై క్లోజర్ ఫ్లాప్"
+            },
+            "role": "accent",
+            "width": 10,
+            "height": 9,
+            "cutWidth": 12,
+            "cutHeight": 11,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 10,
+              "finishedHeightCm": 9,
+              "finishedAreaCm2": 90,
+              "cutWidthCm": 12,
+              "cutHeightCm": 11
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      }
+    }
+  },
+  "fabric_basket": {
+    "schemaVersion": "1.0.0",
+    "id": "fabric_basket",
+    "name": "Fabric Storage Basket",
+    "names": {
+      "en": "Fabric Storage Basket",
+      "hi": "फैब्रिक स्टोरेज बास्केट",
+      "te": "ఫాబ్రిక్ నిల్వ బాస్కెట్"
+    },
+    "category": "home",
+    "construction": "bag",
+    "silhouette": null,
+    "description": "Collapsible structured square fabric storage basket with side carry tabs, suitable for desktop or wardrobe organization.",
+    "defaultVariant": "plain",
+    "tailorVerified": false,
+    "disclaimer": "All pattern measurements are rectangle-based approximations for scrap cutting and must be verified by a professional tailor before final cutting.",
+    "materials": [
+      {
+        "name": "Sturdy canvas, twill, or denim scraps",
+        "qty": "Approx 40x50 cm total area",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Heavy cotton lining or fusible interfacing",
+        "qty": "Matching body dimensions",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Sewing thread",
+        "qty": "1 spool",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      }
+    ],
+    "timeEstimateFormula": null,
+    "stitchingSteps": [],
+    "sizes": {
+      "small": {
+        "label": "Small (16 × 16 cm)",
+        "names": {
+          "en": "Small",
+          "hi": "छोटा",
+          "te": "చిన్నది"
+        },
+        "finishedWidthCm": 16,
+        "finishedHeightCm": 16,
+        "finishedDimensions": {
+          "widthCm": 16,
+          "heightCm": 16
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "basket_front",
+            "name": "Storage Basket Front",
+            "names": {
+              "en": "Storage Basket Front",
+              "hi": "बास्केट का अगला हिस्सा",
+              "te": "బాస్కెట్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 16,
+            "height": 16,
+            "cutWidth": 18,
+            "cutHeight": 18,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 16,
+              "finishedHeightCm": 16,
+              "finishedAreaCm2": 256,
+              "cutWidthCm": 18,
+              "cutHeightCm": 18
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "basket_back",
+            "name": "Storage Basket Back",
+            "names": {
+              "en": "Storage Basket Back",
+              "hi": "बास्केट का पिछला हिस्सा",
+              "te": "బాస్కెట్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 16,
+            "height": 16,
+            "cutWidth": 18,
+            "cutHeight": 18,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 16,
+              "finishedHeightCm": 16,
+              "finishedAreaCm2": 256,
+              "cutWidthCm": 18,
+              "cutHeightCm": 18
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "basket_bottom",
+            "name": "Storage Basket Base",
+            "names": {
+              "en": "Storage Basket Base",
+              "hi": "बास्केट का तला",
+              "te": "బాస్కెట్ అడుగు భాగం"
+            },
+            "role": "supporting",
+            "width": 16,
+            "height": 16,
+            "cutWidth": 18,
+            "cutHeight": 18,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 16,
+              "finishedHeightCm": 16,
+              "finishedAreaCm2": 256,
+              "cutWidthCm": 18,
+              "cutHeightCm": 18
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "basket_handles",
+            "name": "Side Carry Tabs",
+            "names": {
+              "en": "Side Carry Tabs",
+              "hi": "साइड कैरी टैब",
+              "te": "సైడ్ క్యారీ ట్యాబ్‌లు"
+            },
+            "role": "accent",
+            "width": 4,
+            "height": 12,
+            "cutWidth": 6,
+            "cutHeight": 14,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 12,
+              "finishedAreaCm2": 48,
+              "cutWidthCm": 6,
+              "cutHeightCm": 14
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "basket_front",
+            "name": "Storage Basket Front",
+            "names": {
+              "en": "Storage Basket Front",
+              "hi": "बास्केट का अगला हिस्सा",
+              "te": "బాస్కెట్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 16,
+            "height": 16,
+            "cutWidth": 18,
+            "cutHeight": 18,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 16,
+              "finishedHeightCm": 16,
+              "finishedAreaCm2": 256,
+              "cutWidthCm": 18,
+              "cutHeightCm": 18
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "basket_back",
+            "name": "Storage Basket Back",
+            "names": {
+              "en": "Storage Basket Back",
+              "hi": "बास्केट का पिछला हिस्सा",
+              "te": "బాస్కెట్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 16,
+            "height": 16,
+            "cutWidth": 18,
+            "cutHeight": 18,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 16,
+              "finishedHeightCm": 16,
+              "finishedAreaCm2": 256,
+              "cutWidthCm": 18,
+              "cutHeightCm": 18
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "basket_bottom",
+            "name": "Storage Basket Base",
+            "names": {
+              "en": "Storage Basket Base",
+              "hi": "बास्केट का तला",
+              "te": "బాస్కెట్ అడుగు భాగం"
+            },
+            "role": "supporting",
+            "width": 16,
+            "height": 16,
+            "cutWidth": 18,
+            "cutHeight": 18,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 16,
+              "finishedHeightCm": 16,
+              "finishedAreaCm2": 256,
+              "cutWidthCm": 18,
+              "cutHeightCm": 18
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "basket_handles",
+            "name": "Side Carry Tabs",
+            "names": {
+              "en": "Side Carry Tabs",
+              "hi": "साइड कैरी टैब",
+              "te": "సైడ్ క్యారీ ట్యాబ్‌లు"
+            },
+            "role": "accent",
+            "width": 4,
+            "height": 12,
+            "cutWidth": 6,
+            "cutHeight": 14,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 12,
+              "finishedAreaCm2": 48,
+              "cutWidthCm": 6,
+              "cutHeightCm": 14
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "medium": {
+        "label": "Medium (20 × 20 cm)",
+        "names": {
+          "en": "Medium",
+          "hi": "मध्यम",
+          "te": "మధ్యస్థం"
+        },
+        "finishedWidthCm": 20,
+        "finishedHeightCm": 20,
+        "finishedDimensions": {
+          "widthCm": 20,
+          "heightCm": 20
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "basket_front",
+            "name": "Storage Basket Front",
+            "names": {
+              "en": "Storage Basket Front",
+              "hi": "बास्केट का अगला हिस्सा",
+              "te": "బాస్కెట్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 20,
+            "height": 20,
+            "cutWidth": 22,
+            "cutHeight": 22,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 20,
+              "finishedHeightCm": 20,
+              "finishedAreaCm2": 400,
+              "cutWidthCm": 22,
+              "cutHeightCm": 22
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "basket_back",
+            "name": "Storage Basket Back",
+            "names": {
+              "en": "Storage Basket Back",
+              "hi": "बास्केट का पिछला हिस्सा",
+              "te": "బాస్కెట్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 20,
+            "height": 20,
+            "cutWidth": 22,
+            "cutHeight": 22,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 20,
+              "finishedHeightCm": 20,
+              "finishedAreaCm2": 400,
+              "cutWidthCm": 22,
+              "cutHeightCm": 22
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "basket_bottom",
+            "name": "Storage Basket Base",
+            "names": {
+              "en": "Storage Basket Base",
+              "hi": "बास्केट का तला",
+              "te": "బాస్కెట్ అడుగు భాగం"
+            },
+            "role": "supporting",
+            "width": 20,
+            "height": 20,
+            "cutWidth": 22,
+            "cutHeight": 22,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 20,
+              "finishedHeightCm": 20,
+              "finishedAreaCm2": 400,
+              "cutWidthCm": 22,
+              "cutHeightCm": 22
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "basket_handles",
+            "name": "Side Carry Tabs",
+            "names": {
+              "en": "Side Carry Tabs",
+              "hi": "साइड कैरी टैब",
+              "te": "సైడ్ క్యారీ ట్యాబ్‌లు"
+            },
+            "role": "accent",
+            "width": 4,
+            "height": 14,
+            "cutWidth": 6,
+            "cutHeight": 16,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 14,
+              "finishedAreaCm2": 56,
+              "cutWidthCm": 6,
+              "cutHeightCm": 16
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "basket_front",
+            "name": "Storage Basket Front",
+            "names": {
+              "en": "Storage Basket Front",
+              "hi": "बास्केट का अगला हिस्सा",
+              "te": "బాస్కెట్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 20,
+            "height": 20,
+            "cutWidth": 22,
+            "cutHeight": 22,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 20,
+              "finishedHeightCm": 20,
+              "finishedAreaCm2": 400,
+              "cutWidthCm": 22,
+              "cutHeightCm": 22
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "basket_back",
+            "name": "Storage Basket Back",
+            "names": {
+              "en": "Storage Basket Back",
+              "hi": "बास्केट का पिछला हिस्सा",
+              "te": "బాస్కెట్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 20,
+            "height": 20,
+            "cutWidth": 22,
+            "cutHeight": 22,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 20,
+              "finishedHeightCm": 20,
+              "finishedAreaCm2": 400,
+              "cutWidthCm": 22,
+              "cutHeightCm": 22
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "basket_bottom",
+            "name": "Storage Basket Base",
+            "names": {
+              "en": "Storage Basket Base",
+              "hi": "बास्केट का तला",
+              "te": "బాస్కెట్ అడుగు భాగం"
+            },
+            "role": "supporting",
+            "width": 20,
+            "height": 20,
+            "cutWidth": 22,
+            "cutHeight": 22,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 20,
+              "finishedHeightCm": 20,
+              "finishedAreaCm2": 400,
+              "cutWidthCm": 22,
+              "cutHeightCm": 22
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "basket_handles",
+            "name": "Side Carry Tabs",
+            "names": {
+              "en": "Side Carry Tabs",
+              "hi": "साइड कैरी टैब",
+              "te": "సైడ్ క్యారీ ట్యాబ్‌లు"
+            },
+            "role": "accent",
+            "width": 4,
+            "height": 14,
+            "cutWidth": 6,
+            "cutHeight": 16,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 14,
+              "finishedAreaCm2": 56,
+              "cutWidthCm": 6,
+              "cutHeightCm": 16
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "large": {
+        "label": "Large (25 × 25 cm)",
+        "names": {
+          "en": "Large",
+          "hi": "बड़ा",
+          "te": "పెద్దది"
+        },
+        "finishedWidthCm": 25,
+        "finishedHeightCm": 25,
+        "finishedDimensions": {
+          "widthCm": 25,
+          "heightCm": 25
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "basket_front",
+            "name": "Storage Basket Front",
+            "names": {
+              "en": "Storage Basket Front",
+              "hi": "बास्केट का अगला हिस्सा",
+              "te": "బాస్కెట్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 25,
+            "height": 25,
+            "cutWidth": 27,
+            "cutHeight": 27,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 25,
+              "finishedHeightCm": 25,
+              "finishedAreaCm2": 625,
+              "cutWidthCm": 27,
+              "cutHeightCm": 27
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "basket_back",
+            "name": "Storage Basket Back",
+            "names": {
+              "en": "Storage Basket Back",
+              "hi": "बास्केट का पिछला हिस्सा",
+              "te": "బాస్కెట్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 25,
+            "height": 25,
+            "cutWidth": 27,
+            "cutHeight": 27,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 25,
+              "finishedHeightCm": 25,
+              "finishedAreaCm2": 625,
+              "cutWidthCm": 27,
+              "cutHeightCm": 27
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "basket_bottom",
+            "name": "Storage Basket Base",
+            "names": {
+              "en": "Storage Basket Base",
+              "hi": "बास्केट का तला",
+              "te": "బాస్కెట్ అడుగు భాగం"
+            },
+            "role": "supporting",
+            "width": 25,
+            "height": 25,
+            "cutWidth": 27,
+            "cutHeight": 27,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 25,
+              "finishedHeightCm": 25,
+              "finishedAreaCm2": 625,
+              "cutWidthCm": 27,
+              "cutHeightCm": 27
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "basket_handles",
+            "name": "Side Carry Tabs",
+            "names": {
+              "en": "Side Carry Tabs",
+              "hi": "साइड कैरी टैब",
+              "te": "సైడ్ క్యారీ ట్యాబ్‌లు"
+            },
+            "role": "accent",
+            "width": 5,
+            "height": 16,
+            "cutWidth": 7,
+            "cutHeight": 18,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 5,
+              "finishedHeightCm": 16,
+              "finishedAreaCm2": 80,
+              "cutWidthCm": 7,
+              "cutHeightCm": 18
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "basket_front",
+            "name": "Storage Basket Front",
+            "names": {
+              "en": "Storage Basket Front",
+              "hi": "बास्केट का अगला हिस्सा",
+              "te": "బాస్కెట్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 25,
+            "height": 25,
+            "cutWidth": 27,
+            "cutHeight": 27,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 25,
+              "finishedHeightCm": 25,
+              "finishedAreaCm2": 625,
+              "cutWidthCm": 27,
+              "cutHeightCm": 27
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "basket_back",
+            "name": "Storage Basket Back",
+            "names": {
+              "en": "Storage Basket Back",
+              "hi": "बास्केट का पिछला हिस्सा",
+              "te": "బాస్కెట్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 25,
+            "height": 25,
+            "cutWidth": 27,
+            "cutHeight": 27,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 25,
+              "finishedHeightCm": 25,
+              "finishedAreaCm2": 625,
+              "cutWidthCm": 27,
+              "cutHeightCm": 27
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "basket_bottom",
+            "name": "Storage Basket Base",
+            "names": {
+              "en": "Storage Basket Base",
+              "hi": "बास्केट का तला",
+              "te": "బాస్కెట్ అడుగు భాగం"
+            },
+            "role": "supporting",
+            "width": 25,
+            "height": 25,
+            "cutWidth": 27,
+            "cutHeight": 27,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 25,
+              "finishedHeightCm": 25,
+              "finishedAreaCm2": 625,
+              "cutWidthCm": 27,
+              "cutHeightCm": 27
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "basket_handles",
+            "name": "Side Carry Tabs",
+            "names": {
+              "en": "Side Carry Tabs",
+              "hi": "साइड कैरी टैब",
+              "te": "సైడ్ క్యారీ ట్యాబ్‌లు"
+            },
+            "role": "accent",
+            "width": 5,
+            "height": 16,
+            "cutWidth": 7,
+            "cutHeight": 18,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 5,
+              "finishedHeightCm": 16,
+              "finishedAreaCm2": 80,
+              "cutWidthCm": 7,
+              "cutHeightCm": 18
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      }
+    }
+  },
+  "laundry_bag": {
+    "schemaVersion": "1.0.0",
+    "id": "laundry_bag",
+    "name": "Drawstring Laundry Bag",
+    "names": {
+      "en": "Drawstring Laundry Bag",
+      "hi": "कपड़े धोने का बैग",
+      "te": "లాండ్రీ నిల్వ బ్యాగ్"
+    },
+    "category": "home",
+    "construction": "bag",
+    "silhouette": null,
+    "description": "Spacious breathable drawstring laundry bag for washing delicates, sorting linens, or organizing travel laundry.",
+    "defaultVariant": "plain",
+    "tailorVerified": false,
+    "disclaimer": "All pattern measurements are rectangle-based approximations for scrap cutting and must be verified by a professional tailor before final cutting.",
+    "materials": [
+      {
+        "name": "Breathable cotton or mesh scraps",
+        "qty": "Approx 60x80 cm total area",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Drawstring cotton cord",
+        "qty": "90 - 130 cm",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      },
+      {
+        "name": "Sewing thread",
+        "qty": "1 spool",
+        "optional": false,
+        "source": "Standard sewing notion",
+        "disclaimer": "typical default, to be verified by a tailor",
+        "note": "typical estimate, unverified, needs a tailor"
+      }
+    ],
+    "timeEstimateFormula": null,
+    "stitchingSteps": [],
+    "sizes": {
+      "small": {
+        "label": "Small (35 × 45 cm)",
+        "names": {
+          "en": "Small",
+          "hi": "छोटा",
+          "te": "చిన్నది"
+        },
+        "finishedWidthCm": 35,
+        "finishedHeightCm": 45,
+        "finishedDimensions": {
+          "widthCm": 35,
+          "heightCm": 45
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "laundry_front",
+            "name": "Laundry Bag Front",
+            "names": {
+              "en": "Laundry Bag Front",
+              "hi": "लॉन्ड्री बैग का अगला हिस्सा",
+              "te": "లాండ్రీ బ్యాగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 35,
+            "height": 45,
+            "cutWidth": 37,
+            "cutHeight": 47,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 35,
+              "finishedHeightCm": 45,
+              "finishedAreaCm2": 1575,
+              "cutWidthCm": 37,
+              "cutHeightCm": 47
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "laundry_back",
+            "name": "Laundry Bag Back",
+            "names": {
+              "en": "Laundry Bag Back",
+              "hi": "लॉन्ड्री बैग का पिछला हिस्सा",
+              "te": "లాండ్రీ బ్యాగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 35,
+            "height": 45,
+            "cutWidth": 37,
+            "cutHeight": 47,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 35,
+              "finishedHeightCm": 45,
+              "finishedAreaCm2": 1575,
+              "cutWidthCm": 37,
+              "cutHeightCm": 47
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "laundry_casing",
+            "name": "Drawstring Channel Casing",
+            "names": {
+              "en": "Drawstring Channel Casing",
+              "hi": "डोरी चैनल केसिंग",
+              "te": "డ్రాస్ట్రింగ్ ఛానల్ కేసింగ్"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 35,
+            "cutWidth": 8,
+            "cutHeight": 37,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 35,
+              "finishedAreaCm2": 210,
+              "cutWidthCm": 8,
+              "cutHeightCm": 37
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "laundry_strap",
+            "name": "Drawcord Closure Cord",
+            "names": {
+              "en": "Drawcord Closure Cord",
+              "hi": "खींचने वाली डोरी",
+              "te": "లాగే డ్రాకార్డ్ త్రాడు"
+            },
+            "role": "accent",
+            "width": 4,
+            "height": 60,
+            "cutWidth": 6,
+            "cutHeight": 62,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 60,
+              "finishedAreaCm2": 240,
+              "cutWidthCm": 6,
+              "cutHeightCm": 62
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "laundry_front",
+            "name": "Laundry Bag Front",
+            "names": {
+              "en": "Laundry Bag Front",
+              "hi": "लॉन्ड्री बैग का अगला हिस्सा",
+              "te": "లాండ్రీ బ్యాగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 35,
+            "height": 45,
+            "cutWidth": 37,
+            "cutHeight": 47,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 35,
+              "finishedHeightCm": 45,
+              "finishedAreaCm2": 1575,
+              "cutWidthCm": 37,
+              "cutHeightCm": 47
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "laundry_back",
+            "name": "Laundry Bag Back",
+            "names": {
+              "en": "Laundry Bag Back",
+              "hi": "लॉन्ड्री बैग का पिछला हिस्सा",
+              "te": "లాండ్రీ బ్యాగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 35,
+            "height": 45,
+            "cutWidth": 37,
+            "cutHeight": 47,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 35,
+              "finishedHeightCm": 45,
+              "finishedAreaCm2": 1575,
+              "cutWidthCm": 37,
+              "cutHeightCm": 47
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "laundry_casing",
+            "name": "Drawstring Channel Casing",
+            "names": {
+              "en": "Drawstring Channel Casing",
+              "hi": "डोरी चैनल केसिंग",
+              "te": "డ్రాస్ట్రింగ్ ఛానల్ కేసింగ్"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 35,
+            "cutWidth": 8,
+            "cutHeight": 37,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 35,
+              "finishedAreaCm2": 210,
+              "cutWidthCm": 8,
+              "cutHeightCm": 37
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "laundry_strap",
+            "name": "Drawcord Closure Cord",
+            "names": {
+              "en": "Drawcord Closure Cord",
+              "hi": "खींचने वाली डोरी",
+              "te": "లాగే డ్రాకార్డ్ త్రాడు"
+            },
+            "role": "accent",
+            "width": 4,
+            "height": 60,
+            "cutWidth": 6,
+            "cutHeight": 62,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 60,
+              "finishedAreaCm2": 240,
+              "cutWidthCm": 6,
+              "cutHeightCm": 62
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "medium": {
+        "label": "Medium (45 × 60 cm)",
+        "names": {
+          "en": "Medium",
+          "hi": "मध्यम",
+          "te": "మధ్యస్థం"
+        },
+        "finishedWidthCm": 45,
+        "finishedHeightCm": 60,
+        "finishedDimensions": {
+          "widthCm": 45,
+          "heightCm": 60
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "laundry_front",
+            "name": "Laundry Bag Front",
+            "names": {
+              "en": "Laundry Bag Front",
+              "hi": "लॉन्ड्री बैग का अगला हिस्सा",
+              "te": "లాండ్రీ బ్యాగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 45,
+            "height": 60,
+            "cutWidth": 47,
+            "cutHeight": 62,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 45,
+              "finishedHeightCm": 60,
+              "finishedAreaCm2": 2700,
+              "cutWidthCm": 47,
+              "cutHeightCm": 62
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "laundry_back",
+            "name": "Laundry Bag Back",
+            "names": {
+              "en": "Laundry Bag Back",
+              "hi": "लॉन्ड्री बैग का पिछला हिस्सा",
+              "te": "లాండ్రీ బ్యాగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 45,
+            "height": 60,
+            "cutWidth": 47,
+            "cutHeight": 62,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 45,
+              "finishedHeightCm": 60,
+              "finishedAreaCm2": 2700,
+              "cutWidthCm": 47,
+              "cutHeightCm": 62
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "laundry_casing",
+            "name": "Drawstring Channel Casing",
+            "names": {
+              "en": "Drawstring Channel Casing",
+              "hi": "डोरी चैनल केसिंग",
+              "te": "డ్రాస్ట్రింగ్ ఛానల్ కేసింగ్"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 45,
+            "cutWidth": 8,
+            "cutHeight": 47,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 45,
+              "finishedAreaCm2": 270,
+              "cutWidthCm": 8,
+              "cutHeightCm": 47
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "laundry_strap",
+            "name": "Drawcord Closure Cord",
+            "names": {
+              "en": "Drawcord Closure Cord",
+              "hi": "खींचने वाली डोरी",
+              "te": "లాగే డ్రాకార్డ్ త్రాడు"
+            },
+            "role": "accent",
+            "width": 4,
+            "height": 70,
+            "cutWidth": 6,
+            "cutHeight": 72,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 70,
+              "finishedAreaCm2": 280,
+              "cutWidthCm": 6,
+              "cutHeightCm": 72
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "laundry_front",
+            "name": "Laundry Bag Front",
+            "names": {
+              "en": "Laundry Bag Front",
+              "hi": "लॉन्ड्री बैग का अगला हिस्सा",
+              "te": "లాండ్రీ బ్యాగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 45,
+            "height": 60,
+            "cutWidth": 47,
+            "cutHeight": 62,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 45,
+              "finishedHeightCm": 60,
+              "finishedAreaCm2": 2700,
+              "cutWidthCm": 47,
+              "cutHeightCm": 62
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "laundry_back",
+            "name": "Laundry Bag Back",
+            "names": {
+              "en": "Laundry Bag Back",
+              "hi": "लॉन्ड्री बैग का पिछला हिस्सा",
+              "te": "లాండ్రీ బ్యాగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 45,
+            "height": 60,
+            "cutWidth": 47,
+            "cutHeight": 62,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 45,
+              "finishedHeightCm": 60,
+              "finishedAreaCm2": 2700,
+              "cutWidthCm": 47,
+              "cutHeightCm": 62
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "laundry_casing",
+            "name": "Drawstring Channel Casing",
+            "names": {
+              "en": "Drawstring Channel Casing",
+              "hi": "डोरी चैनल केसिंग",
+              "te": "డ్రాస్ట్రింగ్ ఛానల్ కేసింగ్"
+            },
+            "role": "supporting",
+            "width": 6,
+            "height": 45,
+            "cutWidth": 8,
+            "cutHeight": 47,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 6,
+              "finishedHeightCm": 45,
+              "finishedAreaCm2": 270,
+              "cutWidthCm": 8,
+              "cutHeightCm": 47
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "laundry_strap",
+            "name": "Drawcord Closure Cord",
+            "names": {
+              "en": "Drawcord Closure Cord",
+              "hi": "खींचने वाली डोरी",
+              "te": "లాగే డ్రాకార్డ్ త్రాడు"
+            },
+            "role": "accent",
+            "width": 4,
+            "height": 70,
+            "cutWidth": 6,
+            "cutHeight": 72,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 4,
+              "finishedHeightCm": 70,
+              "finishedAreaCm2": 280,
+              "cutWidthCm": 6,
+              "cutHeightCm": 72
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      },
+      "large": {
+        "label": "Large (55 × 75 cm)",
+        "names": {
+          "en": "Large",
+          "hi": "बड़ा",
+          "te": "పెద్దది"
+        },
+        "finishedWidthCm": 55,
+        "finishedHeightCm": 75,
+        "finishedDimensions": {
+          "widthCm": 55,
+          "heightCm": 75
+        },
+        "verified": false,
+        "source": "typical estimate, unverified, needs a tailor",
+        "zones": [
+          {
+            "id": "laundry_front",
+            "name": "Laundry Bag Front",
+            "names": {
+              "en": "Laundry Bag Front",
+              "hi": "लॉन्ड्री बैग का अगला हिस्सा",
+              "te": "లాండ్రీ బ్యాగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 55,
+            "height": 75,
+            "cutWidth": 57,
+            "cutHeight": 77,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 55,
+              "finishedHeightCm": 75,
+              "finishedAreaCm2": 4125,
+              "cutWidthCm": 57,
+              "cutHeightCm": 77
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "laundry_back",
+            "name": "Laundry Bag Back",
+            "names": {
+              "en": "Laundry Bag Back",
+              "hi": "लॉन्ड्री बैग का पिछला हिस्सा",
+              "te": "లాండ్రీ బ్యాగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 55,
+            "height": 75,
+            "cutWidth": 57,
+            "cutHeight": 77,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 55,
+              "finishedHeightCm": 75,
+              "finishedAreaCm2": 4125,
+              "cutWidthCm": 57,
+              "cutHeightCm": 77
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "laundry_casing",
+            "name": "Drawstring Channel Casing",
+            "names": {
+              "en": "Drawstring Channel Casing",
+              "hi": "डोरी चैनल केसिंग",
+              "te": "డ్రాస్ట్రింగ్ ఛానల్ కేసింగ్"
+            },
+            "role": "supporting",
+            "width": 8,
+            "height": 55,
+            "cutWidth": 10,
+            "cutHeight": 57,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 8,
+              "finishedHeightCm": 55,
+              "finishedAreaCm2": 440,
+              "cutWidthCm": 10,
+              "cutHeightCm": 57
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "laundry_strap",
+            "name": "Drawcord Closure Cord",
+            "names": {
+              "en": "Drawcord Closure Cord",
+              "hi": "खींचने वाली डोरी",
+              "te": "లాగే డ్రాకార్డ్ త్రాడు"
+            },
+            "role": "accent",
+            "width": 5,
+            "height": 80,
+            "cutWidth": 7,
+            "cutHeight": 82,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 5,
+              "finishedHeightCm": 80,
+              "finishedAreaCm2": 400,
+              "cutWidthCm": 7,
+              "cutHeightCm": 82
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ],
+        "pieces": [
+          {
+            "id": "laundry_front",
+            "name": "Laundry Bag Front",
+            "names": {
+              "en": "Laundry Bag Front",
+              "hi": "लॉन्ड्री बैग का अगला हिस्सा",
+              "te": "లాండ్రీ బ్యాగ్ ముందు భాగం"
+            },
+            "role": "base",
+            "width": 55,
+            "height": 75,
+            "cutWidth": 57,
+            "cutHeight": 77,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 55,
+              "finishedHeightCm": 75,
+              "finishedAreaCm2": 4125,
+              "cutWidthCm": 57,
+              "cutHeightCm": 77
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "laundry_back",
+            "name": "Laundry Bag Back",
+            "names": {
+              "en": "Laundry Bag Back",
+              "hi": "लॉन्ड्री बैग का पिछला हिस्सा",
+              "te": "లాండ్రీ బ్యాగ్ వెనుక భాగం"
+            },
+            "role": "base",
+            "width": 55,
+            "height": 75,
+            "cutWidth": 57,
+            "cutHeight": 77,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 55,
+              "finishedHeightCm": 75,
+              "finishedAreaCm2": 4125,
+              "cutWidthCm": 57,
+              "cutHeightCm": 77
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "laundry_casing",
+            "name": "Drawstring Channel Casing",
+            "names": {
+              "en": "Drawstring Channel Casing",
+              "hi": "डोरी चैनल केसिंग",
+              "te": "డ్రాస్ట్రింగ్ ఛానల్ కేసింగ్"
+            },
+            "role": "supporting",
+            "width": 8,
+            "height": 55,
+            "cutWidth": 10,
+            "cutHeight": 57,
+            "qty": 2,
+            "cutQty": 2,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 8,
+              "finishedHeightCm": 55,
+              "finishedAreaCm2": 440,
+              "cutWidthCm": 10,
+              "cutHeightCm": 57
+            },
+            "provenance": null,
+            "mapping3D": null
+          },
+          {
+            "id": "laundry_strap",
+            "name": "Drawcord Closure Cord",
+            "names": {
+              "en": "Drawcord Closure Cord",
+              "hi": "खींचने वाली डोरी",
+              "te": "లాగే డ్రాకార్డ్ త్రాడు"
+            },
+            "role": "accent",
+            "width": 5,
+            "height": 80,
+            "cutWidth": 7,
+            "cutHeight": 82,
+            "qty": 1,
+            "cutQty": 1,
+            "optional": false,
+            "accentOnly": false,
+            "fabricSource": "scrap",
+            "scrapEligible": true,
+            "cutOnFold": false,
+            "seamAllowanceCm": {
+              "defaultCm": 1
+            },
+            "grainLine": {
+              "orientation": "lengthwise",
+              "symbol": "↕",
+              "description": "Lengthwise grain"
+            },
+            "geometry": {
+              "shapeType": "rectangle",
+              "finishedWidthCm": 5,
+              "finishedHeightCm": 80,
+              "finishedAreaCm2": 400,
+              "cutWidthCm": 7,
+              "cutHeightCm": 82
+            },
+            "provenance": null,
+            "mapping3D": null
+          }
+        ]
+      }
+    }
   }
 };
 

@@ -1,0 +1,196 @@
+{
+  "id": "cushion_cover_large",
+  "names": {
+    "en": "Large Floor Cushion Cover",
+    "hi": "बड़ा फ्लोर कुशन कवर",
+    "te": "పెద్ద కుషన్ కవర్"
+  },
+  "category": "home",
+  "construction": "cushion",
+  "description": "Generous floor or sofa cushion cover featuring envelope back overlap, requiring no zippers or metal hardware.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "Cotton canvas or linen scraps",
+      "qty": "Approx 70x80 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Solid backing cotton",
+      "qty": "Matching envelope flap dimensions",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (45 × 45 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 45,
+        "heightCm": 45
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "cushion_lg_front",
+          "names": {
+            "en": "Cushion Front Face",
+            "hi": "कुशन का अगला हिस्सा",
+            "te": "కుషన్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 45,
+          "height": 45,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "cushion_lg_back_top",
+          "names": {
+            "en": "Upper Envelope Flap",
+            "hi": "ऊपरी लिफाफा फ्लैप",
+            "te": "పై ఎన్వలప్ ఫ్లాప్"
+          },
+          "role": "base",
+          "width": 45,
+          "height": 32,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "cushion_lg_back_bottom",
+          "names": {
+            "en": "Lower Envelope Flap",
+            "hi": "निचला लिफाफा फ्लैप",
+            "te": "కింది ఎన్వలప్ ఫ్లాప్"
+          },
+          "role": "base",
+          "width": 45,
+          "height": 25,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (50 × 50 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 50,
+        "heightCm": 50
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "cushion_lg_front",
+          "names": {
+            "en": "Cushion Front Face",
+            "hi": "कुशन का अगला हिस्सा",
+            "te": "కుషన్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 50,
+          "height": 50,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "cushion_lg_back_top",
+          "names": {
+            "en": "Upper Envelope Flap",
+            "hi": "ऊपरी लिफाफा फ्लैप",
+            "te": "పై ఎన్వలప్ ఫ్లాప్"
+          },
+          "role": "base",
+          "width": 50,
+          "height": 36,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "cushion_lg_back_bottom",
+          "names": {
+            "en": "Lower Envelope Flap",
+            "hi": "निचला लिफाफा फ्लैप",
+            "te": "కింది ఎన్వలప్ ఫ్లాప్"
+          },
+          "role": "base",
+          "width": 50,
+          "height": 28,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (60 × 60 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 60,
+        "heightCm": 60
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "cushion_lg_front",
+          "names": {
+            "en": "Cushion Front Face",
+            "hi": "कुशन का अगला हिस्सा",
+            "te": "కుషన్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 60,
+          "height": 60,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "cushion_lg_back_top",
+          "names": {
+            "en": "Upper Envelope Flap",
+            "hi": "ऊपरी लिफाफा फ्लैप",
+            "te": "పై ఎన్వలప్ ఫ్లాప్"
+          },
+          "role": "base",
+          "width": 60,
+          "height": 42,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "cushion_lg_back_bottom",
+          "names": {
+            "en": "Lower Envelope Flap",
+            "hi": "निचला लिफाफा फ्लैप",
+            "te": "కింది ఎన్వలప్ ఫ్లాప్"
+          },
+          "role": "base",
+          "width": 60,
+          "height": 32,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

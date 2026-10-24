@@ -1,0 +1,241 @@
+{
+  "id": "makeup_bag",
+  "names": {
+    "en": "Boxy Makeup Bag",
+    "hi": "बॉक्सी मेकअप बैग",
+    "te": "మేకప్ బ్యాగ్"
+  },
+  "category": "bags",
+  "construction": "pouch",
+  "description": "Boxy cosmetic zipper bag with wide opening and side pull tabs, pieced from washable cotton scraps.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "Printed cotton or canvas scraps",
+      "qty": "Approx 30x40 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Nylon zipper",
+      "qty": "20 - 30 cm",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Water-resistant lining fabric",
+      "qty": "Matching body dimensions",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (18 × 12 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 18,
+        "heightCm": 12
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "makeup_front",
+          "names": {
+            "en": "Makeup Bag Front",
+            "hi": "मेकअप बैग का अगला हिस्सा",
+            "te": "మేకప్ బ్యాగ్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 18,
+          "height": 12,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "makeup_back",
+          "names": {
+            "en": "Makeup Bag Back",
+            "hi": "मेकअप बैग का पिछला हिस्सा",
+            "te": "మేకప్ బ్యాగ్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 18,
+          "height": 12,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "makeup_base",
+          "names": {
+            "en": "Makeup Bag Bottom Gusset",
+            "hi": "मेकअप बैग का निचला गसेट",
+            "te": "మేకప్ బ్యాగ్ అడుగు భాగం"
+          },
+          "role": "supporting",
+          "width": 18,
+          "height": 8,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "makeup_tab",
+          "names": {
+            "en": "Zipper Pull Tab",
+            "hi": "ज़िप पुल टैब",
+            "te": "జిప్పర్ పుల్ ట్యాబ్"
+          },
+          "role": "accent",
+          "width": 4,
+          "height": 6,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (22 × 15 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 22,
+        "heightCm": 15
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "makeup_front",
+          "names": {
+            "en": "Makeup Bag Front",
+            "hi": "मेकअप बैग का अगला हिस्सा",
+            "te": "మేకప్ బ్యాగ్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 22,
+          "height": 15,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "makeup_back",
+          "names": {
+            "en": "Makeup Bag Back",
+            "hi": "मेकअप बैग का पिछला हिस्सा",
+            "te": "మేకప్ బ్యాగ్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 22,
+          "height": 15,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "makeup_base",
+          "names": {
+            "en": "Makeup Bag Bottom Gusset",
+            "hi": "मेकअप बैग का निचला गसेट",
+            "te": "మేకప్ బ్యాగ్ అడుగు భాగం"
+          },
+          "role": "supporting",
+          "width": 22,
+          "height": 10,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "makeup_tab",
+          "names": {
+            "en": "Zipper Pull Tab",
+            "hi": "ज़िप पुल टैब",
+            "te": "జిప్పర్ పుల్ ట్యాబ్"
+          },
+          "role": "accent",
+          "width": 4,
+          "height": 7,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (26 × 18 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 26,
+        "heightCm": 18
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "makeup_front",
+          "names": {
+            "en": "Makeup Bag Front",
+            "hi": "मेकअप बैग का अगला हिस्सा",
+            "te": "మేకప్ బ్యాగ్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 26,
+          "height": 18,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "makeup_back",
+          "names": {
+            "en": "Makeup Bag Back",
+            "hi": "मेकअप बैग का पिछला हिस्सा",
+            "te": "మేకప్ బ్యాగ్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 26,
+          "height": 18,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "makeup_base",
+          "names": {
+            "en": "Makeup Bag Bottom Gusset",
+            "hi": "मेकअप बैग का निचला गसेट",
+            "te": "మేకప్ బ్యాగ్ అడుగు భాగం"
+          },
+          "role": "supporting",
+          "width": 26,
+          "height": 12,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "makeup_tab",
+          "names": {
+            "en": "Zipper Pull Tab",
+            "hi": "ज़िप पुल टैब",
+            "te": "జిప్పర్ పుల్ ట్యాబ్"
+          },
+          "role": "accent",
+          "width": 5,
+          "height": 8,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

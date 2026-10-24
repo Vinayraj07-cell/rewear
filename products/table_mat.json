@@ -1,0 +1,202 @@
+{
+  "id": "table_mat",
+  "names": {
+    "en": "Quilted Dining Table Mat",
+    "hi": "डाइनिंग टेबल मैट",
+    "te": "డైనింగ్ టేబుల్ మ్యాట్"
+  },
+  "category": "home",
+  "construction": "flat",
+  "description": "Quilted fabric table mat with bound edges, pieced from heat-tolerant cotton scraps to protect tabletop surfaces.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "Cotton scraps for top piecing",
+      "qty": "Approx 40x50 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Cotton backing fabric",
+      "qty": "Matching finished dimensions",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Thin cotton batting",
+      "qty": "Matching finished dimensions",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (35 × 25 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 35,
+        "heightCm": 25
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "mat_main",
+          "names": {
+            "en": "Table Mat Top Face",
+            "hi": "टेबल मैट का ऊपरी हिस्सा",
+            "te": "టేబుల్ మ్యాట్ పై భాగం"
+          },
+          "role": "base",
+          "width": 35,
+          "height": 25,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "mat_backing",
+          "names": {
+            "en": "Table Mat Back Lining",
+            "hi": "टेबल मैट की निचली लाइनिंग",
+            "te": "టేబుల్ మ్యాట్ వెనుక లైనింగ్"
+          },
+          "role": "supporting",
+          "width": 35,
+          "height": 25,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "mat_border",
+          "names": {
+            "en": "Table Mat Accent Border",
+            "hi": "टेबल मैट एक्सेंट बॉर्डर",
+            "te": "టేబుల్ మ్యాట్ యాక్సెంట్ బార్డర్"
+          },
+          "role": "accent",
+          "width": 4,
+          "height": 35,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (40 × 30 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 40,
+        "heightCm": 30
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "mat_main",
+          "names": {
+            "en": "Table Mat Top Face",
+            "hi": "टेबल मैट का ऊपरी हिस्सा",
+            "te": "టేబుల్ మ్యాట్ పై భాగం"
+          },
+          "role": "base",
+          "width": 40,
+          "height": 30,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "mat_backing",
+          "names": {
+            "en": "Table Mat Back Lining",
+            "hi": "टेबल मैट की निचली लाइनिंग",
+            "te": "టేబుల్ మ్యాట్ వెనుక లైనింగ్"
+          },
+          "role": "supporting",
+          "width": 40,
+          "height": 30,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "mat_border",
+          "names": {
+            "en": "Table Mat Accent Border",
+            "hi": "टेबल मैट एक्सेंट बॉर्डर",
+            "te": "టేబుల్ మ్యాట్ యాక్సెంట్ బార్డర్"
+          },
+          "role": "accent",
+          "width": 4,
+          "height": 40,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (45 × 35 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 45,
+        "heightCm": 35
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "mat_main",
+          "names": {
+            "en": "Table Mat Top Face",
+            "hi": "टेबल मैट का ऊपरी हिस्सा",
+            "te": "టేబుల్ మ్యాట్ పై భాగం"
+          },
+          "role": "base",
+          "width": 45,
+          "height": 35,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "mat_backing",
+          "names": {
+            "en": "Table Mat Back Lining",
+            "hi": "टेबल मैट की निचली लाइनिंग",
+            "te": "టేబుల్ మ్యాట్ వెనుక లైనింగ్"
+          },
+          "role": "supporting",
+          "width": 45,
+          "height": 35,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "mat_border",
+          "names": {
+            "en": "Table Mat Accent Border",
+            "hi": "टेबल मैट एक्सेंट बॉर्डर",
+            "te": "టేబుల్ మ్యాట్ యాక్సెంట్ బార్డర్"
+          },
+          "role": "accent",
+          "width": 5,
+          "height": 45,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "id": "tool_roll",
+  "names": {
+    "en": "Roll-Up Tool Organizer",
+    "hi": "रोल-अप टूल आयोजक",
+    "te": "రోల్-అప్ టూల్ ఆర్గనైజర్"
+  },
+  "category": "home",
+  "construction": "flat",
+  "description": "Roll-up organizer with partitioned slip pockets and wraparound tie cords for paintbrushes, crochet hooks, or sewing tools.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "Sturdy cotton drill or canvas scraps",
+      "qty": "Approx 40x50 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Contrasting scrap fabric for pockets",
+      "qty": "Matching pocket strip dimensions",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Cotton twill tape or fabric tie ribbon",
+      "qty": "100 - 140 cm",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (30 × 25 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 30,
+        "heightCm": 25
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "tool_body",
+          "names": {
+            "en": "Tool Roll Backing",
+            "hi": "टूल रोल का मुख्य भाग",
+            "te": "టూల్ రోల్ ప్రధాన భాగం"
+          },
+          "role": "base",
+          "width": 30,
+          "height": 25,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "tool_pocket",
+          "names": {
+            "en": "Partitioned Tool Pocket",
+            "hi": "टूल पॉकेट पट्टी",
+            "te": "టూల్ పాకెట్ పట్టీ"
+          },
+          "role": "supporting",
+          "width": 30,
+          "height": 12,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "tool_tie",
+          "names": {
+            "en": "Wraparound Tie Straps",
+            "hi": "बांधने वाली पट्टियां",
+            "te": "కట్టే పట్టీలు"
+          },
+          "role": "accent",
+          "width": 3,
+          "height": 50,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (40 × 30 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 40,
+        "heightCm": 30
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "tool_body",
+          "names": {
+            "en": "Tool Roll Backing",
+            "hi": "टूल रोल का मुख्य भाग",
+            "te": "టూల్ రోల్ ప్రధాన భాగం"
+          },
+          "role": "base",
+          "width": 40,
+          "height": 30,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "tool_pocket",
+          "names": {
+            "en": "Partitioned Tool Pocket",
+            "hi": "टूल पॉकेट पट्टी",
+            "te": "టూల్ పాకెట్ పట్టీ"
+          },
+          "role": "supporting",
+          "width": 40,
+          "height": 14,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "tool_tie",
+          "names": {
+            "en": "Wraparound Tie Straps",
+            "hi": "बांधने वाली पट्टियां",
+            "te": "కట్టే పట్టీలు"
+          },
+          "role": "accent",
+          "width": 3,
+          "height": 60,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (50 × 35 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 50,
+        "heightCm": 35
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "tool_body",
+          "names": {
+            "en": "Tool Roll Backing",
+            "hi": "टूल रोल का मुख्य भाग",
+            "te": "టూల్ రోల్ ప్రధాన భాగం"
+          },
+          "role": "base",
+          "width": 50,
+          "height": 35,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "tool_pocket",
+          "names": {
+            "en": "Partitioned Tool Pocket",
+            "hi": "टूल पॉकेट पट्टी",
+            "te": "టూల్ పాకెట్ పట్టీ"
+          },
+          "role": "supporting",
+          "width": 50,
+          "height": 16,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "tool_tie",
+          "names": {
+            "en": "Wraparound Tie Straps",
+            "hi": "बांधने वाली पट्टियां",
+            "te": "కట్టే పట్టీలు"
+          },
+          "role": "accent",
+          "width": 4,
+          "height": 70,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

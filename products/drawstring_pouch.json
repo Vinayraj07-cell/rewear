@@ -1,0 +1,196 @@
+{
+  "id": "drawstring_pouch",
+  "names": {
+    "en": "Drawstring Gift Pouch",
+    "hi": "डोरी वाली पाउच",
+    "te": "డ్రాస్ట్రింగ్ పౌచ్"
+  },
+  "category": "bags",
+  "construction": "pouch",
+  "description": "Soft gathered pouch with dual drawstring channel casing, perfect for jewellery, small accessories, or gift wrapping.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "Cotton or silk fabric scraps",
+      "qty": "Approx 25x35 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Braided drawstring cord or ribbon",
+      "qty": "50 - 70 cm",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (14 × 18 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 14,
+        "heightCm": 18
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "drawstring_front",
+          "names": {
+            "en": "Drawstring Front Body",
+            "hi": "डोरी पाउच का अगला हिस्सा",
+            "te": "డ్రాస్ట్రింగ్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 14,
+          "height": 18,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "drawstring_back",
+          "names": {
+            "en": "Drawstring Back Body",
+            "hi": "डोरी पाउच का पिछला हिस्सा",
+            "te": "డ్రాస్ట్రింగ్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 14,
+          "height": 18,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "drawstring_casing",
+          "names": {
+            "en": "Top Drawstring Casing",
+            "hi": "ऊपरी डोरी केसिंग",
+            "te": "పై డ్రాస్ట్రింగ్ కేసింగ్"
+          },
+          "role": "supporting",
+          "width": 4,
+          "height": 14,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (18 × 22 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 18,
+        "heightCm": 22
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "drawstring_front",
+          "names": {
+            "en": "Drawstring Front Body",
+            "hi": "डोरी पाउच का अगला हिस्सा",
+            "te": "డ్రాస్ట్రింగ్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 18,
+          "height": 22,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "drawstring_back",
+          "names": {
+            "en": "Drawstring Back Body",
+            "hi": "डोरी पाउच का पिछला हिस्सा",
+            "te": "డ్రాస్ట్రింగ్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 18,
+          "height": 22,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "drawstring_casing",
+          "names": {
+            "en": "Top Drawstring Casing",
+            "hi": "ऊपरी डोरी केसिंग",
+            "te": "పై డ్రాస్ట్రింగ్ కేసింగ్"
+          },
+          "role": "supporting",
+          "width": 4,
+          "height": 18,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (22 × 28 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 22,
+        "heightCm": 28
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "drawstring_front",
+          "names": {
+            "en": "Drawstring Front Body",
+            "hi": "डोरी पाउच का अगला हिस्सा",
+            "te": "డ్రాస్ట్రింగ్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 22,
+          "height": 28,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "drawstring_back",
+          "names": {
+            "en": "Drawstring Back Body",
+            "hi": "डोरी पाउच का पिछला हिस्सा",
+            "te": "డ్రాస్ట్రింగ్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 22,
+          "height": 28,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "drawstring_casing",
+          "names": {
+            "en": "Top Drawstring Casing",
+            "hi": "ऊपरी डोरी केसिंग",
+            "te": "పై డ్రాస్ట్రింగ్ కేసింగ్"
+          },
+          "role": "supporting",
+          "width": 5,
+          "height": 22,
+          "qty": 2,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

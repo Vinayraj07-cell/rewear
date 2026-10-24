@@ -1,0 +1,202 @@
+{
+  "id": "glasses_case",
+  "names": {
+    "en": "Padded Spectacle Case",
+    "hi": "पैडेड चश्मा पाउच",
+    "te": "ప్యాడెడ్ కళ్ళద్దాల కవర్"
+  },
+  "category": "bags",
+  "construction": "pouch",
+  "description": "Padded slip pouch with soft interior to protect spectacles and sunglasses from scratches and impact.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "Printed cotton or corduroy scraps",
+      "qty": "Approx 20x25 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Soft microfleece or flannel lining",
+      "qty": "Matching body dimensions",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Thin foam fleece batting",
+      "qty": "Matching body dimensions",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (8 × 16 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 8,
+        "heightCm": 16
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "glasses_front",
+          "names": {
+            "en": "Glasses Case Front",
+            "hi": "चश्मा केस का अगला भाग",
+            "te": "కళ్ళద్దాల కేస్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 8,
+          "height": 16,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "glasses_back",
+          "names": {
+            "en": "Glasses Case Back",
+            "hi": "चश्मा केस का पिछला भाग",
+            "te": "కళ్ళద్దాల కేస్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 8,
+          "height": 16,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "glasses_flap",
+          "names": {
+            "en": "Top Closure Flap",
+            "hi": "ऊपरी क्लोजर फ्लैप",
+            "te": "పై క్లోజర్ ఫ్లాప్"
+          },
+          "role": "accent",
+          "width": 8,
+          "height": 7,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (9 × 18 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 9,
+        "heightCm": 18
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "glasses_front",
+          "names": {
+            "en": "Glasses Case Front",
+            "hi": "चश्मा केस का अगला भाग",
+            "te": "కళ్ళద్దాల కేస్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 9,
+          "height": 18,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "glasses_back",
+          "names": {
+            "en": "Glasses Case Back",
+            "hi": "चश्मा केस का पिछला भाग",
+            "te": "కళ్ళద్దాల కేస్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 9,
+          "height": 18,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "glasses_flap",
+          "names": {
+            "en": "Top Closure Flap",
+            "hi": "ऊपरी क्लोजर फ्लैप",
+            "te": "పై క్లోజర్ ఫ్లాప్"
+          },
+          "role": "accent",
+          "width": 9,
+          "height": 8,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (10 × 20 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 10,
+        "heightCm": 20
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "glasses_front",
+          "names": {
+            "en": "Glasses Case Front",
+            "hi": "चश्मा केस का अगला भाग",
+            "te": "కళ్ళద్దాల కేస్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 10,
+          "height": 20,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "glasses_back",
+          "names": {
+            "en": "Glasses Case Back",
+            "hi": "चश्मा केस का पिछला भाग",
+            "te": "కళ్ళద్దాల కేస్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 10,
+          "height": 20,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "glasses_flap",
+          "names": {
+            "en": "Top Closure Flap",
+            "hi": "ऊपरी क्लोजर फ्लैप",
+            "te": "పై క్లోజర్ ఫ్లాప్"
+          },
+          "role": "accent",
+          "width": 10,
+          "height": 9,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,241 @@
+{
+  "id": "sling_bag",
+  "names": {
+    "en": "Crossbody Sling Bag",
+    "hi": "क्रॉसबॉडी स्लिंग बैग",
+    "te": "క్రాస్‌బాడీ స్లింగ్ బ్యాగ్"
+  },
+  "category": "bags",
+  "construction": "bag",
+  "description": "Everyday crossbody sling bag with protective front flap and long shoulder strap, pieced from sturdy fabric scraps.",
+  "tailorVerified": false,
+  "materials": [
+    {
+      "name": "Heavy cotton, denim, or canvas scraps",
+      "qty": "Approx 50x60 cm total area",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Cotton lining fabric",
+      "qty": "Matching body dimensions",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Magnetic snap button or velcro",
+      "qty": "1 set",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    },
+    {
+      "name": "Sewing thread",
+      "qty": "1 spool",
+      "optional": false,
+      "note": "typical estimate, unverified, needs a tailor"
+    }
+  ],
+  "sizes": {
+    "small": {
+      "label": "Small (20 × 24 cm)",
+      "names": {
+        "en": "Small",
+        "hi": "छोटा",
+        "te": "చిన్నది"
+      },
+      "finishedDimensions": {
+        "widthCm": 20,
+        "heightCm": 24
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "sling_front",
+          "names": {
+            "en": "Sling Bag Front",
+            "hi": "स्लिंग बैग का अगला हिस्सा",
+            "te": "స్లింగ్ బ్యాగ్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 20,
+          "height": 24,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "sling_back",
+          "names": {
+            "en": "Sling Bag Back",
+            "hi": "स्लिंग बैग का पिछला हिस्सा",
+            "te": "స్లింగ్ బ్యాగ్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 20,
+          "height": 24,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "sling_flap",
+          "names": {
+            "en": "Sling Front Flap",
+            "hi": "स्लिंग का अगला फ्लैप",
+            "te": "స్లింగ్ ముందు ఫ్లాప్"
+          },
+          "role": "supporting",
+          "width": 20,
+          "height": 16,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "sling_strap",
+          "names": {
+            "en": "Crossbody Shoulder Strap",
+            "hi": "क्रॉसबॉडी शोल्डर स्ट्रैप",
+            "te": "భుజం పట్టీ స్ట్రాప్"
+          },
+          "role": "supporting",
+          "width": 6,
+          "height": 110,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "medium": {
+      "label": "Medium (24 × 28 cm)",
+      "names": {
+        "en": "Medium",
+        "hi": "मध्यम",
+        "te": "మధ్యస్థం"
+      },
+      "finishedDimensions": {
+        "widthCm": 24,
+        "heightCm": 28
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "sling_front",
+          "names": {
+            "en": "Sling Bag Front",
+            "hi": "स्लिंग बैग का अगला हिस्सा",
+            "te": "స్లింగ్ బ్యాగ్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 24,
+          "height": 28,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "sling_back",
+          "names": {
+            "en": "Sling Bag Back",
+            "hi": "स्लिंग बैग का पिछला हिस्सा",
+            "te": "స్లింగ్ బ్యాగ్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 24,
+          "height": 28,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "sling_flap",
+          "names": {
+            "en": "Sling Front Flap",
+            "hi": "स्लिंग का अगला फ्लैप",
+            "te": "స్లింగ్ ముందు ఫ్లాప్"
+          },
+          "role": "supporting",
+          "width": 24,
+          "height": 18,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "sling_strap",
+          "names": {
+            "en": "Crossbody Shoulder Strap",
+            "hi": "क्रॉसबॉडी शोल्डर स्ट्रैप",
+            "te": "భుజం పట్టీ స్ట్రాప్"
+          },
+          "role": "supporting",
+          "width": 6,
+          "height": 120,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    },
+    "large": {
+      "label": "Large (28 × 32 cm)",
+      "names": {
+        "en": "Large",
+        "hi": "बड़ा",
+        "te": "పెద్దది"
+      },
+      "finishedDimensions": {
+        "widthCm": 28,
+        "heightCm": 32
+      },
+      "source": "typical estimate, unverified, needs a tailor",
+      "pieces": [
+        {
+          "id": "sling_front",
+          "names": {
+            "en": "Sling Bag Front",
+            "hi": "स्लिंग बैग का अगला हिस्सा",
+            "te": "స్లింగ్ బ్యాగ్ ముందు భాగం"
+          },
+          "role": "base",
+          "width": 28,
+          "height": 32,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "sling_back",
+          "names": {
+            "en": "Sling Bag Back",
+            "hi": "स्लिंग बैग का पिछला हिस्सा",
+            "te": "స్లింగ్ బ్యాగ్ వెనుక భాగం"
+          },
+          "role": "base",
+          "width": 28,
+          "height": 32,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "sling_flap",
+          "names": {
+            "en": "Sling Front Flap",
+            "hi": "स्लिंग का अगला फ्लैप",
+            "te": "స్లింగ్ ముందు ఫ్లాప్"
+          },
+          "role": "supporting",
+          "width": 28,
+          "height": 20,
+          "qty": 1,
+          "fabricSource": "scrap"
+        },
+        {
+          "id": "sling_strap",
+          "names": {
+            "en": "Crossbody Shoulder Strap",
+            "hi": "क्रॉसबॉडी शोल्डर स्ट्रैप",
+            "te": "భుజం పట్టీ స్ట్రాప్"
+          },
+          "role": "supporting",
+          "width": 7,
+          "height": 130,
+          "qty": 1,
+          "fabricSource": "scrap"
+        }
+      ]
+    }
+  }
+}
