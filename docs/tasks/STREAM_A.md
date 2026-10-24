@@ -150,3 +150,32 @@ app; final npm test and npm run build; update HANDOFF.md; list known problems.
 
 ## AMENDMENTS (Vinay adds notes here; latest wins)
 - (none yet)
+
+AMENDMENTS 2 (Sun 00:30) - OVERRIDES ALL EARLIER ORDERS
+Stream C is CANCELLED. Stream B only does small fixes and ONE commit (translations and small screen fixes).
+All of stream C's work returns to A. A owns everything except the files B edits (src/screens/**,
+src/components/**, src/i18n/translations.js) until B is merged.
+NEW ORDER: A14, A2, A15, A10, A18, A13, A6, A8, A12. IF TIME: A9, A5.
+Do ONE task, report, STOP.
+
+TASK A14: PDF fixes (was C1)
+STATUS: TODO
+FILES: src/utils/curvedBlueprintPDF.js, src/utils/pdfExportService.js, src/utils/test_q11_blueprints.js
+STEPS: (1) fix the red error "Standard font Helvetica is not registered. Call registerStdFonts() before
+using it" in the in-app PDF; (2) find and fix any double seam allowance in the generic rectangle PDF
+generator (area conservation must match the engine); (3) add a test that generates a PDF for EVERY
+registered product and fails on any exception; (4) page 1 must show the preview picture. Show raw outputs.
+
+TASK A15: Large sample pile (was C6)
+FILES: src/samples/** (new) and the screen code that loads samples is NOT touched; export only the data.
+STEPS: a pile of 60+ realistic scraps (varied colours, prints, stretch and non-stretch, thickness) where
+sandy_skirt scores above 0; add tests; wiring snippet in the report, do not wire yet.
+
+TASK A18: Waste-saved calculation (was C5) and earnings logic (was C2)
+FILES: src/money/** (new), tests.
+STEPS: pure functions: area of scraps used vs left, waste saved in grams and percent (state the
+assumption for fabric weight), earnings per product = price helper minus material, with labour hours
+from the engine. Honest labels: estimates only. Tests plus a wiring snippet.
+
+(A2, A10, A13 keep their existing text. Old A14 to A17 My Pile, Design view, Blueprint, Language
+screen redesigns: CANCELLED for now.)

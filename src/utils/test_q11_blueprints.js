@@ -23,8 +23,13 @@ import {
 } from './tailorBlueprintData.js';
 import {
   generateCurvedBlueprintPdf,
+  generateBlueprintPdfBlob,
   getCurvedGarmentPieceList,
+  getRectangularGarmentPieceList,
+  buildAssemblyPageSvg,
+  renderDesignPreviewSvg,
 } from './curvedBlueprintPDF.js';
+import { PRODUCT_TEMPLATES } from '../engine/templates.js';
 import { CHILD_TOP_BRIAN_DATA } from '../engine/childTopBrianData.js';
 import { SANDY_SKIRT_DATA } from '../engine/sandySkirtData.js';
 import { AARON_TANK_DATA } from '../engine/aaronTankData.js';
@@ -322,6 +327,60 @@ for (const cfg of PDF_CONFIGS) {
 
   await parser.destroy();
 }
+
+// ---------------------------------------------------------------------------
+// 6. Comprehensive Blueprint PDF Generation for ALL Registered Products
+// ---------------------------------------------------------------------------
+console.log('\n--- 6. PDF Generation & Area Conservation for ALL 33 Registered Products ---');
+
+const allProductIds = Object.keys(PRODUCT_TEMPLATES);
+assert(allProductIds.length >= 33, `Expected at least 33 registered products, got ${allProductIds.length}`);
+
+let totalProductsTested = 0;
+for (const productId of allProductIds) {
+  const tmpl = PRODUCT_TEMPLATES[productId];
+  const sizeKeys = Object.keys(tmpl.sizes || {});
+  const sizeKey = sizeKeys[0] || 'small';
+
+  // 1. In-app PDF generation for every registered product (must not throw)
+  const result = await generateBlueprintPdfBlob(productId, sizeKey, SAMPLE_PILES.neutral.pieces);
+  assert(result, `generateBlueprintPdfBlob must return a result object for ${productId}`);
+  assert(result.uint8Array instanceof Uint8Array, `uint8Array must be Uint8Array for ${productId}`);
+  assert(result.uint8Array.byteLength > 1000, `PDF byteLength must be > 1000 for ${productId} (got ${result.uint8Array.byteLength})`);
+  assert(result.totalPages >= 2, `Total pages must be >= 2 for ${productId} (got ${result.totalPages})`);
+
+  // 2. Page 1 must show the preview picture
+  const design = buildDesign(SAMPLE_PILES.neutral.pieces, productId, sizeKey);
+  const bp = buildTailorBlueprint(design);
+  const table = getGarmentMeasurementTable(productId, sizeKey);
+  const page1Svg = buildAssemblyPageSvg(bp, table, design);
+  assert(page1Svg.includes('DESIGN PREVIEW'), `Page 1 SVG must contain "DESIGN PREVIEW" header for ${productId}`);
+  assert(page1Svg.includes('<svg viewBox='), `Page 1 SVG must contain embedded preview <svg viewBox= for ${productId}`);
+
+  // 3. Area conservation & Seam allowance integrity on rectangular pieces
+  if (!['child_top', 'sandy_skirt', 'aaron_tank'].includes(productId)) {
+    const pieces = getRectangularGarmentPieceList(productId, sizeKey, SAMPLE_PILES.neutral.pieces);
+    for (const pc of pieces) {
+      assert(pc.cutWidthCm > 0 && pc.cutHeightCm > 0, `Piece ${pc.name} in ${productId} has invalid cut dimensions`);
+      assert(pc.finishedWidthCm > 0 && pc.finishedHeightCm > 0, `Piece ${pc.name} in ${productId} has invalid finished dimensions`);
+      
+      const expectedCutW = Number((pc.finishedWidthCm + 2 * pc.seamAllowanceCm).toFixed(1));
+      const expectedCutH = Number((pc.finishedHeightCm + 2 * pc.seamAllowanceCm).toFixed(1));
+      assert.strictEqual(pc.cutWidthCm, expectedCutW, `Piece ${pc.name} in ${productId} must not have double seam allowance (cutWidth=${pc.cutWidthCm}, expected=${expectedCutW})`);
+      assert.strictEqual(pc.cutHeightCm, expectedCutH, `Piece ${pc.name} in ${productId} must not have double seam allowance (cutHeight=${pc.cutHeightCm}, expected=${expectedCutH})`);
+
+      // Area conservation: finished area matches finished W * H, cut area matches cut W * H
+      const expectedNetArea = Number((pc.finishedWidthCm * pc.finishedHeightCm).toFixed(1));
+      const expectedCutArea = Number((expectedCutW * expectedCutH).toFixed(1));
+      assert.strictEqual(pc.netAreaCm2, expectedNetArea, `Piece ${pc.name} net area (${pc.netAreaCm2}) must match finished width * height (${expectedNetArea})`);
+      assert.strictEqual(pc.cutAreaCm2, expectedCutArea, `Piece ${pc.name} cut area (${pc.cutAreaCm2}) must match cut width * height (${expectedCutArea})`);
+    }
+  }
+
+  totalProductsTested++;
+}
+pass(`All ${totalProductsTested} registered products successfully generate blueprint PDFs without exceptions`);
+pass(`All ${totalProductsTested} products verified: Page 1 includes design preview picture and strict area conservation (no double seam allowance)`);
 
 console.log('\n====================================================');
 console.log('🎉 ALL Q11 CURVED GARMENT BLUEPRINT TESTS PASSED PERFECTLY!');

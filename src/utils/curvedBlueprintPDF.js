@@ -12,9 +12,21 @@
 // 8. Faint blueprint grid background in PDF (no FreeSewing logo)
 // 9. 100% English only, zero "undefined", zero broken glyphs
 
+import * as pdfkitModule from 'pdfkit';
 import PDFDocument from 'pdfkit';
 import SVGtoPDF from 'svg-to-pdfkit';
+import Helvetica from 'pdfkit/standard-fonts/Helvetica';
+import HelveticaBold from 'pdfkit/standard-fonts/HelveticaBold';
+import HelveticaBoldOblique from 'pdfkit/standard-fonts/HelveticaBoldOblique';
+import HelveticaOblique from 'pdfkit/standard-fonts/HelveticaOblique';
+import Courier from 'pdfkit/standard-fonts/Courier';
+import CourierBold from 'pdfkit/standard-fonts/CourierBold';
+import TimesRoman from 'pdfkit/standard-fonts/TimesRoman';
+import TimesBold from 'pdfkit/standard-fonts/TimesBold';
+import SymbolFont from 'pdfkit/standard-fonts/Symbol';
+import ZapfDingbats from 'pdfkit/standard-fonts/ZapfDingbats';
 import { buildDesign } from '../engine/index.js';
+import { computeProduct2DLayout } from './product2DLayout.js';
 import {
   buildTailorBlueprint,
   TAILOR_DISCLAIMER,
@@ -27,6 +39,23 @@ import { CHILD_TOP_BRIAN_DATA } from '../engine/childTopBrianData.js';
 import { SANDY_SKIRT_DATA } from '../engine/sandySkirtData.js';
 import { AARON_TANK_DATA } from '../engine/aaronTankData.js';
 import { SAMPLE_PILES } from './pileHelpers.js';
+
+// Register standard fonts for browser/WebView environments
+const registerFn = pdfkitModule.registerStdFonts || pdfkitModule.default?.registerStdFonts;
+if (typeof registerFn === 'function') {
+  registerFn(
+    Helvetica,
+    HelveticaBold,
+    HelveticaBoldOblique,
+    HelveticaOblique,
+    Courier,
+    CourierBold,
+    TimesRoman,
+    TimesBold,
+    SymbolFont,
+    ZapfDingbats
+  );
+}
 
 const MM_TO_PT = 72 / 25.4; // 2.83464567 pt per mm
 const CM_TO_PT = MM_TO_PT * 10; // 28.3464567 pt per cm
@@ -402,120 +431,247 @@ export function getTileAlignmentBorderSvg(tileLabel = 'Tile 1 of 2', overlapNote
 }
 
 /**
- * Builds the complete standalone SVG string for Page 1 (Assembly & Overview).
+ * Renders a clean 2D vector preview of the finished garment/product for Page 1 of the PDF.
+ * Uses computeProduct2DLayout so it precisely reflects actual scrap placements, colors, and seams.
+ * 
+ * @param {Object} design - Design object returned from buildDesign()
+ * @param {number} [targetW=150] - Preview SVG target width in points
+ * @param {number} [targetH=108] - Preview SVG target height in points
+ * @returns {string} Standalone SVG preview element
  */
-export function buildAssemblyPageSvg(blueprint, measurementTable) {
+export function renderDesignPreviewSvg(design, targetW = 150, targetH = 108) {
+  if (!design || !design.productId) return '';
+  const layout = computeProduct2DLayout(design, 'front');
+  if (!layout) return '';
+
+  let vbX = 0, vbY = 0, vbW = 100, vbH = 100;
+  if (typeof layout.viewBox === 'string') {
+    const parts = layout.viewBox.trim().split(/\s+/).map(Number);
+    if (parts.length === 4) [vbX, vbY, vbW, vbH] = parts;
+  } else if (layout.viewBox) {
+    vbX = layout.viewBox.x || 0;
+    vbY = layout.viewBox.y || 0;
+    vbW = layout.viewBox.width || 100;
+    vbH = layout.viewBox.height || 100;
+  }
+
+  let decoSvg = '';
+  for (const deco of layout.decorations || []) {
+    if (deco.d) {
+      decoSvg += `<path d="${deco.d}" stroke="${deco.stroke || '#94A3B8'}" stroke-width="${deco.strokeWidth || 1}" fill="${deco.fill || 'none'}" stroke-linecap="round" />`;
+    } else if (deco.x !== undefined && deco.y !== undefined) {
+      decoSvg += `<rect x="${deco.x}" y="${deco.y}" width="${deco.width || 4}" height="${deco.height || 4}" rx="${deco.rx || 1}" fill="${deco.fill || '#CBD5E1'}" stroke="${deco.stroke || '#94A3B8'}" stroke-width="${deco.strokeWidth || 0.6}" />`;
+    }
+  }
+
+  let panelsSvg = '';
+  if (layout.isCurvedGarment) {
+    const bodice = (layout.panels || []).find((p) => p.role === 'base') || layout.panels?.[0];
+    const leftSleeve = (layout.panels || []).find((p) => p.id === 'sleeve_1');
+    const rightSleeve = (layout.panels || []).find((p) => p.id === 'sleeve_2');
+
+    if (bodice) {
+      for (const p of bodice.patches || []) {
+        panelsSvg += `<rect x="${p.relX}" y="${p.relY}" width="${p.width}" height="${p.height}" fill="${p.colorHex || '#1E3A8A'}" />`;
+      }
+      if (bodice.seamPath) {
+        panelsSvg += `<path d="${bodice.seamPath}" fill="none" stroke="#0F172A" stroke-width="2" />`;
+        panelsSvg += `<path d="${bodice.seamPath}" transform="scale(-1, 1)" fill="none" stroke="#0F172A" stroke-width="2" />`;
+      }
+    }
+    if (leftSleeve) {
+      for (const p of leftSleeve.patches || []) {
+        panelsSvg += `<rect x="${p.relX}" y="${p.relY}" width="${p.width}" height="${p.height}" fill="${p.colorHex || '#1E3A8A'}" />`;
+      }
+      if (leftSleeve.seamPath) {
+        panelsSvg += `<path d="${leftSleeve.seamPath}" fill="none" stroke="#0F172A" stroke-width="2" />`;
+      }
+    }
+    if (rightSleeve) {
+      for (const p of rightSleeve.patches || []) {
+        panelsSvg += `<rect x="${p.relX}" y="${p.relY}" width="${p.width}" height="${p.height}" fill="${p.colorHex || '#1E3A8A'}" />`;
+      }
+      if (rightSleeve.seamPath) {
+        panelsSvg += `<path d="${rightSleeve.seamPath}" transform="scale(-1, 1)" fill="none" stroke="#0F172A" stroke-width="2" />`;
+      }
+    }
+  } else {
+    for (const panel of layout.panels || []) {
+      const px = panel.canvasX !== undefined ? panel.canvasX : (panel.x || 0);
+      const py = panel.canvasY !== undefined ? panel.canvasY : (panel.y || 0);
+      const pw = panel.width || 0;
+      const ph = panel.height || 0;
+      const rx = panel.rx || 0;
+
+      if (panel.pathD) {
+        panelsSvg += `<path d="${panel.pathD}" fill="${panel.colorHex || '#1E3A8A'}" stroke="#334155" stroke-width="0.5" />`;
+      } else if (panel.patches && panel.patches.length > 0) {
+        for (const pt of panel.patches) {
+          const ptX = pt.canvasX !== undefined ? pt.canvasX : (px + (pt.relX || 0));
+          const ptY = pt.canvasY !== undefined ? pt.canvasY : (py + (pt.relY || 0));
+          panelsSvg += `<rect x="${ptX}" y="${ptY}" width="${pt.width}" height="${pt.height}" fill="${pt.colorHex || '#1E3A8A'}" stroke="#334155" stroke-width="0.3" stroke-opacity="0.4" />`;
+        }
+      } else {
+        panelsSvg += `<rect x="${px}" y="${py}" width="${pw}" height="${ph}" rx="${rx}" fill="${panel.colorHex || '#1E3A8A'}" stroke="#334155" stroke-width="0.5" />`;
+      }
+
+      for (const s of panel.seams || []) {
+        const sx1 = s.canvasX1 !== undefined ? s.canvasX1 : (px + (s.x1 || 0));
+        const sy1 = s.canvasY1 !== undefined ? s.canvasY1 : (py + (s.y1 || 0));
+        const sx2 = s.canvasX2 !== undefined ? s.canvasX2 : (px + (s.x2 || 0));
+        const sy2 = s.canvasY2 !== undefined ? s.canvasY2 : (py + (s.y2 || 0));
+        panelsSvg += `<line x1="${sx1}" y1="${sy1}" x2="${sx2}" y2="${sy2}" stroke="#FFFFFF" stroke-width="0.6" stroke-dasharray="1.5,1.5" stroke-opacity="0.8" />`;
+      }
+
+      if (panel.canvasClipPathD) {
+        panelsSvg += `<path d="${panel.canvasClipPathD}" fill="none" stroke="#475569" stroke-width="0.8" />`;
+      } else if (panel.pathD) {
+        panelsSvg += `<path d="${panel.pathD}" fill="none" stroke="#475569" stroke-width="0.8" />`;
+      } else if (pw > 0 && ph > 0) {
+        panelsSvg += `<rect x="${px}" y="${py}" width="${pw}" height="${ph}" rx="${rx}" fill="none" stroke="#475569" stroke-width="0.8" />`;
+      }
+    }
+  }
+
+  return `<svg viewBox="${vbX} ${vbY} ${vbW} ${vbH}" width="${targetW}" height="${targetH}" preserveAspectRatio="xMidYMid meet">${decoSvg}${panelsSvg}</svg>`;
+}
+
+/**
+ * Builds the complete standalone SVG string for Page 1 (Assembly & Overview).
+ * Embeds the 2D design preview picture in a dedicated preview panel.
+ */
+export function buildAssemblyPageSvg(blueprint, measurementTable, design = null) {
   const steps = blueprint.stitchingSteps || [];
   const mats = blueprint.materials || [];
+  const previewSvg = renderDesignPreviewSvg(design, 150, 106);
 
   return `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${A4_WIDTH_PT} ${A4_HEIGHT_PT}" width="${A4_WIDTH_PT}" height="${A4_HEIGHT_PT}">
   <rect width="${A4_WIDTH_PT}" height="${A4_HEIGHT_PT}" fill="#FFFFFF" />
   
   <!-- Header Banner -->
-  <rect x="30" y="25" width="${A4_WIDTH_PT - 60}" height="42" fill="#064E3B" rx="4" />
-  <text x="45" y="45" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">REWEAR TAILOR BLUEPRINT: ${escapeXml(blueprint.productName.toUpperCase())}</text>
+  <rect x="30" y="22" width="${A4_WIDTH_PT - 60}" height="40" fill="#064E3B" rx="4" />
+  <text x="45" y="42" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#FFFFFF">REWEAR TAILOR BLUEPRINT: ${escapeXml(blueprint.productName.toUpperCase())}</text>
   ${blueprint.designScore === 0
-    ? `<text x="45" y="58" font-family="Helvetica, Arial, sans-serif" font-size="8.5" fill="#FECACA" font-weight="bold">Size: ${escapeXml(blueprint.sizeLabel)}  •  Not enough scraps: needs ${blueprint.neededMoreScraps || 18} more</text>`
-    : `<text x="45" y="58" font-family="Helvetica, Arial, sans-serif" font-size="8.5" fill="#A7F3D0">Size: ${escapeXml(blueprint.sizeLabel)}  •  Estimated Sewing Time: ${blueprint.estimatedTimeMinutes} mins (typical default)  •  Design Score: ${blueprint.designScore}/100</text>`
+    ? `<text x="45" y="54" font-family="Helvetica, Arial, sans-serif" font-size="8" fill="#FECACA" font-weight="bold">Size: ${escapeXml(blueprint.sizeLabel)}  •  Not enough scraps: needs ${blueprint.neededMoreScraps || 18} more</text>`
+    : `<text x="45" y="54" font-family="Helvetica, Arial, sans-serif" font-size="8" fill="#A7F3D0">Size: ${escapeXml(blueprint.sizeLabel)}  •  Estimated Sewing Time: ${blueprint.estimatedTimeMinutes} mins (typical default)  •  Design Score: ${blueprint.designScore}/100</text>`
   }
   
   <!-- Attribution Banner -->
-  <rect x="30" y="72" width="${A4_WIDTH_PT - 60}" height="18" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1" rx="2" />
-  <text x="40" y="84" font-family="Helvetica, Arial, sans-serif" font-size="8" font-weight="bold" fill="#166534">Pattern geometry by FreeSewing 4.10.2 (MIT licence)</text>
-  <text x="${A4_WIDTH_PT - 40}" y="84" font-family="Helvetica, Arial, sans-serif" font-size="7.5" fill="#15803D" text-anchor="end">Engineered for Remnant Upcycling</text>
+  <rect x="30" y="66" width="${A4_WIDTH_PT - 60}" height="17" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1" rx="2" />
+  <text x="40" y="78" font-family="Helvetica, Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#166534">Pattern geometry by FreeSewing 4.10.2 (MIT licence)</text>
+  <text x="${A4_WIDTH_PT - 40}" y="78" font-family="Helvetica, Arial, sans-serif" font-size="7" fill="#15803D" text-anchor="end">Engineered for Remnant Upcycling</text>
 
   <!-- Tailor Disclaimer Banner -->
-  <rect x="30" y="94" width="${A4_WIDTH_PT - 60}" height="20" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1" rx="2" />
-  <text x="40" y="108" font-family="Helvetica, Arial, sans-serif" font-size="8.5" font-weight="bold" fill="#92400E">⚠ MEASUREMENTS TO BE VERIFIED BY A TAILOR</text>
-  <text x="${A4_WIDTH_PT - 40}" y="108" font-family="Helvetica, Arial, sans-serif" font-size="7.5" fill="#B45309" text-anchor="end">Verify physical fabric stretch and grain orientation before final cutting</text>
+  <rect x="30" y="87" width="${A4_WIDTH_PT - 60}" height="19" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1" rx="2" />
+  <text x="40" y="100" font-family="Helvetica, Arial, sans-serif" font-size="8" font-weight="bold" fill="#92400E">⚠ MEASUREMENTS TO BE VERIFIED BY A TAILOR</text>
+  <text x="${A4_WIDTH_PT - 40}" y="100" font-family="Helvetica, Arial, sans-serif" font-size="7" fill="#B45309" text-anchor="end">Verify physical fabric stretch and grain orientation before final cutting</text>
 
-  <!-- Summary & Yardage Box (Separated Lines to Prevent Overlap) -->
-  <rect x="30" y="118" width="${A4_WIDTH_PT - 60}" height="48" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" rx="3" />
-  <text x="42" y="133" font-family="Helvetica, Arial, sans-serif" font-size="9" font-weight="bold" fill="#0F172A">FABRIC YARDAGE &amp; REMNANT REQUIREMENTS</text>
-  <text x="42" y="147" font-family="Helvetica, Arial, sans-serif" font-size="8" fill="#334155"><tspan font-weight="bold">Plain Fabric Yardage Needed:</tspan> ${escapeXml(blueprint.plainFabricYardage)}</text>
-  <text x="42" y="159" font-family="Helvetica, Arial, sans-serif" font-size="8" fill="#334155"><tspan font-weight="bold">Standard Seam Allowance:</tspan> 1.0 cm (0.4 in) throughout   |   <tspan font-weight="bold">Scrap Sourcing:</tspan> Upcycled fabric remnants</text>
+  <!-- Section 1: Yardage Requirements (Left) & Design Preview Picture (Right) -->
+  <g id="overview-upper-section" transform="translate(30, 110)">
+    <!-- Left Card: Fabric Requirements -->
+    <rect x="0" y="0" width="365" height="130" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" rx="3" />
+    <rect x="0" y="0" width="365" height="18" fill="#0F172A" rx="3 3 0 0" />
+    <text x="12" y="12" font-family="Helvetica, Arial, sans-serif" font-size="8" font-weight="bold" fill="#FFFFFF">FABRIC YARDAGE &amp; REMNANT REQUIREMENTS</text>
+    <text x="12" y="32" font-family="Helvetica, Arial, sans-serif" font-size="7.5" fill="#334155"><tspan font-weight="bold">Plain Fabric Yardage Needed:</tspan> ${escapeXml(blueprint.plainFabricYardage)}</text>
+    <text x="12" y="47" font-family="Helvetica, Arial, sans-serif" font-size="7.5" fill="#334155"><tspan font-weight="bold">Standard Seam Allowance:</tspan> 1.0 cm (0.4 in) throughout</text>
+    <text x="12" y="62" font-family="Helvetica, Arial, sans-serif" font-size="7.5" fill="#334155"><tspan font-weight="bold">Scrap Sourcing:</tspan> Upcycled fabric remnants from scrap pile</text>
+    <text x="12" y="77" font-family="Helvetica, Arial, sans-serif" font-size="7.5" fill="#334155"><tspan font-weight="bold">Garment Type:</tspan> ${escapeXml(blueprint.productName)} (Size: ${escapeXml(blueprint.sizeLabel)})</text>
+    <text x="12" y="92" font-family="Helvetica, Arial, sans-serif" font-size="7.5" fill="#334155"><tspan font-weight="bold">Estimated Sewing Time:</tspan> ${blueprint.estimatedTimeMinutes} mins (typical default)</text>
+    <text x="12" y="107" font-family="Helvetica, Arial, sans-serif" font-size="7.5" fill="#334155"><tspan font-weight="bold">Quality &amp; Color Match Score:</tspan> ${blueprint.designScore} / 100</text>
+    <text x="12" y="121" font-family="Helvetica, Arial, sans-serif" font-size="6.5" fill="#64748B" font-style="italic">All pieces include grainline markers and 10 mm seam margins.</text>
 
-  <!-- Measurement Table -->
-  <text x="30" y="180" font-family="Helvetica, Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#064E3B">1. GARMENT MEASUREMENT TABLE (FINISHED SPECIFICATIONS)</text>
-  <rect x="30" y="188" width="${A4_WIDTH_PT - 60}" height="${20 + measurementTable.length * 16}" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1" rx="2" />
-  <rect x="30" y="188" width="${A4_WIDTH_PT - 60}" height="18" fill="#E2E8F0" />
-  <text x="40" y="200" font-family="Helvetica, Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#1E293B">MEASUREMENT NAME</text>
-  <text x="230" y="200" font-family="Helvetica, Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#1E293B">METRIC (cm)</text>
-  <text x="310" y="200" font-family="Helvetica, Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#1E293B">IMPERIAL (in)</text>
-  <text x="390" y="200" font-family="Helvetica, Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#1E293B">VERIFICATION STATUS</text>
+    <!-- Right Card: Finished Design Preview Picture -->
+    <g transform="translate(375, 0)">
+      <rect x="0" y="0" width="160" height="130" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" rx="3" />
+      <rect x="0" y="0" width="160" height="18" fill="#064E3B" rx="3 3 0 0" />
+      <text x="80" y="12" font-family="Helvetica, Arial, sans-serif" font-size="8" font-weight="bold" fill="#FFFFFF" text-anchor="middle">DESIGN PREVIEW</text>
+      <g transform="translate(5, 20)">
+        ${previewSvg}
+      </g>
+    </g>
+  </g>
+
+  <!-- Section 2: Measurement Table -->
+  <text x="30" y="254" font-family="Helvetica, Arial, sans-serif" font-size="8.5" font-weight="bold" fill="#064E3B">1. GARMENT MEASUREMENT TABLE (FINISHED SPECIFICATIONS)</text>
+  <rect x="30" y="260" width="${A4_WIDTH_PT - 60}" height="${18 + measurementTable.length * 15}" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1" rx="2" />
+  <rect x="30" y="260" width="${A4_WIDTH_PT - 60}" height="16" fill="#E2E8F0" />
+  <text x="40" y="271" font-family="Helvetica, Arial, sans-serif" font-size="7" font-weight="bold" fill="#1E293B">MEASUREMENT NAME</text>
+  <text x="230" y="271" font-family="Helvetica, Arial, sans-serif" font-size="7" font-weight="bold" fill="#1E293B">METRIC (cm)</text>
+  <text x="310" y="271" font-family="Helvetica, Arial, sans-serif" font-size="7" font-weight="bold" fill="#1E293B">IMPERIAL (in)</text>
+  <text x="390" y="271" font-family="Helvetica, Arial, sans-serif" font-size="7" font-weight="bold" fill="#1E293B">VERIFICATION STATUS</text>
   
   ${measurementTable.map((row, idx) => {
-    const ry = 206 + idx * 16;
+    const ry = 276 + idx * 15;
     const bg = idx % 2 === 0 ? '#FFFFFF' : '#F8FAFC';
     return `
-      <rect x="30" y="${ry}" width="${A4_WIDTH_PT - 60}" height="16" fill="${bg}" />
-      <text x="40" y="${ry + 11}" font-family="Helvetica, Arial, sans-serif" font-size="7.5" fill="#0F172A" font-weight="bold">${escapeXml(row.name)}</text>
-      <text x="230" y="${ry + 11}" font-family="Helvetica, Arial, sans-serif" font-size="7.5" fill="#0F172A">${escapeXml(row.cm)}</text>
-      <text x="310" y="${ry + 11}" font-family="Helvetica, Arial, sans-serif" font-size="7.5" fill="#64748B">${escapeXml(row.inches)}</text>
-      <text x="390" y="${ry + 11}" font-family="Helvetica, Arial, sans-serif" font-size="7" fill="#B45309" font-style="italic">${escapeXml(row.note)}</text>
+      <rect x="30" y="${ry}" width="${A4_WIDTH_PT - 60}" height="15" fill="${bg}" />
+      <text x="40" y="${ry + 10}" font-family="Helvetica, Arial, sans-serif" font-size="7" fill="#0F172A" font-weight="bold">${escapeXml(row.name)}</text>
+      <text x="230" y="${ry + 10}" font-family="Helvetica, Arial, sans-serif" font-size="7" fill="#0F172A">${escapeXml(row.cm)}</text>
+      <text x="310" y="${ry + 10}" font-family="Helvetica, Arial, sans-serif" font-size="7" fill="#64748B">${escapeXml(row.inches)}</text>
+      <text x="390" y="${ry + 10}" font-family="Helvetica, Arial, sans-serif" font-size="7" fill="#B45309" font-style="italic">${escapeXml(row.note)}</text>
     `;
   }).join('')}
 
-  <!-- Materials & Notions Checklist -->
+  <!-- Section 3: Materials & Notions Checklist -->
   ${(() => {
-    const matStartY = 216 + measurementTable.length * 16;
+    const matStartY = 282 + measurementTable.length * 15;
     return `
-      <text x="30" y="${matStartY + 14}" font-family="Helvetica, Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#064E3B">2. MATERIALS &amp; NOTIONS CHECKLIST (${TYPICAL_DEFAULTS_DISCLAIMER})</text>
-      <g transform="translate(30, ${matStartY + 20})">
+      <text x="30" y="${matStartY + 12}" font-family="Helvetica, Arial, sans-serif" font-size="8.5" font-weight="bold" fill="#064E3B">2. MATERIALS &amp; NOTIONS CHECKLIST (${TYPICAL_DEFAULTS_DISCLAIMER})</text>
+      <g transform="translate(30, ${matStartY + 16})">
         ${mats.slice(0, 4).map((m, idx) => `
-          <rect x="0" y="${idx * 20}" width="${A4_WIDTH_PT - 60}" height="18" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1" rx="2" />
-          <text x="10" y="${idx * 20 + 12}" font-family="Helvetica, Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#0F172A">${escapeXml(m.name)}</text>
-          <text x="260" y="${idx * 20 + 12}" font-family="Helvetica, Arial, sans-serif" font-size="7.5" fill="#475569">${escapeXml(m.qty)}</text>
-          <text x="${A4_WIDTH_PT - 80}" y="${idx * 20 + 12}" font-family="Helvetica, Arial, sans-serif" font-size="6.5" fill="#64748B" text-anchor="end">${escapeXml(m.disclaimer || TYPICAL_DEFAULTS_DISCLAIMER)}</text>
+          <rect x="0" y="${idx * 17}" width="${A4_WIDTH_PT - 60}" height="15" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1" rx="2" />
+          <text x="10" y="${idx * 17 + 10}" font-family="Helvetica, Arial, sans-serif" font-size="7" font-weight="bold" fill="#0F172A">${escapeXml(m.name)}</text>
+          <text x="260" y="${idx * 17 + 10}" font-family="Helvetica, Arial, sans-serif" font-size="7" fill="#475569">${escapeXml(m.qty)}</text>
+          <text x="${A4_WIDTH_PT - 80}" y="${idx * 17 + 10}" font-family="Helvetica, Arial, sans-serif" font-size="6.5" fill="#64748B" text-anchor="end">${escapeXml(m.disclaimer || TYPICAL_DEFAULTS_DISCLAIMER)}</text>
         `).join('')}
       </g>
     `;
   })()}
 
-  <!-- Assembly Stitching Steps Overview (Wrapped Text in Dynamically Sized Boxes, Never Overlapping or Truncated) -->
+  <!-- Section 4: Assembly Stitching Steps Overview -->
   ${(() => {
-    const stepsStartY = 244 + measurementTable.length * 16 + Math.min(mats.length, 4) * 20;
+    const stepsStartY = 302 + measurementTable.length * 15 + Math.min(mats.length, 4) * 17;
     let currentStepY = 0;
     const stepBoxes = steps.map((s) => {
       const lines = wrapInstruction(s.instruction, 105);
-      const lineHeight = 8.5;
-      const boxHeight = Math.max(34, 18 + lines.length * lineHeight + 5);
+      const lineHeight = 8;
+      const boxHeight = Math.max(30, 15 + lines.length * lineHeight + 4);
       const y = currentStepY;
-      currentStepY += boxHeight + 4;
+      currentStepY += boxHeight + 3;
       return `
         <rect x="0" y="${y}" width="${A4_WIDTH_PT - 60}" height="${boxHeight}" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1" rx="2" />
-        <rect x="6" y="${y + 7}" width="20" height="20" fill="#059669" rx="2" />
-        <text x="16" y="${y + 20}" font-family="Helvetica, Arial, sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">${s.stepNumber}</text>
-        <text x="34" y="${y + 12}" font-family="Helvetica, Arial, sans-serif" font-size="8" font-weight="bold" fill="#0F172A">${escapeXml(s.title)}</text>
-        ${lines.map((ln, lIdx) => `<text x="34" y="${y + 21 + lIdx * lineHeight}" font-family="Helvetica, Arial, sans-serif" font-size="6.5" fill="#475569">${escapeXml(ln)}</text>`).join('')}
+        <rect x="6" y="${y + 5}" width="18" height="18" fill="#059669" rx="2" />
+        <text x="15" y="${y + 17}" font-family="Helvetica, Arial, sans-serif" font-size="8" font-weight="bold" fill="#FFFFFF" text-anchor="middle">${s.stepNumber}</text>
+        <text x="32" y="${y + 11}" font-family="Helvetica, Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#0F172A">${escapeXml(s.title)}</text>
+        ${lines.map((ln, lIdx) => `<text x="32" y="${y + 20 + lIdx * lineHeight}" font-family="Helvetica, Arial, sans-serif" font-size="6.5" fill="#475569">${escapeXml(ln)}</text>`).join('')}
       `;
     }).join('');
 
     return `
-      <text x="30" y="${stepsStartY + 14}" font-family="Helvetica, Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#064E3B">3. PRODUCT ASSEMBLY STEPS (IN TAILOR ORDER)</text>
-      <g transform="translate(30, ${stepsStartY + 20})">
+      <text x="30" y="${stepsStartY + 12}" font-family="Helvetica, Arial, sans-serif" font-size="8.5" font-weight="bold" fill="#064E3B">3. PRODUCT ASSEMBLY STEPS (IN TAILOR ORDER)</text>
+      <g transform="translate(30, ${stepsStartY + 16})">
         ${stepBoxes}
       </g>
     `;
   })()}
 
   <!-- 10 cm Test Calibration Square (Bottom Right of Page 1) -->
-  <g transform="translate(${A4_WIDTH_PT - 180}, ${A4_HEIGHT_PT - 185}) scale(0.5)">
+  <g transform="translate(${A4_WIDTH_PT - 180}, ${A4_HEIGHT_PT - 180}) scale(0.5)">
     ${getCalibrationTestSquareSvg(0, 0)}
   </g>
 
   <!-- Scale Verification Instructions (Bottom Left) -->
-  <g transform="translate(35, ${A4_HEIGHT_PT - 120})">
-    <text x="0" y="0" font-family="Helvetica, Arial, sans-serif" font-size="8" font-weight="bold" fill="#0F172A">PRINT SCALE VERIFICATION INSTRUCTIONS:</text>
-    <text x="0" y="14" font-family="Helvetica, Arial, sans-serif" font-size="7" fill="#334155">1. Open this PDF in Adobe Acrobat or browser print dialog.</text>
-    <text x="0" y="26" font-family="Helvetica, Arial, sans-serif" font-size="7" fill="#334155">2. Set Page Scaling to "100%" or "Actual Size" (NEVER "Fit to Page" or "Shrink").</text>
-    <text x="0" y="38" font-family="Helvetica, Arial, sans-serif" font-size="7" fill="#334155">3. Measure the test square with a ruler: must measure exactly 10.0 cm / 3.94 in.</text>
-    <text x="0" y="50" font-family="Helvetica, Arial, sans-serif" font-size="7" fill="#334155">4. Tile pattern pages along dashed alignment lines and tape securely together.</text>
+  <g transform="translate(35, ${A4_HEIGHT_PT - 110})">
+    <text x="0" y="0" font-family="Helvetica, Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#0F172A">PRINT SCALE VERIFICATION INSTRUCTIONS:</text>
+    <text x="0" y="12" font-family="Helvetica, Arial, sans-serif" font-size="6.5" fill="#334155">1. Open this PDF in Adobe Acrobat or browser print dialog.</text>
+    <text x="0" y="23" font-family="Helvetica, Arial, sans-serif" font-size="6.5" fill="#334155">2. Set Page Scaling to "100%" or "Actual Size" (NEVER "Fit to Page" or "Shrink").</text>
+    <text x="0" y="34" font-family="Helvetica, Arial, sans-serif" font-size="6.5" fill="#334155">3. Measure the test square with a ruler: must measure exactly 10.0 cm / 3.94 in.</text>
+    <text x="0" y="45" font-family="Helvetica, Arial, sans-serif" font-size="6.5" fill="#334155">4. Tile pattern pages along dashed alignment lines and tape securely together.</text>
   </g>
 
   <!-- Footer -->
-  <text x="${A4_WIDTH_PT / 2}" y="${A4_HEIGHT_PT - 20}" font-family="Helvetica, Arial, sans-serif" font-size="7.5" fill="#64748B" text-anchor="middle" font-weight="bold">
+  <text x="${A4_WIDTH_PT / 2}" y="${A4_HEIGHT_PT - 18}" font-family="Helvetica, Arial, sans-serif" font-size="7.5" fill="#64748B" text-anchor="middle" font-weight="bold">
     Pattern geometry by FreeSewing 4.10.2 (MIT licence)   •   Measurements to be verified by a tailor   •   Page 1 of Overview
   </text>
 </svg>
@@ -793,17 +949,25 @@ export function getRectangularGarmentPieceList(productId, sizeKey, pile = null) 
   const grouped = new Map();
   for (const pc of rawPieces) {
     const baseName = pc.name.replace(/\s*\(\d+\/\d+\)/, '').trim();
-    const key = `${baseName}_${pc.cutWidth}x${pc.cutHeight}`;
+    const saCm = pc.seamAllowanceCm || 1.0;
+    const finishedW = Number((pc.finishedWidth || Math.max(1, pc.cutWidth - 2 * saCm)).toFixed(1));
+    const finishedH = Number((pc.finishedHeight || Math.max(1, pc.cutHeight - 2 * saCm)).toFixed(1));
+    // Area conservation: cut dimensions must strictly equal finished dimensions + 2 * seam allowance.
+    // Fixes any potential double seam allowance in pieces.
+    const cutW = Number((finishedW + 2 * saCm).toFixed(1));
+    const cutH = Number((finishedH + 2 * saCm).toFixed(1));
+
+    const key = `${baseName}_${cutW}x${cutH}`;
     if (!grouped.has(key)) {
       grouped.set(key, {
         id: pc.zoneId || `pc_${pc.pieceNumber}`,
         name: baseName,
         cutQty: 1,
-        cutWidthCm: pc.cutWidth,
-        cutHeightCm: pc.cutHeight,
-        finishedWidthCm: pc.finishedWidth || Math.max(1, pc.cutWidth - 2 * (pc.seamAllowanceCm || 1)),
-        finishedHeightCm: pc.finishedHeight || Math.max(1, pc.cutHeight - 2 * (pc.seamAllowanceCm || 1)),
-        seamAllowanceCm: pc.seamAllowanceCm || 1.0,
+        cutWidthCm: cutW,
+        cutHeightCm: cutH,
+        finishedWidthCm: finishedW,
+        finishedHeightCm: finishedH,
+        seamAllowanceCm: saCm,
         role: pc.role,
         scraps: pc.scraps || [],
         scrapsSummary: pc.scrapsSummary,
@@ -815,13 +979,13 @@ export function getRectangularGarmentPieceList(productId, sizeKey, pile = null) 
 
   const pieceList = [];
   for (const item of grouped.values()) {
-    const cutW_mm = item.cutWidthCm * 10;
-    const cutH_mm = item.cutHeightCm * 10;
-    const sa_mm = item.seamAllowanceCm * 10;
+    const sa_mm = Number((item.seamAllowanceCm * 10).toFixed(2));
+    const cutW_mm = Number((item.cutWidthCm * 10).toFixed(2));
+    const cutH_mm = Number((item.cutHeightCm * 10).toFixed(2));
+    const finW_mm = Number((item.finishedWidthCm * 10).toFixed(2));
+    const finH_mm = Number((item.finishedHeightCm * 10).toFixed(2));
 
     const saPath = `M 0,0 L ${cutW_mm},0 L ${cutW_mm},${cutH_mm} L 0,${cutH_mm} Z`;
-    const finW_mm = Math.max(0, cutW_mm - 2 * sa_mm);
-    const finH_mm = Math.max(0, cutH_mm - 2 * sa_mm);
     const seamPath = `M ${sa_mm},${sa_mm} L ${sa_mm + finW_mm},${sa_mm} L ${sa_mm + finW_mm},${sa_mm + finH_mm} L ${sa_mm},${sa_mm + finH_mm} Z`;
 
     const sourceText = item.scrapsSummary || (item.role === 'plain' ? 'Solid Plain Fabric (Continuous yardage)' : 'Fabric Scraps (Pieced patchwork)');
@@ -841,6 +1005,8 @@ export function getRectangularGarmentPieceList(productId, sizeKey, pile = null) 
       cutHeightCm: item.cutHeightCm,
       finishedWidthCm: item.finishedWidthCm,
       finishedHeightCm: item.finishedHeightCm,
+      netAreaCm2: Number((item.finishedWidthCm * item.finishedHeightCm).toFixed(1)),
+      cutAreaCm2: Number((item.cutWidthCm * item.cutHeightCm).toFixed(1)),
       seamAllowanceCm: item.seamAllowanceCm,
       seamPath,
       saPath,
@@ -889,7 +1055,7 @@ export function renderBlueprintDoc(doc, productId, sizeKey, pile = null) {
   // ==========================================
   // PAGE 1: OVERVIEW & ASSEMBLY SPECIFICATION
   // ==========================================
-  const page1Svg = buildAssemblyPageSvg(bp, measurementTable);
+  const page1Svg = buildAssemblyPageSvg(bp, measurementTable, design);
   SVGtoPDF(doc, page1Svg, 0, 0, { width: A4_WIDTH_PT, height: A4_HEIGHT_PT });
 
   // ==========================================

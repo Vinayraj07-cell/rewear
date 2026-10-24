@@ -3,10 +3,38 @@
 // Generates tiled tailor blueprint PDFs directly inside the browser/WebView,
 // downloads in web browsers, and writes & shares via Capacitor on Android devices.
 
+import * as pdfkitModule from 'pdfkit';
+import Helvetica from 'pdfkit/standard-fonts/Helvetica';
+import HelveticaBold from 'pdfkit/standard-fonts/HelveticaBold';
+import HelveticaBoldOblique from 'pdfkit/standard-fonts/HelveticaBoldOblique';
+import HelveticaOblique from 'pdfkit/standard-fonts/HelveticaOblique';
+import Courier from 'pdfkit/standard-fonts/Courier';
+import CourierBold from 'pdfkit/standard-fonts/CourierBold';
+import TimesRoman from 'pdfkit/standard-fonts/TimesRoman';
+import TimesBold from 'pdfkit/standard-fonts/TimesBold';
+import SymbolFont from 'pdfkit/standard-fonts/Symbol';
+import ZapfDingbats from 'pdfkit/standard-fonts/ZapfDingbats';
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Share } from '@capacitor/share';
 import { generateBlueprintPdfBlob } from './curvedBlueprintPDF.js';
+
+// Ensure standard fonts are registered in browser/WebView environment
+const registerFn = pdfkitModule.registerStdFonts || pdfkitModule.default?.registerStdFonts;
+if (typeof registerFn === 'function') {
+  registerFn(
+    Helvetica,
+    HelveticaBold,
+    HelveticaBoldOblique,
+    HelveticaOblique,
+    Courier,
+    CourierBold,
+    TimesRoman,
+    TimesBold,
+    SymbolFont,
+    ZapfDingbats
+  );
+}
 
 /**
  * Converts a Uint8Array into a standard base64 string in chunks to prevent stack overflow.
