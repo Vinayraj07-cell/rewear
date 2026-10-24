@@ -29,6 +29,13 @@ export default function FirstLaunchScreen({ onComplete, initialLang = 'en' }) {
       startBtn: 'Start Using ReWear',
       nameRequired: 'Please enter your name or a tailor identifier to proceed.',
       privacySub: 'No accounts, no passwords, no cloud tracking. 100% private to your device.',
+      howItWorksTitle: 'Quick 3-Step Guide',
+      step1: '1. Snap your scraps.',
+      step1Sub: 'Log dimensions or snap a photo',
+      step2: '2. Get AI suggestions.',
+      step2Sub: 'Explore matching patterns',
+      step3: '3. Export PDF for your tailor.',
+      step3Sub: 'Print cutting blueprints',
     },
     te: {
       welcome: 'ReWear కు స్వాగతం',
@@ -43,6 +50,13 @@ export default function FirstLaunchScreen({ onComplete, initialLang = 'en' }) {
       startBtn: 'ReWear ప్రారంభించండి',
       nameRequired: 'దయచేసి కొనసాగడానికి మీ పేరును నమోదు చేయండి.',
       privacySub: 'ఖాతాలు లేవు, పాస్‌వర్డ్‌లు లేవు, క్లౌడ్ ట్రాకింగ్ లేదు. మీ ఫోన్‌లో మాత్రమే ఉంటుంది.',
+      howItWorksTitle: 'సులువైన 3 దశలు',
+      step1: '1. Snap your scraps.',
+      step1Sub: 'ముక్కల కొలతలు లేదా ఫోటో',
+      step2: '2. Get AI suggestions.',
+      step2Sub: 'సరిపోయే డిజైన్ల ఎంపిక',
+      step3: '3. Export PDF for your tailor.',
+      step3Sub: 'కటింగ్ బ్లూప్రింట్ ప్రింట్',
     },
     hi: {
       welcome: 'ReWear में आपका स्वागत है',
@@ -57,6 +71,13 @@ export default function FirstLaunchScreen({ onComplete, initialLang = 'en' }) {
       startBtn: 'ReWear शुरू करें',
       nameRequired: 'कृपया आगे बढ़ने के लिए अपना नाम दर्ज करें।',
       privacySub: 'कोई खाता नहीं, कोई पासवर्ड नहीं, कोई सर्वर नहीं। आपका डेटा पूरी तरह सुरक्षित है।',
+      howItWorksTitle: '3 आसान चरण',
+      step1: '1. Snap your scraps.',
+      step1Sub: 'नाप या फोटो दर्ज करें',
+      step2: '2. Get AI suggestions.',
+      step2Sub: 'कैटलॉग से डिज़ाइन चुनें',
+      step3: '3. Export PDF for your tailor.',
+      step3Sub: 'कटिंग ब्लूप्रिंट प्रिंट करें',
     },
   }[selectedLang] || content.en;
 
@@ -85,7 +106,18 @@ export default function FirstLaunchScreen({ onComplete, initialLang = 'en' }) {
 
   return (
     <div className="min-h-screen bg-stone-100 flex items-center justify-center p-4">
-      <div className="bg-white max-w-md w-full rounded-3xl p-6 sm:p-7 shadow-xl border border-stone-200/90 space-y-5">
+      
+<style>{`
+  @keyframes fadeInScale {
+    0% { opacity: 0; transform: scale(0.96) translateY(10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .animate-first-launch {
+    animation: fadeInScale 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+`}</style>
+
+      <div className="bg-white max-w-md w-full rounded-3xl p-6 sm:p-7 shadow-xl border border-stone-200/90 space-y-5 animate-first-launch transition-all duration-300">
         {/* Brand Header */}
         <div className="text-center space-y-1.5">
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-emerald-700 text-white shadow-md border-2 border-emerald-500/40 text-2xl mb-1">
@@ -201,6 +233,32 @@ export default function FirstLaunchScreen({ onComplete, initialLang = 'en' }) {
           {errorMsg && (
             <p className="text-xs text-red-600 font-semibold">{errorMsg}</p>
           )}
+
+          {/* Quick 3-Step Onboarding Instructions */}
+          <div className="bg-stone-50/90 border border-stone-200/80 rounded-2xl p-3.5 space-y-2">
+            <div className="flex items-center gap-1.5 text-[11px] font-bold text-stone-700 uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+              <span>{content.howItWorksTitle}</span>
+            </div>
+            <div className="grid grid-cols-3 gap-2 text-center text-xs">
+              <div className="bg-white p-2 rounded-xl border border-stone-200/60 shadow-xs flex flex-col items-center">
+                <span className="text-base mb-1">📸</span>
+                <span className="font-bold text-[10px] text-stone-900 leading-tight">{content.step1}</span>
+                <span className="text-[9px] text-stone-500 mt-0.5">{content.step1Sub}</span>
+              </div>
+              <div className="bg-white p-2 rounded-xl border border-stone-200/60 shadow-xs flex flex-col items-center">
+                <span className="text-base mb-1">✨</span>
+                <span className="font-bold text-[10px] text-stone-900 leading-tight">{content.step2}</span>
+                <span className="text-[9px] text-stone-500 mt-0.5">{content.step2Sub}</span>
+              </div>
+              <div className="bg-white p-2 rounded-xl border border-stone-200/60 shadow-xs flex flex-col items-center">
+                <span className="text-base mb-1">📄</span>
+                <span className="font-bold text-[10px] text-stone-900 leading-tight">{content.step3}</span>
+                <span className="text-[9px] text-stone-500 mt-0.5">{content.step3Sub}</span>
+              </div>
+            </div>
+          </div>
+
 
           {/* Start Button */}
           <button
