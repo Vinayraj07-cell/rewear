@@ -19,7 +19,8 @@ export default function HomeScreen({
   pileCount, 
   onLoadSampleData, 
   onOpenWalkthrough,
-  onOpenInstallModal
+  onOpenInstallModal,
+  profile = null
 }) {
   const features = [
     {
@@ -101,6 +102,11 @@ export default function HomeScreen({
           🪡
         </div>
         <div className="relative z-10">
+          {(profile?.shopName || profile?.name) && (
+            <div className="mb-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-amber-300 text-xs font-semibold">
+              <span>🧵 {profile.shopName ? `${profile.shopName} · ${profile.name}` : profile.name}</span>
+            </div>
+          )}
           <div className="flex items-center gap-1.5 text-emerald-300 text-xs font-semibold uppercase tracking-wider mb-1">
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
             <span>ReWear Promise</span>

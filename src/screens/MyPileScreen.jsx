@@ -19,7 +19,10 @@ import {
   Plus,
   Minus,
   RefreshCw,
-  X
+  X,
+  Camera,
+  Upload,
+  Loader2
 } from 'lucide-react';
 import { COLOR_SWATCHES, FABRIC_TYPES } from '../i18n/translations';
 import { calculateArea } from '../utils/storage';
@@ -34,6 +37,7 @@ import {
 } from '../utils/pileHelpers';
 import { clearAiPreviewDataAndResetLimit } from '../utils/aiPreviewService';
 import { getAiProductSuggestion } from '../utils/aiSuggestionService';
+import { suggestProductFromFabricImage, AI_HONESTY_LABEL } from '../utils/geminiService';
 
 export default function MyPileScreen({ 
   pieces, 
@@ -54,6 +58,36 @@ export default function MyPileScreen({
   const [groupBy, setGroupBy] = useState('color'); // 'color' or 'fabric'
   const [showClearModal, setShowClearModal] = useState(false);
   const [aiSuggestion, setAiSuggestion] = useState(null);
+  const [isAnalyzingPhoto, setIsAnalyzingPhoto] = useState(false);
+  const [visionSuggestion, setVisionSuggestion] = useState(null);
+  const [visionError, setVisionError] = useState(null);
+  const [uploadedImagePreview, setUploadedImagePreview] = useState(null);
+  const fileInputRef = React.useRef(null);
+
+  const handleImageFileSelected = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    e.target.value = '';
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const base64DataUrl = reader.result;
+      setUploadedImagePreview(base64DataUrl);
+      setIsAnalyzingPhoto(true);
+      setVisionError(null);
+      setVisionSuggestion(null);
+
+      try {
+        const res = await suggestProductFromFabricImage(base64DataUrl);
+        setVisionSuggestion(res);
+      } catch (err) {
+        setVisionError(err?.message || 'AI service unavailable');
+      } finally {
+        setIsAnalyzingPhoto(false);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
   const [lastAddedMsg, setLastAddedMsg] = useState(null);
 
   // Bulk add state
@@ -180,7 +214,7 @@ export default function MyPileScreen({
             <p className="text-xs text-emerald-100 mt-1 leading-snug">
               {t.whatCanIMakeSub}
             </p>
-            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div className="mt-3 space-y-2">
               {onWhatCanIMake && (
                 <button
                   type="button"
@@ -192,15 +226,48 @@ export default function MyPileScreen({
                   <ArrowRight className="w-4 h-4 text-stone-900" />
                 </button>
               )}
-              <button
-                type="button"
-                onClick={() => setAiSuggestion(getAiProductSuggestion(pieces, lang))}
-                className="w-full py-2.5 px-4 bg-emerald-700/90 hover:bg-emerald-600 text-white font-extrabold text-xs rounded-2xl shadow-sm flex items-center justify-center gap-2 border border-emerald-500/50 transition cursor-pointer"
-                title="Get AI Product Suggestion"
-              >
-                <Sparkles className="w-4 h-4 text-amber-300" />
-                <span>AI Suggestion</span>
-              </button>
+
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setAiSuggestion(getAiProductSuggestion(pieces, lang))}
+                  className="py-2.5 px-3 bg-emerald-700/90 hover:bg-emerald-600 text-white font-extrabold text-xs rounded-2xl shadow-sm flex items-center justify-center gap-1.5 border border-emerald-500/50 transition cursor-pointer truncate"
+                  title="Get AI Product Suggestion from scrap pile"
+                >
+                  <Sparkles className="w-4 h-4 text-amber-300 shrink-0" />
+                  <span className="truncate">Pile AI Suggestion</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={isAnalyzingPhoto}
+                  className="py-2.5 px-3 bg-stone-900 hover:bg-stone-800 text-amber-300 font-extrabold text-xs rounded-2xl shadow-sm flex items-center justify-center gap-1.5 border border-amber-400/30 transition cursor-pointer disabled:opacity-50 truncate"
+                  title="Upload fabric photo from gallery for Gemini AI vision suggestion"
+                >
+                  {isAnalyzingPhoto ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin text-amber-300 shrink-0" />
+                      <span className="truncate">Analyzing...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Camera className="w-4 h-4 text-amber-400 shrink-0" />
+                      <span className="truncate">Photo AI Vision</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* Hidden file input for photo upload */}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleImageFileSelected}
+                className="hidden"
+                data-testid="fabric-image-upload-input"
+              />
             </div>
           </div>
         </div>
@@ -1014,6 +1081,130 @@ export default function MyPileScreen({
                 className="flex-1 py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded-xl shadow-xs transition"
               >
                 {t.clearPileConfirmBtn || 'Yes, Clear Pile'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+      {/* Gemini AI Vision Suggestion Modal (Task A11) */}
+      {(uploadedImagePreview || isAnalyzingPhoto) && (
+        <div className="fixed inset-0 bg-stone-950/70 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-in fade-in">
+          <div className="bg-white rounded-3xl max-w-sm w-full p-5 shadow-2xl border border-stone-200 space-y-4">
+            {/* Header */}
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-9 h-9 rounded-full bg-stone-900 text-amber-300 flex items-center justify-center font-bold text-base shadow-xs">
+                  👁️
+                </div>
+                <div>
+                  <h3 className="text-sm font-black text-stone-900 leading-tight">
+                    Gemini AI Vision Analysis
+                  </h3>
+                  <span className="text-[10px] text-stone-500 font-medium">
+                    Tailor Fabric Recognition
+                  </span>
+                </div>
+              </div>
+              {!isAnalyzingPhoto && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setUploadedImagePreview(null);
+                    setVisionSuggestion(null);
+                    setVisionError(null);
+                  }}
+                  className="p-1.5 text-stone-400 hover:text-stone-700 rounded-full transition cursor-pointer"
+                  title="Close"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+
+            {/* Uploaded Image Preview & Loading Indicator */}
+            <div className="relative w-full h-36 bg-stone-100 rounded-2xl overflow-hidden border border-stone-200 flex items-center justify-center">
+              {uploadedImagePreview && (
+                <img
+                  src={uploadedImagePreview}
+                  alt="Fabric upload preview"
+                  className="w-full h-full object-cover"
+                />
+              )}
+              {isAnalyzingPhoto && (
+                <div className="absolute inset-0 bg-stone-950/60 backdrop-blur-xs flex flex-col items-center justify-center text-white gap-2 p-3 text-center">
+                  <Loader2 className="w-6 h-6 animate-spin text-amber-300" />
+                  <span className="text-xs font-bold text-white">
+                    Analyzing texture, size & weave...
+                  </span>
+                  <span className="text-[10px] text-amber-200">
+                    Calling Gemini 1.5 Flash Vision API
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {/* Error State: Graceful Failure */}
+            {visionError && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-2xl space-y-1">
+                <div className="flex items-center gap-1.5 text-red-800 font-bold text-xs">
+                  <AlertTriangle className="w-4 h-4 text-red-600 shrink-0" />
+                  <span>AI service unavailable</span>
+                </div>
+                <p className="text-[11px] text-red-700 leading-tight">
+                  {visionError}
+                </p>
+                <p className="text-[10px] text-stone-500 pt-1">
+                  You can set your Gemini API key in <code className="bg-stone-200 px-1 py-0.5 rounded">.env</code> (VITE_GEMINI_API_KEY).
+                </p>
+              </div>
+            )}
+
+            {/* Success State: Clean Card with Strict Honesty Rule */}
+            {visionSuggestion && (
+              <div className="space-y-3">
+                <div className="p-3.5 bg-emerald-50/80 rounded-2xl border border-emerald-200 space-y-1.5">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100/70 px-2 py-0.5 rounded-md inline-block">
+                    Tailor Recommendation
+                  </span>
+                  <p className="text-xs text-stone-800 leading-relaxed font-medium">
+                    {visionSuggestion.suggestion}
+                  </p>
+                </div>
+
+                {/* Mandatory Honesty Rule Badge */}
+                <div className="p-2.5 bg-amber-50 border border-amber-300 rounded-2xl text-[11px] font-black text-amber-950 text-center shadow-2xs">
+                  {AI_HONESTY_LABEL}
+                </div>
+              </div>
+            )}
+
+            {/* Modal Actions */}
+            <div className="grid grid-cols-2 gap-2 pt-1">
+              <button
+                type="button"
+                onClick={() => {
+                  setUploadedImagePreview(null);
+                  setVisionSuggestion(null);
+                  setVisionError(null);
+                  if (onWhatCanIMake) onWhatCanIMake();
+                }}
+                className="py-2.5 px-3 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl font-bold text-xs shadow-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
+              >
+                <span>Make Product</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setUploadedImagePreview(null);
+                  setVisionSuggestion(null);
+                  setVisionError(null);
+                }}
+                className="py-2.5 px-3 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-2xl font-bold text-xs transition cursor-pointer"
+              >
+                Close
               </button>
             </div>
           </div>

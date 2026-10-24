@@ -17,6 +17,9 @@ import CustomizeScreen from './screens/CustomizeScreen';
 import SizeChoiceScreen from './screens/SizeChoiceScreen';
 import FeasibilityScreen from './screens/FeasibilityScreen';
 import TailorBlueprintScreen from './screens/TailorBlueprintScreen';
+import FirstLaunchScreen from './screens/FirstLaunchScreen';
+import SettingsScreen from './screens/SettingsScreen';
+import { loadProfile } from './utils/profileStorage';
 const Product3DViewer = lazy(() => import('./components/Product3DViewer'));
 import ErrorBoundary from './components/ErrorBoundary';
 
@@ -75,6 +78,7 @@ export default function App() {
   const [future, setFuture] = useState([]);
   const [editingPiece, setEditingPiece] = useState(null);
   const [selectedDesign, setSelectedDesign] = useState(null);
+  const [profile, setProfile] = useState(() => loadProfile());
   const [scrapSafetyMarginCm, setScrapSafetyMarginCm] = useState(() => {
     const saved = localStorage.getItem('rewear_scrap_safety_margin');
     return saved !== null ? Number(saved) : (CONFIG.SCRAP_SAFETY_MARGIN_CM || 0);
@@ -334,8 +338,25 @@ export default function App() {
     setHelpInfo({ title: t.helpTitle, message: msg });
   };
 
-  // Language selection initial gate
-  if (!hasChosenLang || showLangModal) {
+  // Task A20: First-run setup and local profile gate
+  if (!profile) {
+    return (
+      <FirstLaunchScreen
+        initialLang={lang}
+        onComplete={(newProfile) => {
+          setProfile(newProfile);
+          if (newProfile?.lang) {
+            setLang(newProfile.lang);
+            setHasChosenLang(true);
+            localStorage.setItem('rewear_lang_chosen', 'true');
+          }
+        }}
+      />
+    );
+  }
+
+  // Language selection modal (when opened from header)
+  if (showLangModal) {
     return (
       <div className="min-h-screen bg-stone-900 flex items-center justify-center p-2 sm:p-4">
         <div className="w-full max-w-md bg-stone-100 min-h-[640px] rounded-3xl shadow-2xl overflow-hidden border-4 border-stone-800">
@@ -346,12 +367,6 @@ export default function App() {
               setHasChosenLang(true);
               localStorage.setItem('rewear_lang_chosen', 'true');
               setShowLangModal(false);
-              // Open first-time walkthrough
-              const seenTour = localStorage.getItem('rewear_seen_tour');
-              if (!seenTour) {
-                setShowWalkthrough(true);
-                localStorage.setItem('rewear_seen_tour', 'true');
-              }
             }}
             t={t}
           />
@@ -414,6 +429,8 @@ export default function App() {
           setHighContrast={setHighContrast}
           largeText={largeText}
           setLargeText={setLargeText}
+          profile={profile}
+          onOpenSettings={() => setActiveTab('settings')}
         />
 
         {/* Screen Content Body */}
@@ -430,6 +447,7 @@ export default function App() {
               onLoadSampleData={handleLoadSampleData}
               onOpenWalkthrough={() => setShowWalkthrough(true)}
               onOpenInstallModal={() => setShowInstallModal(true)}
+              profile={profile}
             />
           )}
 
@@ -546,6 +564,22 @@ export default function App() {
               onBack={() => setActiveTab('design_view')}
               t={t}
               lang={lang}
+            />
+          )}
+
+          {activeTab === 'settings' && (
+            <SettingsScreen
+              currentProfile={profile}
+              onUpdateProfile={(p) => setProfile(p)}
+              onClearAllData={() => {
+                setPieces([]);
+                setProfile(null);
+                setActiveTab('home');
+              }}
+              onBack={() => setActiveTab('home')}
+              lang={lang}
+              setLang={setLang}
+              t={t}
             />
           )}
 

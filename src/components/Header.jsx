@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Volume2, VolumeX, HelpCircle, Undo2, Redo2, Languages, Eye, Type, Sparkles, Smartphone } from 'lucide-react';
+import { Volume2, VolumeX, HelpCircle, Undo2, Redo2, Languages, Eye, Type, Sparkles, Smartphone, Settings } from 'lucide-react';
 import { soundManager } from '../utils/audio';
 
 export default function Header({
@@ -20,6 +20,8 @@ export default function Header({
   setHighContrast,
   largeText,
   setLargeText,
+  profile = null,
+  onOpenSettings = null,
 }) {
   const [isSpeaking, setIsSpeaking] = useState(false);
 
@@ -47,6 +49,11 @@ export default function Header({
           <div>
             <h1 className="text-base font-bold leading-tight flex items-center gap-1.5">
               <span>{t.appName}</span>
+              {(profile?.shopName || profile?.name) && (
+                <span className="text-[10px] font-semibold bg-emerald-950/70 text-amber-300 px-2 py-0.5 rounded-full border border-emerald-600/70 truncate max-w-[110px] sm:max-w-[150px]">
+                  {profile.shopName || profile.name}
+                </span>
+              )}
             </h1>
             <p className="text-xs text-emerald-100 font-medium truncate max-w-[140px] sm:max-w-[180px]">
               {screenTitle}
@@ -149,6 +156,18 @@ export default function Header({
               <Type className="w-3.5 h-3.5" />
             </button>
           </div>
+
+          {/* Settings Button */}
+          {onOpenSettings && (
+            <button
+              type="button"
+              onClick={onOpenSettings}
+              title="Settings & Profile"
+              className="p-1.5 rounded-full bg-emerald-700 hover:bg-emerald-600 text-emerald-100 hover:text-white transition cursor-pointer"
+            >
+              <Settings className="w-4 h-4" />
+            </button>
+          )}
 
           {/* Help (?) Button */}
           <button
